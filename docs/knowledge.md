@@ -56,18 +56,44 @@ Verified facts only; each says how it was verified. Unverified leads go under "L
   DLL's `xh_push_key` move the player identically (+107.67 px for 120 frames of "right").
 - Noita fires on the left mouse button; SPACE is the fly key (Noita-MCP ENGINE-NOTES).
 - The DLL used to freeze the game for 10 s on load (`DllMain` waited on a worker that cannot start
-  under the loader lock). Fixed in Noita-MCP `8b3eb21`; the load time after the fix is not yet
-  measured.
-- Clock speedup is possible only by hooking `QueryPerformanceCounter` (the engine has no time-scale
-  variable). Noita-MCP measured a frame ceiling: 2x gave 108 fps, 4x gave 122 fps.
+  under the loader lock). Fixed in Noita-MCP `8b3eb21`; it now loads in about 6 ms (phase 2).
+- Aim follows `SDL_MOUSEMOTION` in window pixels: moving the aim point from window x 60 to 580
+  flipped the aim vector and moved the mouse world position by 348 px. Fire (left mouse, 40 frames)
+  produced 2 projectiles; up (levitate, 60 frames) gave dy -72.8 px (phase 2).
+- Known DLL bug: `XhTimeGetTime` passes millisecond values through `XhScaleCounter`, whose anchors
+  are QPC ticks. Rates scale correctly, but the absolute value is offset and can wrap. No effect
+  observed yet.
 
-## Harness costs (phase 1)
+## Speed (Test 1, phase 2)
+
+- Clock speedup works only by hooking `QueryPerformanceCounter` (the engine has no time-scale
+  variable). The game clock ran at exactly the requested ratio (1/2/3/4/8x).
+- `framerate` in config is not a speedup: at 120/240 the game runs more frames per second but each
+  frame advances less, so real-time speed stays 1x and per-frame probes scale down (walk -50 % /
+  -75 %, projectile -39 % / -66 %, enemy volleys 11 / 6 vs 12). This contradicts the brief's
+  "game speed scales with fps".
+- Achieved fps (sky arena / quiet Mines / busy): 1x 60/60/60, 2x 82/100/113, 3x 117/162/146,
+  4x 163/221/142, 8x 322/305/158. No single frame ceiling; the busy scene tops out near 145-158
+  fps (probably CPU-bound, not profiled). 2x is anomalously slow.
+- Under clock scaling, walk (279.612 px / 300 frames), projectile (199.098 px / 30 frames) and enemy
+  volleys (12 / 600 frames) are identical to 3 decimals at every scale. Liquid spread is noisy at
+  baseline (347-369 px, 6.1 % spread) and trends lower as the scale rises (-2.6 % at 1x to -5.3 % at
+  8x); water cell count is conserved (576). `framerate` changes leave liquid unaffected.
+- Test arena: pixel scene at world (-600, -1400), generated per instance from `materials.xml`
+  colours (read from `data.wak`); floor verified as 16384/16384 `templebrick_static` cells.
+
+## Harness costs (phases 1-2)
 
 - Link round trip (ping): 0.21 ms. Mod work per step: 0.08 ms, 0.33 ms with a 64x64 grid.
-- 64x64 stride-1 grid read: p50 0.07 ms, p95 0.15 ms; hex encoding p50 0.13 ms.
+- Grid read p50 (Test 2, clock 8x, Mines): 32x32 about 0.02 ms, 64x64 0.06 / 0.07 / 0.13 ms at
+  stride 1 / 2 / 4, 128x128 0.29-0.53 ms. Hex encoding: 0.04 / 0.14 / 0.51 ms. Packets: 4.4 /
+  16.7 / 66 KB; 223 bytes without a grid.
+- Reading every step (K=4): 32x32 and 64x64 cost no measurable fps; 128x128 costs 5-10 %.
+- Unloaded chunks silently read as air; the grid reader reports them as `missing`.
 - Working set about 745 MB per instance.
 
 ## Leads (unverified)
 
 - `-config <file>` may give per-instance config without touching `save_shared`.
 - The game-over screen may be drivable with synthetic input for an in-game "new game" reset.
+- Liquid simulation may use a QPC-timed budget, which would explain its drift under clock scaling.

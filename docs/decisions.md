@@ -4,6 +4,16 @@ Newest first. Each entry: what, why, and what would change it.
 
 ## 2026-09-28
 
+- **Test 4 and the recommended configuration use clock 3x**, the highest strict ±3 % pass. 4x only
+  passes when the liquid probe's baseline noise is allowed for; it can be promoted if more
+  repetitions tighten that probe.
+- **Liquid probe gets a noise-aware verdict alongside the strict one.** Its baseline varies 6.1 %
+  run to run, so strict ±3 % cannot resolve it. A cell is "within noise" if its mean is within two
+  combined standard errors of the baseline; strict pass is always reported separately.
+- **Probes are frame-scheduled by a Lua coroutine from frame 60**, one launch per repetition from a
+  fresh profile, so repetitions differ only in speed and the game's own noise.
+- **Test 2's fps-drop measurement runs at clock 8x**, because framerate 60 caps lockstep at
+  15 steps/s and hides any cost.
 - **All tests run in workdir mode from one clean profile template, with a fixed seed.** A workdir
   profile has no unlocks, so mixing it with the user's profile changes starting conditions. Using
   the user's saves also risks their progress.
