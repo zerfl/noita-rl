@@ -2,7 +2,7 @@
 
 Machine: i7-8700 (6c/12t), 32 GB, RTX 3070 Ti, Windows 11. Game: `noita.exe` build Jan 25 2025
 (experimental branch). All runs: isolated workdir profile from a clean template, seed 123456789.
-NoitaPatcher not used. Raw data in `results/`; rerun everything with `uv run python -m driver suite`
+Tests 1-4 ran without NoitaPatcher; NoitaPatcher 1.36.2 results (phase 5) are marked NP. Raw data in `results/`; rerun everything with `uv run python -m driver suite`
 (about 50 min).
 
 ## 1. Speed vs consistency (`test1_20260928-214229.json`)
@@ -27,7 +27,8 @@ spread drifts, and its baseline already varies 6 % run to run. `framerate` is no
 | **64x64** | **0.060 / 0.076 ms** | 0.14 ms | 16.7 KB | none measurable |
 | 128x128 | 0.29-0.53 / 0.31-0.60 ms | 0.51 ms | 66 KB | 5-10 % |
 
-Target (64x64 under 1 ms) met by 13x. Larger strides cost slightly more (64x64: 0.07 ms at stride
+Target (64x64 under 1 ms) met by 13x. NP's nsew reader returns identical cells at 0.06 ms p50
+(about 2x ours) and needs no hard-coded addresses; it is the automatic fallback on other builds. Larger strides cost slightly more (64x64: 0.07 ms at stride
 2, 0.13 ms at stride 4).
 
 ## 3. Reset path (`test3_20260928-222815.json`, 20 resets each)
@@ -38,11 +39,14 @@ Target (64x64 under 1 ms) met by 13x. Larger strides cost slightly more (64x64: 
 | Relaunch, fresh workdir | 5.41 / 5.74 s | yes | yes | yes | new process |
 | In-game New Game (synthetic clicks) | 8.43 / 8.75 s | yes, via relaunch shim | yes | yes | new process |
 | Dev build F11/F12 | n/a | no: F11/F12 are not quicksave/quickload on this build | - | - | - |
-| Metamorph Game Over recovery | not tested | blocked: needs NoitaPatcher | - | - | - |
+| **NP Game Over recovery** (not a world reset) | **0.034 / 0.038 s** | yes | yes | yes | +19 MB over 4 resets, then flat |
 | In-run scenario reset (not a world reset) | 0.050 / 0.054 s | yes | yes | n/a | flat |
 
 With mods enabled, "New Game" is itself an executable restart, so every world reset is a process
-start; 4.9 s of it is engine start-up before the mod runs.
+start; 4.9 s of it is engine start-up before the mod runs. NP recovery swaps in a fresh player
+(`SetPlayerEntity`) before the game-over screen. NP's nsew can snapshot and restore a 256x256 cell
+region in 3.8 / 2.1 ms (cells only, not physics bodies or entities), so recovery plus a region
+restore gives an arena reset in well under 0.1 s.
 
 ## 4. Parallel instances (`test4_20260928-223255.json`, clock 3x, K=4, 64x64 grid every step)
 
@@ -60,8 +64,10 @@ nothing is written to the install or to LocalLow. Max working set 750 MB per ins
 ## Recommended configuration
 
 `noita.exe`, workdir isolation, seed via virtual magic numbers, QPC clock 3x at framerate 60, vsync
-off, 640x360 window, K=4, 64x64 stride-1 grid, 4 instances. Relaunch with a reused workdir for world
-resets; in-run scenario resets for short episodes that do not need a fresh world.
+off, 640x360 window, K=4, 64x64 stride-1 grid, 4 instances, NoitaPatcher loaded (only copy in the
+process). Resets: NP Game Over recovery plus an nsew region restore for arena episodes (under
+0.1 s); relaunch with a reused workdir (5.3 s) when the world must be fresh. For reproducible
+firing, fix the spread RNG in `OnProjectileFired` (NP) and fire with `UseItem(charge=true)`.
 
 ## Projected decisions per day at K=4
 
@@ -69,15 +75,21 @@ resets; in-run scenario resets for short episodes that do not need a fresh world
   policy inference time excluded).
 - 1 instance: 40 decisions/s, about 3.5 million per day. Busy scenes run about 10 % slower.
 - World resets cost 5.3 s each: at 18.5 decisions/s per instance, a 1000-decision episode loses
-  about 9 % to resets. Scenario resets (0.05 s) cost nothing measurable.
+  about 9 % to resets. NP recovery (0.034 s) and scenario resets (0.05 s) cost nothing measurable.
 
 ## Blockers
 
 - **A shared ceiling of about 300 game fps across all processes** caps parallelism at 4. It is not
-  CPU (13 %), GPU utilisation (28 %), the driver, render cost, window state, throttling or the clock
-  hook; a single uncapped instance also stops at 190 fps on 0.76 of a core. Unverified hypothesis:
-  a per-frame GPU sync or present that serialises across processes.
-- **No in-process world reset without NoitaPatcher.** Every world reset is a 5.3 s process restart.
+  CPU (13 %; each process is about 70 % idle), GPU utilisation (28 %), the driver, render cost,
+  window state, throttling, the clock hook, or entity systems (NP: all 165 systems off lifts N=4 by
+  only 21 %). A paused game still loops at a fixed ~68 fps (~14.7 ms per frame), which points at
+  coarse sleep timing in the frame limiter or a GPU present sync; unverified.
+- **No true in-process world reset, even with NoitaPatcher.** Region cell restores work; physics
+  bodies and entities must be cleared and respawned by the mod. A fresh world is a 5.3 s restart.
+- **NP `SetProjectileSpreadRNG` kills the game if called before `InstallShootProjectileFiredCallbacks`.**
+  The harness always installs the callbacks first. `ForceLoadPixelScene` restores nothing on this
+  build; vanilla `LoadPixelScene(..., load_even_if_duplicate=true)` works.
 - **Above 3x the liquid simulation drifts**, suggesting it budgets by wall-clock time.
-- **Engine addresses are build-specific.** The seed and grid readers use fixed `noita.exe` addresses
-  (verified on this build only); a game update needs Noita-MCP's `noita_material_verify` re-run.
+- **Engine addresses are build-specific.** The seed reader and the fast grid reader use fixed
+  `noita.exe` addresses (verified on this build only) and switch off on any other build string; the
+  grid then falls back to NP's nsew reader.

@@ -17,7 +17,7 @@ cost, reset path, parallel instances. No RL training yet. Deliverables: `rl_benc
 | 2 | Test 1 (speed vs consistency) and Test 2 (grid read cost), `suite` command | Done (commit `929c179`) |
 | 3 | Test 3 (reset paths) and Test 4 (parallel instances, at clock 3x) | Done (commit `e1456df`) |
 | 4 | `FINDINGS.md`, final restore check against the backup | Done |
-| 5 | NoitaPatcher integration: commands, Game Over recovery reset (Test 3d), fps-ceiling diagnosis, nsew grid reader, reproducible firing | Done (not yet committed) |
+| 5 | NoitaPatcher integration: commands, Game Over recovery reset (Test 3d), fps-ceiling diagnosis, nsew grid reader, reproducible firing | Done (commit `55d64e6`) |
 
 ## Phase 1 numbers (`results/smoke-*.json`)
 
@@ -78,11 +78,13 @@ byte-identical to the backup.
 
 ## Next steps
 
-The benchmark is complete; see `FINDINGS.md` (phases 1-4; phase 5 results are in README,
-knowledge.md and above). Candidate follow-ups, none started:
+The benchmark is complete; see `FINDINGS.md` (includes phase 5). Candidate follow-ups, none
+started:
 
-1. Find the shared ~300 fps ceiling (GPU present/sync hypothesis): profile with PresentMon or GPUView,
-   try an offscreen or minimised swapchain, try `Sleep`/timer hooks.
+1. Find the shared ~300 fps ceiling. Strongest lead: a paused game loops at ~14.7 ms per frame,
+   close to Windows' default 15.6 ms timer tick, so the frame limiter may sleep with coarse
+   resolution. Try `timeBeginPeriod(1)` from the mod via FFI (winmm) and measure N=1 and N=4. Then
+   PresentMon/GPUView for a present sync, an offscreen or minimised swapchain, `Sleep` hooks.
 2. Tighten the liquid probe (more repetitions) to decide whether 4x can be promoted.
 3. Start the wand-design track in [ideas.md](ideas.md) on top of the scenario reset.
 
