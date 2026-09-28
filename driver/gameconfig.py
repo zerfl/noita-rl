@@ -56,21 +56,10 @@ def template_config_text() -> str:
     return TEMPLATE.read_text(encoding="utf-8")
 
 
-def user_config_text() -> str:
-    return (paths.USERDATA / "save_shared" / "config.xml").read_text(encoding="utf-8")
-
-
-def exclusive_mod_config(template: str | None, enabled: str) -> str:
-    """mod_config.xml with only `enabled` switched on (others kept, disabled)."""
-    root = ET.fromstring(template) if template else ET.Element("Mods")
-    seen = False
-    for m in root.findall("Mod"):
-        on = m.get("name") == enabled
-        seen |= on
-        m.set("enabled", "1" if on else "0")
-    if not seen:
-        ET.SubElement(root, "Mod", enabled="1", name=enabled,
-                      settings_fold_open="0", workshop_item_id="0")
+def mod_config(enabled: str) -> str:
+    """mod_config.xml that lists and enables only `enabled`."""
+    root = ET.Element("Mods")
+    ET.SubElement(root, "Mod", enabled="1", name=enabled, settings_fold_open="0", workshop_item_id="0")
     return ET.tostring(root, encoding="unicode") + "\n"
 
 

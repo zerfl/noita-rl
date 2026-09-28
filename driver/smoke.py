@@ -13,7 +13,7 @@ import platform
 import time
 from pathlib import Path
 
-from . import gameconfig, launcher, metrics, paths, snapshot
+from . import gameconfig, metrics, paths
 from .launcher import Instance, LaunchSpec
 from .link import Conn, decode_grid
 
@@ -62,6 +62,7 @@ def early_phase(inst: Instance, grid: dict) -> dict:
             g = s.get("grid")
             if g and "hex" in g:
                 out["settle_grid_sha256"] = hashlib.sha256(g["hex"].encode()).hexdigest()
+                out["settle_grid_reader"] = g.get("reader")
                 out["settle_grid_hex"] = g["hex"]
             out["t_settle_s"] = round(t, 3)
             return out
@@ -163,6 +164,14 @@ def lockstep_probe(conn: Conn, steps: int, grid: dict | None) -> dict:
     }
 
 
+def _sha256(p: Path) -> str:
+    h = hashlib.sha256()
+    with open(p, "rb") as f:
+        for chunk in iter(lambda: f.read(1 << 20), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
 def grid_match(a_hex: str | None, b_hex: str | None) -> dict | None:
     if not a_hex or not b_hex:
         return None
@@ -172,8 +181,7 @@ def grid_match(a_hex: str | None, b_hex: str | None) -> dict | None:
     return {"cells": len(a), "equal_cells": same, "equal_fraction": round(same / len(a), 4)}
 
 
-def run(storage: str = "workdir", seed: int = 123456789, restore: bool = True,
-        render: gameconfig.RenderOptions | None = None) -> dict:
+def run(seed: int = 123456789, render: gameconfig.RenderOptions | None = None) -> dict:
     render = render or gameconfig.RenderOptions()
     grid64 = {"size": 64, "stride": 1}
     res = {
@@ -181,40 +189,32 @@ def run(storage: str = "workdir", seed: int = 123456789, restore: bool = True,
         "started": time.strftime("%Y-%m-%dT%H:%M:%S"),
         "machine": {"platform": platform.platform(), "cpu": platform.processor()},
         "game_exe": str(paths.GAME_EXE),
-        "storage": storage,
         "seed": seed,
         "render": render.__dict__,
     }
-    if storage == "userdata":
-        launcher.install_userdata(render)
     runs = []
-    try:
-        for n in (1, 2):
-            spec = LaunchSpec(instance=0, seed=seed, k=4, mode="lockstep", storage=storage, render=render)
-            inst = Instance(spec)
-            inst.start()
-            rec = {"cmdline": inst.cmdline}
-            try:
-                hello = inst.wait_hello(90)
-                rec["hello"] = hello
-                rec["early"] = early_phase(inst, grid64)
-                leave_lockstep(inst.conn)
-                inst.conn.act(**NOOP)
-                inst.conn.cmd("config", grid=False)
-                if n == 1:
-                    rec["free_run"] = free_run_fps(inst.conn, 10.0)
-                    rec["hold_right"] = hold_right(inst.conn, 120)
-                    rec["grid_64_s1"] = grid_probe(inst.conn, 64, 1, 60)
-                    rec["lockstep"] = lockstep_probe(inst.conn, 300, None)
-                    rec["lockstep_grid64"] = lockstep_probe(inst.conn, 300, grid64)
-                rec["memory"] = metrics.memory(inst.pid)
-            finally:
-                inst.stop()
-            runs.append(rec)
-    finally:
-        if storage == "userdata" and restore:
-            launcher.kill_tracked()
-            res["restore"] = snapshot.restore()
+    for n in (1, 2):
+        spec = LaunchSpec(instance=0, seed=seed, k=4, mode="lockstep", render=render)
+        inst = Instance(spec)
+        inst.start()
+        rec = {"cmdline": inst.cmdline}
+        try:
+            hello = inst.wait_hello(90)
+            rec["hello"] = hello
+            rec["early"] = early_phase(inst, grid64)
+            leave_lockstep(inst.conn)
+            inst.conn.act(**NOOP)
+            inst.conn.cmd("config", grid=False)
+            if n == 1:
+                rec["free_run"] = free_run_fps(inst.conn, 10.0)
+                rec["hold_right"] = hold_right(inst.conn, 120)
+                rec["grid_64_s1"] = grid_probe(inst.conn, 64, 1, 60)
+                rec["lockstep"] = lockstep_probe(inst.conn, 300, None)
+                rec["lockstep_grid64"] = lockstep_probe(inst.conn, 300, grid64)
+            rec["memory"] = metrics.memory(inst.pid)
+        finally:
+            inst.stop()
+        runs.append(rec)
     a, b = runs[0], runs[1] if len(runs) > 1 else None
     ea = a["early"]
     res["a_launch"] = {
@@ -240,6 +240,16 @@ def run(storage: str = "workdir", seed: int = 123456789, restore: bool = True,
             "settle_state_launch2": eb.get("settle_state"),
             "settle_grid64_match": grid_match(ea.get("settle_grid_hex"), eb.get("settle_grid_hex")),
         }
+    np_info = a["hello"].get("np") or {}
+    res["h_build"] = {
+        "exe_sha256": _sha256(paths.GAME_EXE),
+        "np_loaded": np_info.get("loaded"),
+        "version_string": np_info.get("version"),
+        "verified_build": np_info.get("verified_build"),
+        "address_ok": np_info.get("address_ok"),
+        "direct_seed_read": a["hello"]["seed"] == seed,
+        "grid_reader_auto": ea.get("settle_grid_reader"),
+    }
     res["c_lockstep_k4"] = a.get("lockstep")
     res["c_lockstep_k4_grid64"] = a.get("lockstep_grid64")
     res["d_free_run"] = a.get("free_run")
@@ -255,6 +265,6 @@ def run(storage: str = "workdir", seed: int = 123456789, restore: bool = True,
 
 def save(res: dict) -> Path:
     paths.RESULTS_DIR.mkdir(exist_ok=True)
-    out = paths.RESULTS_DIR / f"smoke-{res['storage']}-{time.strftime('%Y%m%d-%H%M%S')}.json"
+    out = paths.RESULTS_DIR / f"smoke-{time.strftime('%Y%m%d-%H%M%S')}.json"
     out.write_text(json.dumps(res, indent=2) + "\n", encoding="utf-8", newline="\n")
     return out

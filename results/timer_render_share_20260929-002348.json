@@ -1,0 +1,212 @@
+{
+  "test": "timer_render_share",
+  "started": "2026-09-29T00:22:30",
+  "method": "At N instances, pause all but instance 0: paused games keep rendering (~68 fps each) but stop\nsimulating. If instance 0 then speeds up to its N=1 rate, the shared cost is simulation-side;\nif it stays at its N rate, it is per rendered frame. Also records clock calls per sim frame.",
+  "n": 4,
+  "timescale": 3.0,
+  "window_s": 10.0,
+  "phases": [
+    {
+      "label": "baseline",
+      "aggregate_fps": 344.1,
+      "per_instance": [
+        84.6,
+        87.6,
+        86.8,
+        85.2
+      ],
+      "process_cores": [
+        0.28,
+        0.28,
+        0.31,
+        0.29
+      ],
+      "system_cpu_percent": 12.3,
+      "applied": null,
+      "alive": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "clock_calls_per_sim_frame": [
+        895.9,
+        892.3,
+        904.8,
+        939.8
+      ]
+    },
+    {
+      "label": "others_paused",
+      "aggregate_fps": 351.0,
+      "per_instance": [
+        141.8,
+        69.9,
+        69.8,
+        69.5
+      ],
+      "process_cores": [
+        0.29,
+        0.01,
+        0.02,
+        0.01
+      ],
+      "system_cpu_percent": 4.2,
+      "applied": [
+        {
+          "frame": 1767,
+          "now": 1,
+          "ok": true,
+          "pause_frames": 0,
+          "previous": 0,
+          "t_ms": 25537.5
+        },
+        {
+          "frame": 1652,
+          "now": 1,
+          "ok": true,
+          "pause_frames": 0,
+          "previous": 0,
+          "t_ms": 25070.1
+        },
+        {
+          "frame": 1516,
+          "now": 1,
+          "ok": true,
+          "pause_frames": 0,
+          "previous": 0,
+          "t_ms": 24386.5
+        }
+      ],
+      "alive": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "clock_calls_per_sim_frame": [
+        1807.7,
+        22368.0,
+        22619.3,
+        33403.5
+      ],
+      "instance0_vs_adjacent_baselines": 1.581
+    },
+    {
+      "label": "baseline",
+      "aggregate_fps": 363.5,
+      "per_instance": [
+        94.8,
+        89.7,
+        88.8,
+        90.1
+      ],
+      "process_cores": [
+        0.34,
+        0.27,
+        0.29,
+        0.32
+      ],
+      "system_cpu_percent": 13.3,
+      "applied": null,
+      "alive": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "clock_calls_per_sim_frame": [
+        696.2,
+        857.8,
+        865.1,
+        881.1
+      ]
+    },
+    {
+      "label": "others_paused",
+      "aggregate_fps": 348.4,
+      "per_instance": [
+        137.7,
+        70.3,
+        70.2,
+        70.2
+      ],
+      "process_cores": [
+        0.31,
+        0.01,
+        0.03,
+        0.02
+      ],
+      "system_cpu_percent": 5.7,
+      "applied": [
+        {
+          "frame": 2875,
+          "now": 1,
+          "ok": true,
+          "pause_frames": 845,
+          "previous": 0,
+          "t_ms": 49843.9
+        },
+        {
+          "frame": 2745,
+          "now": 1,
+          "ok": true,
+          "pause_frames": 844,
+          "previous": 0,
+          "t_ms": 49378.1
+        },
+        {
+          "frame": 2622,
+          "now": 1,
+          "ok": true,
+          "pause_frames": 842,
+          "previous": 0,
+          "t_ms": 48694
+        }
+      ],
+      "alive": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "clock_calls_per_sim_frame": [
+        1372.8,
+        22310.3,
+        22020.8,
+        22612.2
+      ],
+      "instance0_vs_adjacent_baselines": 1.457
+    },
+    {
+      "label": "baseline",
+      "aggregate_fps": 359.5,
+      "per_instance": [
+        94.2,
+        88.0,
+        89.4,
+        88.0
+      ],
+      "process_cores": [
+        0.42,
+        0.3,
+        0.35,
+        0.33
+      ],
+      "system_cpu_percent": 16.3,
+      "applied": null,
+      "alive": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "clock_calls_per_sim_frame": [
+        456.0,
+        845.1,
+        839.8,
+        854.5
+      ]
+    }
+  ]
+}

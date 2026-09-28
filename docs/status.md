@@ -1,6 +1,6 @@
 # Status
 
-Last updated: 2026-09-28.
+Last updated: 2026-09-29.
 
 ## Goal
 
@@ -18,6 +18,7 @@ cost, reset path, parallel instances. No RL training yet. Deliverables: `rl_benc
 | 3 | Test 3 (reset paths) and Test 4 (parallel instances, at clock 3x) | Done (commit `e1456df`) |
 | 4 | `FINDINGS.md`, final restore check against the backup | Done |
 | 5 | NoitaPatcher integration: commands, Game Over recovery reset (Test 3d), fps-ceiling diagnosis, nsew grid reader, reproducible firing | Done (commit `55d64e6`) |
+| 6 | Mod-control rule (userdata mode, snapshot/restore and install checks removed), release build verified, timer-resolution test of the fps ceiling | Done |
 
 ## Phase 1 numbers (`results/smoke-*.json`)
 
@@ -68,7 +69,25 @@ cost, reset path, parallel instances. No RL training yet. Deliverables: `rl_benc
   0.3 core per process). A paused game runs at a fixed ~68 fps. The grid/box2d debug switches do
   nothing in this build. Cause still open.
 
+## Phase 6 answers (`results/smoke-20260929-000842.json`, `results/np_grid_20260929-000857.json`, `results/timer_*.json`)
+
+- Workdir mode is the only mode. `cleanup` replaces `restore`: it kills harness-started games and
+  deletes the instance folders. Every launch checks that the workdir holds and enables only
+  `rl_bench`.
+- The release build (`15:55:41`, sha256 `808d2a0a...79bd`) is not byte-identical to the
+  experimental build (`12:40:28`), but all hard-coded addresses match; `VERIFIED_BUILD` now names it.
+  Smoke: direct seed read 123456789, auto grid reader `direct`, same seed and inputs give identical
+  state and grid at frame 120. Direct and nsew readers agree on every cell.
+- **Timer resolution is not the ~300 fps ceiling.** SDL2 already sets 1 ms in every game process
+  (`Sleep(1)` 1.2-2.0 ms at N=1 and N=4). `timeBeginPeriod(1)`, 0.5 ms and the Windows 11 opt-out
+  change nothing beyond drift. A coarse timer cuts N=1 by 31 % but leaves N=4 unchanged. The paused
+  loop's ~68 fps does not depend on the timer. Nothing was made a default.
+- With 3 of 4 instances paused (still looping), the fourth runs at its N=1 rate: the shared cost
+  is in simulated frames, not rendered ones.
+
 ## Restore check (phase 4)
+
+Historical: `restore` and userdata mode were removed in phase 6.
 
 Install-dir `config.xml`, `save_shared/`, `save00/` match the 20:38 backup; no `mods/rl_bench`;
 `noita_agent` is the only enabled mod. LocalLow differs from the backup only by (a) the user's
@@ -81,10 +100,10 @@ byte-identical to the backup.
 The benchmark is complete; see `FINDINGS.md` (includes phase 5). Candidate follow-ups, none
 started:
 
-1. Find the shared ~300 fps ceiling. Strongest lead: a paused game loops at ~14.7 ms per frame,
-   close to Windows' default 15.6 ms timer tick, so the frame limiter may sleep with coarse
-   resolution. Try `timeBeginPeriod(1)` from the mod via FFI (winmm) and measure N=1 and N=4. Then
-   PresentMon/GPUView for a present sync, an offscreen or minimised swapchain, `Sleep` hooks.
+1. Find the shared ~300 fps ceiling. Timer resolution and per-frame present work are ruled out
+   (phase 6); the cost is in simulated frames and shared across processes while each idles ~70 %.
+   Next: thread wait analysis (ETW/WPA) of one N=4 process to see what the main thread waits on,
+   and CPU affinity (disjoint core sets per instance) to test worker-pool contention.
 2. Tighten the liquid probe (more repetitions) to decide whether 4x can be promoted.
 3. Start the wand-design track in [ideas.md](ideas.md) on top of the scenario reset.
 
@@ -94,6 +113,6 @@ started:
   simulation uses a QPC-timed budget.
 - Why is clock 2x slower (82-113 fps) than 3x/4x? Hypothesis: the frame limiter's sleep is not
   scaled; hooking `Sleep` in the DLL would test it.
-- What is the shared ~300 fps ceiling across processes? Phase 5 ruled out entity-system cost and
-  CPU saturation (processes idle about 70 %).
+- What is the shared ~300 fps ceiling across processes? Ruled out: entity-system cost, CPU
+  saturation (processes idle about 70 %), timer resolution, per-frame present work (phase 6).
 - Why does turning all component systems off raise N=4 throughput but lower N=1?

@@ -5,17 +5,25 @@ Verified facts only; each says how it was verified. Unverified leads go under "L
 ## Machine and install
 
 - i7-8700 (6 cores / 12 threads), 32 GB RAM, Windows 11. Python 3.13, uv 0.12.
-- Noita: `<steam library>\SteamApps\common\Noita`, Steam `experimental` branch,
-  "Build Jan 25 2025". `noita_dev.exe` and `steam_appid.txt` are present; `noita.exe` launches
-  directly without Steam relaunching it.
-- User saves: `%USERPROFILE%\AppData\LocalLow\Nolla_Games_Noita`. The install dir also holds a
-  `config.xml`, `save_shared\` and `save00\` from earlier dev-build runs.
-- Pre-benchmark backup: `<backup>\20260928-203852\` (LocalLow copy plus the
-  install-dir config and saves). The driver also keeps its own session snapshot in
-  `.rl_bench_state/` (gitignored).
+- Noita: `<steam library>\SteamApps\common\Noita`. `noita_dev.exe` and `steam_appid.txt`
+  are present; `noita.exe` launches directly without Steam relaunching it.
+- **Target build (frozen):** Steam release branch (`_branch.txt` = `master`), `noita.exe` sha256
+  `808d2a0ab51ea0b46e9ad2aeb3327a4b0ce3feae04f32ba26326bf585b5779bd`, `GetVersionString()` =
+  `Noita - Build Jan 25 2025 - 15:55:41`. Phases 1-5 ran on the experimental branch, whose build
+  string was `... 12:40:28` (exe hash not recorded), so the two exes differ. Every hard-coded
+  address is the same on both (2026-09-29, crash-safe probe plus `results/smoke-20260929-000842.json`
+  and `results/np_grid_20260929-000857.json`): the seed at `0x1205004` and `0x1207F3C` reads
+  123456789, the value at `0x0122374C` equals NoitaPatcher's `game_global`, the GridWorld vtable is
+  `0x010013BC`, and the direct reader matches nsew cell for cell at 3 places x 4 sizes/strides.
+- The harness never reads or writes the user's saves
+  (`%USERPROFILE%\AppData\LocalLow\Nolla_Games_Noita`), installed mods or mod list. The install
+  dir also holds a `config.xml`, `save_shared\` and `save00\` from earlier dev-build runs; workdirs
+  copy only the small root files (see below).
+- Pre-benchmark backup of the user's data: `<backup>\20260928-203852\`. The removed
+  userdata mode left a snapshot in `.rl_bench_state/session/` (gitignored, unused).
 - `save_shared\config.xml` has `application_pause_when_unfocused="0"` since 2026-09-28 (set during
-  setup; the original `"1"` is in `config.xml.bak-pause` next to it). This is the "as found" state
-  for the benchmark.
+  setup, before the harness stopped touching user data; the original `"1"` is in
+  `config.xml.bak-pause` next to it).
 
 ## Launching and isolation
 
@@ -30,6 +38,8 @@ Verified facts only; each says how it was verified. Unverified leads go under "L
   from `save00`.
 - A fresh workdir profile has no unlock progress: the same seed gives different starting-wand
   charges than the user's profile. All tests therefore start from one identical clean template.
+- Every workdir's `mods/` holds only `rl_bench` and its `mod_config.xml` enables only `rl_bench`;
+  `launcher.check_only_our_mod` fails the launch otherwise.
 - NoitaPatcher 1.36.2 is loaded in every instance unless `RL_BENCH_NP=0`; see "NoitaPatcher" below.
 - Other flags exist in the binary but are untested: `-config`, `-no_extra_config`,
   `-magic_numbers`, `-clean_save`, `-bench*`, `-play`, `-daily_run`, `-debug`, `-debug_lua`,
@@ -131,7 +141,8 @@ Verified 2026-09-28 in workdir instances, seed 123456789; data in `results/np_*.
 `results/test3_20260928-232737.json`.
 
 - Loads from `init.lua` at top level (`dofile_once(".../load.lua")`, then `require`).
-  `GetVersionString()` = `Noita - Build Jan 25 2025 - 12:40:28`. Launch to hello unchanged
+  `GetVersionString()` = `Noita - Build Jan 25 2025 - 12:40:28` on the experimental build these
+  results came from (`15:55:41` on the release build now targeted). Launch to hello unchanged
   (5.56 s in the phase-5 smoke run).
 - `SetPauseState(1)` stops sim frames; `OnPausePreUpdate` then runs about 68 times per second per
   instance on about 0.01 core, at N=1 and N=4, clock 3x (a pause loop with its own pacing). The mod
@@ -177,16 +188,44 @@ Verified 2026-09-28 in workdir instances, seed 123456789; data in `results/np_*.
   N=1 x0.78 with CPU per process falling to 0.19. Baselines drift
   by ±15 % within a run (N=4: 320-381).
 
+## Timer resolution and the ~300 fps ceiling (2026-09-29)
+
+Release build, clock 3x, quiet Mines, K=240, no grid; each condition switched at runtime by the
+mod's `timer` command between two baselines (`results/timer_20260929-002133.json`,
+`results/timer_render_share_20260929-002348.json`).
+
+- Every game process already has a 1 ms timer: SDL2 imports `timeBeginPeriod` (its
+  `SDL_TIMER_RESOLUTION` hint defaults to 1 ms) and the game's limiter uses `SDL_Delay`. Measured
+  inside the process, `Sleep(1)` takes 1.2-2.0 ms at N=1 and in all four N=4 instances (global
+  resolution 1 ms). Windows 11's rule for occluded windows was not in effect.
+- None of these raised throughput beyond baseline drift (N=4 baselines ranged 299-412 within one
+  run): `timeBeginPeriod(1)` from the mod (a no-op on top of SDL's request; N=1 x0.97, N=4 x0.91),
+  the Windows 11 opt-out (`SetProcessInformation`, `IGNORE_TIMER_RESOLUTION` controlled and off;
+  x0.99 / x0.98), `NtSetTimerResolution` 0.5 ms (`Sleep(1)` 1.4-1.6 ms; x1.05 / x0.93), and
+  0.5 ms plus the opt-out (x1.02 / x1.07).
+- A coarse timer (the process's request released, `Sleep(1)` 15.4 ms) cuts N=1 to x0.69 (92 fps)
+  but leaves N=4 unchanged (x1.07). So at N=4 the instances are not waiting in the limiter's sleep.
+- The kernel keeps one resolution request per process, shared with winmm:
+  `NtSetTimerResolution(..., FALSE)` also drops SDL's request, and a later `timeBeginPeriod(1)`
+  does not bring it back (winmm's count is still raised). The first run
+  (`results/timer_20260929-001306.json`) hit this: every phase after `nt05_honor` ran with 15.5 ms
+  sleeps at 72-75 fps instead of ~124. Undo by requesting 1 ms again.
+- The paused loop runs 68.7 fps (14.6 ms) with the default timer, 64.3 fps coarse, 69.5 fps at
+  0.5 ms, the same at N=4. Its pace does not come from sleep granularity.
+- With 3 of 4 instances paused (still looping at ~70 fps each), the running one rises from ~88 to
+  138-142 fps (x1.46 / x1.58), its N=1 rate. The shared cost is in simulated frames, not in
+  rendered or presented ones (assuming a paused game still presents full frames; not checked).
+- The hook DLL counts 450-940 QPC/timeGetTime calls per sim frame per process at N=4 and
+  1400-1800 when one instance runs alone at ~140 fps (76k-257k calls/s at ~0.3 core). Not
+  analysed further.
+
 ## Leads (unverified)
 
-- The ~300 fps ceiling is not entity-system cost and not CPU saturation: processes idle about
-  70 % of each second. A wait on a shared resource (GPU present/sync) or coarse sleep granularity
-  in the frame limiter fits; the paused loop's fixed 68 fps (about 14.7 ms per frame) hints at
-  timer-granularity sleeps.
-
+- The ~300 fps ceiling is not entity systems, CPU saturation, timer resolution or per-frame
+  present work. It is in the simulation and shared across processes, while every process idles
+  about 70 %. Candidate: wake-up latency of the multithreaded cell simulation's worker handoffs
+  when 4 processes' worker pools share 12 logical CPUs (untested).
 - `-config <file>` may give per-instance config without touching `save_shared`.
-- The ~300 aggregate fps cap across processes may be a per-frame GPU sync or present that
-  serializes across processes (Test 4).
 - The dev build has a "save scene / hold F6 to restart the saved scene" recording feature
   (`-recording_load_saved_scene`); its keys are unknown and it also goes through a restart.
 - Liquid simulation may use a QPC-timed budget, which would explain its drift under clock scaling.

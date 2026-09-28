@@ -1,5 +1,11 @@
 # Brief
 
+## Scope changes (2026-09-29)
+
+- Harness-started games run only our own mods from an isolated workdir; the harness never reads or
+  writes the user's installed mods, mod list or saves. The "back up and restore `save_shared/` and
+  `save00/`" setup step below no longer applies, since nothing there is touched.
+
 ## Scope changes (2026-09-28, later)
 
 - The user added NoitaPatcher 1.36.2 at `rl_bench/NoitaPatcher/` and allowed full use, for these

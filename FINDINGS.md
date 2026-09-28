@@ -1,7 +1,8 @@
 # Findings: Noita as an RL environment
 
 Machine: i7-8700 (6c/12t), 32 GB, RTX 3070 Ti, Windows 11. Game: `noita.exe` build Jan 25 2025
-(experimental branch). All runs: isolated workdir profile from a clean template, seed 123456789.
+(release branch, same engine addresses as the experimental build first tested). All runs:
+isolated workdir profile from a clean template, seed 123456789.
 Tests 1-4 ran without NoitaPatcher; NoitaPatcher 1.36.2 results (phase 5) are marked NP. Raw data in `results/`; rerun everything with `uv run python -m driver suite`
 (about 50 min).
 

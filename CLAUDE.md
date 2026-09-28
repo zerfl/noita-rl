@@ -12,5 +12,6 @@ decision is made, or a fact is verified, update the matching file in `docs/` in 
   (`rl_bench` and what it bundles), from an isolated workdir. The harness never reads, checks,
   enables or depends on the user's installed mods, mod list or saves.
 - NoitaPatcher 1.36.2 is vendored in `rl_bench/NoitaPatcher/`; rl_bench is its only loader.
-- The game is frozen: no further Noita updates are expected. The build (release branch, identical
-  to the experimental build first tested) is the only target; hard-coded engine addresses are fine.
+- The game is frozen: no further Noita updates are expected. The target is the release branch,
+  `Noita - Build Jan 25 2025 - 15:55:41` (not byte-identical to the experimental build first tested,
+  but the engine addresses were re-verified); hard-coded engine addresses are fine.

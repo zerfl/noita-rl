@@ -1,12 +1,8 @@
-"""Install the mod, prepare user data, launch and stop game instances.
+"""Prepare per-instance workdirs, launch and stop game instances.
 
-Two storage modes:
-  userdata  the game's normal save location (LocalLow). The mod goes into GAME/mods,
-            mod_config.xml and save_shared/config.xml are edited in place, runs use a
-            dedicated save slot. Everything is covered by the session snapshot.
-  workdir   -always_store_userdata_in_workdir with a per-instance working directory
-            that junctions data/ and holds its own mods/, config and saves. Nothing in
-            the install or LocalLow is written.
+Every instance runs with -always_store_userdata_in_workdir from its own folder, which junctions
+data/ and holds its own mods/ (rl_bench only), config and saves. The user's install mods, mod list
+and saves (LocalLow) are never read or written.
 """
 
 import json
@@ -21,7 +17,7 @@ import xml.etree.ElementTree as ET
 
 import psutil
 
-from . import gameconfig, paths, scenes, snapshot
+from . import gameconfig, paths, scenes
 from .link import Conn, Server
 
 PIDS_FILE = paths.STATE_DIR / "pids.json"
@@ -37,7 +33,6 @@ class LaunchSpec:
     seed: int | None = None
     k: int = 4
     mode: str = "free"
-    storage: str = "workdir"
     save_slot: int = 5
     input_backend: str = "sdl"
     exe: Path | None = None          # default paths.GAME_EXE
@@ -82,59 +77,6 @@ def _copy_mod(dst: Path):
     shutil.copytree(paths.MOD_SRC, dst, ignore=shutil.ignore_patterns("xh_*.txt", "*.pdb"))
 
 
-# NoitaPatcher issue #4 (open, won't fix): a second copy of NoitaPatcher in the same game process
-# clears its CrossCalls. rl_bench bundles it, so no other enabled mod may ship noitapatcher.dll
-# (the user's install has quant.ew / Entangled Worlds, which does). Workdir instances contain only
-# rl_bench; userdata mode checks the final mod list and refuses.
-WORKSHOP_DIR = paths.GAME_DIR.parent.parent / "workshop" / "content" / "881100"
-
-
-def mods_bundling_np(mod_config_text: str, enabled_only: bool = True) -> list[str]:
-    root = ET.fromstring(mod_config_text)
-    out = []
-    for m in root.findall("Mod"):
-        name = m.get("name")
-        if name == paths.MOD_NAME or (enabled_only and m.get("enabled") != "1"):
-            continue
-        dirs = [paths.GAME_DIR / "mods" / name]
-        wid = m.get("workshop_item_id") or "0"
-        if wid != "0":
-            dirs.append(WORKSHOP_DIR / wid)
-        if any(d.is_dir() and next(d.rglob("noitapatcher.dll"), None) for d in dirs):
-            out.append(name)
-    return out
-
-
-# ---------------------------------------------------------------- userdata mode
-
-def slot_dir(slot: int) -> Path:
-    return paths.USERDATA / f"save0{slot}"
-
-
-def install_userdata(render: gameconfig.RenderOptions):
-    snapshot.take()
-    _copy_mod(paths.MOD_DST)
-    cfg = paths.USERDATA / "save_shared" / "config.xml"
-    gameconfig.write(cfg, gameconfig.bench_config(cfg.read_text(encoding="utf-8"), render))
-    mc = paths.USERDATA / "save00" / "mod_config.xml"
-    text = gameconfig.exclusive_mod_config(mc.read_text(encoding="utf-8"), paths.MOD_NAME)
-    clash = mods_bundling_np(text)
-    if clash:
-        raise RuntimeError(f"enabled mods also bundle NoitaPatcher (issue #4): {clash}; refusing")
-    gameconfig.write(mc, text)
-
-
-def wipe_slot(slot: int):
-    if slot == 0:
-        raise ValueError("refusing to wipe save slot 0 (the user's own run)")
-    d = slot_dir(slot)
-    d.mkdir(parents=True, exist_ok=True)
-    for p in d.iterdir():
-        if p.name == "steam_autocloud.vdf":
-            continue
-        shutil.rmtree(p) if p.is_dir() else p.unlink()
-
-
 # ---------------------------------------------------------------- workdir mode
 
 def workdir(instance: int) -> Path:
@@ -174,6 +116,7 @@ def prepare_workdir(spec: LaunchSpec) -> Path:
     wd = workdir(spec.instance)
     if spec.reuse_workdir and (wd / "save_shared" / "config.xml").exists():
         shutil.rmtree(wd / f"save0{spec.save_slot}", ignore_errors=True)
+        check_only_our_mod(wd)
         return wd
     safe_rmtree(wd)
     wd.mkdir(parents=True)
@@ -186,11 +129,21 @@ def prepare_workdir(spec: LaunchSpec) -> Path:
     scenes.write_all(wd / "mods" / paths.MOD_NAME / "files" / "scenes")
     gameconfig.write(wd / "save_shared" / "config.xml",
                      gameconfig.bench_config(gameconfig.template_config_text(), spec.render))
-    gameconfig.write(wd / "save00" / "mod_config.xml",
-                     gameconfig.exclusive_mod_config(None, paths.MOD_NAME))
+    gameconfig.write(wd / "save00" / "mod_config.xml", gameconfig.mod_config(paths.MOD_NAME))
     if spec.shim:
         shutil.copy2(ensure_shim(), wd / "noita.exe")
+    check_only_our_mod(wd)
     return wd
+
+
+def check_only_our_mod(wd: Path):
+    """A workdir's mods/ holds only rl_bench and its mod_config.xml enables only rl_bench."""
+    present = sorted(p.name for p in (wd / "mods").iterdir())
+    root = ET.parse(wd / "save00" / "mod_config.xml").getroot()
+    enabled = sorted(m.get("name") for m in root.findall("Mod") if m.get("enabled") == "1")
+    if present != [paths.MOD_NAME] or enabled != [paths.MOD_NAME]:
+        raise RuntimeError(f"{wd}: mods/ has {present}, mod_config.xml enables {enabled}; "
+                           f"only {paths.MOD_NAME} is allowed")
 
 
 # ---------------------------------------------------------------- launch
@@ -208,13 +161,9 @@ class Instance:
 
     def start(self):
         s = self.spec
-        args = ["-no_logo_splashes", "-gamemode", "0", "-save_slot", str(s.save_slot)]
-        if s.storage == "workdir":
-            cwd = prepare_workdir(s)
-            args = ["-always_store_userdata_in_workdir"] + args
-        else:
-            wipe_slot(s.save_slot)
-            cwd = paths.GAME_DIR
+        cwd = prepare_workdir(s)
+        args = ["-always_store_userdata_in_workdir", "-no_logo_splashes", "-gamemode", "0",
+                "-save_slot", str(s.save_slot)]
         self.cmdline = [str(s.exe or paths.GAME_EXE)] + args + s.extra_args
         env = os.environ.copy()
         env.update({

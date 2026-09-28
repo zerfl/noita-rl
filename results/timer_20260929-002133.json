@@ -1,0 +1,1699 @@
+{
+  "test": "timer",
+  "started": "2026-09-29T00:14:12",
+  "seed": 123456789,
+  "method": "rate = (sim frames + OnPausePreUpdate frames) per wall second, as np_bench fps. tbp1 = timeBeginPeriod(1) (winmm), res05 = NtSetTimerResolution 0.5 ms, coarse = the process's resolution request released (ntdll), honor = SetProcessInformation ProcessPowerThrottling with IGNORE_TIMER_RESOLUTION controlled and off. probe.sleep1_ms = median real duration of Sleep(1) in the game process.",
+  "conditions": {
+    "tbp1": {
+      "period": 1
+    },
+    "honor": {
+      "honor": true
+    },
+    "res05": {
+      "res": 5000
+    },
+    "res05_honor": {
+      "res": 5000,
+      "honor": true
+    },
+    "coarse": {
+      "res": 0
+    },
+    "paused": {},
+    "paused_coarse": {
+      "res": 0
+    },
+    "paused_res05_honor": {
+      "res": 5000,
+      "honor": true
+    }
+  },
+  "groups": [
+    {
+      "n": 1,
+      "timescale": 3.0,
+      "window_s": 10.0,
+      "env": null,
+      "phases": [
+        {
+          "label": "baseline",
+          "aggregate_fps": 144.1,
+          "per_instance": [
+            144.1
+          ],
+          "process_cores": [
+            0.28
+          ],
+          "system_cpu_percent": 3.6,
+          "applied": [
+            {
+              "period_ms": 0,
+              "res_100ns": null,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.8835
+              }
+            }
+          ],
+          "alive": [
+            true
+          ]
+        },
+        {
+          "label": "tbp1",
+          "aggregate_fps": 129.6,
+          "per_instance": [
+            129.6
+          ],
+          "process_cores": [
+            0.26
+          ],
+          "system_cpu_percent": 4.1,
+          "applied": [
+            {
+              "period_ms": 1,
+              "res_100ns": null,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.6164
+              }
+            }
+          ],
+          "alive": [
+            true
+          ],
+          "vs_adjacent_baselines": 0.973
+        },
+        {
+          "label": "baseline",
+          "aggregate_fps": 122.4,
+          "per_instance": [
+            122.4
+          ],
+          "process_cores": [
+            0.22
+          ],
+          "system_cpu_percent": 3.6,
+          "applied": [
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.1596
+              }
+            }
+          ],
+          "alive": [
+            true
+          ]
+        },
+        {
+          "label": "honor",
+          "aggregate_fps": 120.4,
+          "per_instance": [
+            120.4
+          ],
+          "process_cores": [
+            0.19
+          ],
+          "system_cpu_percent": 2.3,
+          "applied": [
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": true,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.9789
+              }
+            }
+          ],
+          "alive": [
+            true
+          ],
+          "vs_adjacent_baselines": 0.991
+        },
+        {
+          "label": "baseline",
+          "aggregate_fps": 120.7,
+          "per_instance": [
+            120.7
+          ],
+          "process_cores": [
+            0.21
+          ],
+          "system_cpu_percent": 2.7,
+          "applied": [
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.1655
+              }
+            }
+          ],
+          "alive": [
+            true
+          ]
+        },
+        {
+          "label": "res05",
+          "aggregate_fps": 125.2,
+          "per_instance": [
+            125.2
+          ],
+          "process_cores": [
+            0.23
+          ],
+          "system_cpu_percent": 3.8,
+          "applied": [
+            {
+              "period_ms": 0,
+              "res_100ns": 5000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 0.5,
+                "sleep1_ms": 1.4187
+              }
+            }
+          ],
+          "alive": [
+            true
+          ],
+          "vs_adjacent_baselines": 1.045
+        },
+        {
+          "label": "baseline",
+          "aggregate_fps": 119.0,
+          "per_instance": [
+            119.0
+          ],
+          "process_cores": [
+            0.19
+          ],
+          "system_cpu_percent": 2.6,
+          "applied": [
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.6141
+              }
+            }
+          ],
+          "alive": [
+            true
+          ]
+        },
+        {
+          "label": "res05_honor",
+          "aggregate_fps": 125.9,
+          "per_instance": [
+            125.9
+          ],
+          "process_cores": [
+            0.25
+          ],
+          "system_cpu_percent": 3.9,
+          "applied": [
+            {
+              "period_ms": 0,
+              "res_100ns": 5000,
+              "honor": true,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 0.5,
+                "sleep1_ms": 1.4818
+              }
+            }
+          ],
+          "alive": [
+            true
+          ],
+          "vs_adjacent_baselines": 1.015
+        },
+        {
+          "label": "baseline",
+          "aggregate_fps": 129.0,
+          "per_instance": [
+            129.0
+          ],
+          "process_cores": [
+            0.21
+          ],
+          "system_cpu_percent": 3.3,
+          "applied": [
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.6216
+              }
+            }
+          ],
+          "alive": [
+            true
+          ]
+        },
+        {
+          "label": "coarse",
+          "aggregate_fps": 92.1,
+          "per_instance": [
+            92.1
+          ],
+          "process_cores": [
+            0.18
+          ],
+          "system_cpu_percent": 4.5,
+          "applied": [
+            {
+              "period_ms": 0,
+              "res_100ns": 0,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 15.428
+              }
+            }
+          ],
+          "alive": [
+            true
+          ],
+          "vs_adjacent_baselines": 0.69
+        },
+        {
+          "label": "baseline",
+          "aggregate_fps": 137.8,
+          "per_instance": [
+            137.8
+          ],
+          "process_cores": [
+            0.42
+          ],
+          "system_cpu_percent": 10.9,
+          "applied": [
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.9921
+              }
+            }
+          ],
+          "alive": [
+            true
+          ]
+        },
+        {
+          "label": "paused",
+          "aggregate_fps": 68.7,
+          "per_instance": [
+            68.7
+          ],
+          "process_cores": [
+            0.02
+          ],
+          "system_cpu_percent": 2.2,
+          "applied": [
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.9912
+              }
+            }
+          ],
+          "alive": [
+            true
+          ],
+          "vs_adjacent_baselines": 0.499
+        },
+        {
+          "label": "baseline",
+          "aggregate_fps": 137.6,
+          "per_instance": [
+            137.6
+          ],
+          "process_cores": [
+            0.28
+          ],
+          "system_cpu_percent": 6.0,
+          "applied": [
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.604
+              }
+            }
+          ],
+          "alive": [
+            true
+          ]
+        },
+        {
+          "label": "paused_coarse",
+          "aggregate_fps": 64.3,
+          "per_instance": [
+            64.3
+          ],
+          "process_cores": [
+            0.01
+          ],
+          "system_cpu_percent": 3.2,
+          "applied": [
+            {
+              "period_ms": 0,
+              "res_100ns": 0,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 15.9667
+              }
+            }
+          ],
+          "alive": [
+            true
+          ],
+          "vs_adjacent_baselines": 0.474
+        },
+        {
+          "label": "baseline",
+          "aggregate_fps": 133.9,
+          "per_instance": [
+            133.9
+          ],
+          "process_cores": [
+            0.28
+          ],
+          "system_cpu_percent": 5.8,
+          "applied": [
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 2.0006
+              }
+            }
+          ],
+          "alive": [
+            true
+          ]
+        },
+        {
+          "label": "paused_res05_honor",
+          "aggregate_fps": 69.5,
+          "per_instance": [
+            69.5
+          ],
+          "process_cores": [
+            0.02
+          ],
+          "system_cpu_percent": 1.6,
+          "applied": [
+            {
+              "period_ms": 0,
+              "res_100ns": 5000,
+              "honor": true,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 0.5,
+                "sleep1_ms": 1.5012
+              }
+            }
+          ],
+          "alive": [
+            true
+          ],
+          "vs_adjacent_baselines": 0.519
+        },
+        {
+          "label": "baseline",
+          "aggregate_fps": 133.7,
+          "per_instance": [
+            133.7
+          ],
+          "process_cores": [
+            0.28
+          ],
+          "system_cpu_percent": 5.9,
+          "applied": [
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.6552
+              }
+            }
+          ],
+          "alive": [
+            true
+          ]
+        }
+      ]
+    },
+    {
+      "n": 4,
+      "timescale": 3.0,
+      "window_s": 10.0,
+      "env": null,
+      "phases": [
+        {
+          "label": "baseline",
+          "aggregate_fps": 306.1,
+          "per_instance": [
+            77.9,
+            80.3,
+            70.3,
+            77.6
+          ],
+          "process_cores": [
+            0.36,
+            0.32,
+            0.3,
+            0.27
+          ],
+          "system_cpu_percent": 14.1,
+          "applied": [
+            {
+              "period_ms": 0,
+              "res_100ns": null,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.9472
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": null,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.8783
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": null,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.9788
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": null,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.9865
+              }
+            }
+          ],
+          "alive": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "label": "tbp1",
+          "aggregate_fps": 291.8,
+          "per_instance": [
+            74.2,
+            74.7,
+            66.9,
+            75.9
+          ],
+          "process_cores": [
+            0.48,
+            0.45,
+            0.47,
+            0.44
+          ],
+          "system_cpu_percent": 23.8,
+          "applied": [
+            {
+              "period_ms": 1,
+              "res_100ns": null,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.9667
+              }
+            },
+            {
+              "period_ms": 1,
+              "res_100ns": null,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.9301
+              }
+            },
+            {
+              "period_ms": 1,
+              "res_100ns": null,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.9418
+              }
+            },
+            {
+              "period_ms": 1,
+              "res_100ns": null,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.9949
+              }
+            }
+          ],
+          "alive": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "vs_adjacent_baselines": 0.905
+        },
+        {
+          "label": "baseline",
+          "aggregate_fps": 338.9,
+          "per_instance": [
+            85.6,
+            89.1,
+            76.7,
+            87.5
+          ],
+          "process_cores": [
+            0.35,
+            0.33,
+            0.28,
+            0.37
+          ],
+          "system_cpu_percent": 17.0,
+          "applied": [
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.9736
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 2.0364
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.9943
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.6898
+              }
+            }
+          ],
+          "alive": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "label": "honor",
+          "aggregate_fps": 312.7,
+          "per_instance": [
+            80.3,
+            82.4,
+            72.2,
+            77.8
+          ],
+          "process_cores": [
+            0.41,
+            0.39,
+            0.33,
+            0.39
+          ],
+          "system_cpu_percent": 21.1,
+          "applied": [
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": true,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 2.001
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": true,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.7723
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": true,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.8509
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": true,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.9892
+              }
+            }
+          ],
+          "alive": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "vs_adjacent_baselines": 0.975
+        },
+        {
+          "label": "baseline",
+          "aggregate_fps": 302.4,
+          "per_instance": [
+            78.1,
+            80.0,
+            69.9,
+            74.5
+          ],
+          "process_cores": [
+            0.51,
+            0.52,
+            0.45,
+            0.54
+          ],
+          "system_cpu_percent": 29.6,
+          "applied": [
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.963
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 2.0206
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.5235
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 2.0002
+              }
+            }
+          ],
+          "alive": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "label": "res05",
+          "aggregate_fps": 279.8,
+          "per_instance": [
+            72.3,
+            74.0,
+            63.8,
+            69.5
+          ],
+          "process_cores": [
+            0.68,
+            0.74,
+            0.58,
+            0.73
+          ],
+          "system_cpu_percent": 41.3,
+          "applied": [
+            {
+              "period_ms": 0,
+              "res_100ns": 5000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 0.5,
+                "sleep1_ms": 2.0602
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 5000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 0.5,
+                "sleep1_ms": 1.6598
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 5000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 0.5,
+                "sleep1_ms": 1.8777
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 5000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 0.5,
+                "sleep1_ms": 1.7928
+              }
+            }
+          ],
+          "alive": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "vs_adjacent_baselines": 0.931
+        },
+        {
+          "label": "baseline",
+          "aggregate_fps": 298.7,
+          "per_instance": [
+            77.3,
+            78.6,
+            67.8,
+            75.1
+          ],
+          "process_cores": [
+            0.59,
+            0.64,
+            0.49,
+            0.6
+          ],
+          "system_cpu_percent": 33.3,
+          "applied": [
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 2.6752
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.9639
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 2.4879
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 2.1706
+              }
+            }
+          ],
+          "alive": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "label": "res05_honor",
+          "aggregate_fps": 358.7,
+          "per_instance": [
+            92.4,
+            95.5,
+            81.2,
+            89.7
+          ],
+          "process_cores": [
+            0.39,
+            0.29,
+            0.26,
+            0.33
+          ],
+          "system_cpu_percent": 15.9,
+          "applied": [
+            {
+              "period_ms": 0,
+              "res_100ns": 5000,
+              "honor": true,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 0.5,
+                "sleep1_ms": 1.5323
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 5000,
+              "honor": true,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 0.5,
+                "sleep1_ms": 1.4248
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 5000,
+              "honor": true,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 0.5,
+                "sleep1_ms": 1.611
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 5000,
+              "honor": true,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 0.5,
+                "sleep1_ms": 1.8866
+              }
+            }
+          ],
+          "alive": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "vs_adjacent_baselines": 1.072
+        },
+        {
+          "label": "baseline",
+          "aggregate_fps": 370.6,
+          "per_instance": [
+            95.1,
+            98.7,
+            84.6,
+            92.2
+          ],
+          "process_cores": [
+            0.44,
+            0.32,
+            0.32,
+            0.36
+          ],
+          "system_cpu_percent": 16.9,
+          "applied": [
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 2.0803
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.9259
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.9906
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.933
+              }
+            }
+          ],
+          "alive": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "label": "coarse",
+          "aggregate_fps": 419.5,
+          "per_instance": [
+            107.4,
+            111.0,
+            95.2,
+            106.0
+          ],
+          "process_cores": [
+            0.27,
+            0.31,
+            0.2,
+            0.27
+          ],
+          "system_cpu_percent": 10.1,
+          "applied": [
+            {
+              "period_ms": 0,
+              "res_100ns": 0,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 15.5414
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 0,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 15.2856
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 0,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 16.0473
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 0,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 15.3812
+              }
+            }
+          ],
+          "alive": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "vs_adjacent_baselines": 1.072
+        },
+        {
+          "label": "baseline",
+          "aggregate_fps": 411.8,
+          "per_instance": [
+            106.0,
+            109.0,
+            92.9,
+            103.9
+          ],
+          "process_cores": [
+            0.33,
+            0.27,
+            0.24,
+            0.24
+          ],
+          "system_cpu_percent": 10.8,
+          "applied": [
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.9938
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.8507
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 2.0302
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.9994
+              }
+            }
+          ],
+          "alive": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "label": "paused",
+          "aggregate_fps": 281.6,
+          "per_instance": [
+            68.4,
+            67.6,
+            78.1,
+            67.6
+          ],
+          "process_cores": [
+            0.01,
+            0.02,
+            0.02,
+            0.01
+          ],
+          "system_cpu_percent": 1.8,
+          "applied": [
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.9897
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.9963
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 2.0014
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 2.0075
+              }
+            }
+          ],
+          "alive": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "vs_adjacent_baselines": 0.702
+        },
+        {
+          "label": "baseline",
+          "aggregate_fps": 390.7,
+          "per_instance": [
+            101.6,
+            102.4,
+            89.2,
+            97.5
+          ],
+          "process_cores": [
+            0.34,
+            0.35,
+            0.28,
+            0.36
+          ],
+          "system_cpu_percent": 14.7,
+          "applied": [
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.997
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.8684
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.9716
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 2.1061
+              }
+            }
+          ],
+          "alive": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "label": "paused_coarse",
+          "aggregate_fps": 257.8,
+          "per_instance": [
+            64.5,
+            64.5,
+            64.6,
+            64.4
+          ],
+          "process_cores": [
+            0.03,
+            0.02,
+            0.04,
+            0.03
+          ],
+          "system_cpu_percent": 4.3,
+          "applied": [
+            {
+              "period_ms": 0,
+              "res_100ns": 0,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 15.1868
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 0,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 15.5944
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 0,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 15.63
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 0,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 15.4275
+              }
+            }
+          ],
+          "alive": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "vs_adjacent_baselines": 0.65
+        },
+        {
+          "label": "baseline",
+          "aggregate_fps": 402.1,
+          "per_instance": [
+            103.7,
+            105.7,
+            91.1,
+            101.6
+          ],
+          "process_cores": [
+            0.28,
+            0.23,
+            0.23,
+            0.23
+          ],
+          "system_cpu_percent": 11.5,
+          "applied": [
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.9244
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.988
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.6254
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 2.0114
+              }
+            }
+          ],
+          "alive": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "label": "paused_res05_honor",
+          "aggregate_fps": 289.3,
+          "per_instance": [
+            69.7,
+            69.4,
+            81.0,
+            69.3
+          ],
+          "process_cores": [
+            0.02,
+            0.02,
+            0.03,
+            0.04
+          ],
+          "system_cpu_percent": 2.9,
+          "applied": [
+            {
+              "period_ms": 0,
+              "res_100ns": 5000,
+              "honor": true,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 0.5,
+                "sleep1_ms": 1.5013
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 5000,
+              "honor": true,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 0.5,
+                "sleep1_ms": 1.5011
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 5000,
+              "honor": true,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 0.5,
+                "sleep1_ms": 1.5035
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 5000,
+              "honor": true,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 0.5,
+                "sleep1_ms": 1.2911
+              }
+            }
+          ],
+          "alive": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "vs_adjacent_baselines": 0.738
+        },
+        {
+          "label": "baseline",
+          "aggregate_fps": 381.5,
+          "per_instance": [
+            101.4,
+            100.7,
+            87.2,
+            92.3
+          ],
+          "process_cores": [
+            0.31,
+            0.35,
+            0.28,
+            0.32
+          ],
+          "system_cpu_percent": 14.4,
+          "applied": [
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.9501
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.9831
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 1.924
+              }
+            },
+            {
+              "period_ms": 0,
+              "res_100ns": 10000,
+              "honor": false,
+              "probe": {
+                "coarsest_ms": 15.625,
+                "finest_ms": 0.5,
+                "global_ms": 1,
+                "sleep1_ms": 2.0108
+              }
+            }
+          ],
+          "alive": [
+            true,
+            true,
+            true,
+            true
+          ]
+        }
+      ]
+    }
+  ],
+  "wall_minutes": 7.36
+}

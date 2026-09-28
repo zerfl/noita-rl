@@ -4,13 +4,26 @@ Newest first. Each entry: what, why, and what would change it.
 
 ## 2026-09-29
 
+- **The verified build is the release build `Noita - Build Jan 25 2025 - 15:55:41`** (noita.exe
+  sha256 `808d2a0a...79bd`). It is not byte-identical to the experimental build first tested
+  (`12:40:28`), but every hard-coded address checked out on it (seed, engine singleton, GridWorld
+  vtable, cells equal to nsew), so `VERIFIED_BUILD` now names it and the direct readers are on.
+  The old build string is no longer accepted.
+- **No timer-resolution setting in rl_bench.** SDL2 already gives each game process 1 ms timer
+  resolution, and `timeBeginPeriod(1)`, 0.5 ms and the Windows 11 opt-out did not raise throughput
+  at N=1 or N=4 (`results/timer_*.json`). The `timer` command and `driver timer` stay as the
+  reproducible experiment.
+- **`restore`, `install`, `snapshot`, `diff-backup` and `--storage` are gone**, with userdata mode.
+  `cleanup` kills harness-started games and deletes the instance folders. Every workdir is checked
+  to hold only `rl_bench` in `mods/` and to enable only `rl_bench`; a launch fails otherwise.
 - **We control the running mods, always.** Harness-started games run only our own mods from an
   isolated workdir; the harness never inspects or depends on the user's installed mods, mod list or
   saves. Checks written against the user's install (e.g. for `quant.ew`) are removed, and userdata
   mode goes with them.
 - **The game is treated as frozen.** No further Noita updates expected; the user switched from the
-  experimental to the release branch, which is byte-identical. Direct (hard-coded address) readouts
-  are primary; the nsew fallback stays but is not a priority.
+  experimental to the release branch (see the verified-build entry above: same addresses, different
+  build string). Direct (hard-coded address) readouts are primary; the nsew fallback stays but is
+  not a priority.
 
 ## 2026-09-28 (phase 5)
 

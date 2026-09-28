@@ -1,21 +1,10 @@
 -- NoitaPatcher: load.lua hooks do_mod_appends, which dofile_once calls right after it; only then can
--- require find the DLL. Upstream issue #4: a second copy of NoitaPatcher in one game process clears
--- CrossCalls, so ours stays unloaded if another copy is loaded or an active mod bundles one.
-local NP_BUNDLERS = { ["quant.ew"] = true }
+-- require find the DLL. The harness runs rl_bench as the only mod, so this is the only copy in the
+-- process (upstream issue #4: a second copy clears CrossCalls).
 rlb_np_boot = { loaded = false }
 do
-  local ffi = require("ffi")
-  pcall(ffi.cdef, "void* GetModuleHandleA(const char *name);")
-  local clash
-  for _, id in ipairs(ModGetActiveModIDs()) do
-    if NP_BUNDLERS[id] then clash = id end
-  end
   if os.getenv("RL_BENCH_NP") == "0" then
     rlb_np_boot.error = "disabled by RL_BENCH_NP=0"
-  elseif clash then
-    rlb_np_boot.error = "active mod " .. clash .. " bundles NoitaPatcher (issue #4); not loading ours"
-  elseif ffi.load("kernel32").GetModuleHandleA("noitapatcher.dll") ~= nil then
-    rlb_np_boot.error = "another noitapatcher.dll is already loaded in this process (issue #4)"
   else
     dofile_once("mods/rl_bench/NoitaPatcher/load.lua")
     local ok, np = pcall(require, "noitapatcher")
@@ -39,6 +28,7 @@ dofile_once("mods/rl_bench/files/np.lua")
 dofile_once("mods/rl_bench/files/input.lua")
 dofile_once("mods/rl_bench/files/grid.lua")
 dofile_once("mods/rl_bench/files/bench.lua")
+dofile_once("mods/rl_bench/files/timer.lua")
 dofile_once("mods/rl_bench/files/probes.lua")
 dofile_once("mods/rl_bench/files/np_cmds.lua")
 

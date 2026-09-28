@@ -8,5 +8,5 @@ __pycache__/
 *.pyc
 .venv/
 
-# driver session snapshots and per-instance workdirs
+# per-instance workdirs, the relaunch shim build and tracked pids
 .rl_bench_state/

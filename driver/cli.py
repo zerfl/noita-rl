@@ -1,10 +1,9 @@
 import argparse
 import json
-import sys
 import time
 from pathlib import Path
 
-from . import actions, gameconfig, launcher, np_bench, paths, smoke, snapshot, test1, test2, test3, test4
+from . import actions, gameconfig, launcher, np_bench, paths, smoke, test1, test2, test3, test4, timer_bench
 
 
 def _render(a) -> gameconfig.RenderOptions:
@@ -21,36 +20,21 @@ def _add_render(p):
 
 def cmd_status(a):
     print(json.dumps({
-        "session_active": snapshot.active(),
-        "mod_installed": paths.MOD_DST.exists(),
         "running_noita": launcher.running_noita(),
         "tracked_pids": json.loads(launcher.PIDS_FILE.read_text()) if launcher.PIDS_FILE.exists() else [],
     }, indent=2))
 
 
-def cmd_install(a):
-    launcher.install_userdata(_render(a))
-    print(f"installed {paths.MOD_DST}; mod_config and config.xml edited; run `restore` to undo")
-
-
-def cmd_restore(a):
+def cmd_cleanup(a):
     killed = launcher.kill_tracked()
-    others = launcher.running_noita()
-    if others:
-        sys.exit(f"noita.exe still running (pids {others}, not started by the driver); close it first")
-    rep = snapshot.restore()
-    rep["killed_pids"] = killed
     launcher.safe_rmtree(paths.STATE_DIR / "instances")
-    print(json.dumps(rep, indent=2))
-    if not rep["ok"]:
-        sys.exit(1)
+    print(json.dumps({"killed_pids": killed, "removed": str(paths.STATE_DIR / "instances"),
+                      "other_noita_running": launcher.running_noita()}, indent=2))
 
 
 def cmd_launch(a):
-    spec = launcher.LaunchSpec(seed=a.seed, k=a.k, mode="free", storage=a.storage,
-                               save_slot=a.save_slot, input_backend=a.input, render=_render(a))
-    if a.storage == "userdata":
-        launcher.install_userdata(spec.render)
+    spec = launcher.LaunchSpec(seed=a.seed, k=a.k, mode="free", save_slot=a.save_slot,
+                               input_backend=a.input, render=_render(a))
     inst = launcher.Instance(spec)
     inst.start()
     try:
@@ -68,7 +52,7 @@ def cmd_launch(a):
 
 
 def cmd_smoke(a):
-    res = smoke.run(storage=a.storage, seed=a.seed, restore=not a.no_restore, render=_render(a))
+    res = smoke.run(seed=a.seed, render=_render(a))
     out = smoke.save(res)
     print(f"wrote {out}")
 
@@ -112,11 +96,18 @@ def cmd_np(a):
         save_result(f"np_{name}", np_bench.run(name, log=_log))
 
 
+def cmd_timer(a):
+    if a.render_share:
+        save_result("timer_render_share", timer_bench.run_render_share(log=_log))
+    else:
+        save_result("timer", timer_bench.run(ns=tuple(a.ns), timescale=a.timescale, log=_log))
+
+
 def cmd_suite(a):
     """Every test in order; one result file each plus an index."""
     t0 = time.perf_counter()
     files = {
-        "smoke": str(smoke.save(smoke.run(storage="workdir"))),
+        "smoke": str(smoke.save(smoke.run())),
         "actions": str(save_result("actions", actions.run())),
         "test1": str(save_result("test1", test1.run(reps=a.reps, baseline_reps=a.baseline_reps, log=_log))),
         "test2": str(save_result("test2", test2.run(framerate=60, timescale=8.0, log=_log))),
@@ -132,50 +123,15 @@ def cmd_actions(a):
     save_result("actions", actions.run())
 
 
-def cmd_diff_backup(a):
-    """Lists differences between the live user data and an external backup copy."""
-    import filecmp
-    pairs = [(paths.USERDATA, Path(a.backup) / "LocalLow_Nolla_Games_Noita")]
-    for name in ("config.xml", "save_shared", "save00"):
-        pairs.append((paths.GAME_DIR / name, Path(a.backup) / "install" / name))
-    diffs = []
-
-    def walk(live: Path, bak: Path):
-        if live.is_file() or bak.is_file():
-            if not (live.is_file() and bak.is_file() and filecmp.cmp(live, bak, shallow=False)):
-                diffs.append(str(live))
-            return
-        c = filecmp.dircmp(live, bak)
-        diffs.extend(f"only live: {live / n}" for n in c.left_only)
-        diffs.extend(f"only backup: {bak / n}" for n in c.right_only)
-        for n in c.common_files:
-            if not filecmp.cmp(live / n, bak / n, shallow=False):
-                diffs.append(f"differs: {live / n}")
-        for n in c.common_dirs:
-            walk(live / n, bak / n)
-
-    for live, bak in pairs:
-        walk(live, bak)
-    print(json.dumps(diffs, indent=2))
-
-
 def main(argv=None):
     ap = argparse.ArgumentParser(prog="rl-bench")
     sub = ap.add_subparsers(required=True)
 
     sub.add_parser("status").set_defaults(fn=cmd_status)
-    sub.add_parser("snapshot", help="snapshot touched files (done implicitly by install)").set_defaults(
-        fn=lambda a: print(snapshot.take()["created"]))
-
-    p = sub.add_parser("install", help="userdata mode: mod into GAME/mods, enable it exclusively")
-    _add_render(p)
-    p.set_defaults(fn=cmd_install)
-
-    sub.add_parser("restore", help="kill driver-started games, put every touched file back").set_defaults(
-        fn=cmd_restore)
+    sub.add_parser("cleanup", help="kill driver-started games, delete the instance folders").set_defaults(
+        fn=cmd_cleanup)
 
     p = sub.add_parser("launch", help="launch one instance and print its state")
-    p.add_argument("--storage", choices=["workdir", "userdata"], default="workdir")
     p.add_argument("--seed", type=int, default=123456789)
     p.add_argument("--k", type=int, default=4)
     p.add_argument("--save-slot", type=int, default=5)
@@ -185,9 +141,7 @@ def main(argv=None):
     p.set_defaults(fn=cmd_launch)
 
     p = sub.add_parser("smoke", help="phase-1 smoke test; writes results/smoke-*.json")
-    p.add_argument("--storage", choices=["workdir", "userdata"], default="workdir")
     p.add_argument("--seed", type=int, default=123456789)
-    p.add_argument("--no-restore", action="store_true")
     _add_render(p)
     p.set_defaults(fn=cmd_smoke)
 
@@ -224,15 +178,18 @@ def main(argv=None):
     p.add_argument("--only", nargs="*", choices=list(np_bench.EXPERIMENTS), default=None)
     p.set_defaults(fn=cmd_np)
 
+    p = sub.add_parser("timer", help="timer resolution vs the fps ceiling; writes results/timer_*.json")
+    p.add_argument("--ns", nargs="*", type=int, default=[1, 4])
+    p.add_argument("--timescale", type=float, default=3.0)
+    p.add_argument("--render-share", action="store_true",
+                   help="N=4 with all but one instance paused (results/timer_render_share_*.json)")
+    p.set_defaults(fn=cmd_timer)
+
     p = sub.add_parser("suite", help="run every test: smoke, actions, test1-4, np (about 60 min)")
     p.add_argument("--reps", type=int, default=3)
     p.add_argument("--baseline-reps", type=int, default=5)
     p.add_argument("--resets", type=int, default=20)
     p.set_defaults(fn=cmd_suite)
-
-    p = sub.add_parser("diff-backup", help="compare live user data with a backup folder")
-    p.add_argument("backup")
-    p.set_defaults(fn=cmd_diff_backup)
 
     a = ap.parse_args(argv)
     a.fn(a)

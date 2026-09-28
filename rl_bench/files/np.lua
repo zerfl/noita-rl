@@ -4,7 +4,9 @@
 
 rlb_np = rlb_np or {}
 
-rlb_np.VERIFIED_BUILD = "Noita - Build Jan 25 2025 - 12:40:28"
+-- Release branch, noita.exe sha256 808d2a0a...79bd. The experimental build first tested
+-- (12:40:28) had the same addresses.
+rlb_np.VERIFIED_BUILD = "Noita - Build Jan 25 2025 - 15:55:41"
 rlb_np.np = rlb_np_boot and rlb_np_boot.np or nil
 rlb_np.loaded = rlb_np.np ~= nil
 rlb_np.error = rlb_np_boot and rlb_np_boot.error or nil

@@ -1,13 +1,14 @@
 # noita-rl
 
-Feasibility benchmark for reinforcement learning on Noita (build Jan 25 2025, 32-bit, LuaJIT).
+Feasibility benchmark for reinforcement learning on Noita (release branch, build Jan 25 2025
+15:55:41, 32-bit, LuaJIT). The game is treated as frozen; this build is the only target.
 
 - `rl_bench/`: the in-game mod. It connects to the driver over TCP and sends a state
   packet every K frames. In lockstep mode it blocks until an action arrives; in free-run
   mode it polls without blocking. It also runs frame-scheduled test scripts
   (`files/probes.lua`).
-- `driver/`: Python package (uv project at the repo root) that launches instances, runs
-  the tests and restores everything it touched.
+- `driver/`: Python package (uv project at the repo root) that launches isolated instances
+  and runs the tests. It never touches the user's installed mods, mod list or saves.
 - `results/`: JSON output of each test run.
 
 ## Usage
@@ -24,11 +25,13 @@ uv run python -m driver test4        # parallel instances at clock 3x (--ns 1 2 
 uv run python -m driver test4 --diagnose   # what caps aggregate fps at N=4
 uv run python -m driver np           # NoitaPatcher experiments (about 10 min)
 uv run python -m driver np --only commands grid firing world fps
+uv run python -m driver timer        # timer resolution vs the fps ceiling, N=1 and N=4 (about 8 min)
+uv run python -m driver timer --render-share   # N=4 with all but one instance paused
 uv run python -m driver actions      # each action changes the game
 uv run python -m driver smoke
 uv run python -m driver launch --seconds 30
 uv run python -m driver status
-uv run python -m driver restore      # kill driver-started games, undo every change
+uv run python -m driver cleanup      # kill driver-started games, delete the instance folders
 uv run python -m unittest discover -s tests -t .
 ```
 
@@ -38,11 +41,12 @@ uv run python -m unittest discover -s tests -t .
   folder from the same template (`driver/templates/config.xml` plus the benchmark
   overrides, and a `mod_config.xml` that enables only `rl_bench`), with the same seed.
   Kills and unlocks therefore never accumulate between launches. Reason: in phase 1, the
-  same seed launched in userdata mode and in workdir mode gave different starting-wand
+  same seed launched with the user's profile and in workdir mode gave different starting-wand
   charges (15 vs 3) and a different sky. The profile (most likely its unlock state) changes
   the run, so profiles must be identical.
-- Userdata mode (`--storage userdata`, real LocalLow saves plus `restore`) is kept only
-  for the smoke test.
+- **Only our mods run.** A harness-started game runs `rl_bench` (and what it bundles) and
+  nothing else. `launcher.check_only_our_mod` fails a launch unless the workdir's `mods/` holds
+  only `rl_bench` and its `mod_config.xml` enables only `rl_bench`.
 
 ## How instances are isolated (workdir mode)
 
@@ -83,15 +87,7 @@ works on the next line.
 
 **Only one copy of NoitaPatcher may be loaded in a game process** (upstream issue #4, open, won't
 fix: a second copy clears CrossCalls). Separate processes are fine, so parallel instances are
-unaffected. Enforcement:
-
-- Workdir instances contain only `rl_bench`.
-- Userdata mode (`install`, `--storage userdata`) refuses to write a `mod_config.xml` in which any
-  other enabled mod ships a `noitapatcher.dll` (the user's install has `quant.ew`, Entangled
-  Worlds, which does).
-- In the game, `init.lua` does not load NoitaPatcher if an active mod is a known bundler
-  (`quant.ew`) or a `noitapatcher.dll` is already loaded in the process; `hello.np.error` then says
-  why and every `np_*` command fails.
+unaffected. Workdir instances contain and enable only `rl_bench`, so its copy is the only one.
 
 ## Link protocol
 
@@ -111,7 +107,10 @@ the seed), `RL_BENCH_NP` (`0` = do not load NoitaPatcher) and `RL_BENCH_NP_DETER
   pid, so the driver can follow a self-relaunched process.
 - driver → mod: `act` (`left right up down fire aim_x aim_y`; aim is in window pixels) and
   `cmd`:
-  - general: `ping config grid_config seed names teleport god set_timescale time_status`.
+  - general: `ping config grid_config seed names teleport god set_timescale time_status timer`.
+    `timer` sets the process's timer resolution (`period` via timeBeginPeriod, `res` in 100 ns
+    via NtSetTimerResolution, 0 releases it) and the Windows 11 opt-out (`honor`); `probe=true`
+    adds the real duration of `Sleep(1)`. Diagnostic only; nothing is set by default.
     `config.grid.reader` is `auto` (default), `direct` or `nsew`; `auto` picks `direct` when
     NoitaPatcher reports the verified build and `nsew` otherwise.
   - tests: `grid_stats pixel_scene player_info shot_counter scene suite spawn kill_player
@@ -237,8 +236,8 @@ Phase 3:
 
 Phase 5 (NoitaPatcher 1.36.2, `results/np_*.json`, `results/test3_20260928-232737.json`):
 
-- **Loading:** `GetVersionString()` returns `Noita - Build Jan 25 2025 - 12:40:28`; launch to
-  hello stays about 5.6 s.
+- **Loading:** `GetVersionString()` returned `Noita - Build Jan 25 2025 - 12:40:28` (the
+  experimental build of phases 1-5; see phase 6); launch to hello stays about 5.6 s.
 - **Game Over recovery (Test 3 candidate `np_recovery`, NOT a world reset):** the player keeps
   `wait_for_kill_flag_on_death`, so a lethal hit leaves it at hp <= 0 instead of dead; the mod then
   deserializes a fresh player from a template taken at arming, calls `SetPlayerEntity` on it,
@@ -279,6 +278,19 @@ Phase 5 (NoitaPatcher 1.36.2, `results/np_*.json`, `results/test3_20260928-23273
   cap, and the processes sit mostly idle. `DEBUG_PAUSE_GRID_UPDATE` and `DEBUG_PAUSE_BOX2D` take
   the value (at init or at runtime) but do nothing in this build (water kept flowing), so cell and
   box2d cost could not be switched off.
+
+Phase 6 (release build, `results/timer_*.json`):
+
+- **Build:** the release build reports `Noita - Build Jan 25 2025 - 15:55:41`, not the
+  experimental `12:40:28`, but every hard-coded address is the same (seed, engine singleton,
+  GridWorld vtable; direct and nsew grid readers agree on every cell). It is the verified build.
+- **Timer resolution is not the ~300 fps ceiling.** SDL2 already requests 1 ms in every game
+  process, so `Sleep(1)` takes 1.2-2.0 ms in every instance at N=1 and N=4, occluded or not.
+  `timeBeginPeriod(1)`, `NtSetTimerResolution` 0.5 ms and the Windows 11 opt-out stay within
+  baseline drift. Releasing the process's request (15.6 ms sleeps) cuts N=1 by 31 % but not N=4.
+  `NtSetTimerResolution(..., FALSE)` also drops SDL's request; undo by requesting 1 ms again.
+- **The ceiling is in simulated frames.** At N=4, pausing three instances (they keep looping at
+  ~70 fps) lifts the fourth from ~88 to ~140 fps, its N=1 rate.
 
 ## Known issues
 
