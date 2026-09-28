@@ -28,6 +28,7 @@ pcall(ffi.cdef, "uint32_t GetCurrentProcessId(void);")
 local PID = ffi.load("kernel32").GetCurrentProcessId()
 
 local function read_seed()
+  if not rlb_np.address_ok then return 0, 0 end
   local a = ffi.cast("uint32_t*", SEED_ADDRS[1])[0]
   local b = ffi.cast("uint32_t*", SEED_ADDRS[2])[0]
   return a, b
@@ -125,6 +126,12 @@ local function not_implemented(name)
   return function() return { ok = false, error = name .. " is not implemented yet" } end
 end
 
+-- "auto": the hard-coded reader on the verified build, NoitaPatcher's nsew reader elsewhere.
+local function grid_reader(name)
+  if name == "direct" or name == "nsew" then return name end
+  return rlb_np.address_ok and "direct" or "nsew"
+end
+
 local function apply_config(a)
   if a.k then B.k = math.max(1, math.floor(tonumber(a.k) or B.k)) end
   if a.mode == "free" or a.mode == "lockstep" then B.mode = a.mode end
@@ -135,6 +142,7 @@ local function apply_config(a)
     B.grid = {
       size = math.max(1, math.min(256, math.floor(tonumber(a.grid.size) or 64))),
       stride = math.max(1, math.min(16, math.floor(tonumber(a.grid.stride) or 1))),
+      reader = grid_reader(a.grid.reader),
     }
   end
   return { ok = true, k = B.k, mode = B.mode, grid = B.grid, timeout_ms = B.timeout_ms,
@@ -246,13 +254,14 @@ local function send_state(frame)
   if B.grid and x then
     local g = B.grid
     local t0 = clock()
-    local b, x0, y0, missing = rlb_grid.read(x, y, g.size, g.stride)
+    local read = g.reader == "nsew" and rlb_grid.read_nsew or rlb_grid.read
+    local b, x0, y0, missing = read(x, y, g.size, g.stride)
     local t1 = clock()
     if b then
       local hex = rlb_grid.hex(b, g.size * g.size)
       local t2 = clock()
-      grid = string.format(',"grid":{"size":%d,"stride":%d,"x0":%d,"y0":%d,"missing":%d,"read_ms":%.4f,"encode_ms":%.4f,"hex":"%s"}',
-        g.size, g.stride, x0, y0, missing, t1 - t0, t2 - t1, hex)
+      grid = string.format(',"grid":{"size":%d,"stride":%d,"reader":"%s","x0":%d,"y0":%d,"missing":%d,"read_ms":%.4f,"encode_ms":%.4f,"hex":"%s"}',
+        g.size, g.stride, g.reader, x0, y0, missing, t1 - t0, t2 - t1, hex)
     else
       grid = string.format(',"grid":{"error":%q}', tostring(x0))
     end
@@ -303,9 +312,16 @@ function rlb_bench.on_world_init()
     magic_seed = MagicNumbersGetValue("WORLD_SEED"),
     input = input,
     dll = dll,
+    np = rlb_np.info(),
     k = B.k,
     mode = B.mode,
   })
+end
+
+-- While the simulation is paused only OnPausePreUpdate runs; keep answering commands there
+-- (otherwise an np_pause could never be undone).
+function rlb_bench.pause_update()
+  if B.connected then drain() end
 end
 
 function rlb_bench.post_update()

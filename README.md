@@ -14,13 +14,16 @@ Feasibility benchmark for reinforcement learning on Noita (build Jan 25 2025, 32
 
 ```
 uv sync
-uv run python -m driver suite        # everything: smoke, actions, test1-4 (about 50 min)
+uv run python -m driver suite        # everything: smoke, actions, test1-4, np (about 60 min)
 uv run python -m driver test1        # speed vs consistency (about 18 min)
 uv run python -m driver test1 --cells ts3 ts4 ts8 --reps 4 --append results/test1_X.json
 uv run python -m driver test2        # grid read cost (clock 8x by default; --timescale 0 --framerate 240)
 uv run python -m driver test3        # reset paths, 20 resets per candidate (about 9 min)
+uv run python -m driver test3 --candidates np_recovery   # one candidate only
 uv run python -m driver test4        # parallel instances at clock 3x (--ns 1 2 4 8 ...)
 uv run python -m driver test4 --diagnose   # what caps aggregate fps at N=4
+uv run python -m driver np           # NoitaPatcher experiments (about 10 min)
+uv run python -m driver np --only commands grid firing world fps
 uv run python -m driver actions      # each action changes the game
 uv run python -m driver smoke
 uv run python -m driver launch --seconds 30
@@ -70,23 +73,56 @@ finds no exe, so the game just exits. Test 3 places `driver/shim/noita_shim.c` t
 Never put the real `noita.exe` in a workdir: a relaunch through it would use the user's
 LocalLow saves.
 
+## NoitaPatcher
+
+`rl_bench/NoitaPatcher/` is NoitaPatcher 1.36.2, unmodified (hashes in `rl_bench/NOTICE` and
+`docs/security.md`). `init.lua` loads it at top level with
+`dofile_once("mods/rl_bench/NoitaPatcher/load.lua")` then `require("noitapatcher")`; load.lua
+hooks `do_mod_appends`, which `dofile_once` calls right after running the file, so `require`
+works on the next line.
+
+**Only one copy of NoitaPatcher may be loaded in a game process** (upstream issue #4, open, won't
+fix: a second copy clears CrossCalls). Separate processes are fine, so parallel instances are
+unaffected. Enforcement:
+
+- Workdir instances contain only `rl_bench`.
+- Userdata mode (`install`, `--storage userdata`) refuses to write a `mod_config.xml` in which any
+  other enabled mod ships a `noitapatcher.dll` (the user's install has `quant.ew`, Entangled
+  Worlds, which does).
+- In the game, `init.lua` does not load NoitaPatcher if an active mod is a known bundler
+  (`quant.ew`) or a `noitapatcher.dll` is already loaded in the process; `hello.np.error` then says
+  why and every `np_*` command fails.
+
 ## Link protocol
 
 Newline-delimited JSON over TCP on 127.0.0.1. The driver listens on an ephemeral port and
 passes it to the game as `RL_BENCH_PORT`. The mod connects from `OnWorldInitialized`.
 Other environment variables: `RL_BENCH_SEED`, `RL_BENCH_K`, `RL_BENCH_MODE`
-(`free`|`lockstep`), `RL_BENCH_INPUT` (`sdl`|`dll`), `RL_BENCH_INSTANCE`.
+(`free`|`lockstep`), `RL_BENCH_INPUT` (`sdl`|`dll`), `RL_BENCH_INSTANCE`,
+`RL_BENCH_MAGIC` (`NAME=VALUE;...`, extra magic numbers set at init in the same virtual file as
+the seed), `RL_BENCH_NP` (`0` = do not load NoitaPatcher) and `RL_BENCH_NP_DETERMINISTIC` (`1` =
+`SetGameModeDeterministic(true)` during mod init). `LaunchSpec.env` passes them.
 
-- mod → driver: `hello` (includes the DLL load time), then `state`
+- mod → driver: `hello` (includes the DLL load time and `np`: loaded, version string, error,
+  whether the hard-coded addresses match the verified build, deterministic), then `state`
   (`frame, step, alive, x, y, vx, vy, hp, max_hp, seed, t_ms, lua_ms, wait_ms`, optional
-  `grid{size, stride, x0, y0, missing, read_ms, encode_ms, hex}`), `res`, `event`
-  (`suite_done`, `script_error`, `lockstep_timeout`, `ui_done`). `hello` carries the game's
+  `grid{size, stride, reader, x0, y0, missing, read_ms, encode_ms, hex}`), `res`, `event`
+  (`suite_done`, `script_error`, `lockstep_timeout`, `ui_done`, `shot_trace`, `np_respawn`). `hello` carries the game's
   pid, so the driver can follow a self-relaunched process.
 - driver → mod: `act` (`left right up down fire aim_x aim_y`; aim is in window pixels) and
   `cmd`:
-  - general: `ping config grid_config seed names teleport god set_timescale time_status`
+  - general: `ping config grid_config seed names teleport god set_timescale time_status`.
+    `config.grid.reader` is `auto` (default), `direct` or `nsew`; `auto` picks `direct` when
+    NoitaPatcher reports the verified build and `nsew` otherwise.
   - tests: `grid_stats pixel_scene player_info shot_counter scene suite spawn kill_player
-    scenario_reset ui` (`ui` runs frame-spaced clicks, key taps and key combos in window pixels)
+    scenario_reset ui convert_material` (`ui` runs frame-spaced clicks, key taps and key combos in
+    window pixels; `pixel_scene` takes `dup`, LoadPixelScene's `load_even_if_duplicate`, default
+    true)
+  - NoitaPatcher: `np_info np_pause np_system np_magic np_magic_list np_player np_serialize
+    np_deserialize np_force_scene np_spell_pool np_spread_rng np_rng_log np_use_item np_shot_trace
+    np_area_snapshot np_area_restore np_area_diff np_grid_compare np_recovery` (see
+    `rl_bench/files/np_cmds.lua`). While the game is paused (`np_pause value=1`) only
+    `OnPausePreUpdate` runs; the mod keeps answering commands there.
 - The grid encodes each cell as 4 hex digits, a big-endian uint16 material id
   (0 = empty/air, 0xFFFF = unresolved). `missing` counts cells in chunks that are not
   loaded; those cells read as 0.
@@ -198,6 +234,51 @@ Phase 3:
   - Only about 9.6 GB of the 32 GB was free during the run (other applications). The RAM
     guard (800 MB per instance + 1.5 GB) would have stopped the ramp at about N=10, but the
     fps plateau stopped it first.
+
+Phase 5 (NoitaPatcher 1.36.2, `results/np_*.json`, `results/test3_20260928-232737.json`):
+
+- **Loading:** `GetVersionString()` returns `Noita - Build Jan 25 2025 - 12:40:28`; launch to
+  hello stays about 5.6 s.
+- **Game Over recovery (Test 3 candidate `np_recovery`, NOT a world reset):** the player keeps
+  `wait_for_kill_flag_on_death`, so a lethal hit leaves it at hp <= 0 instead of dead; the mod then
+  deserializes a fresh player from a template taken at arming, calls `SetPlayerEntity` on it,
+  selects its first wand (`SetActiveHeldEntity`) and kills the old body. Death to controllable
+  **34 ms p50 / 38 ms p95** over 20 resets (2 frames; no game-over screen), 20/20, no crash, seed
+  read back 123456789 every time, working set 766 -> 785 MB over the first 4 resets then flat.
+  Terrain, enemies, items and everything else in the world carry on as they were.
+- **No true in-process world reset.** NoitaPatcher 1.36.2 has no call that regenerates the world.
+  The closest are region restores of cells: nsew `encode_area`/`decode` over 64x64 tiles
+  (256x256 around the spawn: snapshot 3.8 ms, restore 2.1 ms; a bomb changed 4747 cells, 0 differed
+  after the restore; box2d bodies and entities are not restored), and vanilla
+  `LoadPixelScene` with `load_even_if_duplicate` (restored a 64x16 hole in the arena floor; nsew
+  restored it too).
+  `ForceLoadPixelScene` returns but restores nothing on this build.
+- **Deterministic mode:** `SetGameModeDeterministic(true)` at mod init opens the full spell pool on
+  a fresh profile: 84 spells that need a missing unlock flag came up in 4400 `GetRandomAction`
+  draws, against 0 without it.
+- **Firing:** `UseItem` fires the held wand at an exact target only with `charge=true`. The
+  projectile spread RNG does not follow the world seed: the same shots at the same frames in
+  three launches gave three different velocities. Fixing it makes velocities identical within and
+  across launches (to the 0.001 px rounding): either `SetProjectileSpreadRNG` inside
+  `OnProjectileFired` (documented use; needs `InstallShootProjectileFiredCallbacks`) or called
+  right before `UseItem`. **Calling `SetProjectileSpreadRNG` before
+  `InstallShootProjectileFiredCallbacks` kills the game at once** (silent exit, no dump), so
+  `np_spread_rng` always installs the callbacks first. The spawn point still moves by up to 2 px
+  between shots in one launch (it is not the `pos` argument), but matches across launches.
+- **nsew grid reader:** cell-for-cell equal to the direct reader at 3 places x 4 sizes/strides;
+  64x64 stride 1 costs 0.056-0.063 ms p50 against 0.024-0.032 ms (0.10 vs 0.07 ms in the state
+  packet path). It takes its addresses from NoitaPatcher's `GetWorldInfo`, so it is the fallback
+  (`auto`) on builds other than the verified one.
+- **Pause:** `SetPauseState(1)` stops sim frames; a paused game runs its own loop at a fixed
+  ~68 fps per instance on ~0.01 core, at N=1 and N=4 alike, and keeps answering commands.
+- **~300 fps ceiling (clock 3x, quiet Mines, K=240, no grid):** each game process uses only
+  ~0.3 of a core at baseline, at N=1 (131-151 fps) and at N=4 (83-95 fps per instance). Turning
+  off all 165 component systems (`ComponentUpdatesSetEnabled`) raised N=4 to 421 fps aggregate
+  (x1.21 of the neighbouring baselines, 334 and 364) but lowered N=1 (x0.78); the N=4 baselines
+  themselves drifted 334 -> 381 within one run (297 in Test 4). So entity-system work is not the
+  cap, and the processes sit mostly idle. `DEBUG_PAUSE_GRID_UPDATE` and `DEBUG_PAUSE_BOX2D` take
+  the value (at init or at runtime) but do nothing in this build (water kept flowing), so cell and
+  box2d cost could not be switched off.
 
 ## Known issues
 

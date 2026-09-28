@@ -1,0 +1,478 @@
+{
+  "test": "test3_reset",
+  "started": "2026-09-28T23:27:19",
+  "seed": 123456789,
+  "resets": 20,
+  "controllable_definition": "first frame at which a held 'right' has moved the player",
+  "blocked": {
+    "dev_quicksave_quickload": "noita_dev.exe (Jan 25 2025) has no world quicksave/quickload: F11 does nothing, F12 is trailer recording mode (data/debug_keys.txt). It does run in workdir mode, loads rl_bench (seed 123456789 in its log) and receives synthetic keys (F1 opened the key map).",
+    "dev_altc_restart": "noita_dev.exe debug mode (F5) + ALT+C 'Restarts the game': the process exits and tries to relaunch `noita_dev.exe ... -always_store_userdata_in_workdir` relative to its cwd. After a death it raised an error dialog on the user's screen (reported by the user; most likely a dev-build assert) and timed out, so it needs a human click: not scriptable. Not rerun.",
+    "dev_save_scene": "the dev binary mentions 'hold the keys ... to save the scene; after the game has restarted hold down F6' (-recording_load_saved_scene); keys unknown, and it also goes through a restart. Untested lead."
+  },
+  "candidates": {
+    "np_recovery": {
+      "rows": [
+        {
+          "reset": 0,
+          "total_s": 0.034759300000587245,
+          "death_to_respawn_event_s": 0.006908899998961715,
+          "respawn_to_moved_s": 0.02785040000162553,
+          "kill_frame": 105,
+          "respawn_frame": 105,
+          "alive_frame": 105,
+          "moved_frame": 107,
+          "respawn_lua_ms": 6.8207,
+          "dead_state_seen": false,
+          "new_player": 565,
+          "game_player": 565,
+          "children": 5,
+          "held_item": 570,
+          "seed": {
+            "seed": 123456789
+          },
+          "working_set_mb": 766.0
+        },
+        {
+          "reset": 1,
+          "total_s": 0.03421869999874616,
+          "death_to_respawn_event_s": 0.007018000000243774,
+          "respawn_to_moved_s": 0.027200699998502387,
+          "kill_frame": 139,
+          "respawn_frame": 139,
+          "alive_frame": 139,
+          "moved_frame": 141,
+          "respawn_lua_ms": 6.9644,
+          "dead_state_seen": false,
+          "new_player": 720,
+          "game_player": 720,
+          "children": 5,
+          "held_item": 725,
+          "seed": {
+            "seed": 123456789
+          },
+          "working_set_mb": 780.4
+        },
+        {
+          "reset": 2,
+          "total_s": 0.033651899997494183,
+          "death_to_respawn_event_s": 0.006838499997684266,
+          "respawn_to_moved_s": 0.026813399999809917,
+          "kill_frame": 173,
+          "respawn_frame": 173,
+          "alive_frame": 173,
+          "moved_frame": 175,
+          "respawn_lua_ms": 6.7573,
+          "dead_state_seen": false,
+          "new_player": 733,
+          "game_player": 733,
+          "children": 5,
+          "held_item": 738,
+          "seed": {
+            "seed": 123456789
+          },
+          "working_set_mb": 785.5
+        },
+        {
+          "reset": 3,
+          "total_s": 0.03337900000042282,
+          "death_to_respawn_event_s": 0.006736200000887038,
+          "respawn_to_moved_s": 0.026642799999535782,
+          "kill_frame": 207,
+          "respawn_frame": 207,
+          "alive_frame": 207,
+          "moved_frame": 209,
+          "respawn_lua_ms": 6.6517,
+          "dead_state_seen": false,
+          "new_player": 795,
+          "game_player": 795,
+          "children": 5,
+          "held_item": 800,
+          "seed": {
+            "seed": 123456789
+          },
+          "working_set_mb": 786.0
+        },
+        {
+          "reset": 4,
+          "total_s": 0.03426220000255853,
+          "death_to_respawn_event_s": 0.006751100001565646,
+          "respawn_to_moved_s": 0.027511100000992883,
+          "kill_frame": 241,
+          "respawn_frame": 241,
+          "alive_frame": 241,
+          "moved_frame": 243,
+          "respawn_lua_ms": 6.6846,
+          "dead_state_seen": false,
+          "new_player": 809,
+          "game_player": 809,
+          "children": 5,
+          "held_item": 814,
+          "seed": {
+            "seed": 123456789
+          },
+          "working_set_mb": 787.4
+        },
+        {
+          "reset": 5,
+          "total_s": 0.03319509999710135,
+          "death_to_respawn_event_s": 0.007082799998897826,
+          "respawn_to_moved_s": 0.026112299998203525,
+          "kill_frame": 275,
+          "respawn_frame": 275,
+          "alive_frame": 275,
+          "moved_frame": 277,
+          "respawn_lua_ms": 7.0024,
+          "dead_state_seen": false,
+          "new_player": 867,
+          "game_player": 867,
+          "children": 5,
+          "held_item": 872,
+          "seed": {
+            "seed": 123456789
+          },
+          "working_set_mb": 787.4
+        },
+        {
+          "reset": 6,
+          "total_s": 0.0345807000012428,
+          "death_to_respawn_event_s": 0.006836399999883724,
+          "respawn_to_moved_s": 0.02774430000135908,
+          "kill_frame": 309,
+          "respawn_frame": 309,
+          "alive_frame": 309,
+          "moved_frame": 311,
+          "respawn_lua_ms": 6.7611,
+          "dead_state_seen": false,
+          "new_player": 880,
+          "game_player": 880,
+          "children": 5,
+          "held_item": 885,
+          "seed": {
+            "seed": 123456789
+          },
+          "working_set_mb": 788.8
+        },
+        {
+          "reset": 7,
+          "total_s": 0.03709250000247266,
+          "death_to_respawn_event_s": 0.008109300000796793,
+          "respawn_to_moved_s": 0.02898320000167587,
+          "kill_frame": 343,
+          "respawn_frame": 343,
+          "alive_frame": 343,
+          "moved_frame": 345,
+          "respawn_lua_ms": 8.0016,
+          "dead_state_seen": false,
+          "new_player": 938,
+          "game_player": 938,
+          "children": 5,
+          "held_item": 943,
+          "seed": {
+            "seed": 123456789
+          },
+          "working_set_mb": 788.8
+        },
+        {
+          "reset": 8,
+          "total_s": 0.034021200001006946,
+          "death_to_respawn_event_s": 0.0067066000010527205,
+          "respawn_to_moved_s": 0.027314599999954225,
+          "kill_frame": 377,
+          "respawn_frame": 377,
+          "alive_frame": 377,
+          "moved_frame": 379,
+          "respawn_lua_ms": 6.6262,
+          "dead_state_seen": false,
+          "new_player": 951,
+          "game_player": 951,
+          "children": 5,
+          "held_item": 956,
+          "seed": {
+            "seed": 123456789
+          },
+          "working_set_mb": 789.3
+        },
+        {
+          "reset": 9,
+          "total_s": 0.029613399998197565,
+          "death_to_respawn_event_s": 0.0068269000003056135,
+          "respawn_to_moved_s": 0.02278649999789195,
+          "kill_frame": 411,
+          "respawn_frame": 411,
+          "alive_frame": 411,
+          "moved_frame": 413,
+          "respawn_lua_ms": 6.7484,
+          "dead_state_seen": false,
+          "new_player": 1046,
+          "game_player": 1046,
+          "children": 5,
+          "held_item": 1051,
+          "seed": {
+            "seed": 123456789
+          },
+          "working_set_mb": 785.3
+        },
+        {
+          "reset": 10,
+          "total_s": 0.0326917999991565,
+          "death_to_respawn_event_s": 0.006675100001302781,
+          "respawn_to_moved_s": 0.02601669999785372,
+          "kill_frame": 445,
+          "respawn_frame": 445,
+          "alive_frame": 445,
+          "moved_frame": 447,
+          "respawn_lua_ms": 6.5961,
+          "dead_state_seen": false,
+          "new_player": 1106,
+          "game_player": 1106,
+          "children": 5,
+          "held_item": 1111,
+          "seed": {
+            "seed": 123456789
+          },
+          "working_set_mb": 785.3
+        },
+        {
+          "reset": 11,
+          "total_s": 0.03818889999820385,
+          "death_to_respawn_event_s": 0.007133799997973256,
+          "respawn_to_moved_s": 0.031055100000230595,
+          "kill_frame": 479,
+          "respawn_frame": 479,
+          "alive_frame": 479,
+          "moved_frame": 481,
+          "respawn_lua_ms": 7.0391,
+          "dead_state_seen": false,
+          "new_player": 1119,
+          "game_player": 1119,
+          "children": 5,
+          "held_item": 1124,
+          "seed": {
+            "seed": 123456789
+          },
+          "working_set_mb": 785.4
+        },
+        {
+          "reset": 12,
+          "total_s": 0.03422610000052373,
+          "death_to_respawn_event_s": 0.007266399999934947,
+          "respawn_to_moved_s": 0.026959700000588782,
+          "kill_frame": 513,
+          "respawn_frame": 513,
+          "alive_frame": 513,
+          "moved_frame": 515,
+          "respawn_lua_ms": 7.198,
+          "dead_state_seen": false,
+          "new_player": 1176,
+          "game_player": 1176,
+          "children": 5,
+          "held_item": 1181,
+          "seed": {
+            "seed": 123456789
+          },
+          "working_set_mb": 785.4
+        },
+        {
+          "reset": 13,
+          "total_s": 0.033155400000396185,
+          "death_to_respawn_event_s": 0.007169699998485157,
+          "respawn_to_moved_s": 0.025985700001911027,
+          "kill_frame": 547,
+          "respawn_frame": 547,
+          "alive_frame": 547,
+          "moved_frame": 549,
+          "respawn_lua_ms": 7.078,
+          "dead_state_seen": false,
+          "new_player": 1189,
+          "game_player": 1189,
+          "children": 5,
+          "held_item": 1194,
+          "seed": {
+            "seed": 123456789
+          },
+          "working_set_mb": 786.3
+        },
+        {
+          "reset": 14,
+          "total_s": 0.03357289999985369,
+          "death_to_respawn_event_s": 0.009239799997885711,
+          "respawn_to_moved_s": 0.024333100001967978,
+          "kill_frame": 581,
+          "respawn_frame": 581,
+          "alive_frame": 581,
+          "moved_frame": 583,
+          "respawn_lua_ms": 9.172,
+          "dead_state_seen": false,
+          "new_player": 1246,
+          "game_player": 1246,
+          "children": 5,
+          "held_item": 1251,
+          "seed": {
+            "seed": 123456789
+          },
+          "working_set_mb": 786.8
+        },
+        {
+          "reset": 15,
+          "total_s": 0.03889870000057272,
+          "death_to_respawn_event_s": 0.006831000002421206,
+          "respawn_to_moved_s": 0.03206769999815151,
+          "kill_frame": 615,
+          "respawn_frame": 615,
+          "alive_frame": 615,
+          "moved_frame": 617,
+          "respawn_lua_ms": 6.7615,
+          "dead_state_seen": false,
+          "new_player": 1259,
+          "game_player": 1259,
+          "children": 5,
+          "held_item": 1264,
+          "seed": {
+            "seed": 123456789
+          },
+          "working_set_mb": 786.9
+        },
+        {
+          "reset": 16,
+          "total_s": 0.033123600001999876,
+          "death_to_respawn_event_s": 0.00661240000044927,
+          "respawn_to_moved_s": 0.026511200001550606,
+          "kill_frame": 649,
+          "respawn_frame": 649,
+          "alive_frame": 649,
+          "moved_frame": 651,
+          "respawn_lua_ms": 6.5381,
+          "dead_state_seen": false,
+          "new_player": 1316,
+          "game_player": 1316,
+          "children": 5,
+          "held_item": 1321,
+          "seed": {
+            "seed": 123456789
+          },
+          "working_set_mb": 785.1
+        },
+        {
+          "reset": 17,
+          "total_s": 0.03412410000237287,
+          "death_to_respawn_event_s": 0.006610100001125829,
+          "respawn_to_moved_s": 0.02751400000124704,
+          "kill_frame": 683,
+          "respawn_frame": 683,
+          "alive_frame": 683,
+          "moved_frame": 685,
+          "respawn_lua_ms": 6.5127,
+          "dead_state_seen": false,
+          "new_player": 1330,
+          "game_player": 1330,
+          "children": 5,
+          "held_item": 1335,
+          "seed": {
+            "seed": 123456789
+          },
+          "working_set_mb": 785.1
+        },
+        {
+          "reset": 18,
+          "total_s": 0.036479400001553586,
+          "death_to_respawn_event_s": 0.00690039999972214,
+          "respawn_to_moved_s": 0.029579000001831446,
+          "kill_frame": 717,
+          "respawn_frame": 717,
+          "alive_frame": 717,
+          "moved_frame": 719,
+          "respawn_lua_ms": 6.8208,
+          "dead_state_seen": false,
+          "new_player": 1343,
+          "game_player": 1343,
+          "children": 5,
+          "held_item": 1348,
+          "seed": {
+            "seed": 123456789
+          },
+          "working_set_mb": 785.1
+        },
+        {
+          "reset": 19,
+          "total_s": 0.03403180000168504,
+          "death_to_respawn_event_s": 0.006664100001216866,
+          "respawn_to_moved_s": 0.027367700000468176,
+          "kill_frame": 751,
+          "respawn_frame": 751,
+          "alive_frame": 751,
+          "moved_frame": 753,
+          "respawn_lua_ms": 6.5922,
+          "dead_state_seen": false,
+          "new_player": 1400,
+          "game_player": 1400,
+          "children": 5,
+          "held_item": 1405,
+          "seed": {
+            "seed": 123456789
+          },
+          "working_set_mb": 785.1
+        }
+      ],
+      "template": {
+        "template_bytes": 31673,
+        "children": 5
+      },
+      "world_reset": false,
+      "ok": true,
+      "wall_minutes": 0.31,
+      "summary": {
+        "resets_ok": 20,
+        "resets_requested": 20,
+        "seconds": {
+          "total_s": {
+            "n": 20,
+            "p50": 0.0341,
+            "p95": 0.0382,
+            "mean": 0.0344,
+            "min": 0.0296,
+            "max": 0.0389
+          },
+          "death_to_respawn_event_s": {
+            "n": 20,
+            "p50": 0.0068,
+            "p95": 0.0082,
+            "mean": 0.007,
+            "min": 0.0066,
+            "max": 0.0092
+          },
+          "respawn_to_moved_s": {
+            "n": 20,
+            "p50": 0.0273,
+            "p95": 0.0311,
+            "mean": 0.0273,
+            "min": 0.0228,
+            "max": 0.0321
+          }
+        },
+        "working_set_mb": {
+          "first": 766.0,
+          "last": 785.1,
+          "max": 789.3,
+          "growth_last_minus_first": 19.1
+        },
+        "seed_readback": {
+          "key": "seed",
+          "all_equal_requested": true,
+          "distinct": [
+            "123456789"
+          ]
+        },
+        "frames_alive_to_moved": {
+          "n": 20,
+          "p50": 2.0,
+          "p95": 2.0,
+          "mean": 2.0,
+          "min": 2,
+          "max": 2
+        }
+      },
+      "scriptable_no_click": true
+    }
+  },
+  "finished": "2026-09-28T23:27:37"
+}

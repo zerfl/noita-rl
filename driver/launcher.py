@@ -17,6 +17,8 @@ import time
 from dataclasses import dataclass, field
 from pathlib import Path
 
+import xml.etree.ElementTree as ET
+
 import psutil
 
 from . import gameconfig, paths, scenes, snapshot
@@ -43,6 +45,7 @@ class LaunchSpec:
     reuse_workdir: bool = False      # keep the instance folder, only wipe the run's save slot
     render: gameconfig.RenderOptions = field(default_factory=gameconfig.RenderOptions)
     extra_args: list[str] = field(default_factory=list)
+    env: dict[str, str] = field(default_factory=dict)   # extra RL_BENCH_* variables
 
 
 def _track(pid: int, add: bool):
@@ -76,7 +79,30 @@ def kill_tracked() -> list[int]:
 def _copy_mod(dst: Path):
     if dst.exists():
         shutil.rmtree(dst)
-    shutil.copytree(paths.MOD_SRC, dst, ignore=shutil.ignore_patterns("xh_*.txt"))
+    shutil.copytree(paths.MOD_SRC, dst, ignore=shutil.ignore_patterns("xh_*.txt", "*.pdb"))
+
+
+# NoitaPatcher issue #4 (open, won't fix): a second copy of NoitaPatcher in the same game process
+# clears its CrossCalls. rl_bench bundles it, so no other enabled mod may ship noitapatcher.dll
+# (the user's install has quant.ew / Entangled Worlds, which does). Workdir instances contain only
+# rl_bench; userdata mode checks the final mod list and refuses.
+WORKSHOP_DIR = paths.GAME_DIR.parent.parent / "workshop" / "content" / "881100"
+
+
+def mods_bundling_np(mod_config_text: str, enabled_only: bool = True) -> list[str]:
+    root = ET.fromstring(mod_config_text)
+    out = []
+    for m in root.findall("Mod"):
+        name = m.get("name")
+        if name == paths.MOD_NAME or (enabled_only and m.get("enabled") != "1"):
+            continue
+        dirs = [paths.GAME_DIR / "mods" / name]
+        wid = m.get("workshop_item_id") or "0"
+        if wid != "0":
+            dirs.append(WORKSHOP_DIR / wid)
+        if any(d.is_dir() and next(d.rglob("noitapatcher.dll"), None) for d in dirs):
+            out.append(name)
+    return out
 
 
 # ---------------------------------------------------------------- userdata mode
@@ -91,7 +117,11 @@ def install_userdata(render: gameconfig.RenderOptions):
     cfg = paths.USERDATA / "save_shared" / "config.xml"
     gameconfig.write(cfg, gameconfig.bench_config(cfg.read_text(encoding="utf-8"), render))
     mc = paths.USERDATA / "save00" / "mod_config.xml"
-    gameconfig.write(mc, gameconfig.exclusive_mod_config(mc.read_text(encoding="utf-8"), paths.MOD_NAME))
+    text = gameconfig.exclusive_mod_config(mc.read_text(encoding="utf-8"), paths.MOD_NAME)
+    clash = mods_bundling_np(text)
+    if clash:
+        raise RuntimeError(f"enabled mods also bundle NoitaPatcher (issue #4): {clash}; refusing")
+    gameconfig.write(mc, text)
 
 
 def wipe_slot(slot: int):
@@ -198,6 +228,7 @@ class Instance:
             env.update({"RL_BENCH_SHIM": s.shim, "RL_BENCH_REAL_EXE": str(paths.GAME_EXE)})
         if s.seed is not None:
             env["RL_BENCH_SEED"] = str(s.seed)
+        env.update(s.env)
         self.t_launch = time.perf_counter()
         self.proc = subprocess.Popen(self.cmdline, cwd=str(cwd), env=env)
         self.pids = [self.proc.pid]

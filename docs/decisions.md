@@ -2,6 +2,28 @@
 
 Newest first. Each entry: what, why, and what would change it.
 
+## 2026-09-28 (phase 5)
+
+- **NoitaPatcher is loaded in every rl_bench instance** (the user allowed full use; supersedes
+  "No NoitaPatcher" below). `RL_BENCH_NP=0` turns it off. `init.lua` refuses to load it next to a
+  known bundler (`quant.ew`) or a `noitapatcher.dll` already in the process, and userdata mode
+  refuses a mod config where another enabled mod ships one.
+- **Grid reader default is `auto`**: the hard-coded reader on the verified build (about 2x
+  faster), NoitaPatcher's nsew reader on any other build. Both read identical cells. The hard-coded
+  seed read and grid reader switch off when `GetVersionString()` is not the verified build.
+- **Fixed spread RNG goes through `OnProjectileFired`** (the documented place), and
+  `np_spread_rng` always installs the fired callbacks first, because a `SetProjectileSpreadRNG`
+  call before that install kills the game. Firing for wand evaluation should fix the RNG: without
+  it, shots differ across launches even with the same seed and frames.
+- **Game Over recovery (`np_recovery`) is the fast player reset, 0.034 s**; it is not a world
+  reset. Pair it with the in-run scenario reset or an nsew region restore when the arena must be
+  rebuilt; use a process relaunch (5.3 s) when the world itself must be fresh.
+- **fps-ceiling probes run at K=240 without a grid**, sampling frame counters by command, so the
+  driver link stays idle; Test 4's diagnosis showed the ceiling is the same that way. Every
+  condition sits between two baselines because baselines drift ±15 %.
+- **`DEBUG_PAUSE_*` magic numbers are not used as switches**: they read back set but do nothing in
+  this build.
+
 ## 2026-09-28
 
 - **rl_bench is the only mod allowed to load NoitaPatcher in a game process.** NoitaPatcher issue
@@ -40,6 +62,7 @@ Newest first. Each entry: what, why, and what would change it.
 - **Benchmark launch config:** 640x360 window, vsync 0, pause-when-unfocused 0, replay recorder
   off, audio volume 0.
 - **No NoitaPatcher.** The user's choice; affected candidates are reported as blocked.
+  Superseded in phase 5: the user added it and allowed full use.
 - **`Noita-MCP/` stays a separate clone, gitignored here.** It has its own history; fixes to it are
   committed there (`0ba05a4`, `831eefe`, `bc9e917`, `8b3eb21`).
 - **`.mcp.json` is gitignored.** It holds machine-specific paths.

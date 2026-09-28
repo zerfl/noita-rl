@@ -1,0 +1,132 @@
+{
+  "test": "np_world",
+  "started": "2026-09-28T23:32:09",
+  "seed": 123456789,
+  "noitapatcher": "1.36.2",
+  "region": {
+    "x0": 99,
+    "y0": -207,
+    "w": 256,
+    "h": 256
+  },
+  "snapshot": {
+    "bytes": 10837,
+    "failed": 0,
+    "lua_ms": 3.8415,
+    "missing": 0,
+    "non_air": 26013,
+    "ok": true,
+    "tiles": 16
+  },
+  "diff_before_damage": {
+    "cells": 65536,
+    "differ": 1,
+    "frame": 46,
+    "missing": 0,
+    "ok": true
+  },
+  "diff_after_bomb": {
+    "cells": 65536,
+    "differ": 4747,
+    "frame": 285,
+    "missing": 0,
+    "ok": true
+  },
+  "restore": {
+    "frame": 286,
+    "lua_ms": 2.0604,
+    "ok": true
+  },
+  "diff_after_restore": {
+    "cells": 65536,
+    "differ": 0,
+    "frame": 287,
+    "missing": 0,
+    "ok": true
+  },
+  "diff_60_frames_later": {
+    "cells": 65536,
+    "differ": 4,
+    "frame": 348,
+    "missing": 0,
+    "ok": true
+  },
+  "arena_snapshot": {
+    "bytes": 68,
+    "failed": 0,
+    "lua_ms": 0.6454,
+    "missing": 0,
+    "non_air": 4096,
+    "ok": true,
+    "tiles": 4
+  },
+  "arena_steps": [
+    {
+      "step": "hole",
+      "result": {
+        "frame": 481,
+        "ok": true
+      },
+      "differ_after": 1040,
+      "missing": 0
+    },
+    {
+      "step": "LoadPixelScene",
+      "result": {
+        "frame": 487,
+        "ok": true
+      },
+      "differ_after": 1040,
+      "missing": 0
+    },
+    {
+      "step": "LoadPixelScene_even_if_duplicate",
+      "result": {
+        "frame": 493,
+        "ok": true
+      },
+      "differ_after": 0,
+      "missing": 0
+    },
+    {
+      "step": "hole_again",
+      "result": {
+        "frame": 499,
+        "ok": true
+      },
+      "differ_after": 1040,
+      "missing": 0
+    },
+    {
+      "step": "ForceLoadPixelScene",
+      "result": {
+        "frame": 505,
+        "lua_ms": 0.0079,
+        "ok": true
+      },
+      "differ_after": 1040,
+      "missing": 0
+    },
+    {
+      "step": "hole_third",
+      "result": {
+        "frame": 511,
+        "ok": true
+      },
+      "differ_after": 1040,
+      "missing": 0
+    },
+    {
+      "step": "nsew_restore",
+      "result": {
+        "frame": 517,
+        "lua_ms": 0.2406,
+        "ok": true
+      },
+      "differ_after": 0,
+      "missing": 0
+    }
+  ],
+  "alive_at_end": true,
+  "wall_minutes": 0.24
+}

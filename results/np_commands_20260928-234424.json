@@ -1,0 +1,227 @@
+{
+  "test": "np_commands",
+  "started": "2026-09-28T23:44:11",
+  "seed": 123456789,
+  "noitapatcher": "1.36.2",
+  "runs": {
+    "default": {
+      "hello_np": {
+        "address_ok": true,
+        "deterministic": false,
+        "loaded": true,
+        "verified_build": "Noita - Build Jan 25 2025 - 12:40:28",
+        "version": "Noita - Build Jan 25 2025 - 12:40:28"
+      },
+      "spell_pool": {
+        "deterministic": false,
+        "distinct": 319,
+        "draws": 4400,
+        "locked_drawn": 0,
+        "locked_examples": [],
+        "locked_in_profile": 100,
+        "ok": true
+      },
+      "info": {
+        "address_ok": true,
+        "deterministic": false,
+        "frame": 45,
+        "game_mode": {
+          "count": 2,
+          "name": "",
+          "nr": 0
+        },
+        "loaded": true,
+        "ok": true,
+        "pause_frames": 0,
+        "pause_state": 0,
+        "player": 155,
+        "t_ms": 4302.03,
+        "verified_build": "Noita - Build Jan 25 2025 - 12:40:28",
+        "version": "Noita - Build Jan 25 2025 - 12:40:28"
+      },
+      "pause_set_1": {
+        "frame": 46,
+        "now": 1,
+        "ok": true,
+        "pause_frames": 0,
+        "previous": 0,
+        "t_ms": 4321.46
+      },
+      "pause_during": {
+        "frame": 46,
+        "now": 1,
+        "ok": true,
+        "pause_frames": 31,
+        "t_ms": 4830.24
+      },
+      "pause_set_0": {
+        "frame": 46,
+        "now": 0,
+        "ok": true,
+        "pause_frames": 32,
+        "previous": 1,
+        "t_ms": 4846.9
+      },
+      "system_bogus_name": {
+        "ok": true,
+        "results": {
+          "NoSuchSystem": false
+        }
+      },
+      "system_off_on": [
+        {
+          "ok": true,
+          "results": {
+            "SpriteParticleEmitterSystem": true
+          }
+        },
+        {
+          "ok": true,
+          "results": {
+            "SpriteParticleEmitterSystem": true
+          }
+        }
+      ],
+      "magic_set": {
+        "now": "0.5",
+        "ok": true
+      },
+      "player_get": {
+        "ok": true,
+        "result": 155
+      },
+      "serialize": {
+        "bytes": 31673,
+        "entity": 155,
+        "ok": true
+      },
+      "deserialize": {
+        "children": 5,
+        "entity": 504,
+        "ok": true
+      },
+      "set_player_to_copy": {
+        "ok": true
+      },
+      "player_after_set": {
+        "ok": true,
+        "result": 504
+      },
+      "use_item": {
+        "frame": 56,
+        "ok": true,
+        "wand": 160
+      },
+      "force_scene_again": {
+        "frame": 58,
+        "lua_ms": 0.0059,
+        "ok": true
+      },
+      "alive_at_end": true
+    },
+    "deterministic": {
+      "hello_np": {
+        "address_ok": true,
+        "deterministic": true,
+        "loaded": true,
+        "verified_build": "Noita - Build Jan 25 2025 - 12:40:28",
+        "version": "Noita - Build Jan 25 2025 - 12:40:28"
+      },
+      "spell_pool": {
+        "deterministic": true,
+        "distinct": 401,
+        "draws": 4400,
+        "locked_drawn": 84,
+        "locked_examples": {
+          "ADD_DEATH_TRIGGER": "card_unlocked_mestari",
+          "ADD_TIMER": "card_unlocked_mestari",
+          "ADD_TRIGGER": "card_unlocked_mestari",
+          "ALL_ACID": "card_unlocked_alchemy",
+          "ALL_BLACKHOLES": "card_unlocked_alchemy",
+          "ALL_DEATHCROSSES": "card_unlocked_alchemy",
+          "ALL_DISCS": "card_unlocked_alchemy",
+          "ALL_NUKES": "card_unlocked_alchemy",
+          "ALL_ROCKETS": "card_unlocked_alchemy",
+          "ALL_SPELLS": "card_unlocked_everything",
+          "ALPHA": "card_unlocked_duplicate",
+          "BLACK_HOLE_GIGA": "card_unlocked_black_hole",
+          "BOMB_HOLY": "card_unlocked_bomb_holy",
+          "BOMB_HOLY_GIGA": "card_unlocked_bomb_holy_giga",
+          "BURST_8": "card_unlocked_musicbox",
+          "BURST_X": "card_unlocked_musicbox",
+          "CESSATION": "card_unlocked_cessation",
+          "CLOUD_THUNDER": "card_unlocked_cloud_thunder",
+          "COLOUR_BLUE": "card_unlocked_paint",
+          "COLOUR_GREEN": "card_unlocked_paint",
+          "COLOUR_INVIS": "card_unlocked_paint",
+          "COLOUR_ORANGE": "card_unlocked_paint",
+          "COLOUR_PURPLE": "card_unlocked_paint",
+          "COLOUR_RAINBOW": "card_unlocked_paint",
+          "COLOUR_RED": "card_unlocked_paint",
+          "COLOUR_YELLOW": "card_unlocked_paint",
+          "CRUMBLING_EARTH": "card_unlocked_crumbling_earth",
+          "DAMAGE_RANDOM": "card_unlocked_pyramid",
+          "DESTRUCTION": "card_unlocked_destruction",
+          "DISC_BULLET_BIGGER": "card_unlocked_everything",
+          "DIVIDE_10": "card_unlocked_divide",
+          "DIVIDE_2": "card_unlocked_musicbox",
+          "DIVIDE_3": "card_unlocked_musicbox",
+          "DIVIDE_4": "card_unlocked_musicbox",
+          "DRAW_3_RANDOM": "card_unlocked_pyramid",
+          "DRAW_RANDOM": "card_unlocked_pyramid",
+          "DRAW_RANDOM_X3": "card_unlocked_pyramid",
+          "DUPLICATE": "card_unlocked_mestari",
+          "EXPLODING_DEER": "card_unlocked_exploding_deer",
+          "EXPLODING_DUCKS": "card_unlocked_exploding_deer",
+          "FIREWORK": "card_unlocked_firework",
+          "GAMMA": "card_unlocked_duplicate",
+          "HOMING_WAND": "card_unlocked_homing_wand",
+          "IF_ELSE": "card_unlocked_maths",
+          "IF_END": "card_unlocked_maths",
+          "IF_ENEMY": "card_unlocked_maths",
+          "IF_HALF": "card_unlocked_maths",
+          "IF_HP": "card_unlocked_maths",
+          "IF_PROJECTILE": "card_unlocked_maths",
+          "LARPA_CHAOS_2": "card_unlocked_alchemy",
+          "MASS_POLYMORPH": "card_unlocked_polymorph",
+          "MATERIAL_CEMENT": "card_unlocked_material_cement",
+          "METEOR_RAIN": "card_unlocked_rain",
+          "MU": "card_unlocked_duplicate",
+          "NECROMANCY": "card_unlocked_necromancy",
+          "NOLLA": "card_unlocked_pyramid",
+          "NUKE": "card_unlocked_nuke",
+          "NUKE_GIGA": "card_unlocked_nukegiga",
+          "OMEGA": "card_unlocked_duplicate",
+          "ORBIT_DISCS": "card_unlocked_dragon",
+          "ORBIT_FIREBALLS": "card_unlocked_dragon",
+          "ORBIT_LARPA": "card_unlocked_dragon",
+          "ORBIT_LASERS": "card_unlocked_dragon",
+          "ORBIT_NUKES": "card_unlocked_dragon",
+          "PHI": "card_unlocked_duplicate",
+          "RANDOM_MODIFIER": "card_unlocked_pyramid",
+          "RANDOM_PROJECTILE": "card_unlocked_pyramid",
+          "RANDOM_SPELL": "card_unlocked_pyramid",
+          "RANDOM_STATIC_PROJECTILE": "card_unlocked_pyramid",
+          "RESET": "card_unlocked_mestari",
+          "SEA_LAVA": "card_unlocked_sea_lava",
+          "SEA_MIMIC": "card_unlocked_sea_mimic",
+          "SIGMA": "card_unlocked_duplicate",
+          "SLOW_BUT_STEADY": "card_unlocked_maths",
+          "SPIRAL_SHOT": "card_unlocked_spiral_shot",
+          "TAU": "card_unlocked_duplicate",
+          "TENTACLE": "card_unlocked_tentacle",
+          "TENTACLE_TIMER": "card_unlocked_tentacle",
+          "TOUCH_GRASS": "card_unlocked_touch_grass",
+          "TOUCH_PISS": "card_unlocked_piss",
+          "WHITE_HOLE_GIGA": "card_unlocked_black_hole",
+          "WORM_RAIN": "card_unlocked_rain",
+          "WORM_SHOT": "card_unlocked_exploding_deer",
+          "ZETA": "card_unlocked_duplicate"
+        },
+        "locked_in_profile": 100,
+        "ok": true
+      }
+    }
+  },
+  "wall_minutes": 0.22
+}

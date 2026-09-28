@@ -18,8 +18,8 @@ rlb_probes.ARENA = ARENA
 
 local function scene_path(name) return "mods/rl_bench/files/scenes/" .. name .. ".png" end
 
-local function load_scene(name, x, y)
-  LoadPixelScene(scene_path(name), "", x, y, "", true, true, {}, 50, true)
+local function load_scene(name, x, y, dup)
+  LoadPixelScene(scene_path(name), "", x, y, "", true, true, {}, 50, dup ~= false)
 end
 
 local function counts_rect(x, y, w, h, stride)
@@ -86,7 +86,13 @@ cmds.grid_stats = function(a)
 end
 
 cmds.pixel_scene = function(a)
-  load_scene(a.name, a.x, a.y)
+  load_scene(a.name, a.x, a.y, a.dup)
+  return { ok = true, frame = GameGetFrameNum() }
+end
+
+cmds.convert_material = function(a)
+  ConvertMaterialOnAreaInstantly(a.x, a.y, a.w, a.h, CellFactory_GetType(a.from), CellFactory_GetType(a.to),
+    false, false)
   return { ok = true, frame = GameGetFrameNum() }
 end
 

@@ -1,0 +1,278 @@
+{
+  "test": "np_grid",
+  "started": "2026-09-28T23:28:24",
+  "seed": 123456789,
+  "noitapatcher": "1.36.2",
+  "reps": 200,
+  "spots": {
+    "spawn": [
+      {
+        "cells": 4096,
+        "direct_ms": {
+          "p50": 0.0323,
+          "p95": 0.0352
+        },
+        "equal": 4096,
+        "first_mismatches": [],
+        "missing_direct": 0,
+        "missing_nsew": 0,
+        "non_air": 1762,
+        "nsew_ms": {
+          "p50": 0.0634,
+          "p95": 0.1216
+        },
+        "ok": true,
+        "size": 64,
+        "stride": 1,
+        "x0": 195,
+        "y0": -111
+      },
+      {
+        "cells": 4096,
+        "direct_ms": {
+          "p50": 0.0363,
+          "p95": 0.0422
+        },
+        "equal": 4096,
+        "first_mismatches": [],
+        "missing_direct": 0,
+        "missing_nsew": 0,
+        "non_air": 1778,
+        "nsew_ms": {
+          "p50": 0.0653,
+          "p95": 0.0743
+        },
+        "ok": true,
+        "size": 64,
+        "stride": 2,
+        "x0": 163,
+        "y0": -143
+      },
+      {
+        "cells": 4096,
+        "direct_ms": {
+          "p50": 0.0337,
+          "p95": 0.0421
+        },
+        "equal": 4096,
+        "first_mismatches": [],
+        "missing_direct": 0,
+        "missing_nsew": 0,
+        "non_air": 1616,
+        "nsew_ms": {
+          "p50": 0.0688,
+          "p95": 0.0939
+        },
+        "ok": true,
+        "size": 64,
+        "stride": 4,
+        "x0": 99,
+        "y0": -207
+      },
+      {
+        "cells": 16384,
+        "direct_ms": {
+          "p50": 0.1343,
+          "p95": 0.1413
+        },
+        "equal": 16384,
+        "first_mismatches": [],
+        "missing_direct": 0,
+        "missing_nsew": 0,
+        "non_air": 7197,
+        "nsew_ms": {
+          "p50": 0.2114,
+          "p95": 0.2354
+        },
+        "ok": true,
+        "size": 128,
+        "stride": 1,
+        "x0": 163,
+        "y0": -143
+      }
+    ],
+    "quiet_mines": [
+      {
+        "cells": 4096,
+        "direct_ms": {
+          "p50": 0.026,
+          "p95": 0.0291
+        },
+        "equal": 4096,
+        "first_mismatches": [],
+        "missing_direct": 0,
+        "missing_nsew": 0,
+        "non_air": 1120,
+        "nsew_ms": {
+          "p50": 0.0635,
+          "p95": 0.0748
+        },
+        "ok": true,
+        "size": 64,
+        "stride": 1,
+        "x0": 68,
+        "y0": 268
+      },
+      {
+        "cells": 4096,
+        "direct_ms": {
+          "p50": 0.0311,
+          "p95": 0.0334
+        },
+        "equal": 4096,
+        "first_mismatches": [],
+        "missing_direct": 0,
+        "missing_nsew": 0,
+        "non_air": 1287,
+        "nsew_ms": {
+          "p50": 0.0597,
+          "p95": 0.0707
+        },
+        "ok": true,
+        "size": 64,
+        "stride": 2,
+        "x0": 36,
+        "y0": 236
+      },
+      {
+        "cells": 4096,
+        "direct_ms": {
+          "p50": 0.0495,
+          "p95": 0.0568
+        },
+        "equal": 4096,
+        "first_mismatches": [],
+        "missing_direct": 0,
+        "missing_nsew": 0,
+        "non_air": 2481,
+        "nsew_ms": {
+          "p50": 0.0872,
+          "p95": 0.1053
+        },
+        "ok": true,
+        "size": 64,
+        "stride": 4,
+        "x0": -28,
+        "y0": 172
+      },
+      {
+        "cells": 16384,
+        "direct_ms": {
+          "p50": 0.1145,
+          "p95": 0.1356
+        },
+        "equal": 16384,
+        "first_mismatches": [],
+        "missing_direct": 0,
+        "missing_nsew": 0,
+        "non_air": 5191,
+        "nsew_ms": {
+          "p50": 0.1974,
+          "p95": 0.2376
+        },
+        "ok": true,
+        "size": 128,
+        "stride": 1,
+        "x0": 36,
+        "y0": 236
+      }
+    ],
+    "sky_arena": [
+      {
+        "cells": 4096,
+        "direct_ms": {
+          "p50": 0.0237,
+          "p95": 0.0269
+        },
+        "equal": 4096,
+        "first_mismatches": [],
+        "missing_direct": 0,
+        "missing_nsew": 0,
+        "non_air": 960,
+        "nsew_ms": {
+          "p50": 0.0555,
+          "p95": 0.0616
+        },
+        "ok": true,
+        "size": 64,
+        "stride": 1,
+        "x0": -120,
+        "y0": -1372
+      },
+      {
+        "cells": 4096,
+        "direct_ms": {
+          "p50": 0.0218,
+          "p95": 0.0229
+        },
+        "equal": 4096,
+        "first_mismatches": [],
+        "missing_direct": 0,
+        "missing_nsew": 0,
+        "non_air": 560,
+        "nsew_ms": {
+          "p50": 0.0502,
+          "p95": 0.0599
+        },
+        "ok": true,
+        "size": 64,
+        "stride": 2,
+        "x0": -152,
+        "y0": -1404
+      },
+      {
+        "cells": 4096,
+        "direct_ms": {
+          "p50": 0.0209,
+          "p95": 0.0285
+        },
+        "equal": 4096,
+        "first_mismatches": [],
+        "missing_direct": 0,
+        "missing_nsew": 0,
+        "non_air": 268,
+        "nsew_ms": {
+          "p50": 0.053,
+          "p95": 0.0697
+        },
+        "ok": true,
+        "size": 64,
+        "stride": 4,
+        "x0": -216,
+        "y0": -1468
+      },
+      {
+        "cells": 16384,
+        "direct_ms": {
+          "p50": 0.0774,
+          "p95": 0.0868
+        },
+        "equal": 16384,
+        "first_mismatches": [],
+        "missing_direct": 0,
+        "missing_nsew": 0,
+        "non_air": 2240,
+        "nsew_ms": {
+          "p50": 0.1599,
+          "p95": 0.1835
+        },
+        "ok": true,
+        "size": 128,
+        "stride": 1,
+        "x0": -152,
+        "y0": -1404
+      }
+    ]
+  },
+  "state_packet_read_ms_64x64": {
+    "direct": {
+      "p50": 0.0695,
+      "max": 0.2923
+    },
+    "nsew": {
+      "p50": 0.1033,
+      "max": 0.2565
+    }
+  },
+  "wall_minutes": 0.24
+}

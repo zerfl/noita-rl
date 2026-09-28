@@ -4,7 +4,7 @@ import sys
 import time
 from pathlib import Path
 
-from . import actions, gameconfig, launcher, paths, smoke, snapshot, test1, test2, test3, test4
+from . import actions, gameconfig, launcher, np_bench, paths, smoke, snapshot, test1, test2, test3, test4
 
 
 def _render(a) -> gameconfig.RenderOptions:
@@ -107,6 +107,11 @@ def cmd_test4(a):
                                    extra_scales=tuple(a.extra_scales), log=_log))
 
 
+def cmd_np(a):
+    for name in a.only or list(np_bench.EXPERIMENTS):
+        save_result(f"np_{name}", np_bench.run(name, log=_log))
+
+
 def cmd_suite(a):
     """Every test in order; one result file each plus an index."""
     t0 = time.perf_counter()
@@ -118,6 +123,8 @@ def cmd_suite(a):
         "test3": str(save_result("test3", test3.run(resets=a.resets, log=_log))),
         "test4": str(save_result("test4", test4.run(timescale=3.0, log=_log))),
     }
+    for name in np_bench.EXPERIMENTS:
+        files[f"np_{name}"] = str(save_result(f"np_{name}", np_bench.run(name, log=_log)))
     save_result("suite", {"results": files, "minutes": round((time.perf_counter() - t0) / 60, 1)})
 
 
@@ -202,7 +209,7 @@ def main(argv=None):
     p = sub.add_parser("test3", help="reset paths; writes results/test3_*.json")
     p.add_argument("--resets", type=int, default=20)
     p.add_argument("--candidates", nargs="*", default=None,
-                   choices=["relaunch_fresh", "relaunch_reuse", "newgame_ui", "scenario"])
+                   choices=["relaunch_fresh", "relaunch_reuse", "newgame_ui", "np_recovery", "scenario"])
     p.set_defaults(fn=cmd_test3)
 
     p = sub.add_parser("test4", help="parallel instances; writes results/test4_*.json")
@@ -213,7 +220,11 @@ def main(argv=None):
     p.add_argument("--diagnose", action="store_true", help="find what caps aggregate fps at N=4")
     p.set_defaults(fn=cmd_test4)
 
-    p = sub.add_parser("suite", help="run every test: smoke, actions, test1-4 (about 50 min)")
+    p = sub.add_parser("np", help="NoitaPatcher experiments; writes results/np_<name>_*.json")
+    p.add_argument("--only", nargs="*", choices=list(np_bench.EXPERIMENTS), default=None)
+    p.set_defaults(fn=cmd_np)
+
+    p = sub.add_parser("suite", help="run every test: smoke, actions, test1-4, np (about 60 min)")
     p.add_argument("--reps", type=int, default=3)
     p.add_argument("--baseline-reps", type=int, default=5)
     p.add_argument("--resets", type=int, default=20)

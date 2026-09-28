@@ -4,7 +4,7 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 from unittest import mock
 
-from driver import gameconfig, link, paths, snapshot, test1
+from driver import gameconfig, launcher, link, paths, snapshot, test1
 
 
 class SnapshotRestore(unittest.TestCase):
@@ -91,6 +91,22 @@ class ModConfig(unittest.TestCase):
         root = ET.fromstring(gameconfig.exclusive_mod_config(tpl, "rl_bench"))
         state = {m.get("name"): m.get("enabled") for m in root.findall("Mod")}
         self.assertEqual(state, {"noita_agent": "0", "example": "0", "rl_bench": "1"})
+
+
+class NoitaPatcherClash(unittest.TestCase):
+    def test_reports_enabled_mods_that_ship_noitapatcher_dll(self):
+        game = Path(tempfile.mkdtemp())
+        for name in ("quant.ew", "other_np", "plain"):
+            (game / "mods" / name).mkdir(parents=True)
+        (game / "mods" / "quant.ew" / "NoitaPatcher").mkdir()
+        (game / "mods" / "quant.ew" / "NoitaPatcher" / "noitapatcher.dll").write_bytes(b"")
+        (game / "mods" / "other_np" / "noitapatcher.dll").write_bytes(b"")
+        cfg = ('<Mods><Mod enabled="1" name="quant.ew" workshop_item_id="0"/>'
+               '<Mod enabled="0" name="other_np" workshop_item_id="0"/>'
+               '<Mod enabled="1" name="plain" workshop_item_id="0"/>'
+               '<Mod enabled="1" name="rl_bench" workshop_item_id="0"/></Mods>')
+        with mock.patch.object(paths, "GAME_DIR", game):
+            self.assertEqual(launcher.mods_bundling_np(cfg), ["quant.ew"])
 
 
 class GridDecode(unittest.TestCase):

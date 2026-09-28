@@ -30,6 +30,7 @@ Verified facts only; each says how it was verified. Unverified leads go under "L
   from `save00`.
 - A fresh workdir profile has no unlock progress: the same seed gives different starting-wand
   charges than the user's profile. All tests therefore start from one identical clean template.
+- NoitaPatcher 1.36.2 is loaded in every instance unless `RL_BENCH_NP=0`; see "NoitaPatcher" below.
 - Other flags exist in the binary but are untested: `-config`, `-no_extra_config`,
   `-magic_numbers`, `-clean_save`, `-bench*`, `-play`, `-daily_run`, `-debug`, `-debug_lua`,
   `-single_threaded_loading`, `-windowed`, `-fullscreen`.
@@ -124,7 +125,64 @@ Verified facts only; each says how it was verified. Unverified leads go under "L
   One framerate-240 instance runs at 190 fps using 0.76 of a core.
 - About 9.6 GB of 32 GB was free during the runs (other applications).
 
+## NoitaPatcher 1.36.2 (phase 5)
+
+Verified 2026-09-28 in workdir instances, seed 123456789; data in `results/np_*.json` and
+`results/test3_20260928-232737.json`.
+
+- Loads from `init.lua` at top level (`dofile_once(".../load.lua")`, then `require`).
+  `GetVersionString()` = `Noita - Build Jan 25 2025 - 12:40:28`. Launch to hello unchanged
+  (5.56 s in the phase-5 smoke run).
+- `SetPauseState(1)` stops sim frames; `OnPausePreUpdate` then runs about 68 times per second per
+  instance on about 0.01 core, at N=1 and N=4, clock 3x (a pause loop with its own pacing). The mod
+  answers commands from it, and `SetPauseState(0)` resumes.
+- `ComponentUpdatesSetEnabled` returned true for all 165 `<X>System` names from
+  `tools_modding/component_documentation.txt` and false for an unknown name.
+- `MagicNumbersSetValue` changes values at runtime (read back through `MagicNumbersGetValue`).
+  `DEBUG_PAUSE_GRID_UPDATE` and `DEBUG_PAUSE_BOX2D` accept 1, set at runtime or at init through the
+  virtual magic file, but have no effect in this build: 576 water cells moved the same (1152 cells
+  changed in 60 frames) with or without them.
+- `SetGameModeDeterministic(true)` during mod init opens the spell pool on a fresh profile: 84
+  spells gated by missing unlock flags appeared in 4400 `GetRandomAction` draws, 0 without it.
+- `SerializeEntity` on the player gives 31.7 KB including its 5 children (inventories, wands, arm,
+  cape); `DeserializeEntity` into `EntityCreateNew()` rebuilds them, and `SetPlayerEntity` makes the
+  copy the player (camera follows, input drives it).
+- Game Over recovery: with `wait_for_kill_flag_on_death`, `kill_player` leaves the player at
+  hp <= 0 but alive; swapping in a deserialized copy (`SetPlayerEntity`, `SetActiveHeldEntity` on
+  its first wand) and killing the old body gives no game-over screen. 20/20 resets, death to
+  controllable 34 ms p50 / 38 ms p95 (2 frames), seed unchanged, working set 766 -> 785 MB over the
+  first 4 resets then flat. The world is not reset.
+- `UseItem` fires only with `charge=true` (false produced no projectile). The shot's spawn point
+  is not the `pos` argument: it moves by up to 2 px between shots in a launch (same across
+  launches).
+- The projectile spread RNG is not tied to the world seed: identical shots at identical frames in
+  three launches got different `rng` values and velocities (range 3.9 px per 5 frames). Setting
+  it (in `OnProjectileFired`, or directly right before `UseItem`) makes velocities identical within
+  and across launches to the 0.001 px rounding.
+- `SetProjectileSpreadRNG` called before `InstallShootProjectileFiredCallbacks` killed the game
+  immediately (value 1, frame ~80; silent exit, no dump, no dialog). After the install it was safe
+  with values 1, 777 and 12345 in every launch.
+- nsew `world_ffi` (addresses from `GetWorldInfo`) reads the same material ids as our hard-coded
+  reader: 100 % equal at spawn, quiet Mines and the sky arena at 64x64 stride 1/2/4 and 128x128.
+  Cost 64x64 stride 1: 0.056-0.063 ms p50 vs 0.024-0.032 ms direct.
+- nsew `world.encode_area`/`decode` snapshot and restore a region's cells (box2d-body cells encode
+  as empty, entities are untouched): 256x256 snapshot 3.8 ms / 10.8 KB, restore 2.1 ms; after a
+  bomb changed 4747 cells, 0 differed after the restore.
+- `ForceLoadPixelScene` returns without error but restored none of a 64x16 hole in a loaded scene,
+  even after 120 frames. Vanilla `LoadPixelScene(..., load_even_if_duplicate=true)` restored it;
+  with `false` it did not.
+- ~300 fps ceiling probe (clock 3x, quiet Mines, K=240, no grid): every game process uses only
+  about 0.3 core at baseline at N=1 (131-151 fps) and N=4 (83-95 fps each). All 165 component
+  systems off: N=4 421 fps aggregate (x1.21 of the neighbouring baselines 334 and 364),
+  N=1 x0.78 with CPU per process falling to 0.19. Baselines drift
+  by ±15 % within a run (N=4: 320-381).
+
 ## Leads (unverified)
+
+- The ~300 fps ceiling is not entity-system cost and not CPU saturation: processes idle about
+  70 % of each second. A wait on a shared resource (GPU present/sync) or coarse sleep granularity
+  in the frame limiter fits; the paused loop's fixed 68 fps (about 14.7 ms per frame) hints at
+  timer-granularity sleeps.
 
 - `-config <file>` may give per-instance config without touching `save_shared`.
 - The ~300 aggregate fps cap across processes may be a per-frame GPU sync or present that

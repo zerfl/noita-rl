@@ -17,7 +17,7 @@ cost, reset path, parallel instances. No RL training yet. Deliverables: `rl_benc
 | 2 | Test 1 (speed vs consistency) and Test 2 (grid read cost), `suite` command | Done (commit `929c179`) |
 | 3 | Test 3 (reset paths) and Test 4 (parallel instances, at clock 3x) | Done (commit `e1456df`) |
 | 4 | `FINDINGS.md`, final restore check against the backup | Done |
-| 5 | NoitaPatcher integration: commands, Game Over recovery reset (Test 3d), fps-ceiling diagnosis, nsew grid reader, reproducible firing | In progress |
+| 5 | NoitaPatcher integration: commands, Game Over recovery reset (Test 3d), fps-ceiling diagnosis, nsew grid reader, reproducible firing | Done (not yet committed) |
 
 ## Phase 1 numbers (`results/smoke-*.json`)
 
@@ -49,6 +49,25 @@ cost, reset path, parallel instances. No RL training yet. Deliverables: `rl_benc
   falls (N=6: 281). The limit is shared across processes and is not CPU, GPU utilisation, the
   driver, render cost or throttling (see knowledge.md).
 
+## Phase 5 answers (`results/np_*.json`, `results/test3_20260928-232737.json`)
+
+- NoitaPatcher 1.36.2 loads in every instance; `hello.np` reports its version string. Mod commands
+  cover pause, system updates, magic numbers, player entity, (de)serialization, pixel scenes,
+  UseItem firing, spread RNG, region snapshot/restore and the nsew grid reader.
+- **Test 3d, Game Over recovery: 34 ms p50 / 38 ms p95** from death to controllable, 20/20, no
+  crash, seed fixed, working set +19 MB then flat. Not a world reset.
+- **No true in-process world reset** in NoitaPatcher. Cell regions can be restored (nsew
+  encode/decode: 256x256 in 2.1 ms; vanilla `LoadPixelScene` with `load_even_if_duplicate` for
+  authored scenes); `ForceLoadPixelScene` does nothing on this build.
+- **Firing:** `UseItem(charge=true)` at an exact target. The spread RNG does not follow the world
+  seed, so unfixed shots differ across launches; a fixed RNG makes velocities identical to
+  0.001 px. `SetProjectileSpreadRNG` before `InstallShootProjectileFiredCallbacks` crashes the game.
+- **nsew grid reader:** identical cells, 0.06 ms vs 0.03 ms for 64x64; now the automatic fallback
+  on other builds.
+- **fps ceiling:** not entity systems (all 165 off: N=4 x1.21, N=1 x0.78) and not CPU (about
+  0.3 core per process). A paused game runs at a fixed ~68 fps. The grid/box2d debug switches do
+  nothing in this build. Cause still open.
+
 ## Restore check (phase 4)
 
 Install-dir `config.xml`, `save_shared/`, `save00/` match the 20:38 backup; no `mods/rl_bench`;
@@ -59,7 +78,8 @@ byte-identical to the backup.
 
 ## Next steps
 
-The benchmark is complete; see `FINDINGS.md`. Candidate follow-ups, none started:
+The benchmark is complete; see `FINDINGS.md` (phases 1-4; phase 5 results are in README,
+knowledge.md and above). Candidate follow-ups, none started:
 
 1. Find the shared ~300 fps ceiling (GPU present/sync hypothesis): profile with PresentMon or GPUView,
    try an offscreen or minimised swapchain, try `Sleep`/timer hooks.
@@ -72,4 +92,6 @@ The benchmark is complete; see `FINDINGS.md`. Candidate follow-ups, none started
   simulation uses a QPC-timed budget.
 - Why is clock 2x slower (82-113 fps) than 3x/4x? Hypothesis: the frame limiter's sleep is not
   scaled; hooking `Sleep` in the DLL would test it.
-- What is the shared ~300 fps ceiling across processes?
+- What is the shared ~300 fps ceiling across processes? Phase 5 ruled out entity-system cost and
+  CPU saturation (processes idle about 70 %).
+- Why does turning all component systems off raise N=4 throughput but lower N=1?

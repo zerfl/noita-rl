@@ -1,0 +1,289 @@
+{
+  "test": "np_fps",
+  "started": "2026-09-28T23:40:13",
+  "seed": 123456789,
+  "noitapatcher": "1.36.2",
+  "method": "rate = (sim frames + OnPausePreUpdate frames) per wall second, sampled by np_info at phase start and end; each condition sits between two baselines. K=240 and no grid, so the driver link is idle (Test 4's diagnosis gave the same ceiling this way). process_cores = CPU seconds per wall second of each game process.",
+  "scene": {
+    "kind": "quiet",
+    "at": [
+      100,
+      300
+    ]
+  },
+  "groups": [
+    {
+      "n": 1,
+      "timescale": 3.0,
+      "window_s": 10.0,
+      "init_magic": null,
+      "phases": [
+        {
+          "label": "baseline",
+          "aggregate_fps": 150.6,
+          "per_instance": [
+            150.6
+          ],
+          "process_cores": [
+            0.31
+          ],
+          "system_cpu_percent": 4.6,
+          "applied": null,
+          "alive": [
+            true
+          ]
+        },
+        {
+          "label": "systems_off",
+          "aggregate_fps": 110.3,
+          "per_instance": [
+            110.3
+          ],
+          "process_cores": [
+            0.19
+          ],
+          "system_cpu_percent": 3.3,
+          "applied": [
+            135
+          ],
+          "alive": [
+            true
+          ],
+          "vs_adjacent_baselines": 0.78
+        },
+        {
+          "label": "baseline",
+          "aggregate_fps": 132.4,
+          "per_instance": [
+            132.4
+          ],
+          "process_cores": [
+            0.24
+          ],
+          "system_cpu_percent": 4.1,
+          "applied": null,
+          "alive": [
+            true
+          ]
+        },
+        {
+          "label": "paused",
+          "aggregate_fps": 68.4,
+          "per_instance": [
+            68.4
+          ],
+          "process_cores": [
+            0.01
+          ],
+          "system_cpu_percent": 1.4,
+          "applied": [
+            {
+              "frame": 5471,
+              "now": 1,
+              "ok": true,
+              "pause_frames": 0,
+              "previous": 0,
+              "t_ms": 45048.7
+            }
+          ],
+          "alive": [
+            true
+          ],
+          "vs_adjacent_baselines": 0.518
+        },
+        {
+          "label": "baseline",
+          "aggregate_fps": 131.5,
+          "per_instance": [
+            131.5
+          ],
+          "process_cores": [
+            0.24
+          ],
+          "system_cpu_percent": 3.5,
+          "applied": null,
+          "alive": [
+            true
+          ]
+        }
+      ]
+    },
+    {
+      "n": 4,
+      "timescale": 3.0,
+      "window_s": 10.0,
+      "init_magic": null,
+      "phases": [
+        {
+          "label": "baseline",
+          "aggregate_fps": 333.9,
+          "per_instance": [
+            83.6,
+            84.4,
+            83.0,
+            83.0
+          ],
+          "process_cores": [
+            0.29,
+            0.29,
+            0.28,
+            0.26
+          ],
+          "system_cpu_percent": 11.9,
+          "applied": null,
+          "alive": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "label": "systems_off",
+          "aggregate_fps": 420.6,
+          "per_instance": [
+            105.1,
+            103.6,
+            102.5,
+            109.5
+          ],
+          "process_cores": [
+            0.66,
+            0.7,
+            0.67,
+            0.63
+          ],
+          "system_cpu_percent": 28.8,
+          "applied": [
+            135,
+            135,
+            135,
+            135
+          ],
+          "alive": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "vs_adjacent_baselines": 1.206
+        },
+        {
+          "label": "baseline",
+          "aggregate_fps": 363.9,
+          "per_instance": [
+            93.1,
+            92.5,
+            90.2,
+            88.2
+          ],
+          "process_cores": [
+            0.3,
+            0.32,
+            0.31,
+            0.26
+          ],
+          "system_cpu_percent": 12.7,
+          "applied": null,
+          "alive": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        {
+          "label": "paused",
+          "aggregate_fps": 275.7,
+          "per_instance": [
+            68.8,
+            68.7,
+            69.3,
+            68.9
+          ],
+          "process_cores": [
+            0.01,
+            0.01,
+            0.02,
+            0.01
+          ],
+          "system_cpu_percent": 1.9,
+          "applied": [
+            {
+              "frame": 4214,
+              "now": 1,
+              "ok": true,
+              "pause_frames": 0,
+              "previous": 0,
+              "t_ms": 50928.2
+            },
+            {
+              "frame": 4033,
+              "now": 1,
+              "ok": true,
+              "pause_frames": 0,
+              "previous": 0,
+              "t_ms": 50136.6
+            },
+            {
+              "frame": 3870,
+              "now": 1,
+              "ok": true,
+              "pause_frames": 0,
+              "previous": 0,
+              "t_ms": 49503.8
+            },
+            {
+              "frame": 3839,
+              "now": 1,
+              "ok": true,
+              "pause_frames": 0,
+              "previous": 0,
+              "t_ms": 48894.2
+            }
+          ],
+          "alive": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "vs_adjacent_baselines": 0.741
+        },
+        {
+          "label": "baseline",
+          "aggregate_fps": 380.5,
+          "per_instance": [
+            95.0,
+            97.5,
+            95.6,
+            92.4
+          ],
+          "process_cores": [
+            0.22,
+            0.27,
+            0.32,
+            0.25
+          ],
+          "system_cpu_percent": 12.7,
+          "applied": null,
+          "alive": [
+            true,
+            true,
+            true,
+            true
+          ]
+        }
+      ]
+    }
+  ],
+  "debug_pause_grid_update_effect": {
+    "runtime": {
+      "water_cells_changed_in_60_frames": 1152
+    },
+    "init": {
+      "water_cells_changed_in_60_frames": 1152
+    }
+  },
+  "wall_minutes": 2.8
+}

@@ -34,5 +34,18 @@ Taken from Noita MCP at commit bc9e917 (bin/xinput_hook.dll: commit 8b3eb21):
     bridge/xinput.lua. The transport (a blocking TCP client with select-based
     waits and newline-delimited JSON) and the action layer are new code.
 
+RL Bench also bundles NoitaPatcher 1.36.2 by Dexter Castor Doepping
+https://github.com/dextercd/NoitaPatcher (release 1.36.2)
+
+  NoitaPatcher/
+    Unmodified contents of the release's NoitaPatcher/ folder (load.lua,
+    noitapatcher.dll, noitapatcher.pdb, noitapatcher/nsew/*).
+    Release zip sha256
+      9637632b107390e6b8c4ae50525e2b2a96171f127825ed4af41bdccfa5ff987d
+    noitapatcher.dll sha256
+      a6e257c54b69797abce0198015ea9da46d8d408021df84a94c687337e7eed968
+    The upstream repository has no license file; its README directs mods to
+    bundle NoitaPatcher inside the mod.
+
 Noita is the property of Nolla Games Oy. This mod redistributes none of its
 assets and is subject to the Noita Modding Agreement.

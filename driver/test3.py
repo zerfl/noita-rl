@@ -12,10 +12,13 @@ Candidates:
                   `noita.exe` without -always_store_userdata_in_workdir, so a workdir instance
                   holds driver/shim/noita_shim.c as noita.exe, which relaunches the real game
                   with the flag. Without the shim the game simply exits.
+  np_recovery     Game Over recovery with NoitaPatcher, NOT a world reset: the player keeps
+                  wait_for_kill_flag_on_death, so at hp <= 0 the mod deserializes a fresh player
+                  from a template taken at arming, makes it the player (SetPlayerEntity) and kills
+                  the old body. The game never sees a player death; the world carries on.
   scenario        NOT a world reset (reported separately): heal, remove nearby enemies and
                   projectiles, teleport to the start. No death involved.
-Not run, see BLOCKED: Metamorph game-over recovery; dev-build quicksave/quickload; dev-build
-ALT+C restart.
+Not run, see BLOCKED: dev-build quicksave/quickload; dev-build ALT+C restart.
 """
 
 import time
@@ -169,6 +172,52 @@ def run_newgame_ui(resets: int, log) -> dict:
     return {"rows": rows, "shim_log_first": shim_log}
 
 
+def run_np_recovery(resets: int, log) -> dict:
+    inst = Instance(LaunchSpec(seed=SEED, k=1, mode="free"))
+    inst.start()
+    rows = []
+    try:
+        inst.wait_hello(90)
+        c = inst.conn
+        wait_controllable(c, _now())
+        _settle(inst)
+        arm = c.cmd("np_recovery", on=True, x=START[0], y=START[1] - 5)
+        if not arm.get("ok"):
+            raise RuntimeError(f"np_recovery: {arm}")
+        for i in range(resets):
+            c.act(**NOOP)
+            wait_frames(c, 30)
+            k = c.cmd("kill_player")
+            t_death = _now()
+            ev = None
+            dead_seen = False
+            while ev is None:
+                m = c.recv(timeout=10)
+                if m.get("t") == "event" and m.get("what") == "np_respawn":
+                    ev = m
+                elif m.get("t") == "state" and not m["alive"]:
+                    dead_seen = True
+            t_respawn = _now()
+            ctl = wait_controllable(c, t_death)
+            player = c.cmd("np_player")["result"]
+            rows.append({
+                "reset": i, "total_s": ctl["t_moved"], "death_to_respawn_event_s": t_respawn - t_death,
+                "respawn_to_moved_s": ctl["t_moved"] - (t_respawn - t_death),
+                "kill_frame": k["frame"], "respawn_frame": ev["frame"], "alive_frame": ctl["alive_frame"],
+                "moved_frame": ctl["moved_frame"], "respawn_lua_ms": ev["lua_ms"],
+                "dead_state_seen": dead_seen, "new_player": ev["new"], "game_player": player,
+                "children": ev["children"], "held_item": ev["held"],
+                "seed": {"seed": ctl["seed_state"]}, "working_set_mb": _ws(inst.current_pid),
+            })
+            log(f"np_recovery #{i}: {rows[-1]['total_s']*1000:.0f} ms, player {player}")
+        if not inst.alive():
+            raise RuntimeError("game process exited")
+    finally:
+        inst.stop()
+    return {"rows": rows, "template": {k: arm.get(k) for k in ("template_bytes", "children")},
+            "world_reset": False}
+
+
 def run_scenario(resets: int, log) -> dict:
     inst = Instance(LaunchSpec(seed=SEED, k=1, mode="free"))
     inst.start()
@@ -221,7 +270,6 @@ def _summarise(name: str, res: dict, resets: int, seed_key: str = "seed") -> dic
 
 
 BLOCKED = {
-    "metamorph_gameover_recovery": "needs NoitaPatcher (not installed); not tested",
     "dev_quicksave_quickload": "noita_dev.exe (Jan 25 2025) has no world quicksave/quickload: F11 does "
                                "nothing, F12 is trailer recording mode (data/debug_keys.txt). It does run "
                                "in workdir mode, loads rl_bench (seed 123456789 in its log) and receives "
@@ -238,7 +286,7 @@ BLOCKED = {
 
 
 def run(resets: int = 20, candidates: list[str] | None = None, log=print) -> dict:
-    cands = candidates or ["relaunch_fresh", "relaunch_reuse", "newgame_ui", "scenario"]
+    cands = candidates or ["relaunch_fresh", "relaunch_reuse", "newgame_ui", "np_recovery", "scenario"]
     res = {"test": "test3_reset", "started": time.strftime("%Y-%m-%dT%H:%M:%S"), "seed": SEED,
            "resets": resets,
            "controllable_definition": "first frame at which a held 'right' has moved the player",
@@ -248,9 +296,11 @@ def run(resets: int = 20, candidates: list[str] | None = None, log=print) -> dic
         "relaunch_fresh": lambda: run_relaunch(resets, False, log),
         "relaunch_reuse": lambda: run_relaunch(resets, True, log),
         "newgame_ui": lambda: run_newgame_ui(resets, log),
+        "np_recovery": lambda: run_np_recovery(resets, log),
         "scenario": lambda: run_scenario(resets, log),
     }
-    scriptable = {"relaunch_fresh": True, "relaunch_reuse": True, "newgame_ui": True, "scenario": True}
+    scriptable = {"relaunch_fresh": True, "relaunch_reuse": True, "newgame_ui": True, "np_recovery": True,
+                  "scenario": True}
     for name in cands:
         t0 = _now()
         try:

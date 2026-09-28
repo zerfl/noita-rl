@@ -23,6 +23,7 @@ local buf, buf_n = nil, 0
 local hex4 = {}
 
 local function engine()
+  if not rlb_np.address_ok then return nil, "hard-coded addresses not verified for this build" end
   local S = rd(P_SINGLETON)
   if S == 0 then return nil, "no engine singleton" end
   local root = rd(S + 0x0C)
@@ -119,4 +120,72 @@ function rlb_grid.hex(b, n)
     parts[i + 1] = h
   end
   return table.concat(parts)
+end
+
+-- ---------------------------------------------------------------- nsew reader
+-- Same grid, addressed through NoitaPatcher's nsew world_ffi: GridWorld, chunk map and CellData
+-- base come from np.GetWorldInfo() instead of our constants, so this survives game updates that
+-- NoitaPatcher supports. One chunk_loaded call per chunk and one get_cell call per sample.
+
+local nsew = nil
+local function nsew_lib()
+  if nsew == nil then
+    if not rlb_np.loaded then
+      nsew, rlb_grid.nsew_error = false, "NoitaPatcher not loaded"
+    else
+      local ok, w = pcall(require, "noitapatcher.nsew.world_ffi")
+      nsew = ok and w or false
+      if not ok then rlb_grid.nsew_error = tostring(w) end
+    end
+  end
+  return nsew or nil, rlb_grid.nsew_error
+end
+
+function rlb_grid.read_rect_nsew(x0, y0, w, h, stride)
+  local wf, err = nsew_lib()
+  if not wf then return nil, err end
+  local n = w * h
+  if n > buf_n then
+    buf = ffi.new("uint16_t[?]", n)
+    buf_n = n
+  end
+  local gw = wf.get_grid_world()
+  local cm = gw.vtable.get_chunk_map(gw)
+  local base = tonumber(ffi.cast("uintptr_t", wf.get_material_ptr(0)))
+  local get_cell, chunk_loaded = wf.get_cell, wf.chunk_loaded
+  x0, y0 = math.floor(x0), math.floor(y0)
+  local idx, missing = 0, 0
+  for j = 0, h - 1 do
+    local y = y0 + j * stride
+    local last_cx, loaded = nil, false
+    for i = 0, w - 1 do
+      local x = x0 + i * stride
+      local cx = arshift(x, 9)
+      if cx ~= last_cx then
+        last_cx = cx
+        loaded = chunk_loaded(cm, x, y)
+      end
+      local id = 0
+      if loaded then
+        local c = get_cell(cm, x, y)[0]
+        if c ~= nil then
+          id = (tonumber(c.material_ptr) - base) / CELLDATA_STRIDE
+          if id < 0 or id >= BAD_ID or id % 1 ~= 0 then id = BAD_ID end
+        end
+      else
+        missing = missing + 1
+      end
+      buf[idx] = id
+      idx = idx + 1
+    end
+  end
+  return buf, missing
+end
+
+function rlb_grid.read_nsew(cx, cy, size, stride)
+  local half = math.floor(size * stride / 2)
+  local x0, y0 = math.floor(cx) - half, math.floor(cy) - half
+  local b, missing = rlb_grid.read_rect_nsew(x0, y0, size, size, stride)
+  if not b then return nil, missing end
+  return b, x0, y0, missing
 end
