@@ -1,0 +1,33 @@
+RL Bench (rl_bench) includes code and a binary derived from Noita MCP
+Copyright 2026 normalwindow
+https://github.com/normalwindow/Noita-MCP
+Licensed under the Apache License, Version 2.0
+(http://www.apache.org/licenses/LICENSE-2.0).
+
+Taken from Noita MCP at commit bc9e917:
+
+  bin/xinput_hook.dll
+    Unmodified build of full/extension/xinput_hook.c.
+    sha256 87968d8f61fef793030d7113b99ab830b496be1786198b737cfffe3740c9e824
+
+  files/json.lua
+    From full/mod/noita_agent/files/bridge/json.lua.
+    Modified: the global table is renamed from `json` to `rlb_json`.
+
+  files/grid.lua
+    Derived from full/mod/noita_agent/files/bridge/advmat.lua (pointer chain,
+    addresses and strides; see tools/CELL-MATERIAL-FINDINGS.md).
+    Modified: rewritten as a bulk grid reader into a uint16 buffer using the
+    LuaJIT bit library, with per-row chunk caching and hex encoding.
+
+  files/bench.lua (seed addresses)
+    The two world-seed addresses come from
+    full/mod/noita_agent/files/bridge/seedreader.lua.
+
+  files/link.lua, files/input.lua
+    Winsock and DLL-export FFI declarations follow bridge/sock.lua and
+    bridge/xinput.lua. The transport (a blocking TCP client with select-based
+    waits and newline-delimited JSON) and the action layer are new code.
+
+Noita is the property of Nolla Games Oy. This mod redistributes none of its
+assets and is subject to the Noita Modding Agreement.

@@ -1,0 +1,6 @@
+<Mod
+	name="RL Bench"
+	description="Reinforcement-learning feasibility benchmark harness. Talks to a local driver over TCP; does nothing unless RL_BENCH_PORT is set."
+	request_no_api_restrictions="1"
+>
+</Mod>

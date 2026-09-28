@@ -1,0 +1,112 @@
+-- Material-id grid around a point, read straight from the engine's cell grid.
+-- Pointer chain and constants from Noita-MCP advmat.lua / tools/CELL-MATERIAL-FINDINGS.md
+-- (build Jan 25 2025). pcall does not catch access violations, so every pointer in the
+-- chain is null-checked and the vtable is validated before any cell is touched.
+
+rlb_grid = rlb_grid or {}
+
+local ffi = require("ffi")
+local bit = require("bit")
+local band, arshift, lshift = bit.band, bit.arshift, bit.lshift
+
+local P_SINGLETON     = 0x0122374C
+local VT_GRIDWORLD    = 0x010013BC
+local VT_GRIDWORLD_TH = 0x01017B24
+local CELLDATA_STRIDE = 0x290
+local NAME_STRIDE     = 0x18
+local BAD_ID          = 0xFFFF
+
+local U32P = ffi.typeof("uint32_t*")
+local function rd(addr) return ffi.cast(U32P, addr)[0] end
+
+local buf, buf_n = nil, 0
+local hex4 = {}
+
+local function engine()
+  local S = rd(P_SINGLETON)
+  if S == 0 then return nil, "no engine singleton" end
+  local root = rd(S + 0x0C)
+  if root == 0 then return nil, "worldRoot null" end
+  local gw = rd(root + 0x44)
+  if gw == 0 then return nil, "gridWorld null" end
+  local vt = rd(gw)
+  local holder
+  if vt == VT_GRIDWORLD then
+    holder = gw + 0x500
+  elseif vt == VT_GRIDWORLD_TH then
+    holder = rd(gw + 0x45C)
+    if holder == 0 then return nil, "threaded grid holder null" end
+  else
+    return nil, string.format("unexpected gridWorld vtable 0x%X", vt)
+  end
+  local cf = rd(S + 0x18)
+  if cf == 0 then return nil, "cellFactory null" end
+  local ct = rd(holder + 8)
+  if ct == 0 then return nil, "chunk table null" end
+  local base = rd(cf + 0x18)
+  if base == 0 then return nil, "CellData array null" end
+  return ct, base, (rd(cf + 8) - rd(cf + 4)) / NAME_STRIDE
+end
+
+-- Fills an internal uint16 buffer with size*size material ids, row-major, top-left at
+-- (x0, y0); sample spacing `stride` world pixels. Empty cells are 0 (air).
+function rlb_grid.read(cx_world, cy_world, size, stride)
+  local ct_addr, base, count = engine()
+  if not ct_addr then return nil, base end
+  local n = size * size
+  if n > buf_n then
+    buf = ffi.new("uint16_t[?]", n)
+    buf_n = n
+  end
+  local ct = ffi.cast(U32P, ct_addr)
+  local half = math.floor(size * stride / 2)
+  local x0 = math.floor(cx_world) - half
+  local y0 = math.floor(cy_world) - half
+  local idx = 0
+  for j = 0, size - 1 do
+    local y = y0 + j * stride
+    local chunk_row = band(arshift(y, 9) - 256, 511) * 512
+    local row_off = lshift(band(y, 511), 9)
+    local last_cx, cells = -1, nil
+    for i = 0, size - 1 do
+      local x = x0 + i * stride
+      local cx = band(arshift(x, 9) - 256, 511)
+      if cx ~= last_cx then
+        last_cx = cx
+        cells = nil
+        local chunk = ct[chunk_row + cx]
+        if chunk ~= 0 then
+          local cb = rd(chunk)
+          if cb ~= 0 then cells = ffi.cast(U32P, cb) end
+        end
+      end
+      local id = 0
+      if cells then
+        local icell = cells[row_off + band(x, 511)]
+        if icell ~= 0 then
+          local cd = rd(icell + 0x14)
+          id = (cd - base) / CELLDATA_STRIDE
+          if id < 0 or id >= count or id % 1 ~= 0 then id = BAD_ID end
+        end
+      end
+      buf[idx] = id
+      idx = idx + 1
+    end
+  end
+  return buf, x0, y0
+end
+
+-- 4 hex chars per cell, big-endian uint16.
+function rlb_grid.hex(b, n)
+  local parts = {}
+  for i = 0, n - 1 do
+    local v = b[i]
+    local h = hex4[v]
+    if not h then
+      h = string.format("%04x", v)
+      hex4[v] = h
+    end
+    parts[i + 1] = h
+  end
+  return table.concat(parts)
+end

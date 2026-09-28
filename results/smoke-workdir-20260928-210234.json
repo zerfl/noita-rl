@@ -1,0 +1,528 @@
+{
+  "test": "smoke",
+  "started": "2026-09-28T21:01:21",
+  "machine": {
+    "platform": "Windows-11-10.0.22631-SP0",
+    "cpu": "Intel64 Family 6 Model 158 Stepping 10, GenuineIntel"
+  },
+  "game_exe": "<steam library>\\SteamApps\\common\\Noita\\noita.exe",
+  "storage": "workdir",
+  "seed": 123456789,
+  "render": {
+    "window_w": 640,
+    "window_h": 360,
+    "framerate": 60,
+    "vsync": 0,
+    "mute": true
+  },
+  "a_launch": {
+    "straight_into_run": true,
+    "cmdline": [
+      "<steam library>\\SteamApps\\common\\Noita\\noita.exe",
+      "-always_store_userdata_in_workdir",
+      "-no_logo_splashes",
+      "-gamemode",
+      "0",
+      "-save_slot",
+      "5"
+    ],
+    "t_hello_s": 5.465,
+    "t_first_state_s": 5.491,
+    "t_first_alive_s": 5.91,
+    "first_alive_frame": 14,
+    "first_moved_frame": 18,
+    "t_first_moved_s": 5.976,
+    "launch2_t_hello_s": 4.952,
+    "launch2_t_first_alive_s": 5.37
+  },
+  "b_seed": {
+    "requested": 123456789,
+    "launch1": {
+      "seed": 123456789,
+      "seed_alt": 123456789,
+      "magic_seed": "123456789"
+    },
+    "launch2": {
+      "seed": 123456789,
+      "seed_alt": 123456789,
+      "magic_seed": "123456789"
+    },
+    "equal": true,
+    "settle_state_launch1": {
+      "frame": 122,
+      "x": 230.8,
+      "y": -77.003,
+      "vx": 0.0,
+      "vy": 60.0,
+      "hp": 4.0,
+      "max_hp": 4.0,
+      "seed": 123456789
+    },
+    "settle_state_launch2": {
+      "frame": 122,
+      "x": 230.8,
+      "y": -77.003,
+      "vx": 0.0,
+      "vy": 60.0,
+      "hp": 4.0,
+      "max_hp": 4.0,
+      "seed": 123456789
+    },
+    "settle_grid64_match": {
+      "cells": 4096,
+      "equal_cells": 4096,
+      "equal_fraction": 1.0
+    }
+  },
+  "c_lockstep_k4": {
+    "k": 4,
+    "steps": 300,
+    "grid": null,
+    "seconds": 20.007,
+    "steps_per_s": 14.99,
+    "game_fps": 59.98,
+    "step_roundtrip_ms": {
+      "n": 300,
+      "p50": 66.68,
+      "p95": 67.4901,
+      "mean": 66.6657,
+      "min": 60.6069,
+      "max": 73.0789
+    },
+    "ping_rtt_ms": {
+      "n": 30,
+      "p50": 0.2174,
+      "p95": 0.2524,
+      "mean": 0.2165,
+      "min": 0.1755,
+      "max": 0.258
+    },
+    "mod_lua_ms_per_step": {
+      "n": 300,
+      "p50": 0.0827,
+      "p95": 0.1067,
+      "mean": 0.0863,
+      "min": 0.0692,
+      "max": 0.2933
+    },
+    "mod_wait_ms_per_step": {
+      "n": 300,
+      "p50": 0.2198,
+      "p95": 0.4114,
+      "mean": 0.2374,
+      "min": 0.0452,
+      "max": 0.4779
+    }
+  },
+  "c_lockstep_k4_grid64": {
+    "k": 4,
+    "steps": 300,
+    "grid": {
+      "size": 64,
+      "stride": 1
+    },
+    "seconds": 20.003,
+    "steps_per_s": 15.0,
+    "game_fps": 59.99,
+    "step_roundtrip_ms": {
+      "n": 300,
+      "p50": 66.6593,
+      "p95": 67.4095,
+      "mean": 66.6508,
+      "min": 58.7896,
+      "max": 74.5756
+    },
+    "ping_rtt_ms": {
+      "n": 30,
+      "p50": 0.2097,
+      "p95": 0.2407,
+      "mean": 0.2102,
+      "min": 0.1655,
+      "max": 0.2457
+    },
+    "mod_lua_ms_per_step": {
+      "n": 300,
+      "p50": 0.3258,
+      "p95": 0.4227,
+      "mean": 0.3363,
+      "min": 0.2958,
+      "max": 0.601
+    },
+    "mod_wait_ms_per_step": {
+      "n": 300,
+      "p50": 0.2983,
+      "p95": 0.4489,
+      "mean": 0.2984,
+      "min": 0.1887,
+      "max": 0.5217
+    }
+  },
+  "d_free_run": {
+    "seconds": 10.01,
+    "frames": 600,
+    "game_fps": 59.94,
+    "game_fps_ingame_clock": 59.94,
+    "mod_lua_ms_per_step": {
+      "n": 150,
+      "p50": 0.1205,
+      "p95": 0.1471,
+      "mean": 0.1247,
+      "min": 0.1027,
+      "max": 0.2438
+    }
+  },
+  "e_hold_right": {
+    "frames": 120,
+    "dx_hold_right": 107.66,
+    "dx_idle_same_frames": 0.0,
+    "x_start": 230.8,
+    "x_end": 338.465
+  },
+  "f_grid_64x64_stride1": {
+    "size": 64,
+    "stride": 1,
+    "first_read_ms": 0.0674,
+    "read_ms": {
+      "n": 60,
+      "p50": 0.0705,
+      "p95": 0.1487,
+      "mean": 0.0872,
+      "min": 0.063,
+      "max": 0.1961
+    },
+    "encode_ms": {
+      "n": 60,
+      "p50": 0.1339,
+      "p95": 0.2017,
+      "mean": 0.1517,
+      "min": 0.1265,
+      "max": 0.2521
+    },
+    "cells": 4096,
+    "distinct_ids": 7,
+    "top_materials": [
+      {
+        "id": 0,
+        "name": "air",
+        "cells": 2401
+      },
+      {
+        "id": 319,
+        "name": "rock_static_intro",
+        "cells": 1194
+      },
+      {
+        "id": 116,
+        "name": "soil",
+        "cells": 239
+      },
+      {
+        "id": 405,
+        "name": "rock_hard",
+        "cells": 147
+      },
+      {
+        "id": 8,
+        "name": "rock_static",
+        "cells": 86
+      },
+      {
+        "id": 165,
+        "name": "moss",
+        "cells": 27
+      }
+    ],
+    "bad_ids": 0
+  },
+  "g_memory": {
+    "launch1": {
+      "working_set_mb": 745.1,
+      "peak_working_set_mb": 750.8,
+      "private_mb": 762.4
+    },
+    "launch2": {
+      "working_set_mb": 748.0,
+      "peak_working_set_mb": 754.8,
+      "private_mb": 764.6
+    }
+  },
+  "runs": [
+    {
+      "cmdline": [
+        "<steam library>\\SteamApps\\common\\Noita\\noita.exe",
+        "-always_store_userdata_in_workdir",
+        "-no_logo_splashes",
+        "-gamemode",
+        "0",
+        "-save_slot",
+        "5"
+      ],
+      "hello": {
+        "frame": 1,
+        "input": {
+          "aim": true,
+          "backend": "sdl",
+          "ok": true
+        },
+        "instance": "0",
+        "k": 4,
+        "magic_seed": "123456789",
+        "mode": "lockstep",
+        "seed": 123456789,
+        "seed_alt": 123456789,
+        "seed_requested": 123456789,
+        "t": "hello",
+        "t_ms": 3410.07
+      },
+      "early": {
+        "t_hello_s": 5.465,
+        "t_first_state_s": 5.491,
+        "first_state_frame": 2,
+        "t_first_alive_s": 5.91,
+        "first_alive_frame": 14,
+        "spawn": [
+          227.0,
+          -80.028
+        ],
+        "first_moved_frame": 18,
+        "t_first_moved_s": 5.976,
+        "settle_state": {
+          "frame": 122,
+          "x": 230.8,
+          "y": -77.003,
+          "vx": 0.0,
+          "vy": 60.0,
+          "hp": 4.0,
+          "max_hp": 4.0,
+          "seed": 123456789
+        },
+        "settle_grid_sha256": "14c0e7f70408fce046d0e17e6108f9c1351cb4df0e81bc21a8238c6e2f6885b4",
+        "t_settle_s": 7.711
+      },
+      "free_run": {
+        "seconds": 10.01,
+        "frames": 600,
+        "game_fps": 59.94,
+        "game_fps_ingame_clock": 59.94,
+        "mod_lua_ms_per_step": {
+          "n": 150,
+          "p50": 0.1205,
+          "p95": 0.1471,
+          "mean": 0.1247,
+          "min": 0.1027,
+          "max": 0.2438
+        }
+      },
+      "hold_right": {
+        "frames": 120,
+        "dx_hold_right": 107.66,
+        "dx_idle_same_frames": 0.0,
+        "x_start": 230.8,
+        "x_end": 338.465
+      },
+      "grid_64_s1": {
+        "size": 64,
+        "stride": 1,
+        "first_read_ms": 0.0674,
+        "read_ms": {
+          "n": 60,
+          "p50": 0.0705,
+          "p95": 0.1487,
+          "mean": 0.0872,
+          "min": 0.063,
+          "max": 0.1961
+        },
+        "encode_ms": {
+          "n": 60,
+          "p50": 0.1339,
+          "p95": 0.2017,
+          "mean": 0.1517,
+          "min": 0.1265,
+          "max": 0.2521
+        },
+        "cells": 4096,
+        "distinct_ids": 7,
+        "top_materials": [
+          {
+            "id": 0,
+            "name": "air",
+            "cells": 2401
+          },
+          {
+            "id": 319,
+            "name": "rock_static_intro",
+            "cells": 1194
+          },
+          {
+            "id": 116,
+            "name": "soil",
+            "cells": 239
+          },
+          {
+            "id": 405,
+            "name": "rock_hard",
+            "cells": 147
+          },
+          {
+            "id": 8,
+            "name": "rock_static",
+            "cells": 86
+          },
+          {
+            "id": 165,
+            "name": "moss",
+            "cells": 27
+          }
+        ],
+        "bad_ids": 0
+      },
+      "lockstep": {
+        "k": 4,
+        "steps": 300,
+        "grid": null,
+        "seconds": 20.007,
+        "steps_per_s": 14.99,
+        "game_fps": 59.98,
+        "step_roundtrip_ms": {
+          "n": 300,
+          "p50": 66.68,
+          "p95": 67.4901,
+          "mean": 66.6657,
+          "min": 60.6069,
+          "max": 73.0789
+        },
+        "ping_rtt_ms": {
+          "n": 30,
+          "p50": 0.2174,
+          "p95": 0.2524,
+          "mean": 0.2165,
+          "min": 0.1755,
+          "max": 0.258
+        },
+        "mod_lua_ms_per_step": {
+          "n": 300,
+          "p50": 0.0827,
+          "p95": 0.1067,
+          "mean": 0.0863,
+          "min": 0.0692,
+          "max": 0.2933
+        },
+        "mod_wait_ms_per_step": {
+          "n": 300,
+          "p50": 0.2198,
+          "p95": 0.4114,
+          "mean": 0.2374,
+          "min": 0.0452,
+          "max": 0.4779
+        }
+      },
+      "lockstep_grid64": {
+        "k": 4,
+        "steps": 300,
+        "grid": {
+          "size": 64,
+          "stride": 1
+        },
+        "seconds": 20.003,
+        "steps_per_s": 15.0,
+        "game_fps": 59.99,
+        "step_roundtrip_ms": {
+          "n": 300,
+          "p50": 66.6593,
+          "p95": 67.4095,
+          "mean": 66.6508,
+          "min": 58.7896,
+          "max": 74.5756
+        },
+        "ping_rtt_ms": {
+          "n": 30,
+          "p50": 0.2097,
+          "p95": 0.2407,
+          "mean": 0.2102,
+          "min": 0.1655,
+          "max": 0.2457
+        },
+        "mod_lua_ms_per_step": {
+          "n": 300,
+          "p50": 0.3258,
+          "p95": 0.4227,
+          "mean": 0.3363,
+          "min": 0.2958,
+          "max": 0.601
+        },
+        "mod_wait_ms_per_step": {
+          "n": 300,
+          "p50": 0.2983,
+          "p95": 0.4489,
+          "mean": 0.2984,
+          "min": 0.1887,
+          "max": 0.5217
+        }
+      },
+      "memory": {
+        "working_set_mb": 745.1,
+        "peak_working_set_mb": 750.8,
+        "private_mb": 762.4
+      }
+    },
+    {
+      "cmdline": [
+        "<steam library>\\SteamApps\\common\\Noita\\noita.exe",
+        "-always_store_userdata_in_workdir",
+        "-no_logo_splashes",
+        "-gamemode",
+        "0",
+        "-save_slot",
+        "5"
+      ],
+      "hello": {
+        "frame": 1,
+        "input": {
+          "aim": true,
+          "backend": "sdl",
+          "ok": true
+        },
+        "instance": "0",
+        "k": 4,
+        "magic_seed": "123456789",
+        "mode": "lockstep",
+        "seed": 123456789,
+        "seed_alt": 123456789,
+        "seed_requested": 123456789,
+        "t": "hello",
+        "t_ms": 3324.38
+      },
+      "early": {
+        "t_hello_s": 4.952,
+        "t_first_state_s": 4.978,
+        "first_state_frame": 2,
+        "t_first_alive_s": 5.37,
+        "first_alive_frame": 14,
+        "spawn": [
+          227.0,
+          -80.028
+        ],
+        "first_moved_frame": 18,
+        "t_first_moved_s": 5.437,
+        "settle_state": {
+          "frame": 122,
+          "x": 230.8,
+          "y": -77.003,
+          "vx": 0.0,
+          "vy": 60.0,
+          "hp": 4.0,
+          "max_hp": 4.0,
+          "seed": 123456789
+        },
+        "settle_grid_sha256": "14c0e7f70408fce046d0e17e6108f9c1351cb4df0e81bc21a8238c6e2f6885b4",
+        "t_settle_s": 7.171
+      },
+      "memory": {
+        "working_set_mb": 748.0,
+        "peak_working_set_mb": 754.8,
+        "private_mb": 764.6
+      }
+    }
+  ],
+  "finished": "2026-09-28T21:02:34"
+}

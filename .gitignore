@@ -7,3 +7,6 @@ Noita-MCP/
 __pycache__/
 *.pyc
 .venv/
+
+# driver session snapshots and per-instance workdirs
+.rl_bench_state/
