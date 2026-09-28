@@ -1,0 +1,9 @@
+# local MCP client config (machine-specific paths)
+.mcp.json
+
+# upstream clone with its own git history
+Noita-MCP/
+
+__pycache__/
+*.pyc
+.venv/
