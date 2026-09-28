@@ -8,6 +8,9 @@ decision is made, or a fact is verified, update the matching file in `docs/` in 
 
 - `Noita-MCP/` is a separate upstream clone (own git history, gitignored here). Our fixes to it are
   committed in that repo.
-- Never use the user's Noita saves for benchmark runs; the driver uses isolated workdir profiles.
-- NoitaPatcher 1.36.2 is vendored in `rl_bench/NoitaPatcher/`. Only rl_bench may load it in a game
-  process (upstream issue #4); never alongside `quant.ew` or another mod that bundles it.
+- We control the running mods, always: a game started by the harness runs only our own mods
+  (`rl_bench` and what it bundles), from an isolated workdir. The harness never reads, checks,
+  enables or depends on the user's installed mods, mod list or saves.
+- NoitaPatcher 1.36.2 is vendored in `rl_bench/NoitaPatcher/`; rl_bench is its only loader.
+- The game is frozen: no further Noita updates are expected. The build (release branch, identical
+  to the experimental build first tested) is the only target; hard-coded engine addresses are fine.

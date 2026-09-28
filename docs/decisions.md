@@ -2,6 +2,16 @@
 
 Newest first. Each entry: what, why, and what would change it.
 
+## 2026-09-29
+
+- **We control the running mods, always.** Harness-started games run only our own mods from an
+  isolated workdir; the harness never inspects or depends on the user's installed mods, mod list or
+  saves. Checks written against the user's install (e.g. for `quant.ew`) are removed, and userdata
+  mode goes with them.
+- **The game is treated as frozen.** No further Noita updates expected; the user switched from the
+  experimental to the release branch, which is byte-identical. Direct (hard-coded address) readouts
+  are primary; the nsew fallback stays but is not a priority.
+
 ## 2026-09-28 (phase 5)
 
 - **NoitaPatcher is loaded in every rl_bench instance** (the user allowed full use; supersedes
