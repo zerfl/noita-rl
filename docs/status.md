@@ -15,8 +15,8 @@ cost, reset path, parallel instances. No RL training yet. Deliverables: `rl_benc
 | 0 | Install Noita-MCP full tier, audit and harden it, MCP config | Done |
 | 1 | Harness core: TCP lockstep/free-run link, input, grid read, fixed seed, workdir isolation, snapshot/restore, smoke test | Done (commit `637c797`) |
 | 2 | Test 1 (speed vs consistency) and Test 2 (grid read cost), `suite` command | Done (commit `929c179`) |
-| 3 | Test 3 (reset paths) and Test 4 (parallel instances, at clock 3x) | Done, awaiting review |
-| 4 | `FINDINGS.md`, final restore check against the backup | Not started |
+| 3 | Test 3 (reset paths) and Test 4 (parallel instances, at clock 3x) | Done (commit `e1456df`) |
+| 4 | `FINDINGS.md`, final restore check against the backup | Done |
 
 ## Phase 1 numbers (`results/smoke-*.json`)
 
@@ -48,17 +48,27 @@ cost, reset path, parallel instances. No RL training yet. Deliverables: `rl_benc
   falls (N=6: 281). The limit is shared across processes and is not CPU, GPU utilisation, the
   driver, render cost or throttling (see knowledge.md).
 
+## Restore check (phase 4)
+
+Install-dir `config.xml`, `save_shared/`, `save00/` match the 20:38 backup; no `mods/rl_bench`;
+`noita_agent` is the only enabled mod. LocalLow differs from the backup only by (a) the user's
+throwaway run saving on exit at 20:45 when the harness closed the game, before any benchmark run,
+and (b) `save_shared/config.xml` line endings. Files touched by phase-1 userdata runs are
+byte-identical to the backup.
+
 ## Next steps
 
-1. Finish phase 3 and review `results/test3_*.json`, `results/test4_*.json`.
-2. Phase 4: `FINDINGS.md` (tables, recommended configuration, projected decisions per day at K=4,
-   blockers) and a final restore check against the backup.
+The benchmark is complete; see `FINDINGS.md`. Candidate follow-ups, none started:
+
+1. Find the shared ~300 fps ceiling (GPU present/sync hypothesis): profile with PresentMon or GPUView,
+   try an offscreen or minimised swapchain, try `Sleep`/timer hooks.
+2. Tighten the liquid probe (more repetitions) to decide whether 4x can be promoted.
+3. Start the wand-design track in [ideas.md](ideas.md) on top of the scenario reset.
 
 ## Open questions
 
-- Can the game-over screen's "new game" be driven by synthetic SDL input from the mod?
-- Does `noita_dev.exe` load the mod and the DLL, so F12 quickload can be scripted?
 - Why does liquid spread shrink under clock scaling but not under `framerate`? Hypothesis: the cell
   simulation uses a QPC-timed budget.
 - Why is clock 2x slower (82-113 fps) than 3x/4x? Hypothesis: the frame limiter's sleep is not
   scaled; hooking `Sleep` in the DLL would test it.
+- What is the shared ~300 fps ceiling across processes?
