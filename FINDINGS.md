@@ -82,9 +82,10 @@ firing, fix the spread RNG in `OnProjectileFired` (NP) and fire with `UseItem(ch
 
 - **A shared ceiling of about 300 game fps across all processes** caps parallelism at 4. It is not
   CPU (13 %; each process is about 70 % idle), GPU utilisation (28 %), the driver, render cost,
-  window state, throttling, the clock hook, or entity systems (NP: all 165 systems off lifts N=4 by
-  only 21 %). A paused game still loops at a fixed ~68 fps (~14.7 ms per frame), which points at
-  coarse sleep timing in the frame limiter or a GPU present sync; unverified.
+  window state, throttling, the clock hook, entity systems (all 165 off: N=4 +21 %), or timer
+  resolution (the limiter's `SDL_Delay` already sleeps at 1-2 ms; 0.5 ms, 1 ms and coarse timers
+  changed nothing beyond drift). Pausing 3 of 4 instances lifts the fourth to its solo rate, so the
+  shared cost is in simulated frames, not presented ones. Cause still open.
 - **No true in-process world reset, even with NoitaPatcher.** Region cell restores work; physics
   bodies and entities must be cleared and respawned by the mod. A fresh world is a 5.3 s restart.
 - **NP `SetProjectileSpreadRNG` kills the game if called before `InstallShootProjectileFiredCallbacks`.**
