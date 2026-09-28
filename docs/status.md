@@ -17,6 +17,7 @@ cost, reset path, parallel instances. No RL training yet. Deliverables: `rl_benc
 | 2 | Test 1 (speed vs consistency) and Test 2 (grid read cost), `suite` command | Done (commit `929c179`) |
 | 3 | Test 3 (reset paths) and Test 4 (parallel instances, at clock 3x) | Done (commit `e1456df`) |
 | 4 | `FINDINGS.md`, final restore check against the backup | Done |
+| 5 | NoitaPatcher integration: commands, Game Over recovery reset (Test 3d), fps-ceiling diagnosis, nsew grid reader, reproducible firing | In progress |
 
 ## Phase 1 numbers (`results/smoke-*.json`)
 

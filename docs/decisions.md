@@ -4,6 +4,12 @@ Newest first. Each entry: what, why, and what would change it.
 
 ## 2026-09-28
 
+- **rl_bench is the only mod allowed to load NoitaPatcher in a game process.** NoitaPatcher issue
+  #4 (open, won't fix): a second copy in the same process clears its CrossCalls. Separate processes
+  are unaffected, so parallel instances are fine. The user's install has `quant.ew` (Entangled
+  Worlds), which bundles its own copy; never enable both in one game.
+- **NoitaPatcher is vendored unchanged** (1.36.2), since the repo has no remote and upstream says to
+  bundle it; version and hash are recorded in `rl_bench/NOTICE` and [security.md](security.md).
 - **In-game "New Game" in workdir mode goes through a relaunch shim** (`driver/shim/noita_shim.c`
   as the instance's `noita.exe`). The game's self-relaunch drops
   `-always_store_userdata_in_workdir`; the real exe must never sit in a workdir, or a relaunch

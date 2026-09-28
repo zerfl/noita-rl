@@ -1,5 +1,10 @@
 # Brief
 
+## Scope changes (2026-09-28, later)
+
+- The user added NoitaPatcher 1.36.2 at `rl_bench/NoitaPatcher/` and allowed full use, for these
+  tests and for later RL. The "no NoitaPatcher" scope change below is superseded.
+
 ## Scope changes (2026-09-28)
 
 - NoitaPatcher is not installed and will not be for now. Candidates that need it (Metamorph Game

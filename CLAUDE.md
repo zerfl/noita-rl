@@ -9,4 +9,5 @@ decision is made, or a fact is verified, update the matching file in `docs/` in 
 - `Noita-MCP/` is a separate upstream clone (own git history, gitignored here). Our fixes to it are
   committed in that repo.
 - Never use the user's Noita saves for benchmark runs; the driver uses isolated workdir profiles.
-- NoitaPatcher is not installed and is out of scope unless the user says otherwise.
+- NoitaPatcher 1.36.2 is vendored in `rl_bench/NoitaPatcher/`. Only rl_bench may load it in a game
+  process (upstream issue #4); never alongside `quant.ew` or another mod that bundles it.

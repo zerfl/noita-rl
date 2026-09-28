@@ -22,6 +22,13 @@ URLs, no outbound connections, no download-and-run.
   RPC can do.
 - The mod needs `request_no_api_restrictions="1"`, so Noita shows its unsafe-mod warning.
 
+## NoitaPatcher
+
+`rl_bench/NoitaPatcher/` is byte-identical to the official release 1.36.2 (zip sha256
+`9637632b107390e6b8c4ae50525e2b2a96171f127825ed4af41bdccfa5ff987d`, matching GitHub's published
+digest; `noitapatcher.dll` sha256 `a6e257c5…e7eed968`). The upstream repo has no license file; its
+README directs mods to bundle it. Re-verify the hash when upgrading.
+
 ## rl_bench
 
 `rl_bench` connects out to the driver on 127.0.0.1 only, on a port passed per process; it opens no
