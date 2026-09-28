@@ -92,8 +92,43 @@ Verified facts only; each says how it was verified. Unverified leads go under "L
 - Unloaded chunks silently read as air; the grid reader reports them as `missing`.
 - Working set about 745 MB per instance.
 
+## Resets (Test 3, phase 3)
+
+- Death from the mod (`kill_player`, normal damage path) shows the game-over screen, and the mod
+  keeps running there (`OnWorldPostUpdate` continues, frames advance, `alive` false).
+- Synthetic SDL clicks drive the game-over menu in the 640x360 window: "You are dead" text at
+  (322, 147), "New Game" in the stats panel at (320, 266), first game-mode icon at (223, 127).
+- With mods enabled, "New Game" is an executable restart: the game exits (code 0) and runs a
+  relative `noita.exe -no_logo_splashes -gamemode 0 -gamemode_mod_name  -gamemode_mod_workshop_item_id 0
+  -save_slot 0` from its cwd, without `-always_store_userdata_in_workdir` (captured by a logging
+  shim). In a workdir this finds no exe and the game just exits; a shim that relaunches the real
+  exe with the flag makes it work. There is no in-process world reset.
+- Death to controllable (held "right" moves the player), p50 over 20 resets: relaunch 5.41 s
+  (fresh folder) / 5.32 s (reused), in-game New Game via shim 8.43 s, in-run scenario reset
+  0.050 s. Process start to mod hello is 4.9 s of every relaunch. Seed 123456789 read back after
+  every reset; working set about 750 MB, no growth.
+- `noita_dev.exe` runs in workdir mode, loads `rl_bench` ("World seed: 123456789" in its log) and
+  receives synthetic keys (F1 key map), but has no world quicksave/quickload: F11 does nothing,
+  F12 is trailer mode. F5 + ALT+C restarts it (exits, relaunches relative
+  `noita_dev.exe ... -always_store_userdata_in_workdir`), and after a death that raised an error
+  dialog on the user's screen. The mod's memory seed and grid addresses are `noita.exe`-only.
+
+## Parallel instances (Test 4, phase 3)
+
+- Clock 3x, K=4, 64x64 grid every packet, quiet Mines: aggregate 160 / 286 / 297 / 281 fps at
+  N = 1 / 2 / 4 / 6 (best 4.94x real time at N=4). No failures or crashes; working set
+  0.68-0.75 GB per instance, max 750 MB.
+- The cap (about 300 aggregate frames/s) is not CPU (13 % system), GPU utilisation (about 28 %,
+  RTX 3070 Ti), driver load (no grid, K=240: 310), render cost (low-quality settings: 296),
+  EcoQoS/timer throttling (opt-out: 339) or the clock hook (framerate 240 without the hook: 273).
+  One framerate-240 instance runs at 190 fps using 0.76 of a core.
+- About 9.6 GB of 32 GB was free during the runs (other applications).
+
 ## Leads (unverified)
 
 - `-config <file>` may give per-instance config without touching `save_shared`.
-- The game-over screen may be drivable with synthetic input for an in-game "new game" reset.
+- The ~300 aggregate fps cap across processes may be a per-frame GPU sync or present that
+  serializes across processes (Test 4).
+- The dev build has a "save scene / hold F6 to restart the saved scene" recording feature
+  (`-recording_load_saved_scene`); its keys are unknown and it also goes through a restart.
 - Liquid simulation may use a QPC-timed budget, which would explain its drift under clock scaling.

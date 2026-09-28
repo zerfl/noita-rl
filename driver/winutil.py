@@ -64,3 +64,30 @@ def screenshot(pid: int, out: Path) -> dict | None:
     subprocess.run(["powershell", "-NoProfile", "-Command", ps], check=False, capture_output=True)
     info["file"] = str(out)
     return info
+
+
+kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+
+
+class _PowerThrottling(ctypes.Structure):
+    _fields_ = [("Version", wintypes.ULONG), ("ControlMask", wintypes.ULONG), ("StateMask", wintypes.ULONG)]
+
+
+PROCESS_SET_INFORMATION = 0x0200
+PROCESS_POWER_THROTTLING = 4           # PROCESS_INFORMATION_CLASS ProcessPowerThrottling
+THROTTLE_EXECUTION_SPEED = 0x1
+THROTTLE_IGNORE_TIMER_RESOLUTION = 0x4
+
+
+def disable_power_throttling(pid: int) -> bool:
+    """Opts a process out of Windows EcoQoS and of the Windows 11 rule that ignores timer
+    resolution requests from occluded or background windows."""
+    h = kernel32.OpenProcess(PROCESS_SET_INFORMATION, False, pid)
+    if not h:
+        return False
+    try:
+        info = _PowerThrottling(1, THROTTLE_EXECUTION_SPEED | THROTTLE_IGNORE_TIMER_RESOLUTION, 0)
+        return bool(kernel32.SetProcessInformation(h, PROCESS_POWER_THROTTLING,
+                                                   ctypes.byref(info), ctypes.sizeof(info)))
+    finally:
+        kernel32.CloseHandle(h)

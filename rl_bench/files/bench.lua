@@ -24,6 +24,9 @@ local B = {
   dmc = nil,
 }
 
+pcall(ffi.cdef, "uint32_t GetCurrentProcessId(void);")
+local PID = ffi.load("kernel32").GetCurrentProcessId()
+
 local function read_seed()
   local a = ffi.cast("uint32_t*", SEED_ADDRS[1])[0]
   local b = ffi.cast("uint32_t*", SEED_ADDRS[2])[0]
@@ -155,8 +158,20 @@ local CMDS = {
   god = function() return { ok = rlb_bench.god() } end,
   set_timescale = set_timescale,
   time_status = time_status,
-  spawn = not_implemented("spawn"),
-  kill_player = not_implemented("kill_player"),
+  spawn = function(a)
+    local ids = {}
+    for i = 1, a.count or 1 do ids[i] = EntityLoad(a.file, a.x + (i - 1) * (a.dx or 0), a.y) end
+    return { ok = true, ids = ids }
+  end,
+  -- Death through the normal damage path, so the game runs its own game-over handling.
+  kill_player = function()
+    local p = refresh_player()
+    if not p or not B.dmc then return { ok = false, error = "no player" } end
+    for _, t in ipairs(DAMAGE_TYPES) do pcall(ComponentObjectSetValue2, B.dmc, "damage_multipliers", t, 1) end
+    ComponentSetValue2(B.dmc, "hp", 0.04)
+    EntityInflictDamage(p, 1000, "DAMAGE_CURSE", "rl_bench kill_player", "NONE", 0, 0, p)
+    return { ok = true, frame = GameGetFrameNum() }
+  end,
 }
 rlb_bench.cmds = CMDS
 
@@ -279,6 +294,7 @@ function rlb_bench.on_world_init()
   send_obj({
     t = "hello",
     instance = env("RL_BENCH_INSTANCE"),
+    pid = PID,
     frame = GameGetFrameNum(),
     t_ms = clock(),
     seed_requested = tonumber(env("RL_BENCH_SEED") or ""),

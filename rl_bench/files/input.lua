@@ -186,6 +186,35 @@ function rlb_input.frame()
   end
 end
 
+-- UI helpers: raw motion / button events in window pixels, independent of the action state.
+function rlb_input.push_motion(x, y)
+  if not sdl_push then return 0 end
+  ffi.fill(ev_motion, ffi.sizeof(ev_motion))
+  ev_motion.type = SDL_MOUSEMOTION
+  ev_motion.x, ev_motion.y = x, y
+  return sdl_push(ev_motion)
+end
+
+function rlb_input.push_click_edge(down, x, y)
+  if not sdl_push then return 0 end
+  ffi.fill(ev_button, ffi.sizeof(ev_button))
+  ev_button.type = down == 1 and SDL_MOUSEBUTTONDOWN or SDL_MOUSEBUTTONUP
+  ev_button.button = SDL_BUTTON_LEFT
+  ev_button.state = down
+  ev_button.clicks = 1
+  ev_button.x, ev_button.y = x, y
+  return sdl_push(ev_button)
+end
+
+function rlb_input.push_key_edge(sc, down)
+  if not sdl_push then return 0 end
+  ffi.fill(ev_key, ffi.sizeof(ev_key))
+  ev_key.type = down == 1 and SDL_KEYDOWN or SDL_KEYUP
+  ev_key.state = down
+  ev_key.scancode = sc
+  return sdl_push(ev_key)
+end
+
 function rlb_input.release_all()
   for k in pairs(want) do want[k] = false end
   rlb_input.frame()

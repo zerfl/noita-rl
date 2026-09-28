@@ -1,0 +1,101 @@
+{
+  "test": "test4_diagnose",
+  "started": "2026-09-28T22:40:47",
+  "n": 4,
+  "groups": [
+    {
+      "label": "clock3x_grid:visible",
+      "aggregate_fps": 295.2,
+      "per_instance": [
+        73.0,
+        73.7,
+        74.3,
+        74.2
+      ],
+      "cpu_percent": 13.1,
+      "errors": []
+    },
+    {
+      "label": "clock3x_grid:minimized",
+      "aggregate_fps": 315.6,
+      "per_instance": [
+        77.3,
+        76.9,
+        80.4,
+        80.9
+      ],
+      "cpu_percent": 14.7,
+      "errors": []
+    },
+    {
+      "label": "clock3x_grid:restored",
+      "aggregate_fps": 330.4,
+      "per_instance": [
+        83.5,
+        81.6,
+        82.4,
+        82.9
+      ],
+      "cpu_percent": 13.4,
+      "errors": []
+    },
+    {
+      "label": "clock3x_grid:restored+power_throttling_off",
+      "aggregate_fps": 339.4,
+      "per_instance": [
+        86.0,
+        83.7,
+        82.8,
+        87.0
+      ],
+      "cpu_percent": 14.2,
+      "errors": []
+    },
+    {
+      "label": "clock3x_no_grid_k240:visible",
+      "aggregate_fps": 310.4,
+      "per_instance": [
+        80.1,
+        77.5,
+        77.3,
+        75.5
+      ],
+      "cpu_percent": 16.7,
+      "errors": []
+    },
+    {
+      "label": "clock3x_grid_low_gfx:visible",
+      "aggregate_fps": 295.6,
+      "per_instance": [
+        74.8,
+        74.0,
+        73.6,
+        73.2
+      ],
+      "cpu_percent": 14.1,
+      "errors": []
+    },
+    {
+      "label": "framerate240_no_hook_grid:visible",
+      "aggregate_fps": 273.1,
+      "per_instance": [
+        64.0,
+        63.1,
+        72.9,
+        73.1
+      ],
+      "cpu_percent": 15.7,
+      "errors": []
+    },
+    {
+      "label": "framerate240_no_hook_grid:single_instance",
+      "aggregate_fps": 190.0,
+      "per_instance": [
+        190.0
+      ],
+      "cpu_percent": 6.3,
+      "errors": []
+    }
+  ],
+  "finished": "2026-09-28T22:43:57"
+}

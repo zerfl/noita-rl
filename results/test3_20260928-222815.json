@@ -1,0 +1,1601 @@
+{
+  "test": "test3_reset",
+  "started": "2026-09-28T22:19:41",
+  "seed": 123456789,
+  "resets": 20,
+  "controllable_definition": "first frame at which a held 'right' has moved the player",
+  "blocked": {
+    "metamorph_gameover_recovery": "needs NoitaPatcher (not installed); not tested",
+    "dev_quicksave_quickload": "noita_dev.exe (Jan 25 2025) has no world quicksave/quickload: F11 does nothing, F12 is trailer recording mode (data/debug_keys.txt). It does run in workdir mode, loads rl_bench (seed 123456789 in its log) and receives synthetic keys (F1 opened the key map).",
+    "dev_altc_restart": "noita_dev.exe debug mode (F5) + ALT+C 'Restarts the game': the process exits and tries to relaunch `noita_dev.exe ... -always_store_userdata_in_workdir` relative to its cwd. After a death it raised an error dialog on the user's screen (reported by the user; most likely a dev-build assert) and timed out, so it needs a human click: not scriptable. Not rerun.",
+    "dev_save_scene": "the dev binary mentions 'hold the keys ... to save the scene; after the game has restarted hold down F6' (-recording_load_saved_scene); keys unknown, and it also goes through a restart. Untested lead."
+  },
+  "candidates": {
+    "relaunch_fresh": {
+      "rows": [
+        {
+          "reset": 0,
+          "total_s": 5.355589599999803,
+          "kill_s": 0.17764829999941867,
+          "prepare_and_spawn_s": 0.08514850000210572,
+          "process_to_hello_s": 4.817249499999889,
+          "hello_to_alive_s": 0.2637814999980037,
+          "alive_to_moved_s": 0.011687800000800053,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 40816,
+          "working_set_mb": 745.3
+        },
+        {
+          "reset": 1,
+          "total_s": 5.565092000000732,
+          "kill_s": 0.14455629999793018,
+          "prepare_and_spawn_s": 0.08929600000192295,
+          "process_to_hello_s": 5.0450504000000365,
+          "hello_to_alive_s": 0.2729524999995192,
+          "alive_to_moved_s": 0.013217899999290239,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 35992,
+          "working_set_mb": 751.1
+        },
+        {
+          "reset": 2,
+          "total_s": 5.401791899999807,
+          "kill_s": 0.15277350000178558,
+          "prepare_and_spawn_s": 0.12330549999751383,
+          "process_to_hello_s": 4.825707100000727,
+          "hello_to_alive_s": 0.29125370000110706,
+          "alive_to_moved_s": 0.008679399998072768,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 37812,
+          "working_set_mb": 749.8
+        },
+        {
+          "reset": 3,
+          "total_s": 5.34638449999693,
+          "kill_s": 0.20040859999789973,
+          "prepare_and_spawn_s": 0.09319200000027195,
+          "process_to_hello_s": 4.765080799999851,
+          "hello_to_alive_s": 0.2793786000002001,
+          "alive_to_moved_s": 0.008305499999551103,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 33912,
+          "working_set_mb": 749.3
+        },
+        {
+          "reset": 4,
+          "total_s": 5.444151699997747,
+          "kill_s": 0.17369639999742503,
+          "prepare_and_spawn_s": 0.08859650000158581,
+          "process_to_hello_s": 4.889890200000082,
+          "hello_to_alive_s": 0.28094749999945634,
+          "alive_to_moved_s": 0.010934499998256797,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 15176,
+          "working_set_mb": 750.8
+        },
+        {
+          "reset": 5,
+          "total_s": 5.603305800003,
+          "kill_s": 0.15581829999791807,
+          "prepare_and_spawn_s": 0.12601179999910528,
+          "process_to_hello_s": 5.031988400001865,
+          "hello_to_alive_s": 0.2782346999993024,
+          "alive_to_moved_s": 0.011224500001844717,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 39140,
+          "working_set_mb": 746.6
+        },
+        {
+          "reset": 6,
+          "total_s": 5.730806299998221,
+          "kill_s": 0.15543969999998808,
+          "prepare_and_spawn_s": 0.09175909999976284,
+          "process_to_hello_s": 5.225822000000335,
+          "hello_to_alive_s": 0.2475624999970023,
+          "alive_to_moved_s": 0.010152800001378637,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 10860,
+          "working_set_mb": 748.5
+        },
+        {
+          "reset": 7,
+          "total_s": 5.467453099998238,
+          "kill_s": 0.16061570000238135,
+          "prepare_and_spawn_s": 0.086809299999004,
+          "process_to_hello_s": 4.951190299998416,
+          "hello_to_alive_s": 0.2584887000011804,
+          "alive_to_moved_s": 0.010276199998770608,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 40880,
+          "working_set_mb": 749.5
+        },
+        {
+          "reset": 8,
+          "total_s": 5.34456389999832,
+          "kill_s": 0.17540640000152052,
+          "prepare_and_spawn_s": 0.09765150000021094,
+          "process_to_hello_s": 4.795812500000466,
+          "hello_to_alive_s": 0.26314779999665916,
+          "alive_to_moved_s": 0.012526400001661386,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 41060,
+          "working_set_mb": 748.7
+        },
+        {
+          "reset": 9,
+          "total_s": 5.331006399999751,
+          "kill_s": 0.15631260000009206,
+          "prepare_and_spawn_s": 0.09459269999933895,
+          "process_to_hello_s": 4.797070900000108,
+          "hello_to_alive_s": 0.2707343999973091,
+          "alive_to_moved_s": 0.012222800000017742,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 34008,
+          "working_set_mb": 749.2
+        },
+        {
+          "reset": 10,
+          "total_s": 5.306345100001636,
+          "kill_s": 0.15581420000307844,
+          "prepare_and_spawn_s": 0.11015760000009323,
+          "process_to_hello_s": 4.76302929999656,
+          "hello_to_alive_s": 0.2662092999999004,
+          "alive_to_moved_s": 0.011116200003016274,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 18868,
+          "working_set_mb": 750.1
+        },
+        {
+          "reset": 11,
+          "total_s": 5.4152566000011575,
+          "kill_s": 0.15983799999958137,
+          "prepare_and_spawn_s": 0.08919129999776487,
+          "process_to_hello_s": 4.885384400000476,
+          "hello_to_alive_s": 0.26919090000228607,
+          "alive_to_moved_s": 0.011581200000364333,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 23120,
+          "working_set_mb": 752.5
+        },
+        {
+          "reset": 12,
+          "total_s": 5.380277000000206,
+          "kill_s": 0.17903780000051484,
+          "prepare_and_spawn_s": 0.10342709999895305,
+          "process_to_hello_s": 4.81162570000015,
+          "hello_to_alive_s": 0.2755125000003318,
+          "alive_to_moved_s": 0.010600000001431908,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 39500,
+          "working_set_mb": 751.9
+        },
+        {
+          "reset": 13,
+          "total_s": 5.373690100001113,
+          "kill_s": 0.15662999999767635,
+          "prepare_and_spawn_s": 0.08846610000182409,
+          "process_to_hello_s": 4.851523199999065,
+          "hello_to_alive_s": 0.26870730000155163,
+          "alive_to_moved_s": 0.008344199999555713,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 41340,
+          "working_set_mb": 749.8
+        },
+        {
+          "reset": 14,
+          "total_s": 5.418974799998978,
+          "kill_s": 0.16093519999776618,
+          "prepare_and_spawn_s": 0.09383639999941806,
+          "process_to_hello_s": 4.884166400002869,
+          "hello_to_alive_s": 0.26864349999959813,
+          "alive_to_moved_s": 0.011374399997293949,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 40704,
+          "working_set_mb": 744.6
+        },
+        {
+          "reset": 15,
+          "total_s": 5.593402400001651,
+          "kill_s": 0.1788332999967679,
+          "prepare_and_spawn_s": 0.10048650000317139,
+          "process_to_hello_s": 5.0112999999983,
+          "hello_to_alive_s": 0.2931529999987106,
+          "alive_to_moved_s": 0.009535200002574129,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 41052,
+          "working_set_mb": 749.5
+        },
+        {
+          "reset": 16,
+          "total_s": 5.4127451999993355,
+          "kill_s": 0.178218699998979,
+          "prepare_and_spawn_s": 0.08934360000057495,
+          "process_to_hello_s": 4.876192700001411,
+          "hello_to_alive_s": 0.2545255000004545,
+          "alive_to_moved_s": 0.014376399998582201,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 40136,
+          "working_set_mb": 751.1
+        },
+        {
+          "reset": 17,
+          "total_s": 5.8334703000000445,
+          "kill_s": 0.15218900000036228,
+          "prepare_and_spawn_s": 0.0879735000016808,
+          "process_to_hello_s": 5.316843500000687,
+          "hello_to_alive_s": 0.26842439999745693,
+          "alive_to_moved_s": 0.00802020000264747,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 27224,
+          "working_set_mb": 756.7
+        },
+        {
+          "reset": 18,
+          "total_s": 5.3667268000026525,
+          "kill_s": 0.17415810000238707,
+          "prepare_and_spawn_s": 0.11817039999732515,
+          "process_to_hello_s": 4.763586400000349,
+          "hello_to_alive_s": 0.3004285000024538,
+          "alive_to_moved_s": 0.01031169999987469,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 36900,
+          "working_set_mb": 749.7
+        },
+        {
+          "reset": 19,
+          "total_s": 5.709976500002085,
+          "kill_s": 0.20465820000026724,
+          "prepare_and_spawn_s": 0.11773860000175773,
+          "process_to_hello_s": 5.1320003000000725,
+          "hello_to_alive_s": 0.2440805999976874,
+          "alive_to_moved_s": 0.01148020000255201,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 39648,
+          "working_set_mb": 751.9
+        }
+      ],
+      "ok": true,
+      "wall_minutes": 2.32,
+      "summary": {
+        "resets_ok": 20,
+        "resets_requested": 20,
+        "seconds": {
+          "total_s": {
+            "n": 20,
+            "p50": 5.414,
+            "p95": 5.7359,
+            "mean": 5.4701,
+            "min": 5.3063,
+            "max": 5.8335
+          },
+          "kill_s": {
+            "n": 20,
+            "p50": 0.1608,
+            "p95": 0.2006,
+            "mean": 0.1676,
+            "min": 0.1446,
+            "max": 0.2047
+          },
+          "prepare_and_spawn_s": {
+            "n": 20,
+            "p50": 0.0935,
+            "p95": 0.1234,
+            "mean": 0.0988,
+            "min": 0.0851,
+            "max": 0.126
+          },
+          "process_to_hello_s": {
+            "n": 20,
+            "p50": 4.8802,
+            "p95": 5.2304,
+            "mean": 4.922,
+            "min": 4.763,
+            "max": 5.3168
+          },
+          "hello_to_alive_s": {
+            "n": 20,
+            "p50": 0.2689,
+            "p95": 0.2935,
+            "mean": 0.2708,
+            "min": 0.2441,
+            "max": 0.3004
+          },
+          "alive_to_moved_s": {
+            "n": 20,
+            "p50": 0.011,
+            "p95": 0.0133,
+            "mean": 0.0108,
+            "min": 0.008,
+            "max": 0.0144
+          }
+        },
+        "working_set_mb": {
+          "first": 745.3,
+          "last": 751.9,
+          "max": 756.7,
+          "growth_last_minus_first": 6.6
+        },
+        "seed_readback": {
+          "key": "seed",
+          "all_equal_requested": true,
+          "distinct": [
+            "123456789"
+          ]
+        },
+        "frames_alive_to_moved": {
+          "n": 20,
+          "p50": 1.0,
+          "p95": 1.0,
+          "mean": 1.0,
+          "min": 1,
+          "max": 1
+        }
+      },
+      "scriptable_no_click": true
+    },
+    "relaunch_reuse": {
+      "rows": [
+        {
+          "reset": 0,
+          "total_s": 5.318328100001963,
+          "kill_s": 0.15912499999831198,
+          "prepare_and_spawn_s": 0.005629600000247592,
+          "process_to_hello_s": 4.873323100000562,
+          "hello_to_alive_s": 0.27032169999802136,
+          "alive_to_moved_s": 0.00991020000219578,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 26852,
+          "working_set_mb": 749.6
+        },
+        {
+          "reset": 1,
+          "total_s": 5.28650320000088,
+          "kill_s": 0.18885320000117645,
+          "prepare_and_spawn_s": 0.005660099999658996,
+          "process_to_hello_s": 4.815362199999072,
+          "hello_to_alive_s": 0.26407770000150776,
+          "alive_to_moved_s": 0.012531000000308268,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 37624,
+          "working_set_mb": 749.2
+        },
+        {
+          "reset": 2,
+          "total_s": 5.259580099998857,
+          "kill_s": 0.16292990000147256,
+          "prepare_and_spawn_s": 0.004123200000321958,
+          "process_to_hello_s": 4.821729799998138,
+          "hello_to_alive_s": 0.2607855999995081,
+          "alive_to_moved_s": 0.009991999999328982,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 29284,
+          "working_set_mb": 750.3
+        },
+        {
+          "reset": 3,
+          "total_s": 5.423744399999123,
+          "kill_s": 0.19514770000023418,
+          "prepare_and_spawn_s": 0.004109299999981886,
+          "process_to_hello_s": 4.934550500001933,
+          "hello_to_alive_s": 0.27679539999735425,
+          "alive_to_moved_s": 0.013070299999526469,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 36532,
+          "working_set_mb": 748.0
+        },
+        {
+          "reset": 4,
+          "total_s": 5.26264749999973,
+          "kill_s": 0.16249109999989741,
+          "prepare_and_spawn_s": 0.005242199997155694,
+          "process_to_hello_s": 4.80252610000025,
+          "hello_to_alive_s": 0.2807226000004448,
+          "alive_to_moved_s": 0.011645999999018386,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 40096,
+          "working_set_mb": 747.0
+        },
+        {
+          "reset": 5,
+          "total_s": 5.224798200000805,
+          "kill_s": 0.14945860000079847,
+          "prepare_and_spawn_s": 0.006369999999151332,
+          "process_to_hello_s": 4.812264000000141,
+          "hello_to_alive_s": 0.24307000000044354,
+          "alive_to_moved_s": 0.013558099999499973,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 41800,
+          "working_set_mb": 748.8
+        },
+        {
+          "reset": 6,
+          "total_s": 5.285721099997318,
+          "kill_s": 0.164309100000537,
+          "prepare_and_spawn_s": 0.006211500000063097,
+          "process_to_hello_s": 4.84589010000127,
+          "hello_to_alive_s": 0.2615555999982462,
+          "alive_to_moved_s": 0.007678099998884136,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 33292,
+          "working_set_mb": 748.4
+        },
+        {
+          "reset": 7,
+          "total_s": 5.245414799999708,
+          "kill_s": 0.15254130000175792,
+          "prepare_and_spawn_s": 0.004811300001165364,
+          "process_to_hello_s": 4.827057799997419,
+          "hello_to_alive_s": 0.24946380000255886,
+          "alive_to_moved_s": 0.011521499996888451,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 41868,
+          "working_set_mb": 752.7
+        },
+        {
+          "reset": 8,
+          "total_s": 5.404436400000122,
+          "kill_s": 0.1678929000008793,
+          "prepare_and_spawn_s": 0.0055032999989634845,
+          "process_to_hello_s": 4.940030599998863,
+          "hello_to_alive_s": 0.28001920000315295,
+          "alive_to_moved_s": 0.0109119999979157,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 37832,
+          "working_set_mb": 752.3
+        },
+        {
+          "reset": 9,
+          "total_s": 5.3470398999998,
+          "kill_s": 0.1592596999980742,
+          "prepare_and_spawn_s": 0.009542100000544451,
+          "process_to_hello_s": 4.905822400000034,
+          "hello_to_alive_s": 0.2603086000017356,
+          "alive_to_moved_s": 0.012088299998140428,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 37856,
+          "working_set_mb": 749.4
+        },
+        {
+          "reset": 10,
+          "total_s": 5.272744400001102,
+          "kill_s": 0.18387920000168378,
+          "prepare_and_spawn_s": 0.0067295999979251064,
+          "process_to_hello_s": 4.821843200003059,
+          "hello_to_alive_s": 0.24869119999857503,
+          "alive_to_moved_s": 0.011527200000273297,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 41072,
+          "working_set_mb": 749.5
+        },
+        {
+          "reset": 11,
+          "total_s": 5.437399200000073,
+          "kill_s": 0.16060469999865745,
+          "prepare_and_spawn_s": 0.0059175000023969915,
+          "process_to_hello_s": 4.830366399997729,
+          "hello_to_alive_s": 0.3044055999998818,
+          "alive_to_moved_s": 0.13603240000156802,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 33192,
+          "working_set_mb": 746.3
+        },
+        {
+          "reset": 12,
+          "total_s": 5.441390700001648,
+          "kill_s": 0.17562570000154665,
+          "prepare_and_spawn_s": 0.006461900000431342,
+          "process_to_hello_s": 4.976180899997416,
+          "hello_to_alive_s": 0.27325780000319355,
+          "alive_to_moved_s": 0.00979419999930542,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 39028,
+          "working_set_mb": 751.9
+        },
+        {
+          "reset": 13,
+          "total_s": 5.286852099998214,
+          "kill_s": 0.14475859999947716,
+          "prepare_and_spawn_s": 0.004215400000248337,
+          "process_to_hello_s": 4.841444399997272,
+          "hello_to_alive_s": 0.2868381000007503,
+          "alive_to_moved_s": 0.009572700000717305,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 39312,
+          "working_set_mb": 750.5
+        },
+        {
+          "reset": 14,
+          "total_s": 5.426715800000238,
+          "kill_s": 0.18301190000056522,
+          "prepare_and_spawn_s": 0.006184400001075119,
+          "process_to_hello_s": 4.986847999996826,
+          "hello_to_alive_s": 0.24058640000293963,
+          "alive_to_moved_s": 0.010009699999500299,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 37368,
+          "working_set_mb": 752.3
+        },
+        {
+          "reset": 15,
+          "total_s": 5.427445699999225,
+          "kill_s": 0.1575407999989693,
+          "prepare_and_spawn_s": 0.005590600001596613,
+          "process_to_hello_s": 5.006086999997933,
+          "hello_to_alive_s": 0.2449071000010008,
+          "alive_to_moved_s": 0.01324190000013914,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 3652,
+          "working_set_mb": 752.3
+        },
+        {
+          "reset": 16,
+          "total_s": 5.313370100000611,
+          "kill_s": 0.181216900000436,
+          "prepare_and_spawn_s": 0.008423200000834186,
+          "process_to_hello_s": 4.851936200000637,
+          "hello_to_alive_s": 0.2576702000005753,
+          "alive_to_moved_s": 0.014103800000157207,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 39364,
+          "working_set_mb": 749.1
+        },
+        {
+          "reset": 17,
+          "total_s": 5.289437600000383,
+          "kill_s": 0.162920300001133,
+          "prepare_and_spawn_s": 0.005352799998945557,
+          "process_to_hello_s": 4.863526199998887,
+          "hello_to_alive_s": 0.2476234999994631,
+          "alive_to_moved_s": 0.00993660000312957,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 33312,
+          "working_set_mb": 749.9
+        },
+        {
+          "reset": 18,
+          "total_s": 5.370889600002556,
+          "kill_s": 0.1958943999998155,
+          "prepare_and_spawn_s": 0.005980400001135422,
+          "process_to_hello_s": 4.891471099999762,
+          "hello_to_alive_s": 0.26830730000074254,
+          "alive_to_moved_s": 0.009216200000082608,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 39100,
+          "working_set_mb": 745.2
+        },
+        {
+          "reset": 19,
+          "total_s": 5.352112799999304,
+          "kill_s": 0.16210309999951278,
+          "prepare_and_spawn_s": 0.005650899998727255,
+          "process_to_hello_s": 4.889269200000854,
+          "hello_to_alive_s": 0.2844014000002062,
+          "alive_to_moved_s": 0.010616299998218892,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 39296,
+          "working_set_mb": 745.2
+        }
+      ],
+      "ok": true,
+      "wall_minutes": 2.27,
+      "summary": {
+        "resets_ok": 20,
+        "resets_requested": 20,
+        "seconds": {
+          "total_s": {
+            "n": 20,
+            "p50": 5.3158,
+            "p95": 5.4376,
+            "mean": 5.3338,
+            "min": 5.2248,
+            "max": 5.4414
+          },
+          "kill_s": {
+            "n": 20,
+            "p50": 0.1629,
+            "p95": 0.1952,
+            "mean": 0.1685,
+            "min": 0.1448,
+            "max": 0.1959
+          },
+          "prepare_and_spawn_s": {
+            "n": 20,
+            "p50": 0.0057,
+            "p95": 0.0085,
+            "mean": 0.0059,
+            "min": 0.0041,
+            "max": 0.0095
+          },
+          "process_to_hello_s": {
+            "n": 20,
+            "p50": 4.8577,
+            "p95": 4.9878,
+            "mean": 4.8769,
+            "min": 4.8025,
+            "max": 5.0061
+          },
+          "hello_to_alive_s": {
+            "n": 20,
+            "p50": 0.2628,
+            "p95": 0.2877,
+            "mean": 0.2652,
+            "min": 0.2406,
+            "max": 0.3044
+          },
+          "alive_to_moved_s": {
+            "n": 20,
+            "p50": 0.0112,
+            "p95": 0.0202,
+            "mean": 0.0173,
+            "min": 0.0077,
+            "max": 0.136
+          }
+        },
+        "working_set_mb": {
+          "first": 749.6,
+          "last": 745.2,
+          "max": 752.7,
+          "growth_last_minus_first": -4.4
+        },
+        "seed_readback": {
+          "key": "seed",
+          "all_equal_requested": true,
+          "distinct": [
+            "123456789"
+          ]
+        },
+        "frames_alive_to_moved": {
+          "n": 20,
+          "p50": 1.0,
+          "p95": 1.0,
+          "mean": 1.0,
+          "min": 1,
+          "max": 1
+        }
+      },
+      "scriptable_no_click": true
+    },
+    "newgame_ui": {
+      "rows": [
+        {
+          "reset": 0,
+          "total_s": 8.429037300000346,
+          "death_to_ui_s": 1.0469873000001826,
+          "ui_to_exit_s": 1.4494440999988,
+          "exit_to_hello_s": 5.6695333999996365,
+          "hello_to_alive_s": 0.2505468999988807,
+          "alive_to_moved_s": 0.01252560000284575,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 40592,
+          "working_set_mb": 748.3,
+          "live_game_processes": 1
+        },
+        {
+          "reset": 1,
+          "total_s": 8.591069100002642,
+          "death_to_ui_s": 1.0349899000029836,
+          "ui_to_exit_s": 1.4192063999980746,
+          "exit_to_hello_s": 5.886767100000725,
+          "hello_to_alive_s": 0.239163300000655,
+          "alive_to_moved_s": 0.010942400000203634,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 40652,
+          "working_set_mb": 748.8,
+          "live_game_processes": 1
+        },
+        {
+          "reset": 2,
+          "total_s": 8.36592279999968,
+          "death_to_ui_s": 1.0332439999983762,
+          "ui_to_exit_s": 1.4429670999998052,
+          "exit_to_hello_s": 5.6260513000015635,
+          "hello_to_alive_s": 0.2531176000011328,
+          "alive_to_moved_s": 0.010542799998802366,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 6044,
+          "working_set_mb": 751.6,
+          "live_game_processes": 1
+        },
+        {
+          "reset": 3,
+          "total_s": 8.342066600002,
+          "death_to_ui_s": 1.0444548000014038,
+          "ui_to_exit_s": 1.409746000001178,
+          "exit_to_hello_s": 5.622250000000349,
+          "hello_to_alive_s": 0.254485499997827,
+          "alive_to_moved_s": 0.011130300001241267,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 38052,
+          "working_set_mb": 753.9,
+          "live_game_processes": 1
+        },
+        {
+          "reset": 4,
+          "total_s": 8.472004600000218,
+          "death_to_ui_s": 1.0402964999993856,
+          "ui_to_exit_s": 1.4456969000020763,
+          "exit_to_hello_s": 5.707059799999115,
+          "hello_to_alive_s": 0.2677259999982198,
+          "alive_to_moved_s": 0.011225400001421804,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 41760,
+          "working_set_mb": 749.2,
+          "live_game_processes": 1
+        },
+        {
+          "reset": 5,
+          "total_s": 8.457601499998418,
+          "death_to_ui_s": 1.0285920999995142,
+          "ui_to_exit_s": 1.448883000000933,
+          "exit_to_hello_s": 5.71030780000001,
+          "hello_to_alive_s": 0.25431440000102157,
+          "alive_to_moved_s": 0.01550419999693986,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 41292,
+          "working_set_mb": 747.5,
+          "live_game_processes": 1
+        },
+        {
+          "reset": 6,
+          "total_s": 8.430241899997782,
+          "death_to_ui_s": 1.03424399999858,
+          "ui_to_exit_s": 1.4312468999996781,
+          "exit_to_hello_s": 5.676698600000236,
+          "hello_to_alive_s": 0.27859349999926053,
+          "alive_to_moved_s": 0.009458900000026915,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 41648,
+          "working_set_mb": 748.9,
+          "live_game_processes": 1
+        },
+        {
+          "reset": 7,
+          "total_s": 8.344219499998871,
+          "death_to_ui_s": 1.0287723000001279,
+          "ui_to_exit_s": 1.4410099999986414,
+          "exit_to_hello_s": 5.604827700000897,
+          "hello_to_alive_s": 0.25810679999995045,
+          "alive_to_moved_s": 0.011502699999255128,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 39680,
+          "working_set_mb": 747.8,
+          "live_game_processes": 1
+        },
+        {
+          "reset": 8,
+          "total_s": 8.238191700002062,
+          "death_to_ui_s": 1.0446821000005002,
+          "ui_to_exit_s": 1.4278479000022344,
+          "exit_to_hello_s": 5.481270299998869,
+          "hello_to_alive_s": 0.2692626999996719,
+          "alive_to_moved_s": 0.015128700000786921,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 38896,
+          "working_set_mb": 752.4,
+          "live_game_processes": 1
+        },
+        {
+          "reset": 9,
+          "total_s": 8.463964999999007,
+          "death_to_ui_s": 1.0471093999985897,
+          "ui_to_exit_s": 1.462482099999761,
+          "exit_to_hello_s": 5.679689399999916,
+          "hello_to_alive_s": 0.2626345999997284,
+          "alive_to_moved_s": 0.012049500001012348,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 38796,
+          "working_set_mb": 751.5,
+          "live_game_processes": 1
+        },
+        {
+          "reset": 10,
+          "total_s": 8.516906600001676,
+          "death_to_ui_s": 1.0443555999991077,
+          "ui_to_exit_s": 1.4712959000025876,
+          "exit_to_hello_s": 5.541945199998736,
+          "hello_to_alive_s": 0.33344270000088727,
+          "alive_to_moved_s": 0.12586720000035712,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 40924,
+          "working_set_mb": 749.1,
+          "live_game_processes": 1
+        },
+        {
+          "reset": 11,
+          "total_s": 8.426880799997889,
+          "death_to_ui_s": 1.0433819999998377,
+          "ui_to_exit_s": 1.4716417999989062,
+          "exit_to_hello_s": 5.6153260999999475,
+          "hello_to_alive_s": 0.2857971000012185,
+          "alive_to_moved_s": 0.010733799997979077,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 36360,
+          "working_set_mb": 753.1,
+          "live_game_processes": 1
+        },
+        {
+          "reset": 12,
+          "total_s": 8.237269100001868,
+          "death_to_ui_s": 1.0382060000010824,
+          "ui_to_exit_s": 1.4859962000009546,
+          "exit_to_hello_s": 5.441003500000079,
+          "hello_to_alive_s": 0.2622483999984979,
+          "alive_to_moved_s": 0.009815000001253793,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 36340,
+          "working_set_mb": 751.0,
+          "live_game_processes": 1
+        },
+        {
+          "reset": 13,
+          "total_s": 8.32556669999758,
+          "death_to_ui_s": 1.0466310000010708,
+          "ui_to_exit_s": 1.4635705000000598,
+          "exit_to_hello_s": 5.557272999998531,
+          "hello_to_alive_s": 0.24825209999835351,
+          "alive_to_moved_s": 0.0098400999995647,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 39220,
+          "working_set_mb": 751.4,
+          "live_game_processes": 1
+        },
+        {
+          "reset": 14,
+          "total_s": 8.743726900000183,
+          "death_to_ui_s": 1.0571109000011347,
+          "ui_to_exit_s": 1.4369415000001027,
+          "exit_to_hello_s": 5.979885499997181,
+          "hello_to_alive_s": 0.2586639000001014,
+          "alive_to_moved_s": 0.011125100001663668,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 40032,
+          "working_set_mb": 752.3,
+          "live_game_processes": 1
+        },
+        {
+          "reset": 15,
+          "total_s": 8.335987099999329,
+          "death_to_ui_s": 1.036016699999891,
+          "ui_to_exit_s": 1.4546669000010297,
+          "exit_to_hello_s": 5.589760499999102,
+          "hello_to_alive_s": 0.24547140000140644,
+          "alive_to_moved_s": 0.010071599997900194,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 42352,
+          "working_set_mb": 751.7,
+          "live_game_processes": 1
+        },
+        {
+          "reset": 16,
+          "total_s": 8.470477099999698,
+          "death_to_ui_s": 1.0420351000029768,
+          "ui_to_exit_s": 1.4749384999995527,
+          "exit_to_hello_s": 5.694620999998733,
+          "hello_to_alive_s": 0.24688260000039008,
+          "alive_to_moved_s": 0.011999899998045294,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 42376,
+          "working_set_mb": 748.9,
+          "live_game_processes": 1
+        },
+        {
+          "reset": 17,
+          "total_s": 8.420677399997658,
+          "death_to_ui_s": 1.0430443999975978,
+          "ui_to_exit_s": 1.415525799999159,
+          "exit_to_hello_s": 5.6829584000006435,
+          "hello_to_alive_s": 0.2692557000009401,
+          "alive_to_moved_s": 0.0098930999993172,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 41296,
+          "working_set_mb": 748.7,
+          "live_game_processes": 1
+        },
+        {
+          "reset": 18,
+          "total_s": 8.399076099998638,
+          "death_to_ui_s": 1.035762600000453,
+          "ui_to_exit_s": 1.4410222000005888,
+          "exit_to_hello_s": 5.635222999997495,
+          "hello_to_alive_s": 0.27638090000255033,
+          "alive_to_moved_s": 0.010687399997550528,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 42916,
+          "working_set_mb": 745.6,
+          "live_game_processes": 1
+        },
+        {
+          "reset": 19,
+          "total_s": 8.826700000001438,
+          "death_to_ui_s": 1.0497009999999136,
+          "ui_to_exit_s": 1.456004400002712,
+          "exit_to_hello_s": 6.019628199999715,
+          "hello_to_alive_s": 0.28617379999923287,
+          "alive_to_moved_s": 0.015192599999863887,
+          "alive_frame": 11,
+          "moved_frame": 12,
+          "seed": {
+            "seed": 123456789,
+            "seed_alt": 123456789,
+            "magic_seed": "123456789"
+          },
+          "pid": 38764,
+          "working_set_mb": 744.3,
+          "live_game_processes": 1
+        }
+      ],
+      "shim_log_first": [
+        "tick=19109046 mode=relaunch cwd=<repo>\\.rl_bench_state\\instances\\i0 cmdline=noita.exe -no_logo_splashes -gamemode 0 -gamemode_mod_name  -gamemode_mod_workshop_item_id 0 -save_slot 0 ",
+        "started pid=40592 cmd=\"<steam library>\\SteamApps\\common\\Noita\\noita.exe\" -always_store_userdata_in_workdir -no_logo_splashes -gamemode 0 -gamemode_mod_name  -gamemode_mod_workshop_item_id 0 -save_slot 0 "
+      ],
+      "ok": true,
+      "wall_minutes": 3.35,
+      "summary": {
+        "resets_ok": 20,
+        "resets_requested": 20,
+        "seconds": {
+          "total_s": {
+            "n": 20,
+            "p50": 8.428,
+            "p95": 8.7479,
+            "mean": 8.4419,
+            "min": 8.2373,
+            "max": 8.8267
+          },
+          "death_to_ui_s": {
+            "n": 20,
+            "p50": 1.0425,
+            "p95": 1.0501,
+            "mean": 1.041,
+            "min": 1.0286,
+            "max": 1.0571
+          },
+          "ui_to_exit_s": {
+            "n": 20,
+            "p50": 1.4473,
+            "p95": 1.4755,
+            "mean": 1.4475,
+            "min": 1.4097,
+            "max": 1.486
+          },
+          "exit_to_hello_s": {
+            "n": 20,
+            "p50": 5.6524,
+            "p95": 5.9819,
+            "mean": 5.6711,
+            "min": 5.441,
+            "max": 6.0196
+          },
+          "hello_to_alive_s": {
+            "n": 20,
+            "p50": 0.2605,
+            "p95": 0.2885,
+            "mean": 0.265,
+            "min": 0.2392,
+            "max": 0.3334
+          },
+          "alive_to_moved_s": {
+            "n": 20,
+            "p50": 0.0111,
+            "p95": 0.021,
+            "mean": 0.0173,
+            "min": 0.0095,
+            "max": 0.1259
+          }
+        },
+        "working_set_mb": {
+          "first": 748.3,
+          "last": 744.3,
+          "max": 753.9,
+          "growth_last_minus_first": -4.0
+        },
+        "seed_readback": {
+          "key": "seed",
+          "all_equal_requested": true,
+          "distinct": [
+            "123456789"
+          ]
+        },
+        "frames_alive_to_moved": {
+          "n": 20,
+          "p50": 1.0,
+          "p95": 1.0,
+          "mean": 1.0,
+          "min": 1,
+          "max": 1
+        }
+      },
+      "scriptable_no_click": true
+    },
+    "scenario": {
+      "rows": [
+        {
+          "reset": 0,
+          "total_s": 0.05882779999956256,
+          "command_rtt_s": 0.027672899999743095,
+          "lua_ms": 0.0671,
+          "entities_removed": 35,
+          "cmd_frame": 135,
+          "moved_frame": 137,
+          "working_set_mb": 746.8
+        },
+        {
+          "reset": 1,
+          "total_s": 0.0534851999982493,
+          "command_rtt_s": 0.016956700001173886,
+          "lua_ms": 0.0182,
+          "entities_removed": 4,
+          "cmd_frame": 230,
+          "moved_frame": 232,
+          "working_set_mb": 743.1
+        },
+        {
+          "reset": 2,
+          "total_s": 0.04987999999866588,
+          "command_rtt_s": 0.0171950999974797,
+          "lua_ms": 0.0165,
+          "entities_removed": 3,
+          "cmd_frame": 325,
+          "moved_frame": 327,
+          "working_set_mb": 743.1
+        },
+        {
+          "reset": 3,
+          "total_s": 0.050096700000722194,
+          "command_rtt_s": 0.01720019999993383,
+          "lua_ms": 0.0166,
+          "entities_removed": 3,
+          "cmd_frame": 420,
+          "moved_frame": 422,
+          "working_set_mb": 743.1
+        },
+        {
+          "reset": 4,
+          "total_s": 0.049840799998492,
+          "command_rtt_s": 0.016191999999136897,
+          "lua_ms": 0.0185,
+          "entities_removed": 3,
+          "cmd_frame": 515,
+          "moved_frame": 517,
+          "working_set_mb": 743.2
+        },
+        {
+          "reset": 5,
+          "total_s": 0.049085200000263285,
+          "command_rtt_s": 0.015865099998336518,
+          "lua_ms": 0.0168,
+          "entities_removed": 3,
+          "cmd_frame": 610,
+          "moved_frame": 612,
+          "working_set_mb": 743.2
+        },
+        {
+          "reset": 6,
+          "total_s": 0.050154399999883026,
+          "command_rtt_s": 0.01695290000134264,
+          "lua_ms": 0.0192,
+          "entities_removed": 3,
+          "cmd_frame": 705,
+          "moved_frame": 707,
+          "working_set_mb": 743.3
+        },
+        {
+          "reset": 7,
+          "total_s": 0.049668200001178775,
+          "command_rtt_s": 0.017263400000956608,
+          "lua_ms": 0.0179,
+          "entities_removed": 3,
+          "cmd_frame": 800,
+          "moved_frame": 802,
+          "working_set_mb": 743.3
+        },
+        {
+          "reset": 8,
+          "total_s": 0.049990100000286475,
+          "command_rtt_s": 0.016779500001575798,
+          "lua_ms": 0.0284,
+          "entities_removed": 3,
+          "cmd_frame": 895,
+          "moved_frame": 897,
+          "working_set_mb": 743.3
+        },
+        {
+          "reset": 9,
+          "total_s": 0.049530599997524405,
+          "command_rtt_s": 0.016731799998524366,
+          "lua_ms": 0.0192,
+          "entities_removed": 3,
+          "cmd_frame": 990,
+          "moved_frame": 992,
+          "working_set_mb": 743.3
+        },
+        {
+          "reset": 10,
+          "total_s": 0.05026509999879636,
+          "command_rtt_s": 0.01702819999991334,
+          "lua_ms": 0.0187,
+          "entities_removed": 3,
+          "cmd_frame": 1085,
+          "moved_frame": 1087,
+          "working_set_mb": 743.3
+        },
+        {
+          "reset": 11,
+          "total_s": 0.05041770000025281,
+          "command_rtt_s": 0.016917900000407826,
+          "lua_ms": 0.0184,
+          "entities_removed": 3,
+          "cmd_frame": 1180,
+          "moved_frame": 1182,
+          "working_set_mb": 743.3
+        },
+        {
+          "reset": 12,
+          "total_s": 0.04977900000085356,
+          "command_rtt_s": 0.016802599999209633,
+          "lua_ms": 0.0173,
+          "entities_removed": 3,
+          "cmd_frame": 1275,
+          "moved_frame": 1277,
+          "working_set_mb": 743.3
+        },
+        {
+          "reset": 13,
+          "total_s": 0.049975100002484396,
+          "command_rtt_s": 0.01691440000286093,
+          "lua_ms": 0.0198,
+          "entities_removed": 3,
+          "cmd_frame": 1370,
+          "moved_frame": 1372,
+          "working_set_mb": 743.9
+        },
+        {
+          "reset": 14,
+          "total_s": 0.0494827999973495,
+          "command_rtt_s": 0.016617799999949057,
+          "lua_ms": 0.0214,
+          "entities_removed": 3,
+          "cmd_frame": 1465,
+          "moved_frame": 1467,
+          "working_set_mb": 743.9
+        },
+        {
+          "reset": 15,
+          "total_s": 0.05090349999954924,
+          "command_rtt_s": 0.0175944000002346,
+          "lua_ms": 0.0169,
+          "entities_removed": 3,
+          "cmd_frame": 1560,
+          "moved_frame": 1562,
+          "working_set_mb": 743.9
+        },
+        {
+          "reset": 16,
+          "total_s": 0.05013979999785079,
+          "command_rtt_s": 0.01691679999930784,
+          "lua_ms": 0.0178,
+          "entities_removed": 3,
+          "cmd_frame": 1655,
+          "moved_frame": 1657,
+          "working_set_mb": 743.9
+        },
+        {
+          "reset": 17,
+          "total_s": 0.04985550000128569,
+          "command_rtt_s": 0.01657809999960591,
+          "lua_ms": 0.0167,
+          "entities_removed": 3,
+          "cmd_frame": 1750,
+          "moved_frame": 1752,
+          "working_set_mb": 743.9
+        },
+        {
+          "reset": 18,
+          "total_s": 0.04999560000214842,
+          "command_rtt_s": 0.017058699999324745,
+          "lua_ms": 0.02,
+          "entities_removed": 3,
+          "cmd_frame": 1845,
+          "moved_frame": 1847,
+          "working_set_mb": 743.9
+        },
+        {
+          "reset": 19,
+          "total_s": 0.05030400000032387,
+          "command_rtt_s": 0.016712200002075406,
+          "lua_ms": 0.0175,
+          "entities_removed": 3,
+          "cmd_frame": 1940,
+          "moved_frame": 1942,
+          "working_set_mb": 743.9
+        }
+      ],
+      "ok": true,
+      "wall_minutes": 0.64,
+      "summary": {
+        "resets_ok": 20,
+        "resets_requested": 20,
+        "seconds": {
+          "total_s": {
+            "n": 20,
+            "p50": 0.05,
+            "p95": 0.0538,
+            "mean": 0.0506,
+            "min": 0.0491,
+            "max": 0.0588
+          },
+          "command_rtt_s": {
+            "n": 20,
+            "p50": 0.0169,
+            "p95": 0.0181,
+            "mean": 0.0174,
+            "min": 0.0159,
+            "max": 0.0277
+          }
+        },
+        "working_set_mb": {
+          "first": 746.8,
+          "last": 743.9,
+          "max": 746.8,
+          "growth_last_minus_first": -2.9
+        }
+      },
+      "scriptable_no_click": true
+    }
+  },
+  "finished": "2026-09-28T22:28:15"
+}

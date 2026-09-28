@@ -4,7 +4,7 @@ import sys
 import time
 from pathlib import Path
 
-from . import actions, gameconfig, launcher, paths, smoke, snapshot, test1, test2
+from . import actions, gameconfig, launcher, paths, smoke, snapshot, test1, test2, test3, test4
 
 
 def _render(a) -> gameconfig.RenderOptions:
@@ -76,7 +76,7 @@ def cmd_smoke(a):
 def save_result(prefix: str, res: dict) -> Path:
     paths.RESULTS_DIR.mkdir(exist_ok=True)
     out = paths.RESULTS_DIR / f"{prefix}_{time.strftime('%Y%m%d-%H%M%S')}.json"
-    out.write_text(json.dumps(res, indent=2))
+    out.write_text(json.dumps(res, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(f"wrote {out}", flush=True)
     return out
 
@@ -95,14 +95,28 @@ def cmd_test2(a):
     save_result("test2", test2.run(framerate=a.framerate, timescale=a.timescale or None, log=_log))
 
 
+def cmd_test3(a):
+    save_result("test3", test3.run(resets=a.resets, candidates=a.candidates, log=_log))
+
+
+def cmd_test4(a):
+    if a.diagnose:
+        save_result("test4_diagnose", test4.diagnose(log=_log))
+        return
+    save_result("test4", test4.run(ns=a.ns, timescale=a.timescale, window_s=a.window,
+                                   extra_scales=tuple(a.extra_scales), log=_log))
+
+
 def cmd_suite(a):
-    """Every test implemented so far, in order; one result file each plus an index."""
+    """Every test in order; one result file each plus an index."""
     t0 = time.perf_counter()
     files = {
         "smoke": str(smoke.save(smoke.run(storage="workdir"))),
         "actions": str(save_result("actions", actions.run())),
         "test1": str(save_result("test1", test1.run(reps=a.reps, baseline_reps=a.baseline_reps, log=_log))),
         "test2": str(save_result("test2", test2.run(framerate=60, timescale=8.0, log=_log))),
+        "test3": str(save_result("test3", test3.run(resets=a.resets, log=_log))),
+        "test4": str(save_result("test4", test4.run(timescale=3.0, log=_log))),
     }
     save_result("suite", {"results": files, "minutes": round((time.perf_counter() - t0) / 60, 1)})
 
@@ -185,9 +199,24 @@ def main(argv=None):
                    help="clock scale (default 8: the fastest, uncapped setting from Test 1); 0 = no hook")
     p.set_defaults(fn=cmd_test2)
 
-    p = sub.add_parser("suite", help="run every implemented test (smoke, actions, test1, test2)")
+    p = sub.add_parser("test3", help="reset paths; writes results/test3_*.json")
+    p.add_argument("--resets", type=int, default=20)
+    p.add_argument("--candidates", nargs="*", default=None,
+                   choices=["relaunch_fresh", "relaunch_reuse", "newgame_ui", "scenario"])
+    p.set_defaults(fn=cmd_test3)
+
+    p = sub.add_parser("test4", help="parallel instances; writes results/test4_*.json")
+    p.add_argument("--ns", nargs="*", type=int, default=None)
+    p.add_argument("--timescale", type=float, default=3.0)
+    p.add_argument("--window", type=float, default=15.0)
+    p.add_argument("--extra-scales", nargs="*", type=float, default=[1.0, 8.0])
+    p.add_argument("--diagnose", action="store_true", help="find what caps aggregate fps at N=4")
+    p.set_defaults(fn=cmd_test4)
+
+    p = sub.add_parser("suite", help="run every test: smoke, actions, test1-4 (about 50 min)")
     p.add_argument("--reps", type=int, default=3)
     p.add_argument("--baseline-reps", type=int, default=5)
+    p.add_argument("--resets", type=int, default=20)
     p.set_defaults(fn=cmd_suite)
 
     p = sub.add_parser("diff-backup", help="compare live user data with a backup folder")

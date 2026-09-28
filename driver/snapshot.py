@@ -92,7 +92,8 @@ def take() -> dict:
         "watch": _watch_listing(),
     }
     # written last: its presence marks a complete snapshot
-    (SESSION / "manifest.json").write_text(json.dumps(manifest, indent=1))
+    (SESSION / "manifest.json").write_text(json.dumps(manifest, indent=1), encoding="utf-8",
+                                           newline="\n")
     return manifest
 
 

@@ -15,7 +15,7 @@ cost, reset path, parallel instances. No RL training yet. Deliverables: `rl_benc
 | 0 | Install Noita-MCP full tier, audit and harden it, MCP config | Done |
 | 1 | Harness core: TCP lockstep/free-run link, input, grid read, fixed seed, workdir isolation, snapshot/restore, smoke test | Done (commit `637c797`) |
 | 2 | Test 1 (speed vs consistency) and Test 2 (grid read cost), `suite` command | Done (commit `929c179`) |
-| 3 | Test 3 (reset paths) and Test 4 (parallel instances, at clock 3x) | In progress |
+| 3 | Test 3 (reset paths) and Test 4 (parallel instances, at clock 3x) | Done, awaiting review |
 | 4 | `FINDINGS.md`, final restore check against the backup | Not started |
 
 ## Phase 1 numbers (`results/smoke-*.json`)
@@ -37,6 +37,16 @@ cost, reset path, parallel instances. No RL training yet. Deliverables: `rl_benc
 - Grid: 64x64 stride 1 reads in 0.060 ms p50 / 0.076 ms p95 (target < 1 ms). Grids up to 64x64
   cost no measurable fps; 128x128 costs 5-10 %.
 - All actions verified: left, right, up (levitate), fire, aim.
+
+## Phase 3 answers (`results/test3_20260928-222815.json`, `results/test4_*.json`)
+
+- Fastest scriptable world reset: **process relaunch, 5.3-5.4 s** from death to controllable
+  (4.9 s of it is engine start to mod hello). In-game "New Game" is itself an executable restart
+  with mods on (8.4 s via the relaunch shim). An in-run scenario reset takes 0.05 s but does not
+  reset the world. Seed fixed after every reset; no memory growth.
+- Parallel: aggregate peaks at **about 300 game fps (4.9x real time) at N=4** with clock 3x, then
+  falls (N=6: 281). The limit is shared across processes and is not CPU, GPU utilisation, the
+  driver, render cost or throttling (see knowledge.md).
 
 ## Next steps
 

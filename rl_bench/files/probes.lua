@@ -270,3 +270,58 @@ cmds.suite = function(a)
   end)
   return { ok = true, start_frame = start, frame = GameGetFrameNum() }
 end
+
+-- ------------------------------------------------------------ scenario reset (Test 3e)
+
+-- In-run reset, not a world reset: heal, remove enemies and projectiles near the player,
+-- teleport to (x, y).
+cmds.scenario_reset = function(a)
+  local p = rlb_bench.player()
+  if not p then return { ok = false, error = "no player" } end
+  local t0 = clock()
+  local px, py = EntityGetTransform(p)
+  local killed = 0
+  for _, tag in ipairs({ "enemy", "projectile" }) do
+    for _, e in ipairs(EntityGetInRadiusWithTag(px, py, a.radius or 1024, tag) or {}) do
+      if e ~= p then
+        EntityKill(e)
+        killed = killed + 1
+      end
+    end
+  end
+  local dmc = EntityGetFirstComponent(p, "DamageModelComponent")
+  if dmc then ComponentSetValue2(dmc, "hp", ComponentGetValue2(dmc, "max_hp")) end
+  rlb_bench.teleport(a.x, a.y)
+  return { ok = true, killed = killed, lua_ms = clock() - t0, frame = GameGetFrameNum() }
+end
+
+-- ------------------------------------------------------------ UI input (Test 3b)
+
+-- Clicks run as a script so motion, press and release land on separate frames.
+-- steps: list of { x, y } (click), { key = scancode } (tap) or { combo = {sc, ...} }
+-- (held together, released in reverse), `gap` frames apart.
+cmds.ui = function(a)
+  local steps, gap = a.steps or {}, a.gap or 3
+  rlb_bench.run_script("ui", function()
+    for _, s in ipairs(steps) do
+      if s.combo then
+        for _, k in ipairs(s.combo) do rlb_input.push_key_edge(k, 1) end
+        wait(2)
+        for i = #s.combo, 1, -1 do rlb_input.push_key_edge(s.combo[i], 0) end
+      elseif s.key then
+        rlb_input.push_key_edge(s.key, 1)
+        wait(2)
+        rlb_input.push_key_edge(s.key, 0)
+      else
+        rlb_input.push_motion(s.x, s.y)
+        wait(2)
+        rlb_input.push_click_edge(1, s.x, s.y)
+        wait(2)
+        rlb_input.push_click_edge(0, s.x, s.y)
+      end
+      wait(gap)
+    end
+    rlb_bench.send({ t = "event", what = "ui_done", frame = GameGetFrameNum() })
+  end)
+  return { ok = true, frame = GameGetFrameNum() }
+end

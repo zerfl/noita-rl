@@ -256,5 +256,5 @@ def run(storage: str = "workdir", seed: int = 123456789, restore: bool = True,
 def save(res: dict) -> Path:
     paths.RESULTS_DIR.mkdir(exist_ok=True)
     out = paths.RESULTS_DIR / f"smoke-{res['storage']}-{time.strftime('%Y%m%d-%H%M%S')}.json"
-    out.write_text(json.dumps(res, indent=2))
+    out.write_text(json.dumps(res, indent=2) + "\n", encoding="utf-8", newline="\n")
     return out

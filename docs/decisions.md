@@ -4,6 +4,14 @@ Newest first. Each entry: what, why, and what would change it.
 
 ## 2026-09-28
 
+- **In-game "New Game" in workdir mode goes through a relaunch shim** (`driver/shim/noita_shim.c`
+  as the instance's `noita.exe`). The game's self-relaunch drops
+  `-always_store_userdata_in_workdir`; the real exe must never sit in a workdir, or a relaunch
+  would use the user's saves.
+- **The dev-build ALT+C restart is not run again.** It raised an error dialog on the user's screen
+  after a death; it is reported as not scriptable.
+- **Test 4's RAM guard is 800 MB per instance plus 1.5 GB reserve** (measured working set about
+  0.7 GB per instance); the ramp stops on the first failure, a fps plateau (< +2 %), or the guard.
 - **Test 4 and the recommended configuration use clock 3x**, the highest strict ±3 % pass. 4x only
   passes when the liquid probe's baseline noise is allowed for; it can be promoted if more
   repetitions tighten that probe.

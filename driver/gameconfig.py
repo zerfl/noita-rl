@@ -15,6 +15,7 @@ class RenderOptions:
     framerate: int = 60
     vsync: int = 0
     mute: bool = True
+    low_gfx: bool = False       # visual-only: smaller internal render size, low-quality flags
 
 
 def bench_config(template: str, opt: RenderOptions) -> str:
@@ -33,6 +34,10 @@ def bench_config(template: str, opt: RenderOptions) -> str:
     }
     if opt.mute:
         attrs.update(audio_music_volume=0, audio_effects_volume=0)
+    if opt.low_gfx:
+        attrs.update(internal_size_w=opt.window_w, internal_size_h=opt.window_h,
+                     rendering_low_quality=1, rendering_low_resolution=1, rendering_filmgrain=0,
+                     rendering_pixel_art_antialiasing=0)
     out = template
     for k, v in attrs.items():
         pat = re.compile(rf'(\s{re.escape(k)}=")[^"]*(")')
@@ -71,4 +76,4 @@ def exclusive_mod_config(template: str | None, enabled: str) -> str:
 
 def write(path: Path, text: str):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(text, encoding="utf-8")
+    path.write_text(text, encoding="utf-8", newline="\n")

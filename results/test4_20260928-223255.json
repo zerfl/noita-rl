@@ -1,0 +1,296 @@
+{
+  "test": "test4_parallel",
+  "started": "2026-09-28T22:29:53",
+  "seed": 123456789,
+  "timescale": 3.0,
+  "k": 4,
+  "grid": {
+    "size": 64,
+    "stride": 1
+  },
+  "scene": {
+    "kind": "quiet",
+    "at": [
+      100,
+      300
+    ]
+  },
+  "cpu": {
+    "logical": 12,
+    "physical": 6
+  },
+  "stop_rule": "stop when aggregate fps rises < 2% over the previous N, on any failure/crash, or when available RAM < N*800 MB + 1500 MB",
+  "steps": [
+    {
+      "n": 1,
+      "timescale": 3.0,
+      "grid": {
+        "size": 64,
+        "stride": 1
+      },
+      "window_s": 15.0,
+      "launch_to_all_ready_s": 6.8,
+      "launch_failures": [],
+      "crashed_during_window": [],
+      "aggregate_fps": 160.0,
+      "aggregate_realtime_multiple": 2.67,
+      "per_instance_fps": {
+        "min": 160.0,
+        "median": 160.0,
+        "max": 160.0,
+        "all": [
+          160.0
+        ]
+      },
+      "working_set_mb": {
+        "per_instance_median": 734.7,
+        "max": 734.7,
+        "total": 734.7,
+        "max_peak": 734.7
+      },
+      "system": {
+        "cpu_percent": 4.7,
+        "available_ram_mb": 9576,
+        "total_ram_mb": 32706
+      },
+      "driver_grid_decode_ms_per_packet": {
+        "n": 1,
+        "p50": 0.0222,
+        "p95": 0.0222,
+        "mean": 0.0222,
+        "min": 0.0222,
+        "max": 0.0222
+      }
+    },
+    {
+      "n": 2,
+      "timescale": 3.0,
+      "grid": {
+        "size": 64,
+        "stride": 1
+      },
+      "window_s": 15.0,
+      "launch_to_all_ready_s": 8.2,
+      "launch_failures": [],
+      "crashed_during_window": [],
+      "aggregate_fps": 285.7,
+      "aggregate_realtime_multiple": 4.76,
+      "per_instance_fps": {
+        "min": 139.2,
+        "median": 142.8,
+        "max": 146.4,
+        "all": [
+          146.4,
+          139.2
+        ]
+      },
+      "working_set_mb": {
+        "per_instance_median": 694.95,
+        "max": 704.7,
+        "total": 1389.9,
+        "max_peak": 704.7
+      },
+      "system": {
+        "cpu_percent": 7.9,
+        "available_ram_mb": 8771,
+        "total_ram_mb": 32706
+      },
+      "driver_grid_decode_ms_per_packet": {
+        "n": 2,
+        "p50": 0.0244,
+        "p95": 0.0249,
+        "mean": 0.0244,
+        "min": 0.0239,
+        "max": 0.0249
+      }
+    },
+    {
+      "n": 4,
+      "timescale": 3.0,
+      "grid": {
+        "size": 64,
+        "stride": 1
+      },
+      "window_s": 15.0,
+      "launch_to_all_ready_s": 13.3,
+      "launch_failures": [],
+      "crashed_during_window": [],
+      "aggregate_fps": 296.6,
+      "aggregate_realtime_multiple": 4.94,
+      "per_instance_fps": {
+        "min": 73.8,
+        "median": 73.9,
+        "max": 74.9,
+        "all": [
+          73.8,
+          73.8,
+          74.1,
+          74.9
+        ]
+      },
+      "working_set_mb": {
+        "per_instance_median": 683.1500000000001,
+        "max": 684.6,
+        "total": 2731.4,
+        "max_peak": 695.4
+      },
+      "system": {
+        "cpu_percent": 12.5,
+        "available_ram_mb": 7224,
+        "total_ram_mb": 32706
+      },
+      "driver_grid_decode_ms_per_packet": {
+        "n": 4,
+        "p50": 0.0264,
+        "p95": 0.027,
+        "mean": 0.0264,
+        "min": 0.0256,
+        "max": 0.0271
+      }
+    },
+    {
+      "n": 6,
+      "timescale": 3.0,
+      "grid": {
+        "size": 64,
+        "stride": 1
+      },
+      "window_s": 15.0,
+      "launch_to_all_ready_s": 17.8,
+      "launch_failures": [],
+      "crashed_during_window": [],
+      "aggregate_fps": 281.1,
+      "aggregate_realtime_multiple": 4.68,
+      "per_instance_fps": {
+        "min": 43.7,
+        "median": 47.2,
+        "max": 49.5,
+        "all": [
+          44.1,
+          49.3,
+          46.0,
+          43.7,
+          48.4,
+          49.5
+        ]
+      },
+      "working_set_mb": {
+        "per_instance_median": 679.35,
+        "max": 680.0,
+        "total": 4072.5,
+        "max_peak": 688.3
+      },
+      "system": {
+        "cpu_percent": 55.9,
+        "available_ram_mb": 5751,
+        "total_ram_mb": 32706
+      },
+      "driver_grid_decode_ms_per_packet": {
+        "n": 6,
+        "p50": 0.0261,
+        "p95": 0.028,
+        "mean": 0.0265,
+        "min": 0.0252,
+        "max": 0.028
+      }
+    }
+  ],
+  "stop_reason": "aggregate fps stopped rising at N=6",
+  "best": {
+    "n": 4,
+    "aggregate_fps": 296.6,
+    "aggregate_realtime_multiple": 4.94
+  },
+  "max_working_set_seen_mb": 734.7,
+  "saturating_n_other_scales": [
+    {
+      "n": 4,
+      "timescale": 1.0,
+      "grid": {
+        "size": 64,
+        "stride": 1
+      },
+      "window_s": 15.0,
+      "launch_to_all_ready_s": 12.2,
+      "launch_failures": [],
+      "crashed_during_window": [],
+      "aggregate_fps": 237.5,
+      "aggregate_realtime_multiple": 3.96,
+      "per_instance_fps": {
+        "min": 59.0,
+        "median": 59.3,
+        "max": 59.9,
+        "all": [
+          59.2,
+          59.0,
+          59.3,
+          59.9
+        ]
+      },
+      "working_set_mb": {
+        "per_instance_median": 738.1500000000001,
+        "max": 742.6,
+        "total": 2947.7,
+        "max_peak": 750.4
+      },
+      "system": {
+        "cpu_percent": 9.3,
+        "available_ram_mb": 6503,
+        "total_ram_mb": 32706
+      },
+      "driver_grid_decode_ms_per_packet": {
+        "n": 4,
+        "p50": 0.0261,
+        "p95": 0.0338,
+        "mean": 0.0281,
+        "min": 0.0252,
+        "max": 0.0351
+      }
+    },
+    {
+      "n": 4,
+      "timescale": 8.0,
+      "grid": {
+        "size": 64,
+        "stride": 1
+      },
+      "window_s": 15.0,
+      "launch_to_all_ready_s": 12.3,
+      "launch_failures": [],
+      "crashed_during_window": [],
+      "aggregate_fps": 303.6,
+      "aggregate_realtime_multiple": 5.06,
+      "per_instance_fps": {
+        "min": 72.4,
+        "median": 76.9,
+        "max": 77.4,
+        "all": [
+          72.4,
+          77.3,
+          76.4,
+          77.4
+        ]
+      },
+      "working_set_mb": {
+        "per_instance_median": 670.75,
+        "max": 679.2,
+        "total": 2690.3,
+        "max_peak": 684.3
+      },
+      "system": {
+        "cpu_percent": 14.9,
+        "available_ram_mb": 6885,
+        "total_ram_mb": 32706
+      },
+      "driver_grid_decode_ms_per_packet": {
+        "n": 4,
+        "p50": 0.0256,
+        "p95": 0.0261,
+        "mean": 0.0256,
+        "min": 0.025,
+        "max": 0.0262
+      }
+    }
+  ],
+  "finished": "2026-09-28T22:32:55"
+}
