@@ -1,0 +1,53 @@
+{
+  "test": "actions",
+  "started": "2026-09-28T21:50:46",
+  "seed": 123456789,
+  "up_60f": {
+    "dy": -72.83,
+    "vy_end": -71.6668,
+    "up_down": true,
+    "fly_down": true
+  },
+  "aim": {
+    "left": {
+      "aim_x_px": 60,
+      "aim_vector": [
+        -210.738,
+        -34.1315
+      ],
+      "mouse_world": [
+        16.2617,
+        -117.134
+      ],
+      "player": [
+        227,
+        -79.0028
+      ]
+    },
+    "right": {
+      "aim_x_px": 580,
+      "aim_vector": [
+        137.506,
+        -32.3599
+      ],
+      "mouse_world": [
+        364.506,
+        -115.363
+      ],
+      "player": [
+        227,
+        -79.0028
+      ]
+    }
+  },
+  "fire_40f": {
+    "player_pellets": 2,
+    "player_volleys": 2,
+    "fire_frame_before": 0,
+    "fire_frame_after": 332
+  },
+  "left_60f": {
+    "dx": -50.67
+  },
+  "ok": true
+}

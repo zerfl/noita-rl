@@ -19,7 +19,7 @@ from pathlib import Path
 
 import psutil
 
-from . import gameconfig, paths, snapshot
+from . import gameconfig, paths, scenes, snapshot
 from .link import Conn, Server
 
 PIDS_FILE = paths.STATE_DIR / "pids.json"
@@ -34,7 +34,7 @@ class LaunchSpec:
     seed: int | None = None
     k: int = 4
     mode: str = "free"
-    storage: str = "userdata"
+    storage: str = "workdir"
     save_slot: int = 5
     input_backend: str = "sdl"
     render: gameconfig.RenderOptions = field(default_factory=gameconfig.RenderOptions)
@@ -130,8 +130,9 @@ def prepare_workdir(spec: LaunchSpec) -> Path:
         if p.is_file() and p.suffix.lower() in ROOT_FILE_EXT and p.name not in ROOT_FILE_SKIP:
             shutil.copy2(p, wd / p.name)
     _copy_mod(wd / "mods" / paths.MOD_NAME)
+    scenes.write_all(wd / "mods" / paths.MOD_NAME / "files" / "scenes")
     gameconfig.write(wd / "save_shared" / "config.xml",
-                     gameconfig.bench_config(gameconfig.user_config_text(), spec.render))
+                     gameconfig.bench_config(gameconfig.template_config_text(), spec.render))
     gameconfig.write(wd / "save00" / "mod_config.xml",
                      gameconfig.exclusive_mod_config(None, paths.MOD_NAME))
     return wd
@@ -211,3 +212,12 @@ class Instance:
                 pass
         if self.proc:
             _track(self.proc.pid, False)
+
+
+def wait_frames(conn: Conn, n: int) -> dict:
+    """Consumes state packets until n game frames have passed; returns the last state."""
+    s = conn.recv_type("state", timeout=60)
+    target = s["frame"] + n
+    while s["frame"] < target:
+        s = conn.recv_type("state", timeout=60)
+    return s

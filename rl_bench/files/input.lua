@@ -5,8 +5,8 @@
 -- Backends:
 --   sdl  SDL_PushEvent called through FFI with the same event layout xinput_hook.dll
 --        builds in xh_push_key / xh_push_mouse (default).
---   dll  xinput_hook.dll's xh_push_key / xh_push_mouse. LoadLibraryA of that DLL blocks
---        ~10 s: DllMain waits on a worker thread that cannot start under the loader lock.
+--   dll  xinput_hook.dll's xh_push_key / xh_push_mouse.
+-- The DLL is loaded either way (world init) for its QPC time hooks.
 -- Aim (SDL_MOUSEMOTION) always goes through SDL_PushEvent; the DLL has no motion export.
 
 rlb_input = rlb_input or {}
@@ -109,6 +109,14 @@ function rlb_input.load_dll(path)
     push_mouse = sym("xh_push_mouse", "int (*)(int, int, int, int)"),
     build_id = sym("xh_build_id", "const char* (*)(void)"),
     qpc_raw = sym("xh_qpc_raw", "int (*)(int64_t*)"),
+    qpc_scaled = sym("xh_qpc_scaled", "int (*)(int64_t*)"),
+    time_install = sym("xh_install_timehooks", "int (*)(void)"),
+    time_tgt_installed = sym("xh_time_tgt_installed", "int (*)(void)"),
+    time_set = sym("xh_time_scale_set", "int (*)(double)"),
+    time_clear = sym("xh_time_scale_clear", "int (*)(void)"),
+    time_get = sym("xh_time_scale_get", "double (*)(void)"),
+    time_calls = sym("xh_time_calls", "int (*)(void)"),
+    time_scaled = sym("xh_time_scaled", "int (*)(void)"),
   }
   if not (a.ping and a.push_key and a.push_mouse) or a.ping() ~= XH_MAGIC then
     return { ok = false, error = "DLL exports/magic do not match", path = path }

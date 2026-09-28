@@ -43,6 +43,14 @@ def bench_config(template: str, opt: RenderOptions) -> str:
     return out
 
 
+TEMPLATE = paths.REPO / "driver" / "templates" / "config.xml"
+
+
+def template_config_text() -> str:
+    """Fixed profile template for workdir instances (a copy of this machine's config.xml)."""
+    return TEMPLATE.read_text(encoding="utf-8")
+
+
 def user_config_text() -> str:
     return (paths.USERDATA / "save_shared" / "config.xml").read_text(encoding="utf-8")
 

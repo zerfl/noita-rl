@@ -1,0 +1,7619 @@
+{
+  "test": "test1_speed_consistency",
+  "started": "2026-09-28T21:21:36",
+  "finished": "2026-09-28T21:42:29",
+  "seed": 123456789,
+  "arena": [
+    -600,
+    -1400
+  ],
+  "quiet_spot": [
+    100,
+    300
+  ],
+  "render": {
+    "window_w": 640,
+    "window_h": 360,
+    "framerate": 60,
+    "vsync": 0,
+    "mute": true
+  },
+  "order": "interleaved by repetition (cell order repeated per rep)",
+  "analysis": {
+    "tolerance_pct": 3.0,
+    "baseline": "fr60",
+    "baseline_noise": {
+      "walk_dx": {
+        "n": 5,
+        "mean": 279.612,
+        "min": 279.612,
+        "max": 279.612,
+        "stdev": 0.0,
+        "spread_pct": 0.0
+      },
+      "projectile_dist": {
+        "n": 5,
+        "mean": 199.098,
+        "min": 199.098,
+        "max": 199.098,
+        "stdev": 0.0,
+        "spread_pct": 0.0
+      },
+      "enemy_volleys": {
+        "n": 5,
+        "mean": 12.0,
+        "min": 12,
+        "max": 12,
+        "stdev": 0.0,
+        "spread_pct": 0.0
+      },
+      "enemy_pellets": {
+        "n": 5,
+        "mean": 12.0,
+        "min": 12,
+        "max": 12,
+        "stdev": 0.0,
+        "spread_pct": 0.0
+      },
+      "liquid_extent_x": {
+        "n": 5,
+        "mean": 360.2,
+        "min": 347,
+        "max": 369,
+        "stdev": 9.094,
+        "spread_pct": 6.11
+      },
+      "liquid_cells": {
+        "n": 5,
+        "mean": 576.0,
+        "min": 576,
+        "max": 576,
+        "stdev": 0.0,
+        "spread_pct": 0.0
+      }
+    },
+    "baseline_noisy_metrics": {
+      "liquid_extent_x": 6.11
+    },
+    "cells": {
+      "fr60": {
+        "framerate": 60,
+        "timescale": null,
+        "runs_ok": 5,
+        "runs_failed": 0,
+        "errors": [],
+        "fps_arena_probes": {
+          "n": 5,
+          "mean": 59.9219,
+          "min": 59.845,
+          "max": 59.9579,
+          "stdev": 0.0442,
+          "spread_pct": 0.19
+        },
+        "fps_quiet": {
+          "n": 5,
+          "mean": 59.88,
+          "min": 59.79,
+          "max": 59.96,
+          "stdev": 0.0689,
+          "spread_pct": 0.28
+        },
+        "fps_busy": {
+          "n": 5,
+          "mean": 59.996,
+          "min": 59.99,
+          "max": 60.0,
+          "stdev": 0.0055,
+          "spread_pct": 0.02
+        },
+        "clock_ratio": {
+          "n": 0
+        },
+        "probes": {
+          "walk_dx": {
+            "n": 5,
+            "mean": 279.612,
+            "min": 279.612,
+            "max": 279.612,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": 0.0,
+            "within_tol": true,
+            "noise_aware": "pass"
+          },
+          "projectile_dist": {
+            "n": 5,
+            "mean": 199.098,
+            "min": 199.098,
+            "max": 199.098,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": 0.0,
+            "within_tol": true,
+            "noise_aware": "pass"
+          },
+          "enemy_volleys": {
+            "n": 5,
+            "mean": 12.0,
+            "min": 12,
+            "max": 12,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": 0.0,
+            "within_tol": true,
+            "noise_aware": "pass"
+          },
+          "enemy_pellets": {
+            "n": 5,
+            "mean": 12.0,
+            "min": 12,
+            "max": 12,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": 0.0,
+            "within_tol": true,
+            "noise_aware": "pass"
+          },
+          "liquid_extent_x": {
+            "n": 5,
+            "mean": 360.2,
+            "min": 347,
+            "max": 369,
+            "stdev": 9.094,
+            "spread_pct": 6.11,
+            "delta_pct_vs_baseline": 0.0,
+            "within_tol": true,
+            "noise_aware": "pass"
+          },
+          "liquid_cells": {
+            "n": 5,
+            "mean": 576.0,
+            "min": 576,
+            "max": 576,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": 0.0,
+            "within_tol": true,
+            "noise_aware": "pass"
+          }
+        },
+        "pass": true,
+        "pass_noise_aware": true
+      },
+      "fr120": {
+        "framerate": 120,
+        "timescale": null,
+        "runs_ok": 3,
+        "runs_failed": 0,
+        "errors": [],
+        "fps_arena_probes": {
+          "n": 3,
+          "mean": 118.9133,
+          "min": 118.742,
+          "max": 119.094,
+          "stdev": 0.1762,
+          "spread_pct": 0.3
+        },
+        "fps_quiet": {
+          "n": 3,
+          "mean": 119.8567,
+          "min": 119.72,
+          "max": 119.99,
+          "stdev": 0.135,
+          "spread_pct": 0.23
+        },
+        "fps_busy": {
+          "n": 3,
+          "mean": 115.66,
+          "min": 113.9,
+          "max": 117.75,
+          "stdev": 1.9461,
+          "spread_pct": 3.33
+        },
+        "clock_ratio": {
+          "n": 0
+        },
+        "probes": {
+          "walk_dx": {
+            "n": 3,
+            "mean": 139.808,
+            "min": 139.808,
+            "max": 139.808,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": -50.0,
+            "within_tol": false,
+            "noise_aware": "fail"
+          },
+          "projectile_dist": {
+            "n": 3,
+            "mean": 121.285,
+            "min": 121.285,
+            "max": 121.285,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": -39.08,
+            "within_tol": false,
+            "noise_aware": "fail"
+          },
+          "enemy_volleys": {
+            "n": 3,
+            "mean": 11.0,
+            "min": 11,
+            "max": 11,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": -8.33,
+            "within_tol": false,
+            "noise_aware": "fail"
+          },
+          "enemy_pellets": {
+            "n": 3,
+            "mean": 11.0,
+            "min": 11,
+            "max": 11,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": -8.33,
+            "within_tol": false,
+            "noise_aware": "fail"
+          },
+          "liquid_extent_x": {
+            "n": 3,
+            "mean": 359.6667,
+            "min": 353,
+            "max": 364,
+            "stdev": 5.8595,
+            "spread_pct": 3.06,
+            "delta_pct_vs_baseline": -0.15,
+            "within_tol": true,
+            "noise_aware": "pass"
+          },
+          "liquid_cells": {
+            "n": 3,
+            "mean": 576.0,
+            "min": 576,
+            "max": 576,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": 0.0,
+            "within_tol": true,
+            "noise_aware": "pass"
+          }
+        },
+        "pass": false,
+        "pass_noise_aware": false
+      },
+      "fr240": {
+        "framerate": 240,
+        "timescale": null,
+        "runs_ok": 3,
+        "runs_failed": 0,
+        "errors": [],
+        "fps_arena_probes": {
+          "n": 3,
+          "mean": 219.468,
+          "min": 210.524,
+          "max": 224.217,
+          "stdev": 7.7507,
+          "spread_pct": 6.24
+        },
+        "fps_quiet": {
+          "n": 3,
+          "mean": 208.51,
+          "min": 207.1,
+          "max": 209.83,
+          "stdev": 1.3672,
+          "spread_pct": 1.31
+        },
+        "fps_busy": {
+          "n": 3,
+          "mean": 197.0,
+          "min": 190.45,
+          "max": 204.37,
+          "stdev": 6.9961,
+          "spread_pct": 7.07
+        },
+        "clock_ratio": {
+          "n": 0
+        },
+        "probes": {
+          "walk_dx": {
+            "n": 3,
+            "mean": 69.9012,
+            "min": 69.9012,
+            "max": 69.9012,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": -75.0,
+            "within_tol": false,
+            "noise_aware": "fail"
+          },
+          "projectile_dist": {
+            "n": 3,
+            "mean": 67.3179,
+            "min": 67.3179,
+            "max": 67.3179,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": -66.19,
+            "within_tol": false,
+            "noise_aware": "fail"
+          },
+          "enemy_volleys": {
+            "n": 3,
+            "mean": 6.0,
+            "min": 6,
+            "max": 6,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": -50.0,
+            "within_tol": false,
+            "noise_aware": "fail"
+          },
+          "enemy_pellets": {
+            "n": 3,
+            "mean": 6.0,
+            "min": 6,
+            "max": 6,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": -50.0,
+            "within_tol": false,
+            "noise_aware": "fail"
+          },
+          "liquid_extent_x": {
+            "n": 3,
+            "mean": 360.6667,
+            "min": 351,
+            "max": 368,
+            "stdev": 8.7369,
+            "spread_pct": 4.71,
+            "delta_pct_vs_baseline": 0.13,
+            "within_tol": true,
+            "noise_aware": "pass"
+          },
+          "liquid_cells": {
+            "n": 3,
+            "mean": 576.0,
+            "min": 576,
+            "max": 576,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": 0.0,
+            "within_tol": true,
+            "noise_aware": "pass"
+          }
+        },
+        "pass": false,
+        "pass_noise_aware": false
+      },
+      "ts1": {
+        "framerate": 60,
+        "timescale": 1.0,
+        "runs_ok": 3,
+        "runs_failed": 0,
+        "errors": [],
+        "fps_arena_probes": {
+          "n": 3,
+          "mean": 59.9159,
+          "min": 59.8931,
+          "max": 59.9434,
+          "stdev": 0.0255,
+          "spread_pct": 0.08
+        },
+        "fps_quiet": {
+          "n": 3,
+          "mean": 59.9867,
+          "min": 59.98,
+          "max": 59.99,
+          "stdev": 0.0058,
+          "spread_pct": 0.02
+        },
+        "fps_busy": {
+          "n": 3,
+          "mean": 59.98,
+          "min": 59.95,
+          "max": 60.0,
+          "stdev": 0.0265,
+          "spread_pct": 0.08
+        },
+        "clock_ratio": {
+          "n": 3,
+          "mean": 1.0,
+          "min": 1.0,
+          "max": 1.0,
+          "stdev": 0.0,
+          "spread_pct": 0.0
+        },
+        "probes": {
+          "walk_dx": {
+            "n": 3,
+            "mean": 279.612,
+            "min": 279.612,
+            "max": 279.612,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": 0.0,
+            "within_tol": true,
+            "noise_aware": "pass"
+          },
+          "projectile_dist": {
+            "n": 3,
+            "mean": 199.098,
+            "min": 199.098,
+            "max": 199.098,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": 0.0,
+            "within_tol": true,
+            "noise_aware": "pass"
+          },
+          "enemy_volleys": {
+            "n": 3,
+            "mean": 12.0,
+            "min": 12,
+            "max": 12,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": 0.0,
+            "within_tol": true,
+            "noise_aware": "pass"
+          },
+          "enemy_pellets": {
+            "n": 3,
+            "mean": 12.0,
+            "min": 12,
+            "max": 12,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": 0.0,
+            "within_tol": true,
+            "noise_aware": "pass"
+          },
+          "liquid_extent_x": {
+            "n": 3,
+            "mean": 351.0,
+            "min": 343,
+            "max": 366,
+            "stdev": 13.0,
+            "spread_pct": 6.55,
+            "delta_pct_vs_baseline": -2.55,
+            "within_tol": true,
+            "noise_aware": "pass"
+          },
+          "liquid_cells": {
+            "n": 3,
+            "mean": 576.0,
+            "min": 576,
+            "max": 576,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": 0.0,
+            "within_tol": true,
+            "noise_aware": "pass"
+          }
+        },
+        "pass": true,
+        "pass_noise_aware": true
+      },
+      "ts2": {
+        "framerate": 60,
+        "timescale": 2.0,
+        "runs_ok": 3,
+        "runs_failed": 0,
+        "errors": [],
+        "fps_arena_probes": {
+          "n": 3,
+          "mean": 81.8912,
+          "min": 81.8205,
+          "max": 82.018,
+          "stdev": 0.1101,
+          "spread_pct": 0.24
+        },
+        "fps_quiet": {
+          "n": 3,
+          "mean": 99.9,
+          "min": 99.29,
+          "max": 100.82,
+          "stdev": 0.8107,
+          "spread_pct": 1.53
+        },
+        "fps_busy": {
+          "n": 3,
+          "mean": 113.3967,
+          "min": 112.42,
+          "max": 114.28,
+          "stdev": 0.9335,
+          "spread_pct": 1.64
+        },
+        "clock_ratio": {
+          "n": 3,
+          "mean": 2.0,
+          "min": 2.0,
+          "max": 2.0,
+          "stdev": 0.0,
+          "spread_pct": 0.0
+        },
+        "probes": {
+          "walk_dx": {
+            "n": 3,
+            "mean": 279.612,
+            "min": 279.612,
+            "max": 279.612,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": 0.0,
+            "within_tol": true,
+            "noise_aware": "pass"
+          },
+          "projectile_dist": {
+            "n": 3,
+            "mean": 199.098,
+            "min": 199.098,
+            "max": 199.098,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": 0.0,
+            "within_tol": true,
+            "noise_aware": "pass"
+          },
+          "enemy_volleys": {
+            "n": 3,
+            "mean": 12.0,
+            "min": 12,
+            "max": 12,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": 0.0,
+            "within_tol": true,
+            "noise_aware": "pass"
+          },
+          "enemy_pellets": {
+            "n": 3,
+            "mean": 12.0,
+            "min": 12,
+            "max": 12,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": 0.0,
+            "within_tol": true,
+            "noise_aware": "pass"
+          },
+          "liquid_extent_x": {
+            "n": 3,
+            "mean": 350.0,
+            "min": 349,
+            "max": 351,
+            "stdev": 1.0,
+            "spread_pct": 0.57,
+            "delta_pct_vs_baseline": -2.83,
+            "within_tol": true,
+            "noise_aware": "pass"
+          },
+          "liquid_cells": {
+            "n": 3,
+            "mean": 576.0,
+            "min": 576,
+            "max": 576,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": 0.0,
+            "within_tol": true,
+            "noise_aware": "pass"
+          }
+        },
+        "pass": true,
+        "pass_noise_aware": true
+      },
+      "ts4": {
+        "framerate": 60,
+        "timescale": 4.0,
+        "runs_ok": 7,
+        "runs_failed": 0,
+        "errors": [],
+        "fps_arena_probes": {
+          "n": 7,
+          "mean": 163.2547,
+          "min": 151.807,
+          "max": 169.008,
+          "stdev": 5.6063,
+          "spread_pct": 10.54
+        },
+        "fps_quiet": {
+          "n": 7,
+          "mean": 220.6157,
+          "min": 215.92,
+          "max": 225.98,
+          "stdev": 3.775,
+          "spread_pct": 4.56
+        },
+        "fps_busy": {
+          "n": 7,
+          "mean": 141.7029,
+          "min": 130.58,
+          "max": 150.53,
+          "stdev": 6.0272,
+          "spread_pct": 14.08
+        },
+        "clock_ratio": {
+          "n": 7,
+          "mean": 4.0,
+          "min": 4.0,
+          "max": 4.0,
+          "stdev": 0.0,
+          "spread_pct": 0.0
+        },
+        "probes": {
+          "walk_dx": {
+            "n": 7,
+            "mean": 279.612,
+            "min": 279.612,
+            "max": 279.612,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": 0.0,
+            "within_tol": true,
+            "noise_aware": "pass"
+          },
+          "projectile_dist": {
+            "n": 7,
+            "mean": 199.098,
+            "min": 199.098,
+            "max": 199.098,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": 0.0,
+            "within_tol": true,
+            "noise_aware": "pass"
+          },
+          "enemy_volleys": {
+            "n": 7,
+            "mean": 12.0,
+            "min": 12,
+            "max": 12,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": 0.0,
+            "within_tol": true,
+            "noise_aware": "pass"
+          },
+          "enemy_pellets": {
+            "n": 7,
+            "mean": 12.0,
+            "min": 12,
+            "max": 12,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": 0.0,
+            "within_tol": true,
+            "noise_aware": "pass"
+          },
+          "liquid_extent_x": {
+            "n": 7,
+            "mean": 348.2857,
+            "min": 309,
+            "max": 375,
+            "stdev": 24.102,
+            "spread_pct": 18.95,
+            "delta_pct_vs_baseline": -3.31,
+            "within_tol": false,
+            "noise_aware": "within_noise"
+          },
+          "liquid_cells": {
+            "n": 7,
+            "mean": 576.0,
+            "min": 576,
+            "max": 576,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": 0.0,
+            "within_tol": true,
+            "noise_aware": "pass"
+          }
+        },
+        "pass": false,
+        "pass_noise_aware": true
+      },
+      "ts3": {
+        "framerate": 60,
+        "timescale": 3.0,
+        "runs_ok": 4,
+        "runs_failed": 0,
+        "errors": [],
+        "fps_arena_probes": {
+          "n": 4,
+          "mean": 116.4532,
+          "min": 114.802,
+          "max": 117.92,
+          "stdev": 1.3172,
+          "spread_pct": 2.68
+        },
+        "fps_quiet": {
+          "n": 4,
+          "mean": 161.85,
+          "min": 160.79,
+          "max": 163.09,
+          "stdev": 1.1393,
+          "spread_pct": 1.42
+        },
+        "fps_busy": {
+          "n": 4,
+          "mean": 145.64,
+          "min": 137.61,
+          "max": 149.79,
+          "stdev": 5.4803,
+          "spread_pct": 8.36
+        },
+        "clock_ratio": {
+          "n": 4,
+          "mean": 3.0,
+          "min": 3.0,
+          "max": 3.0,
+          "stdev": 0.0,
+          "spread_pct": 0.0
+        },
+        "probes": {
+          "walk_dx": {
+            "n": 4,
+            "mean": 279.612,
+            "min": 279.612,
+            "max": 279.612,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": 0.0,
+            "within_tol": true,
+            "noise_aware": "pass"
+          },
+          "projectile_dist": {
+            "n": 4,
+            "mean": 199.098,
+            "min": 199.098,
+            "max": 199.098,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": 0.0,
+            "within_tol": true,
+            "noise_aware": "pass"
+          },
+          "enemy_volleys": {
+            "n": 4,
+            "mean": 12.0,
+            "min": 12,
+            "max": 12,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": 0.0,
+            "within_tol": true,
+            "noise_aware": "pass"
+          },
+          "enemy_pellets": {
+            "n": 4,
+            "mean": 12.0,
+            "min": 12,
+            "max": 12,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": 0.0,
+            "within_tol": true,
+            "noise_aware": "pass"
+          },
+          "liquid_extent_x": {
+            "n": 4,
+            "mean": 353.25,
+            "min": 343,
+            "max": 361,
+            "stdev": 7.7621,
+            "spread_pct": 5.1,
+            "delta_pct_vs_baseline": -1.93,
+            "within_tol": true,
+            "noise_aware": "pass"
+          },
+          "liquid_cells": {
+            "n": 4,
+            "mean": 576.0,
+            "min": 576,
+            "max": 576,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": 0.0,
+            "within_tol": true,
+            "noise_aware": "pass"
+          }
+        },
+        "pass": true,
+        "pass_noise_aware": true
+      },
+      "ts8": {
+        "framerate": 60,
+        "timescale": 8.0,
+        "runs_ok": 4,
+        "runs_failed": 0,
+        "errors": [],
+        "fps_arena_probes": {
+          "n": 4,
+          "mean": 321.9385,
+          "min": 311.473,
+          "max": 338.45,
+          "stdev": 11.9326,
+          "spread_pct": 8.38
+        },
+        "fps_quiet": {
+          "n": 4,
+          "mean": 305.06,
+          "min": 302.65,
+          "max": 308.32,
+          "stdev": 2.4333,
+          "spread_pct": 1.86
+        },
+        "fps_busy": {
+          "n": 4,
+          "mean": 158.105,
+          "min": 152.01,
+          "max": 164.36,
+          "stdev": 5.2653,
+          "spread_pct": 7.81
+        },
+        "clock_ratio": {
+          "n": 4,
+          "mean": 8.0,
+          "min": 8.0,
+          "max": 8.0,
+          "stdev": 0.0,
+          "spread_pct": 0.0
+        },
+        "probes": {
+          "walk_dx": {
+            "n": 4,
+            "mean": 279.612,
+            "min": 279.612,
+            "max": 279.612,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": 0.0,
+            "within_tol": true,
+            "noise_aware": "pass"
+          },
+          "projectile_dist": {
+            "n": 4,
+            "mean": 199.098,
+            "min": 199.098,
+            "max": 199.098,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": 0.0,
+            "within_tol": true,
+            "noise_aware": "pass"
+          },
+          "enemy_volleys": {
+            "n": 4,
+            "mean": 12.0,
+            "min": 12,
+            "max": 12,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": 0.0,
+            "within_tol": true,
+            "noise_aware": "pass"
+          },
+          "enemy_pellets": {
+            "n": 4,
+            "mean": 12.0,
+            "min": 12,
+            "max": 12,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": 0.0,
+            "within_tol": true,
+            "noise_aware": "pass"
+          },
+          "liquid_extent_x": {
+            "n": 4,
+            "mean": 341.25,
+            "min": 335,
+            "max": 345,
+            "stdev": 4.3493,
+            "spread_pct": 2.93,
+            "delta_pct_vs_baseline": -5.26,
+            "within_tol": false,
+            "noise_aware": "fail"
+          },
+          "liquid_cells": {
+            "n": 4,
+            "mean": 576.0,
+            "min": 576,
+            "max": 576,
+            "stdev": 0.0,
+            "spread_pct": 0.0,
+            "delta_pct_vs_baseline": 0.0,
+            "within_tol": true,
+            "noise_aware": "pass"
+          }
+        },
+        "pass": false,
+        "pass_noise_aware": false
+      }
+    },
+    "fastest_passing": {
+      "cell": "ts3",
+      "quiet_fps": 161.85,
+      "busy_fps": 145.64,
+      "arena_fps": 116.4532
+    },
+    "fastest_passing_noise_aware": {
+      "cell": "ts4",
+      "quiet_fps": 220.6157,
+      "busy_fps": 141.7029,
+      "arena_fps": 163.2547
+    }
+  },
+  "runs": [
+    {
+      "cell": "fr60",
+      "rep": 0,
+      "framerate": 60,
+      "timescale": null,
+      "t_hello_s": 5.366,
+      "dll_load_ms": 5.415,
+      "suite_cmd": {
+        "frame": 2,
+        "id": 1,
+        "ok": true,
+        "start_frame": 60,
+        "t": "res"
+      },
+      "suite_wall_s": 22.714,
+      "suite": {
+        "arena": {
+          "x": -600,
+          "y": -1400
+        },
+        "before_scene": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 98304,
+              "id": 0,
+              "name": "air"
+            }
+          ]
+        },
+        "enemy": {
+          "alive_at_end": true,
+          "end_x": -370,
+          "end_y": -1323,
+          "file": "data/entities/animals/scavenger_smg.xml",
+          "frames": 600,
+          "pellets": 12,
+          "timing": {
+            "fps": 60.0007,
+            "frames": 600,
+            "seconds": 9.99989
+          },
+          "volleys": 12
+        },
+        "floor": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 16384,
+              "id": 425,
+              "name": "templebrick_static"
+            }
+          ]
+        },
+        "liquid": {
+          "extent_x": 347,
+          "extent_y": 6,
+          "frames": 120,
+          "max_x": 275,
+          "min_x": -71,
+          "missing": 0,
+          "timing": {
+            "fps": 60.0111,
+            "frames": 120,
+            "seconds": 1.99963
+          },
+          "top": [
+            {
+              "cells": 40064,
+              "id": 0,
+              "name": "air"
+            },
+            {
+              "cells": 576,
+              "id": 56,
+              "name": "water"
+            }
+          ],
+          "water_cells": 576
+        },
+        "projectile": {
+          "dist": 199.098,
+          "frames": 30,
+          "path_every5": [
+            [
+              -484.093,
+              -1349.22
+            ],
+            [
+              -444.331,
+              -1347.27
+            ],
+            [
+              -409.892,
+              -1344.31
+            ],
+            [
+              -380.063,
+              -1340.46
+            ],
+            [
+              -354.227,
+              -1335.86
+            ],
+            [
+              -331.85,
+              -1330.6
+            ]
+          ],
+          "timing": {
+            "fps": 60.0876,
+            "frames": 30,
+            "seconds": 0.499271
+          },
+          "vx": 600,
+          "vy": 0,
+          "x0": -530,
+          "x1": -331.85,
+          "y0": -1350,
+          "y1": -1330.6
+        },
+        "start_frame": 60,
+        "total": {
+          "fps": 59.9393,
+          "frames": 1200,
+          "seconds": 20.0203
+        },
+        "walk": {
+          "dx": 279.612,
+          "frames": 300,
+          "timing": {
+            "fps": 59.7447,
+            "frames": 300,
+            "seconds": 5.02136
+          },
+          "x0": -560,
+          "x1": -280.388,
+          "xs": [
+            -554.824,
+            -546.175,
+            -536.842,
+            -527.375,
+            -517.882,
+            -508.383,
+            -498.884,
+            -489.384,
+            -479.884,
+            -470.384,
+            -460.884,
+            -451.385,
+            -441.885,
+            -432.385,
+            -422.885,
+            -413.385,
+            -403.886,
+            -394.386,
+            -384.886,
+            -375.386,
+            -365.886,
+            -356.386,
+            -346.887,
+            -337.387,
+            -327.887,
+            -318.387,
+            -308.887,
+            -299.388,
+            -289.888,
+            -280.388
+          ],
+          "y0": -1323,
+          "y1": -1322.76
+        }
+      },
+      "clock_ratio": null,
+      "fps_quiet": {
+        "frames": 480,
+        "wall_s": 8.013,
+        "fps_wall": 59.9,
+        "fps_mod_clock": 59.9
+      },
+      "busy_spawn": {
+        "frame": 1968,
+        "id": 3,
+        "ok": true,
+        "spawned": 20,
+        "t": "res"
+      },
+      "fps_busy": {
+        "frames": 480,
+        "wall_s": 8.0,
+        "fps_wall": 60.0,
+        "fps_mod_clock": 60.0
+      },
+      "memory": {
+        "working_set_mb": 745.8,
+        "peak_working_set_mb": 761.3,
+        "private_mb": 762.1
+      },
+      "ok": true
+    },
+    {
+      "cell": "fr120",
+      "rep": 0,
+      "framerate": 120,
+      "timescale": null,
+      "t_hello_s": 4.894,
+      "dll_load_ms": 6.3591,
+      "suite_cmd": {
+        "frame": 2,
+        "id": 1,
+        "ok": true,
+        "start_frame": 60,
+        "t": "res"
+      },
+      "suite_wall_s": 11.952,
+      "suite": {
+        "arena": {
+          "x": -600,
+          "y": -1400
+        },
+        "before_scene": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 98304,
+              "id": 0,
+              "name": "air"
+            }
+          ]
+        },
+        "enemy": {
+          "alive_at_end": true,
+          "end_x": -370,
+          "end_y": -1323,
+          "file": "data/entities/animals/scavenger_smg.xml",
+          "frames": 600,
+          "pellets": 11,
+          "timing": {
+            "fps": 119.704,
+            "frames": 600,
+            "seconds": 5.01238
+          },
+          "volleys": 11
+        },
+        "floor": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 16384,
+              "id": 425,
+              "name": "templebrick_static"
+            }
+          ]
+        },
+        "liquid": {
+          "extent_x": 362,
+          "extent_y": 5,
+          "frames": 120,
+          "max_x": 292,
+          "min_x": -69,
+          "missing": 0,
+          "timing": {
+            "fps": 120.02,
+            "frames": 120,
+            "seconds": 0.999837
+          },
+          "top": [
+            {
+              "cells": 40064,
+              "id": 0,
+              "name": "air"
+            },
+            {
+              "cells": 576,
+              "id": 56,
+              "name": "water"
+            }
+          ],
+          "water_cells": 576
+        },
+        "projectile": {
+          "dist": 121.285,
+          "frames": 30,
+          "path_every5": [
+            [
+              -506.043,
+              -1349.8
+            ],
+            [
+              -483.735,
+              -1349.28
+            ],
+            [
+              -462.964,
+              -1348.46
+            ],
+            [
+              -443.622,
+              -1347.37
+            ],
+            [
+              -425.613,
+              -1346.02
+            ],
+            [
+              -408.843,
+              -1344.42
+            ]
+          ],
+          "timing": {
+            "fps": 122.43,
+            "frames": 30,
+            "seconds": 0.245038
+          },
+          "vx": 600,
+          "vy": 0,
+          "x0": -530,
+          "x1": -408.843,
+          "y0": -1350,
+          "y1": -1344.42
+        },
+        "start_frame": 60,
+        "total": {
+          "fps": 118.742,
+          "frames": 1200,
+          "seconds": 10.1059
+        },
+        "walk": {
+          "dx": 139.808,
+          "frames": 300,
+          "timing": {
+            "fps": 119.581,
+            "frames": 300,
+            "seconds": 2.50876
+          },
+          "x0": -560,
+          "x1": -420.192,
+          "xs": [
+            -557.412,
+            -553.088,
+            -548.421,
+            -543.688,
+            -538.941,
+            -534.192,
+            -529.442,
+            -524.692,
+            -519.943,
+            -515.193,
+            -510.443,
+            -505.693,
+            -500.943,
+            -496.193,
+            -491.443,
+            -486.693,
+            -481.943,
+            -477.193,
+            -472.443,
+            -467.692,
+            -462.942,
+            -458.192,
+            -453.442,
+            -448.692,
+            -443.942,
+            -439.192,
+            -434.442,
+            -429.692,
+            -424.942,
+            -420.192
+          ],
+          "y0": -1323.1,
+          "y1": -1323.1
+        }
+      },
+      "clock_ratio": null,
+      "fps_quiet": {
+        "frames": 960,
+        "wall_s": 8.019,
+        "fps_wall": 119.72,
+        "fps_mod_clock": 119.72
+      },
+      "busy_spawn": {
+        "frame": 2448,
+        "id": 3,
+        "ok": true,
+        "spawned": 20,
+        "t": "res"
+      },
+      "fps_busy": {
+        "frames": 915,
+        "wall_s": 8.033,
+        "fps_wall": 113.9,
+        "fps_mod_clock": 113.9
+      },
+      "memory": {
+        "working_set_mb": 734.8,
+        "peak_working_set_mb": 759.8,
+        "private_mb": 751.1
+      },
+      "ok": true
+    },
+    {
+      "cell": "fr240",
+      "rep": 0,
+      "framerate": 240,
+      "timescale": null,
+      "t_hello_s": 4.759,
+      "dll_load_ms": 4.7428,
+      "suite_cmd": {
+        "frame": 2,
+        "id": 1,
+        "ok": true,
+        "start_frame": 60,
+        "t": "res"
+      },
+      "suite_wall_s": 7.389,
+      "suite": {
+        "arena": {
+          "x": -600,
+          "y": -1400
+        },
+        "before_scene": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 98304,
+              "id": 0,
+              "name": "air"
+            }
+          ]
+        },
+        "enemy": {
+          "alive_at_end": true,
+          "end_x": -370,
+          "end_y": -1323,
+          "file": "data/entities/animals/scavenger_smg.xml",
+          "frames": 600,
+          "pellets": 6,
+          "timing": {
+            "fps": 229.727,
+            "frames": 600,
+            "seconds": 2.61179
+          },
+          "volleys": 6
+        },
+        "floor": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 16384,
+              "id": 425,
+              "name": "templebrick_static"
+            }
+          ]
+        },
+        "liquid": {
+          "extent_x": 363,
+          "extent_y": 5,
+          "frames": 120,
+          "max_x": 290,
+          "min_x": -72,
+          "missing": 0,
+          "timing": {
+            "fps": 238.725,
+            "frames": 120,
+            "seconds": 0.50267
+          },
+          "top": [
+            {
+              "cells": 40064,
+              "id": 0,
+              "name": "air"
+            },
+            {
+              "cells": 576,
+              "id": 56,
+              "name": "water"
+            }
+          ],
+          "water_cells": 576
+        },
+        "projectile": {
+          "dist": 67.3179,
+          "frames": 30,
+          "path_every5": [
+            [
+              -517.763,
+              -1349.95
+            ],
+            [
+              -505.954,
+              -1349.81
+            ],
+            [
+              -494.557,
+              -1349.6
+            ],
+            [
+              -483.558,
+              -1349.31
+            ],
+            [
+              -472.943,
+              -1348.94
+            ],
+            [
+              -462.699,
+              -1348.5
+            ]
+          ],
+          "timing": {
+            "fps": 226.531,
+            "frames": 30,
+            "seconds": 0.132432
+          },
+          "vx": 600,
+          "vy": 0,
+          "x0": -530,
+          "x1": -462.699,
+          "y0": -1350,
+          "y1": -1348.5
+        },
+        "start_frame": 60,
+        "total": {
+          "fps": 210.524,
+          "frames": 1200,
+          "seconds": 5.70007
+        },
+        "walk": {
+          "dx": 69.9012,
+          "frames": 300,
+          "timing": {
+            "fps": 183.939,
+            "frames": 300,
+            "seconds": 1.63097
+          },
+          "x0": -560,
+          "x1": -490.099,
+          "xs": [
+            -558.706,
+            -556.544,
+            -554.211,
+            -551.844,
+            -549.471,
+            -547.096,
+            -544.721,
+            -542.346,
+            -539.971,
+            -537.596,
+            -535.221,
+            -532.847,
+            -530.472,
+            -528.097,
+            -525.722,
+            -523.347,
+            -520.972,
+            -518.597,
+            -516.222,
+            -513.848,
+            -511.473,
+            -509.098,
+            -506.723,
+            -504.348,
+            -501.973,
+            -499.598,
+            -497.223,
+            -494.849,
+            -492.474,
+            -490.099
+          ],
+          "y0": -1322.84,
+          "y1": -1322.84
+        }
+      },
+      "clock_ratio": null,
+      "fps_quiet": {
+        "frames": 1680,
+        "wall_s": 8.054,
+        "fps_wall": 208.6,
+        "fps_mod_clock": 208.6
+      },
+      "busy_spawn": {
+        "frame": 3168,
+        "id": 3,
+        "ok": true,
+        "spawned": 20,
+        "t": "res"
+      },
+      "fps_busy": {
+        "frames": 1530,
+        "wall_s": 8.034,
+        "fps_wall": 190.45,
+        "fps_mod_clock": 190.45
+      },
+      "memory": {
+        "working_set_mb": 734.9,
+        "peak_working_set_mb": 761.2,
+        "private_mb": 749.8
+      },
+      "ok": true
+    },
+    {
+      "cell": "ts1",
+      "rep": 0,
+      "framerate": 60,
+      "timescale": 1.0,
+      "t_hello_s": 4.842,
+      "dll_load_ms": 4.94,
+      "timescale_set": {
+        "id": 1,
+        "ok": true,
+        "scale": 1,
+        "t": "res",
+        "tgt_hooked": true
+      },
+      "suite_cmd": {
+        "frame": 3,
+        "id": 2,
+        "ok": true,
+        "start_frame": 60,
+        "t": "res"
+      },
+      "suite_wall_s": 22.679,
+      "suite": {
+        "arena": {
+          "x": -600,
+          "y": -1400
+        },
+        "before_scene": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 98304,
+              "id": 0,
+              "name": "air"
+            }
+          ]
+        },
+        "enemy": {
+          "alive_at_end": true,
+          "end_x": -370,
+          "end_y": -1323,
+          "file": "data/entities/animals/scavenger_smg.xml",
+          "frames": 600,
+          "pellets": 12,
+          "timing": {
+            "fps": 60.0049,
+            "frames": 600,
+            "seconds": 9.99918
+          },
+          "volleys": 12
+        },
+        "floor": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 16384,
+              "id": 425,
+              "name": "templebrick_static"
+            }
+          ]
+        },
+        "liquid": {
+          "extent_x": 366,
+          "extent_y": 5,
+          "frames": 120,
+          "max_x": 299,
+          "min_x": -66,
+          "missing": 0,
+          "timing": {
+            "fps": 60.015,
+            "frames": 120,
+            "seconds": 1.9995
+          },
+          "top": [
+            {
+              "cells": 40064,
+              "id": 0,
+              "name": "air"
+            },
+            {
+              "cells": 576,
+              "id": 56,
+              "name": "water"
+            }
+          ],
+          "water_cells": 576
+        },
+        "projectile": {
+          "dist": 199.098,
+          "frames": 30,
+          "path_every5": [
+            [
+              -484.093,
+              -1349.22
+            ],
+            [
+              -444.331,
+              -1347.27
+            ],
+            [
+              -409.892,
+              -1344.31
+            ],
+            [
+              -380.063,
+              -1340.46
+            ],
+            [
+              -354.227,
+              -1335.86
+            ],
+            [
+              -331.85,
+              -1330.6
+            ]
+          ],
+          "timing": {
+            "fps": 60.0691,
+            "frames": 30,
+            "seconds": 0.499425
+          },
+          "vx": 600,
+          "vy": 0,
+          "x0": -530,
+          "x1": -331.85,
+          "y0": -1350,
+          "y1": -1330.6
+        },
+        "start_frame": 60,
+        "total": {
+          "fps": 59.9434,
+          "frames": 1200,
+          "seconds": 20.0189
+        },
+        "walk": {
+          "dx": 279.612,
+          "frames": 300,
+          "timing": {
+            "fps": 59.7672,
+            "frames": 300,
+            "seconds": 5.01947
+          },
+          "x0": -560,
+          "x1": -280.388,
+          "xs": [
+            -554.824,
+            -546.175,
+            -536.842,
+            -527.375,
+            -517.882,
+            -508.383,
+            -498.884,
+            -489.384,
+            -479.884,
+            -470.384,
+            -460.884,
+            -451.385,
+            -441.885,
+            -432.385,
+            -422.885,
+            -413.385,
+            -403.886,
+            -394.386,
+            -384.886,
+            -375.386,
+            -365.886,
+            -356.386,
+            -346.887,
+            -337.387,
+            -327.887,
+            -318.387,
+            -308.887,
+            -299.388,
+            -289.888,
+            -280.388
+          ],
+          "y0": -1323,
+          "y1": -1322.76
+        }
+      },
+      "clock_ratio": {
+        "raw_ticks": 20166755,
+        "mapped_ticks": 20166755,
+        "ratio": 1.0
+      },
+      "fps_quiet": {
+        "frames": 480,
+        "wall_s": 8.002,
+        "fps_wall": 59.99,
+        "fps_mod_clock": 59.99
+      },
+      "busy_spawn": {
+        "frame": 1968,
+        "id": 6,
+        "ok": true,
+        "spawned": 20,
+        "t": "res"
+      },
+      "fps_busy": {
+        "frames": 480,
+        "wall_s": 8.001,
+        "fps_wall": 59.99,
+        "fps_mod_clock": 59.99
+      },
+      "memory": {
+        "working_set_mb": 747.3,
+        "peak_working_set_mb": 757.1,
+        "private_mb": 763.0
+      },
+      "ok": true
+    },
+    {
+      "cell": "ts2",
+      "rep": 0,
+      "framerate": 60,
+      "timescale": 2.0,
+      "t_hello_s": 4.86,
+      "dll_load_ms": 4.9749,
+      "timescale_set": {
+        "id": 1,
+        "ok": true,
+        "scale": 2,
+        "t": "res",
+        "tgt_hooked": true
+      },
+      "suite_cmd": {
+        "frame": 3,
+        "id": 2,
+        "ok": true,
+        "start_frame": 60,
+        "t": "res"
+      },
+      "suite_wall_s": 16.332,
+      "suite": {
+        "arena": {
+          "x": -600,
+          "y": -1400
+        },
+        "before_scene": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 98304,
+              "id": 0,
+              "name": "air"
+            }
+          ]
+        },
+        "enemy": {
+          "alive_at_end": true,
+          "end_x": -370,
+          "end_y": -1324,
+          "file": "data/entities/animals/scavenger_smg.xml",
+          "frames": 600,
+          "pellets": 12,
+          "timing": {
+            "fps": 78.6893,
+            "frames": 600,
+            "seconds": 7.62493
+          },
+          "volleys": 12
+        },
+        "floor": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 16384,
+              "id": 425,
+              "name": "templebrick_static"
+            }
+          ]
+        },
+        "liquid": {
+          "extent_x": 349,
+          "extent_y": 6,
+          "frames": 120,
+          "max_x": 290,
+          "min_x": -58,
+          "missing": 0,
+          "timing": {
+            "fps": 80.45,
+            "frames": 120,
+            "seconds": 1.49161
+          },
+          "top": [
+            {
+              "cells": 40064,
+              "id": 0,
+              "name": "air"
+            },
+            {
+              "cells": 576,
+              "id": 56,
+              "name": "water"
+            }
+          ],
+          "water_cells": 576
+        },
+        "projectile": {
+          "dist": 199.098,
+          "frames": 30,
+          "path_every5": [
+            [
+              -484.093,
+              -1349.22
+            ],
+            [
+              -444.331,
+              -1347.27
+            ],
+            [
+              -409.892,
+              -1344.31
+            ],
+            [
+              -380.063,
+              -1340.46
+            ],
+            [
+              -354.227,
+              -1335.86
+            ],
+            [
+              -331.85,
+              -1330.6
+            ]
+          ],
+          "timing": {
+            "fps": 79.9999,
+            "frames": 30,
+            "seconds": 0.375
+          },
+          "vx": 600,
+          "vy": 0,
+          "x0": -530,
+          "x1": -331.85,
+          "y0": -1350,
+          "y1": -1330.6
+        },
+        "start_frame": 60,
+        "total": {
+          "fps": 81.8205,
+          "frames": 1200,
+          "seconds": 14.6663
+        },
+        "walk": {
+          "dx": 279.612,
+          "frames": 300,
+          "timing": {
+            "fps": 86.2522,
+            "frames": 300,
+            "seconds": 3.47817
+          },
+          "x0": -560,
+          "x1": -280.388,
+          "xs": [
+            -554.824,
+            -546.175,
+            -536.842,
+            -527.375,
+            -517.882,
+            -508.383,
+            -498.884,
+            -489.384,
+            -479.884,
+            -470.384,
+            -460.884,
+            -451.385,
+            -441.885,
+            -432.385,
+            -422.885,
+            -413.385,
+            -403.886,
+            -394.386,
+            -384.886,
+            -375.386,
+            -365.886,
+            -356.386,
+            -346.887,
+            -337.387,
+            -327.887,
+            -318.387,
+            -308.887,
+            -299.388,
+            -289.888,
+            -280.388
+          ],
+          "y0": -1323,
+          "y1": -1322.76
+        }
+      },
+      "clock_ratio": {
+        "raw_ticks": 20020603,
+        "mapped_ticks": 40041206,
+        "ratio": 2.0
+      },
+      "fps_quiet": {
+        "frames": 810,
+        "wall_s": 8.133,
+        "fps_wall": 99.59,
+        "fps_mod_clock": 96.31
+      },
+      "busy_spawn": {
+        "frame": 2298,
+        "id": 6,
+        "ok": true,
+        "spawned": 20,
+        "t": "res"
+      },
+      "fps_busy": {
+        "frames": 900,
+        "wall_s": 8.006,
+        "fps_wall": 112.42,
+        "fps_mod_clock": 112.42
+      },
+      "memory": {
+        "working_set_mb": 744.6,
+        "peak_working_set_mb": 749.8,
+        "private_mb": 758.9
+      },
+      "ok": true
+    },
+    {
+      "cell": "ts4",
+      "rep": 0,
+      "framerate": 60,
+      "timescale": 4.0,
+      "t_hello_s": 4.948,
+      "dll_load_ms": 5.0892,
+      "timescale_set": {
+        "id": 1,
+        "ok": true,
+        "scale": 4,
+        "t": "res",
+        "tgt_hooked": true
+      },
+      "suite_cmd": {
+        "frame": 3,
+        "id": 2,
+        "ok": true,
+        "start_frame": 60,
+        "t": "res"
+      },
+      "suite_wall_s": 8.557,
+      "suite": {
+        "arena": {
+          "x": -600,
+          "y": -1400
+        },
+        "before_scene": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 98304,
+              "id": 0,
+              "name": "air"
+            }
+          ]
+        },
+        "enemy": {
+          "alive_at_end": true,
+          "end_x": -370,
+          "end_y": -1323,
+          "file": "data/entities/animals/scavenger_smg.xml",
+          "frames": 600,
+          "pellets": 12,
+          "timing": {
+            "fps": 163.685,
+            "frames": 600,
+            "seconds": 3.66558
+          },
+          "volleys": 12
+        },
+        "floor": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 16384,
+              "id": 425,
+              "name": "templebrick_static"
+            }
+          ]
+        },
+        "liquid": {
+          "extent_x": 367,
+          "extent_y": 6,
+          "frames": 120,
+          "max_x": 290,
+          "min_x": -76,
+          "missing": 0,
+          "timing": {
+            "fps": 144.886,
+            "frames": 120,
+            "seconds": 0.828235
+          },
+          "top": [
+            {
+              "cells": 40064,
+              "id": 0,
+              "name": "air"
+            },
+            {
+              "cells": 576,
+              "id": 56,
+              "name": "water"
+            }
+          ],
+          "water_cells": 576
+        },
+        "projectile": {
+          "dist": 199.098,
+          "frames": 30,
+          "path_every5": [
+            [
+              -484.093,
+              -1349.22
+            ],
+            [
+              -444.331,
+              -1347.27
+            ],
+            [
+              -409.892,
+              -1344.31
+            ],
+            [
+              -380.063,
+              -1340.46
+            ],
+            [
+              -354.227,
+              -1335.86
+            ],
+            [
+              -331.85,
+              -1330.6
+            ]
+          ],
+          "timing": {
+            "fps": 194.439,
+            "frames": 30,
+            "seconds": 0.15429
+          },
+          "vx": 600,
+          "vy": 0,
+          "x0": -530,
+          "x1": -331.85,
+          "y0": -1350,
+          "y1": -1330.6
+        },
+        "start_frame": 60,
+        "total": {
+          "fps": 169.008,
+          "frames": 1200,
+          "seconds": 7.10024
+        },
+        "walk": {
+          "dx": 279.612,
+          "frames": 300,
+          "timing": {
+            "fps": 207.591,
+            "frames": 300,
+            "seconds": 1.44515
+          },
+          "x0": -560,
+          "x1": -280.388,
+          "xs": [
+            -554.824,
+            -546.175,
+            -536.842,
+            -527.375,
+            -517.882,
+            -508.383,
+            -498.884,
+            -489.384,
+            -479.884,
+            -470.384,
+            -460.884,
+            -451.385,
+            -441.885,
+            -432.385,
+            -422.885,
+            -413.385,
+            -403.886,
+            -394.386,
+            -384.886,
+            -375.386,
+            -365.886,
+            -356.386,
+            -346.887,
+            -337.387,
+            -327.887,
+            -318.387,
+            -308.887,
+            -299.388,
+            -289.888,
+            -280.388
+          ],
+          "y0": -1323,
+          "y1": -1322.76
+        }
+      },
+      "clock_ratio": {
+        "raw_ticks": 20082900,
+        "mapped_ticks": 80331600,
+        "ratio": 4.0
+      },
+      "fps_quiet": {
+        "frames": 1755,
+        "wall_s": 8.01,
+        "fps_wall": 219.1,
+        "fps_mod_clock": 195.39
+      },
+      "busy_spawn": {
+        "frame": 3243,
+        "id": 6,
+        "ok": true,
+        "spawned": 20,
+        "t": "res"
+      },
+      "fps_busy": {
+        "frames": 1215,
+        "wall_s": 8.071,
+        "fps_wall": 150.53,
+        "fps_mod_clock": 150.53
+      },
+      "memory": {
+        "working_set_mb": 741.5,
+        "peak_working_set_mb": 746.6,
+        "private_mb": 755.3
+      },
+      "ok": true
+    },
+    {
+      "cell": "fr60",
+      "rep": 1,
+      "framerate": 60,
+      "timescale": null,
+      "t_hello_s": 5.159,
+      "dll_load_ms": 4.8547,
+      "suite_cmd": {
+        "frame": 2,
+        "id": 1,
+        "ok": true,
+        "start_frame": 60,
+        "t": "res"
+      },
+      "suite_wall_s": 22.764,
+      "suite": {
+        "arena": {
+          "x": -600,
+          "y": -1400
+        },
+        "before_scene": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 98304,
+              "id": 0,
+              "name": "air"
+            }
+          ]
+        },
+        "enemy": {
+          "alive_at_end": true,
+          "end_x": -370,
+          "end_y": -1324,
+          "file": "data/entities/animals/scavenger_smg.xml",
+          "frames": 600,
+          "pellets": 12,
+          "timing": {
+            "fps": 59.8909,
+            "frames": 600,
+            "seconds": 10.0182
+          },
+          "volleys": 12
+        },
+        "floor": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 16384,
+              "id": 425,
+              "name": "templebrick_static"
+            }
+          ]
+        },
+        "liquid": {
+          "extent_x": 369,
+          "extent_y": 5,
+          "frames": 120,
+          "max_x": 295,
+          "min_x": -73,
+          "missing": 0,
+          "timing": {
+            "fps": 60.0103,
+            "frames": 120,
+            "seconds": 1.99966
+          },
+          "top": [
+            {
+              "cells": 40064,
+              "id": 0,
+              "name": "air"
+            },
+            {
+              "cells": 576,
+              "id": 56,
+              "name": "water"
+            }
+          ],
+          "water_cells": 576
+        },
+        "projectile": {
+          "dist": 199.098,
+          "frames": 30,
+          "path_every5": [
+            [
+              -484.093,
+              -1349.22
+            ],
+            [
+              -444.331,
+              -1347.27
+            ],
+            [
+              -409.892,
+              -1344.31
+            ],
+            [
+              -380.063,
+              -1340.46
+            ],
+            [
+              -354.227,
+              -1335.86
+            ],
+            [
+              -331.85,
+              -1330.6
+            ]
+          ],
+          "timing": {
+            "fps": 60.1268,
+            "frames": 30,
+            "seconds": 0.498946
+          },
+          "vx": 600,
+          "vy": 0,
+          "x0": -530,
+          "x1": -331.85,
+          "y0": -1350,
+          "y1": -1330.6
+        },
+        "start_frame": 60,
+        "total": {
+          "fps": 59.845,
+          "frames": 1200,
+          "seconds": 20.0518
+        },
+        "walk": {
+          "dx": 279.612,
+          "frames": 300,
+          "timing": {
+            "fps": 59.5792,
+            "frames": 300,
+            "seconds": 5.03531
+          },
+          "x0": -560,
+          "x1": -280.388,
+          "xs": [
+            -554.824,
+            -546.175,
+            -536.842,
+            -527.375,
+            -517.882,
+            -508.383,
+            -498.884,
+            -489.384,
+            -479.884,
+            -470.384,
+            -460.884,
+            -451.385,
+            -441.885,
+            -432.385,
+            -422.885,
+            -413.385,
+            -403.886,
+            -394.386,
+            -384.886,
+            -375.386,
+            -365.886,
+            -356.386,
+            -346.887,
+            -337.387,
+            -327.887,
+            -318.387,
+            -308.887,
+            -299.388,
+            -289.888,
+            -280.388
+          ],
+          "y0": -1323,
+          "y1": -1322.76
+        }
+      },
+      "clock_ratio": null,
+      "fps_quiet": {
+        "frames": 480,
+        "wall_s": 8.005,
+        "fps_wall": 59.96,
+        "fps_mod_clock": 59.96
+      },
+      "busy_spawn": {
+        "frame": 1968,
+        "id": 3,
+        "ok": true,
+        "spawned": 20,
+        "t": "res"
+      },
+      "fps_busy": {
+        "frames": 480,
+        "wall_s": 8.0,
+        "fps_wall": 60.0,
+        "fps_mod_clock": 60.0
+      },
+      "memory": {
+        "working_set_mb": 744.2,
+        "peak_working_set_mb": 760.9,
+        "private_mb": 758.7
+      },
+      "ok": true
+    },
+    {
+      "cell": "fr120",
+      "rep": 1,
+      "framerate": 120,
+      "timescale": null,
+      "t_hello_s": 4.819,
+      "dll_load_ms": 4.87,
+      "suite_cmd": {
+        "frame": 2,
+        "id": 1,
+        "ok": true,
+        "start_frame": 60,
+        "t": "res"
+      },
+      "suite_wall_s": 11.752,
+      "suite": {
+        "arena": {
+          "x": -600,
+          "y": -1400
+        },
+        "before_scene": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 98304,
+              "id": 0,
+              "name": "air"
+            }
+          ]
+        },
+        "enemy": {
+          "alive_at_end": true,
+          "end_x": -369.571,
+          "end_y": -1323,
+          "file": "data/entities/animals/scavenger_smg.xml",
+          "frames": 600,
+          "pellets": 11,
+          "timing": {
+            "fps": 119.995,
+            "frames": 600,
+            "seconds": 5.00022
+          },
+          "volleys": 11
+        },
+        "floor": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 16384,
+              "id": 425,
+              "name": "templebrick_static"
+            }
+          ]
+        },
+        "liquid": {
+          "extent_x": 353,
+          "extent_y": 5,
+          "frames": 120,
+          "max_x": 282,
+          "min_x": -70,
+          "missing": 0,
+          "timing": {
+            "fps": 120.046,
+            "frames": 120,
+            "seconds": 0.999614
+          },
+          "top": [
+            {
+              "cells": 40064,
+              "id": 0,
+              "name": "air"
+            },
+            {
+              "cells": 576,
+              "id": 56,
+              "name": "water"
+            }
+          ],
+          "water_cells": 576
+        },
+        "projectile": {
+          "dist": 121.285,
+          "frames": 30,
+          "path_every5": [
+            [
+              -506.043,
+              -1349.8
+            ],
+            [
+              -483.735,
+              -1349.28
+            ],
+            [
+              -462.964,
+              -1348.46
+            ],
+            [
+              -443.622,
+              -1347.37
+            ],
+            [
+              -425.613,
+              -1346.02
+            ],
+            [
+              -408.843,
+              -1344.42
+            ]
+          ],
+          "timing": {
+            "fps": 121.813,
+            "frames": 30,
+            "seconds": 0.246279
+          },
+          "vx": 600,
+          "vy": 0,
+          "x0": -530,
+          "x1": -408.843,
+          "y0": -1350,
+          "y1": -1344.42
+        },
+        "start_frame": 60,
+        "total": {
+          "fps": 119.094,
+          "frames": 1200,
+          "seconds": 10.076
+        },
+        "walk": {
+          "dx": 139.808,
+          "frames": 300,
+          "timing": {
+            "fps": 119.376,
+            "frames": 300,
+            "seconds": 2.51307
+          },
+          "x0": -560,
+          "x1": -420.192,
+          "xs": [
+            -557.412,
+            -553.088,
+            -548.421,
+            -543.688,
+            -538.941,
+            -534.192,
+            -529.442,
+            -524.692,
+            -519.943,
+            -515.193,
+            -510.443,
+            -505.693,
+            -500.943,
+            -496.193,
+            -491.443,
+            -486.693,
+            -481.943,
+            -477.193,
+            -472.443,
+            -467.692,
+            -462.942,
+            -458.192,
+            -453.442,
+            -448.692,
+            -443.942,
+            -439.192,
+            -434.442,
+            -429.692,
+            -424.942,
+            -420.192
+          ],
+          "y0": -1323.1,
+          "y1": -1323.1
+        }
+      },
+      "clock_ratio": null,
+      "fps_quiet": {
+        "frames": 960,
+        "wall_s": 8.009,
+        "fps_wall": 119.86,
+        "fps_mod_clock": 119.86
+      },
+      "busy_spawn": {
+        "frame": 2448,
+        "id": 3,
+        "ok": true,
+        "spawned": 20,
+        "t": "res"
+      },
+      "fps_busy": {
+        "frames": 930,
+        "wall_s": 8.064,
+        "fps_wall": 115.33,
+        "fps_mod_clock": 115.33
+      },
+      "memory": {
+        "working_set_mb": 718.5,
+        "peak_working_set_mb": 760.3,
+        "private_mb": 731.5
+      },
+      "ok": true
+    },
+    {
+      "cell": "fr240",
+      "rep": 1,
+      "framerate": 240,
+      "timescale": null,
+      "t_hello_s": 5.058,
+      "dll_load_ms": 4.9407,
+      "suite_cmd": {
+        "frame": 2,
+        "id": 1,
+        "ok": true,
+        "start_frame": 60,
+        "t": "res"
+      },
+      "suite_wall_s": 6.789,
+      "suite": {
+        "arena": {
+          "x": -600,
+          "y": -1400
+        },
+        "before_scene": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 98304,
+              "id": 0,
+              "name": "air"
+            }
+          ]
+        },
+        "enemy": {
+          "alive_at_end": true,
+          "end_x": -370,
+          "end_y": -1323,
+          "file": "data/entities/animals/scavenger_smg.xml",
+          "frames": 600,
+          "pellets": 6,
+          "timing": {
+            "fps": 235.715,
+            "frames": 600,
+            "seconds": 2.54545
+          },
+          "volleys": 6
+        },
+        "floor": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 16384,
+              "id": 425,
+              "name": "templebrick_static"
+            }
+          ]
+        },
+        "liquid": {
+          "extent_x": 368,
+          "extent_y": 4,
+          "frames": 120,
+          "max_x": 293,
+          "min_x": -74,
+          "missing": 0,
+          "timing": {
+            "fps": 240.044,
+            "frames": 120,
+            "seconds": 0.499908
+          },
+          "top": [
+            {
+              "cells": 40064,
+              "id": 0,
+              "name": "air"
+            },
+            {
+              "cells": 576,
+              "id": 56,
+              "name": "water"
+            }
+          ],
+          "water_cells": 576
+        },
+        "projectile": {
+          "dist": 67.3179,
+          "frames": 30,
+          "path_every5": [
+            [
+              -517.763,
+              -1349.95
+            ],
+            [
+              -505.954,
+              -1349.81
+            ],
+            [
+              -494.557,
+              -1349.6
+            ],
+            [
+              -483.558,
+              -1349.31
+            ],
+            [
+              -472.943,
+              -1348.94
+            ],
+            [
+              -462.699,
+              -1348.5
+            ]
+          ],
+          "timing": {
+            "fps": 224.925,
+            "frames": 30,
+            "seconds": 0.133378
+          },
+          "vx": 600,
+          "vy": 0,
+          "x0": -530,
+          "x1": -462.699,
+          "y0": -1350,
+          "y1": -1348.5
+        },
+        "start_frame": 60,
+        "total": {
+          "fps": 224.217,
+          "frames": 1200,
+          "seconds": 5.35195
+        },
+        "walk": {
+          "dx": 69.9012,
+          "frames": 300,
+          "timing": {
+            "fps": 208.514,
+            "frames": 300,
+            "seconds": 1.43875
+          },
+          "x0": -560,
+          "x1": -490.099,
+          "xs": [
+            -558.706,
+            -556.544,
+            -554.211,
+            -551.844,
+            -549.471,
+            -547.096,
+            -544.721,
+            -542.346,
+            -539.971,
+            -537.596,
+            -535.221,
+            -532.847,
+            -530.472,
+            -528.097,
+            -525.722,
+            -523.347,
+            -520.972,
+            -518.597,
+            -516.222,
+            -513.848,
+            -511.473,
+            -509.098,
+            -506.723,
+            -504.348,
+            -501.973,
+            -499.598,
+            -497.223,
+            -494.849,
+            -492.474,
+            -490.099
+          ],
+          "y0": -1322.84,
+          "y1": -1322.84
+        }
+      },
+      "clock_ratio": null,
+      "fps_quiet": {
+        "frames": 1665,
+        "wall_s": 8.04,
+        "fps_wall": 207.1,
+        "fps_mod_clock": 207.1
+      },
+      "busy_spawn": {
+        "frame": 3153,
+        "id": 3,
+        "ok": true,
+        "spawned": 20,
+        "t": "res"
+      },
+      "fps_busy": {
+        "frames": 1575,
+        "wall_s": 8.028,
+        "fps_wall": 196.18,
+        "fps_mod_clock": 196.18
+      },
+      "memory": {
+        "working_set_mb": 733.7,
+        "peak_working_set_mb": 762.5,
+        "private_mb": 749.5
+      },
+      "ok": true
+    },
+    {
+      "cell": "ts1",
+      "rep": 1,
+      "framerate": 60,
+      "timescale": 1.0,
+      "t_hello_s": 4.751,
+      "dll_load_ms": 4.8882,
+      "timescale_set": {
+        "id": 1,
+        "ok": true,
+        "scale": 1,
+        "t": "res",
+        "tgt_hooked": true
+      },
+      "suite_cmd": {
+        "frame": 3,
+        "id": 2,
+        "ok": true,
+        "start_frame": 60,
+        "t": "res"
+      },
+      "suite_wall_s": 22.714,
+      "suite": {
+        "arena": {
+          "x": -600,
+          "y": -1400
+        },
+        "before_scene": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 98304,
+              "id": 0,
+              "name": "air"
+            }
+          ]
+        },
+        "enemy": {
+          "alive_at_end": true,
+          "end_x": -370,
+          "end_y": -1323,
+          "file": "data/entities/animals/scavenger_smg.xml",
+          "frames": 600,
+          "pellets": 12,
+          "timing": {
+            "fps": 60.0015,
+            "frames": 600,
+            "seconds": 9.99975
+          },
+          "volleys": 12
+        },
+        "floor": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 16384,
+              "id": 425,
+              "name": "templebrick_static"
+            }
+          ]
+        },
+        "liquid": {
+          "extent_x": 343,
+          "extent_y": 6,
+          "frames": 120,
+          "max_x": 277,
+          "min_x": -65,
+          "missing": 0,
+          "timing": {
+            "fps": 60.0172,
+            "frames": 120,
+            "seconds": 1.99943
+          },
+          "top": [
+            {
+              "cells": 40064,
+              "id": 0,
+              "name": "air"
+            },
+            {
+              "cells": 576,
+              "id": 56,
+              "name": "water"
+            }
+          ],
+          "water_cells": 576
+        },
+        "projectile": {
+          "dist": 199.098,
+          "frames": 30,
+          "path_every5": [
+            [
+              -484.093,
+              -1349.22
+            ],
+            [
+              -444.331,
+              -1347.27
+            ],
+            [
+              -409.892,
+              -1344.31
+            ],
+            [
+              -380.063,
+              -1340.46
+            ],
+            [
+              -354.227,
+              -1335.86
+            ],
+            [
+              -331.85,
+              -1330.6
+            ]
+          ],
+          "timing": {
+            "fps": 60.0887,
+            "frames": 30,
+            "seconds": 0.499262
+          },
+          "vx": 600,
+          "vy": 0,
+          "x0": -530,
+          "x1": -331.85,
+          "y0": -1350,
+          "y1": -1330.6
+        },
+        "start_frame": 60,
+        "total": {
+          "fps": 59.9113,
+          "frames": 1200,
+          "seconds": 20.0296
+        },
+        "walk": {
+          "dx": 279.612,
+          "frames": 300,
+          "timing": {
+            "fps": 59.9818,
+            "frames": 300,
+            "seconds": 5.00152
+          },
+          "x0": -560,
+          "x1": -280.388,
+          "xs": [
+            -554.824,
+            -546.175,
+            -536.842,
+            -527.375,
+            -517.882,
+            -508.383,
+            -498.884,
+            -489.384,
+            -479.884,
+            -470.384,
+            -460.884,
+            -451.385,
+            -441.885,
+            -432.385,
+            -422.885,
+            -413.385,
+            -403.886,
+            -394.386,
+            -384.886,
+            -375.386,
+            -365.886,
+            -356.386,
+            -346.887,
+            -337.387,
+            -327.887,
+            -318.387,
+            -308.887,
+            -299.388,
+            -289.888,
+            -280.388
+          ],
+          "y0": -1323,
+          "y1": -1322.76
+        }
+      },
+      "clock_ratio": {
+        "raw_ticks": 20168794,
+        "mapped_ticks": 20168794,
+        "ratio": 1.0
+      },
+      "fps_quiet": {
+        "frames": 480,
+        "wall_s": 8.003,
+        "fps_wall": 59.98,
+        "fps_mod_clock": 59.98
+      },
+      "busy_spawn": {
+        "frame": 1968,
+        "id": 6,
+        "ok": true,
+        "spawned": 20,
+        "t": "res"
+      },
+      "fps_busy": {
+        "frames": 480,
+        "wall_s": 8.006,
+        "fps_wall": 59.95,
+        "fps_mod_clock": 59.95
+      },
+      "memory": {
+        "working_set_mb": 746.0,
+        "peak_working_set_mb": 760.9,
+        "private_mb": 763.1
+      },
+      "ok": true
+    },
+    {
+      "cell": "ts2",
+      "rep": 1,
+      "framerate": 60,
+      "timescale": 2.0,
+      "t_hello_s": 4.954,
+      "dll_load_ms": 5.0596,
+      "timescale_set": {
+        "id": 1,
+        "ok": true,
+        "scale": 2,
+        "t": "res",
+        "tgt_hooked": true
+      },
+      "suite_cmd": {
+        "frame": 3,
+        "id": 2,
+        "ok": true,
+        "start_frame": 60,
+        "t": "res"
+      },
+      "suite_wall_s": 16.325,
+      "suite": {
+        "arena": {
+          "x": -600,
+          "y": -1400
+        },
+        "before_scene": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 98304,
+              "id": 0,
+              "name": "air"
+            }
+          ]
+        },
+        "enemy": {
+          "alive_at_end": true,
+          "end_x": -370,
+          "end_y": -1324,
+          "file": "data/entities/animals/scavenger_smg.xml",
+          "frames": 600,
+          "pellets": 12,
+          "timing": {
+            "fps": 80.0869,
+            "frames": 600,
+            "seconds": 7.49186
+          },
+          "volleys": 12
+        },
+        "floor": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 16384,
+              "id": 425,
+              "name": "templebrick_static"
+            }
+          ]
+        },
+        "liquid": {
+          "extent_x": 350,
+          "extent_y": 4,
+          "frames": 120,
+          "max_x": 285,
+          "min_x": -64,
+          "missing": 0,
+          "timing": {
+            "fps": 79.3177,
+            "frames": 120,
+            "seconds": 1.5129
+          },
+          "top": [
+            {
+              "cells": 40064,
+              "id": 0,
+              "name": "air"
+            },
+            {
+              "cells": 576,
+              "id": 56,
+              "name": "water"
+            }
+          ],
+          "water_cells": 576
+        },
+        "projectile": {
+          "dist": 199.098,
+          "frames": 30,
+          "path_every5": [
+            [
+              -484.093,
+              -1349.22
+            ],
+            [
+              -444.331,
+              -1347.27
+            ],
+            [
+              -409.892,
+              -1344.31
+            ],
+            [
+              -380.063,
+              -1340.46
+            ],
+            [
+              -354.227,
+              -1335.86
+            ],
+            [
+              -331.85,
+              -1330.6
+            ]
+          ],
+          "timing": {
+            "fps": 77.9475,
+            "frames": 30,
+            "seconds": 0.384874
+          },
+          "vx": 600,
+          "vy": 0,
+          "x0": -530,
+          "x1": -331.85,
+          "y0": -1350,
+          "y1": -1330.6
+        },
+        "start_frame": 60,
+        "total": {
+          "fps": 82.018,
+          "frames": 1200,
+          "seconds": 14.6309
+        },
+        "walk": {
+          "dx": 279.612,
+          "frames": 300,
+          "timing": {
+            "fps": 85.1244,
+            "frames": 300,
+            "seconds": 3.52426
+          },
+          "x0": -560,
+          "x1": -280.388,
+          "xs": [
+            -554.824,
+            -546.175,
+            -536.842,
+            -527.375,
+            -517.882,
+            -508.383,
+            -498.884,
+            -489.384,
+            -479.884,
+            -470.384,
+            -460.884,
+            -451.385,
+            -441.885,
+            -432.385,
+            -422.885,
+            -413.385,
+            -403.886,
+            -394.386,
+            -384.886,
+            -375.386,
+            -365.886,
+            -356.386,
+            -346.887,
+            -337.387,
+            -327.887,
+            -318.387,
+            -308.887,
+            -299.388,
+            -289.888,
+            -280.388
+          ],
+          "y0": -1323,
+          "y1": -1322.76
+        }
+      },
+      "clock_ratio": {
+        "raw_ticks": 20085577,
+        "mapped_ticks": 40171156,
+        "ratio": 2.0
+      },
+      "fps_quiet": {
+        "frames": 810,
+        "wall_s": 8.034,
+        "fps_wall": 100.82,
+        "fps_mod_clock": 97.5
+      },
+      "busy_spawn": {
+        "frame": 2298,
+        "id": 6,
+        "ok": true,
+        "spawned": 20,
+        "t": "res"
+      },
+      "fps_busy": {
+        "frames": 915,
+        "wall_s": 8.063,
+        "fps_wall": 113.49,
+        "fps_mod_clock": 113.49
+      },
+      "memory": {
+        "working_set_mb": 747.5,
+        "peak_working_set_mb": 752.6,
+        "private_mb": 761.7
+      },
+      "ok": true
+    },
+    {
+      "cell": "ts4",
+      "rep": 1,
+      "framerate": 60,
+      "timescale": 4.0,
+      "t_hello_s": 4.926,
+      "dll_load_ms": 4.9241,
+      "timescale_set": {
+        "id": 1,
+        "ok": true,
+        "scale": 4,
+        "t": "res",
+        "tgt_hooked": true
+      },
+      "suite_cmd": {
+        "frame": 3,
+        "id": 2,
+        "ok": true,
+        "start_frame": 60,
+        "t": "res"
+      },
+      "suite_wall_s": 8.94,
+      "suite": {
+        "arena": {
+          "x": -600,
+          "y": -1400
+        },
+        "before_scene": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 98304,
+              "id": 0,
+              "name": "air"
+            }
+          ]
+        },
+        "enemy": {
+          "alive_at_end": true,
+          "end_x": -370,
+          "end_y": -1324,
+          "file": "data/entities/animals/scavenger_smg.xml",
+          "frames": 600,
+          "pellets": 12,
+          "timing": {
+            "fps": 154.662,
+            "frames": 600,
+            "seconds": 3.87943
+          },
+          "volleys": 12
+        },
+        "floor": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 16384,
+              "id": 425,
+              "name": "templebrick_static"
+            }
+          ]
+        },
+        "liquid": {
+          "extent_x": 309,
+          "extent_y": 5,
+          "frames": 120,
+          "max_x": 281,
+          "min_x": -27,
+          "missing": 0,
+          "timing": {
+            "fps": 149.938,
+            "frames": 120,
+            "seconds": 0.800329
+          },
+          "top": [
+            {
+              "cells": 40064,
+              "id": 0,
+              "name": "air"
+            },
+            {
+              "cells": 576,
+              "id": 56,
+              "name": "water"
+            }
+          ],
+          "water_cells": 576
+        },
+        "projectile": {
+          "dist": 199.098,
+          "frames": 30,
+          "path_every5": [
+            [
+              -484.093,
+              -1349.22
+            ],
+            [
+              -444.331,
+              -1347.27
+            ],
+            [
+              -409.892,
+              -1344.31
+            ],
+            [
+              -380.063,
+              -1340.46
+            ],
+            [
+              -354.227,
+              -1335.86
+            ],
+            [
+              -331.85,
+              -1330.6
+            ]
+          ],
+          "timing": {
+            "fps": 152.683,
+            "frames": 30,
+            "seconds": 0.196486
+          },
+          "vx": 600,
+          "vy": 0,
+          "x0": -530,
+          "x1": -331.85,
+          "y0": -1350,
+          "y1": -1330.6
+        },
+        "start_frame": 60,
+        "total": {
+          "fps": 161.014,
+          "frames": 1200,
+          "seconds": 7.45279
+        },
+        "walk": {
+          "dx": 279.612,
+          "frames": 300,
+          "timing": {
+            "fps": 190.545,
+            "frames": 300,
+            "seconds": 1.57444
+          },
+          "x0": -560,
+          "x1": -280.388,
+          "xs": [
+            -554.824,
+            -546.175,
+            -536.842,
+            -527.375,
+            -517.882,
+            -508.383,
+            -498.884,
+            -489.384,
+            -479.884,
+            -470.384,
+            -460.884,
+            -451.385,
+            -441.885,
+            -432.385,
+            -422.885,
+            -413.385,
+            -403.886,
+            -394.386,
+            -384.886,
+            -375.386,
+            -365.886,
+            -356.386,
+            -346.887,
+            -337.387,
+            -327.887,
+            -318.387,
+            -308.887,
+            -299.388,
+            -289.888,
+            -280.388
+          ],
+          "y0": -1323,
+          "y1": -1322.76
+        }
+      },
+      "clock_ratio": {
+        "raw_ticks": 20023852,
+        "mapped_ticks": 80095408,
+        "ratio": 4.0
+      },
+      "fps_quiet": {
+        "frames": 1815,
+        "wall_s": 8.041,
+        "fps_wall": 225.73,
+        "fps_mod_clock": 198.48
+      },
+      "busy_spawn": {
+        "frame": 3303,
+        "id": 6,
+        "ok": true,
+        "spawned": 20,
+        "t": "res"
+      },
+      "fps_busy": {
+        "frames": 1170,
+        "wall_s": 8.091,
+        "fps_wall": 144.6,
+        "fps_mod_clock": 144.6
+      },
+      "memory": {
+        "working_set_mb": 745.1,
+        "peak_working_set_mb": 748.1,
+        "private_mb": 759.0
+      },
+      "ok": true
+    },
+    {
+      "cell": "fr60",
+      "rep": 2,
+      "framerate": 60,
+      "timescale": null,
+      "t_hello_s": 4.824,
+      "dll_load_ms": 5.0583,
+      "suite_cmd": {
+        "frame": 2,
+        "id": 1,
+        "ok": true,
+        "start_frame": 60,
+        "t": "res"
+      },
+      "suite_wall_s": 22.694,
+      "suite": {
+        "arena": {
+          "x": -600,
+          "y": -1400
+        },
+        "before_scene": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 98304,
+              "id": 0,
+              "name": "air"
+            }
+          ]
+        },
+        "enemy": {
+          "alive_at_end": true,
+          "end_x": -370,
+          "end_y": -1323,
+          "file": "data/entities/animals/scavenger_smg.xml",
+          "frames": 600,
+          "pellets": 12,
+          "timing": {
+            "fps": 60.0025,
+            "frames": 600,
+            "seconds": 9.99959
+          },
+          "volleys": 12
+        },
+        "floor": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 16384,
+              "id": 425,
+              "name": "templebrick_static"
+            }
+          ]
+        },
+        "liquid": {
+          "extent_x": 368,
+          "extent_y": 5,
+          "frames": 120,
+          "max_x": 296,
+          "min_x": -71,
+          "missing": 0,
+          "timing": {
+            "fps": 59.9664,
+            "frames": 120,
+            "seconds": 2.00112
+          },
+          "top": [
+            {
+              "cells": 40064,
+              "id": 0,
+              "name": "air"
+            },
+            {
+              "cells": 576,
+              "id": 56,
+              "name": "water"
+            }
+          ],
+          "water_cells": 576
+        },
+        "projectile": {
+          "dist": 199.098,
+          "frames": 30,
+          "path_every5": [
+            [
+              -484.093,
+              -1349.22
+            ],
+            [
+              -444.331,
+              -1347.27
+            ],
+            [
+              -409.892,
+              -1344.31
+            ],
+            [
+              -380.063,
+              -1340.46
+            ],
+            [
+              -354.227,
+              -1335.86
+            ],
+            [
+              -331.85,
+              -1330.6
+            ]
+          ],
+          "timing": {
+            "fps": 60.0943,
+            "frames": 30,
+            "seconds": 0.499215
+          },
+          "vx": 600,
+          "vy": 0,
+          "x0": -530,
+          "x1": -331.85,
+          "y0": -1350,
+          "y1": -1330.6
+        },
+        "start_frame": 60,
+        "total": {
+          "fps": 59.9579,
+          "frames": 1200,
+          "seconds": 20.014
+        },
+        "walk": {
+          "dx": 279.612,
+          "frames": 300,
+          "timing": {
+            "fps": 60.0151,
+            "frames": 300,
+            "seconds": 4.99874
+          },
+          "x0": -560,
+          "x1": -280.388,
+          "xs": [
+            -554.824,
+            -546.175,
+            -536.842,
+            -527.375,
+            -517.882,
+            -508.383,
+            -498.884,
+            -489.384,
+            -479.884,
+            -470.384,
+            -460.884,
+            -451.385,
+            -441.885,
+            -432.385,
+            -422.885,
+            -413.385,
+            -403.886,
+            -394.386,
+            -384.886,
+            -375.386,
+            -365.886,
+            -356.386,
+            -346.887,
+            -337.387,
+            -327.887,
+            -318.387,
+            -308.887,
+            -299.388,
+            -289.888,
+            -280.388
+          ],
+          "y0": -1323,
+          "y1": -1322.76
+        }
+      },
+      "clock_ratio": null,
+      "fps_quiet": {
+        "frames": 480,
+        "wall_s": 8.028,
+        "fps_wall": 59.79,
+        "fps_mod_clock": 59.79
+      },
+      "busy_spawn": {
+        "frame": 1968,
+        "id": 3,
+        "ok": true,
+        "spawned": 20,
+        "t": "res"
+      },
+      "fps_busy": {
+        "frames": 480,
+        "wall_s": 8.001,
+        "fps_wall": 59.99,
+        "fps_mod_clock": 59.99
+      },
+      "memory": {
+        "working_set_mb": 744.9,
+        "peak_working_set_mb": 763.4,
+        "private_mb": 760.4
+      },
+      "ok": true
+    },
+    {
+      "cell": "fr120",
+      "rep": 2,
+      "framerate": 120,
+      "timescale": null,
+      "t_hello_s": 4.809,
+      "dll_load_ms": 5.3772,
+      "suite_cmd": {
+        "frame": 2,
+        "id": 1,
+        "ok": true,
+        "start_frame": 60,
+        "t": "res"
+      },
+      "suite_wall_s": 11.81,
+      "suite": {
+        "arena": {
+          "x": -600,
+          "y": -1400
+        },
+        "before_scene": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 98304,
+              "id": 0,
+              "name": "air"
+            }
+          ]
+        },
+        "enemy": {
+          "alive_at_end": true,
+          "end_x": -370,
+          "end_y": -1323,
+          "file": "data/entities/animals/scavenger_smg.xml",
+          "frames": 600,
+          "pellets": 11,
+          "timing": {
+            "fps": 119.378,
+            "frames": 600,
+            "seconds": 5.02607
+          },
+          "volleys": 11
+        },
+        "floor": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 16384,
+              "id": 425,
+              "name": "templebrick_static"
+            }
+          ]
+        },
+        "liquid": {
+          "extent_x": 364,
+          "extent_y": 4,
+          "frames": 120,
+          "max_x": 292,
+          "min_x": -71,
+          "missing": 0,
+          "timing": {
+            "fps": 119.982,
+            "frames": 120,
+            "seconds": 1.00015
+          },
+          "top": [
+            {
+              "cells": 40064,
+              "id": 0,
+              "name": "air"
+            },
+            {
+              "cells": 576,
+              "id": 56,
+              "name": "water"
+            }
+          ],
+          "water_cells": 576
+        },
+        "projectile": {
+          "dist": 121.285,
+          "frames": 30,
+          "path_every5": [
+            [
+              -506.043,
+              -1349.8
+            ],
+            [
+              -483.735,
+              -1349.28
+            ],
+            [
+              -462.964,
+              -1348.46
+            ],
+            [
+              -443.622,
+              -1347.37
+            ],
+            [
+              -425.613,
+              -1346.02
+            ],
+            [
+              -408.843,
+              -1344.42
+            ]
+          ],
+          "timing": {
+            "fps": 122.097,
+            "frames": 30,
+            "seconds": 0.245706
+          },
+          "vx": 600,
+          "vy": 0,
+          "x0": -530,
+          "x1": -408.843,
+          "y0": -1350,
+          "y1": -1344.42
+        },
+        "start_frame": 60,
+        "total": {
+          "fps": 118.904,
+          "frames": 1200,
+          "seconds": 10.0921
+        },
+        "walk": {
+          "dx": 139.808,
+          "frames": 300,
+          "timing": {
+            "fps": 119.961,
+            "frames": 300,
+            "seconds": 2.50081
+          },
+          "x0": -560,
+          "x1": -420.192,
+          "xs": [
+            -557.412,
+            -553.088,
+            -548.421,
+            -543.688,
+            -538.941,
+            -534.192,
+            -529.442,
+            -524.692,
+            -519.943,
+            -515.193,
+            -510.443,
+            -505.693,
+            -500.943,
+            -496.193,
+            -491.443,
+            -486.693,
+            -481.943,
+            -477.193,
+            -472.443,
+            -467.692,
+            -462.942,
+            -458.192,
+            -453.442,
+            -448.692,
+            -443.942,
+            -439.192,
+            -434.442,
+            -429.692,
+            -424.942,
+            -420.192
+          ],
+          "y0": -1323.1,
+          "y1": -1323.1
+        }
+      },
+      "clock_ratio": null,
+      "fps_quiet": {
+        "frames": 960,
+        "wall_s": 8.0,
+        "fps_wall": 119.99,
+        "fps_mod_clock": 119.99
+      },
+      "busy_spawn": {
+        "frame": 2448,
+        "id": 3,
+        "ok": true,
+        "spawned": 20,
+        "t": "res"
+      },
+      "fps_busy": {
+        "frames": 945,
+        "wall_s": 8.026,
+        "fps_wall": 117.75,
+        "fps_mod_clock": 117.75
+      },
+      "memory": {
+        "working_set_mb": 735.4,
+        "peak_working_set_mb": 760.7,
+        "private_mb": 748.8
+      },
+      "ok": true
+    },
+    {
+      "cell": "fr240",
+      "rep": 2,
+      "framerate": 240,
+      "timescale": null,
+      "t_hello_s": 4.76,
+      "dll_load_ms": 6.4445,
+      "suite_cmd": {
+        "frame": 2,
+        "id": 1,
+        "ok": true,
+        "start_frame": 60,
+        "t": "res"
+      },
+      "suite_wall_s": 6.824,
+      "suite": {
+        "arena": {
+          "x": -600,
+          "y": -1400
+        },
+        "before_scene": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 98304,
+              "id": 0,
+              "name": "air"
+            }
+          ]
+        },
+        "enemy": {
+          "alive_at_end": true,
+          "end_x": -370,
+          "end_y": -1323,
+          "file": "data/entities/animals/scavenger_smg.xml",
+          "frames": 600,
+          "pellets": 6,
+          "timing": {
+            "fps": 235.78,
+            "frames": 600,
+            "seconds": 2.54474
+          },
+          "volleys": 6
+        },
+        "floor": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 16384,
+              "id": 425,
+              "name": "templebrick_static"
+            }
+          ]
+        },
+        "liquid": {
+          "extent_x": 351,
+          "extent_y": 4,
+          "frames": 120,
+          "max_x": 280,
+          "min_x": -70,
+          "missing": 0,
+          "timing": {
+            "fps": 240.031,
+            "frames": 120,
+            "seconds": 0.499936
+          },
+          "top": [
+            {
+              "cells": 40064,
+              "id": 0,
+              "name": "air"
+            },
+            {
+              "cells": 576,
+              "id": 56,
+              "name": "water"
+            }
+          ],
+          "water_cells": 576
+        },
+        "projectile": {
+          "dist": 67.3179,
+          "frames": 30,
+          "path_every5": [
+            [
+              -517.763,
+              -1349.95
+            ],
+            [
+              -505.954,
+              -1349.81
+            ],
+            [
+              -494.557,
+              -1349.6
+            ],
+            [
+              -483.558,
+              -1349.31
+            ],
+            [
+              -472.943,
+              -1348.94
+            ],
+            [
+              -462.699,
+              -1348.5
+            ]
+          ],
+          "timing": {
+            "fps": 222.029,
+            "frames": 30,
+            "seconds": 0.135118
+          },
+          "vx": 600,
+          "vy": 0,
+          "x0": -530,
+          "x1": -462.699,
+          "y0": -1350,
+          "y1": -1348.5
+        },
+        "start_frame": 60,
+        "total": {
+          "fps": 223.663,
+          "frames": 1200,
+          "seconds": 5.36522
+        },
+        "walk": {
+          "dx": 69.9012,
+          "frames": 300,
+          "timing": {
+            "fps": 207.759,
+            "frames": 300,
+            "seconds": 1.44398
+          },
+          "x0": -560,
+          "x1": -490.099,
+          "xs": [
+            -558.706,
+            -556.544,
+            -554.211,
+            -551.844,
+            -549.471,
+            -547.096,
+            -544.721,
+            -542.346,
+            -539.971,
+            -537.596,
+            -535.221,
+            -532.847,
+            -530.472,
+            -528.097,
+            -525.722,
+            -523.347,
+            -520.972,
+            -518.597,
+            -516.222,
+            -513.848,
+            -511.473,
+            -509.098,
+            -506.723,
+            -504.348,
+            -501.973,
+            -499.598,
+            -497.223,
+            -494.849,
+            -492.474,
+            -490.099
+          ],
+          "y0": -1322.84,
+          "y1": -1322.84
+        }
+      },
+      "clock_ratio": null,
+      "fps_quiet": {
+        "frames": 1695,
+        "wall_s": 8.078,
+        "fps_wall": 209.83,
+        "fps_mod_clock": 209.83
+      },
+      "busy_spawn": {
+        "frame": 3183,
+        "id": 3,
+        "ok": true,
+        "spawned": 20,
+        "t": "res"
+      },
+      "fps_busy": {
+        "frames": 1635,
+        "wall_s": 8.0,
+        "fps_wall": 204.37,
+        "fps_mod_clock": 204.37
+      },
+      "memory": {
+        "working_set_mb": 732.3,
+        "peak_working_set_mb": 763.0,
+        "private_mb": 747.3
+      },
+      "ok": true
+    },
+    {
+      "cell": "ts1",
+      "rep": 2,
+      "framerate": 60,
+      "timescale": 1.0,
+      "t_hello_s": 4.878,
+      "dll_load_ms": 6.2686,
+      "timescale_set": {
+        "id": 1,
+        "ok": true,
+        "scale": 1,
+        "t": "res",
+        "tgt_hooked": true
+      },
+      "suite_cmd": {
+        "frame": 3,
+        "id": 2,
+        "ok": true,
+        "start_frame": 60,
+        "t": "res"
+      },
+      "suite_wall_s": 22.697,
+      "suite": {
+        "arena": {
+          "x": -600,
+          "y": -1400
+        },
+        "before_scene": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 98304,
+              "id": 0,
+              "name": "air"
+            }
+          ]
+        },
+        "enemy": {
+          "alive_at_end": true,
+          "end_x": -370,
+          "end_y": -1323,
+          "file": "data/entities/animals/scavenger_smg.xml",
+          "frames": 600,
+          "pellets": 12,
+          "timing": {
+            "fps": 60.0012,
+            "frames": 600,
+            "seconds": 9.99979
+          },
+          "volleys": 12
+        },
+        "floor": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 16384,
+              "id": 425,
+              "name": "templebrick_static"
+            }
+          ]
+        },
+        "liquid": {
+          "extent_x": 344,
+          "extent_y": 5,
+          "frames": 120,
+          "max_x": 282,
+          "min_x": -61,
+          "missing": 0,
+          "timing": {
+            "fps": 60.0038,
+            "frames": 120,
+            "seconds": 1.99987
+          },
+          "top": [
+            {
+              "cells": 40064,
+              "id": 0,
+              "name": "air"
+            },
+            {
+              "cells": 576,
+              "id": 56,
+              "name": "water"
+            }
+          ],
+          "water_cells": 576
+        },
+        "projectile": {
+          "dist": 199.098,
+          "frames": 30,
+          "path_every5": [
+            [
+              -484.093,
+              -1349.22
+            ],
+            [
+              -444.331,
+              -1347.27
+            ],
+            [
+              -409.892,
+              -1344.31
+            ],
+            [
+              -380.063,
+              -1340.46
+            ],
+            [
+              -354.227,
+              -1335.86
+            ],
+            [
+              -331.85,
+              -1330.6
+            ]
+          ],
+          "timing": {
+            "fps": 60.1194,
+            "frames": 30,
+            "seconds": 0.499007
+          },
+          "vx": 600,
+          "vy": 0,
+          "x0": -530,
+          "x1": -331.85,
+          "y0": -1350,
+          "y1": -1330.6
+        },
+        "start_frame": 60,
+        "total": {
+          "fps": 59.8931,
+          "frames": 1200,
+          "seconds": 20.0357
+        },
+        "walk": {
+          "dx": 279.612,
+          "frames": 300,
+          "timing": {
+            "fps": 59.8786,
+            "frames": 300,
+            "seconds": 5.01014
+          },
+          "x0": -560,
+          "x1": -280.388,
+          "xs": [
+            -554.824,
+            -546.175,
+            -536.842,
+            -527.375,
+            -517.882,
+            -508.383,
+            -498.884,
+            -489.384,
+            -479.884,
+            -470.384,
+            -460.884,
+            -451.385,
+            -441.885,
+            -432.385,
+            -422.885,
+            -413.385,
+            -403.886,
+            -394.386,
+            -384.886,
+            -375.386,
+            -365.886,
+            -356.386,
+            -346.887,
+            -337.387,
+            -327.887,
+            -318.387,
+            -308.887,
+            -299.388,
+            -289.888,
+            -280.388
+          ],
+          "y0": -1323,
+          "y1": -1322.76
+        }
+      },
+      "clock_ratio": {
+        "raw_ticks": 20163629,
+        "mapped_ticks": 20163630,
+        "ratio": 1.0
+      },
+      "fps_quiet": {
+        "frames": 480,
+        "wall_s": 8.002,
+        "fps_wall": 59.99,
+        "fps_mod_clock": 59.99
+      },
+      "busy_spawn": {
+        "frame": 1968,
+        "id": 6,
+        "ok": true,
+        "spawned": 20,
+        "t": "res"
+      },
+      "fps_busy": {
+        "frames": 480,
+        "wall_s": 8.0,
+        "fps_wall": 60.0,
+        "fps_mod_clock": 60.0
+      },
+      "memory": {
+        "working_set_mb": 741.0,
+        "peak_working_set_mb": 763.6,
+        "private_mb": 756.8
+      },
+      "ok": true
+    },
+    {
+      "cell": "ts2",
+      "rep": 2,
+      "framerate": 60,
+      "timescale": 2.0,
+      "t_hello_s": 5.375,
+      "dll_load_ms": 4.9332,
+      "timescale_set": {
+        "id": 1,
+        "ok": true,
+        "scale": 2,
+        "t": "res",
+        "tgt_hooked": true
+      },
+      "suite_cmd": {
+        "frame": 3,
+        "id": 2,
+        "ok": true,
+        "start_frame": 60,
+        "t": "res"
+      },
+      "suite_wall_s": 16.26,
+      "suite": {
+        "arena": {
+          "x": -600,
+          "y": -1400
+        },
+        "before_scene": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 98304,
+              "id": 0,
+              "name": "air"
+            }
+          ]
+        },
+        "enemy": {
+          "alive_at_end": true,
+          "end_x": -370,
+          "end_y": -1323,
+          "file": "data/entities/animals/scavenger_smg.xml",
+          "frames": 600,
+          "pellets": 12,
+          "timing": {
+            "fps": 79.7111,
+            "frames": 600,
+            "seconds": 7.52718
+          },
+          "volleys": 12
+        },
+        "floor": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 16384,
+              "id": 425,
+              "name": "templebrick_static"
+            }
+          ]
+        },
+        "liquid": {
+          "extent_x": 351,
+          "extent_y": 5,
+          "frames": 120,
+          "max_x": 280,
+          "min_x": -70,
+          "missing": 0,
+          "timing": {
+            "fps": 77.9452,
+            "frames": 120,
+            "seconds": 1.53954
+          },
+          "top": [
+            {
+              "cells": 40064,
+              "id": 0,
+              "name": "air"
+            },
+            {
+              "cells": 576,
+              "id": 56,
+              "name": "water"
+            }
+          ],
+          "water_cells": 576
+        },
+        "projectile": {
+          "dist": 199.098,
+          "frames": 30,
+          "path_every5": [
+            [
+              -484.093,
+              -1349.22
+            ],
+            [
+              -444.331,
+              -1347.27
+            ],
+            [
+              -409.892,
+              -1344.31
+            ],
+            [
+              -380.063,
+              -1340.46
+            ],
+            [
+              -354.227,
+              -1335.86
+            ],
+            [
+              -331.85,
+              -1330.6
+            ]
+          ],
+          "timing": {
+            "fps": 79.5451,
+            "frames": 30,
+            "seconds": 0.377144
+          },
+          "vx": 600,
+          "vy": 0,
+          "x0": -530,
+          "x1": -331.85,
+          "y0": -1350,
+          "y1": -1330.6
+        },
+        "start_frame": 60,
+        "total": {
+          "fps": 81.8351,
+          "frames": 1200,
+          "seconds": 14.6636
+        },
+        "walk": {
+          "dx": 279.612,
+          "frames": 300,
+          "timing": {
+            "fps": 85.0329,
+            "frames": 300,
+            "seconds": 3.52805
+          },
+          "x0": -560,
+          "x1": -280.388,
+          "xs": [
+            -554.824,
+            -546.175,
+            -536.842,
+            -527.375,
+            -517.882,
+            -508.383,
+            -498.884,
+            -489.384,
+            -479.884,
+            -470.384,
+            -460.884,
+            -451.385,
+            -441.885,
+            -432.385,
+            -422.885,
+            -413.385,
+            -403.886,
+            -394.386,
+            -384.886,
+            -375.386,
+            -365.886,
+            -356.386,
+            -346.887,
+            -337.387,
+            -327.887,
+            -318.387,
+            -308.887,
+            -299.388,
+            -289.888,
+            -280.388
+          ],
+          "y0": -1323,
+          "y1": -1322.76
+        }
+      },
+      "clock_ratio": {
+        "raw_ticks": 20053799,
+        "mapped_ticks": 40107598,
+        "ratio": 2.0
+      },
+      "fps_quiet": {
+        "frames": 795,
+        "wall_s": 8.007,
+        "fps_wall": 99.29,
+        "fps_mod_clock": 95.76
+      },
+      "busy_spawn": {
+        "frame": 2283,
+        "id": 6,
+        "ok": true,
+        "spawned": 20,
+        "t": "res"
+      },
+      "fps_busy": {
+        "frames": 915,
+        "wall_s": 8.007,
+        "fps_wall": 114.28,
+        "fps_mod_clock": 114.28
+      },
+      "memory": {
+        "working_set_mb": 746.5,
+        "peak_working_set_mb": 753.0,
+        "private_mb": 761.7
+      },
+      "ok": true
+    },
+    {
+      "cell": "ts4",
+      "rep": 2,
+      "framerate": 60,
+      "timescale": 4.0,
+      "t_hello_s": 4.886,
+      "dll_load_ms": 5.3297,
+      "timescale_set": {
+        "id": 1,
+        "ok": true,
+        "scale": 4,
+        "t": "res",
+        "tgt_hooked": true
+      },
+      "suite_cmd": {
+        "frame": 3,
+        "id": 2,
+        "ok": true,
+        "start_frame": 60,
+        "t": "res"
+      },
+      "suite_wall_s": 8.737,
+      "suite": {
+        "arena": {
+          "x": -600,
+          "y": -1400
+        },
+        "before_scene": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 98304,
+              "id": 0,
+              "name": "air"
+            }
+          ]
+        },
+        "enemy": {
+          "alive_at_end": true,
+          "end_x": -370,
+          "end_y": -1323,
+          "file": "data/entities/animals/scavenger_smg.xml",
+          "frames": 600,
+          "pellets": 12,
+          "timing": {
+            "fps": 160.582,
+            "frames": 600,
+            "seconds": 3.73641
+          },
+          "volleys": 12
+        },
+        "floor": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 16384,
+              "id": 425,
+              "name": "templebrick_static"
+            }
+          ]
+        },
+        "liquid": {
+          "extent_x": 368,
+          "extent_y": 4,
+          "frames": 120,
+          "max_x": 287,
+          "min_x": -80,
+          "missing": 0,
+          "timing": {
+            "fps": 141.997,
+            "frames": 120,
+            "seconds": 0.845089
+          },
+          "top": [
+            {
+              "cells": 40064,
+              "id": 0,
+              "name": "air"
+            },
+            {
+              "cells": 576,
+              "id": 56,
+              "name": "water"
+            }
+          ],
+          "water_cells": 576
+        },
+        "projectile": {
+          "dist": 199.098,
+          "frames": 30,
+          "path_every5": [
+            [
+              -484.093,
+              -1349.22
+            ],
+            [
+              -444.331,
+              -1347.27
+            ],
+            [
+              -409.892,
+              -1344.31
+            ],
+            [
+              -380.063,
+              -1340.46
+            ],
+            [
+              -354.227,
+              -1335.86
+            ],
+            [
+              -331.85,
+              -1330.6
+            ]
+          ],
+          "timing": {
+            "fps": 155.863,
+            "frames": 30,
+            "seconds": 0.192477
+          },
+          "vx": 600,
+          "vy": 0,
+          "x0": -530,
+          "x1": -331.85,
+          "y0": -1350,
+          "y1": -1330.6
+        },
+        "start_frame": 60,
+        "total": {
+          "fps": 166.644,
+          "frames": 1200,
+          "seconds": 7.201
+        },
+        "walk": {
+          "dx": 279.612,
+          "frames": 300,
+          "timing": {
+            "fps": 202.575,
+            "frames": 300,
+            "seconds": 1.48093
+          },
+          "x0": -560,
+          "x1": -280.388,
+          "xs": [
+            -554.824,
+            -546.175,
+            -536.842,
+            -527.375,
+            -517.882,
+            -508.383,
+            -498.884,
+            -489.384,
+            -479.884,
+            -470.384,
+            -460.884,
+            -451.385,
+            -441.885,
+            -432.385,
+            -422.885,
+            -413.385,
+            -403.886,
+            -394.386,
+            -384.886,
+            -375.386,
+            -365.886,
+            -356.386,
+            -346.887,
+            -337.387,
+            -327.887,
+            -318.387,
+            -308.887,
+            -299.388,
+            -289.888,
+            -280.388
+          ],
+          "y0": -1323,
+          "y1": -1322.76
+        }
+      },
+      "clock_ratio": {
+        "raw_ticks": 20014308,
+        "mapped_ticks": 80057232,
+        "ratio": 4.0
+      },
+      "fps_quiet": {
+        "frames": 1740,
+        "wall_s": 8.059,
+        "fps_wall": 215.92,
+        "fps_mod_clock": 191.21
+      },
+      "busy_spawn": {
+        "frame": 3228,
+        "id": 6,
+        "ok": true,
+        "spawned": 20,
+        "t": "res"
+      },
+      "fps_busy": {
+        "frames": 1140,
+        "wall_s": 8.089,
+        "fps_wall": 140.93,
+        "fps_mod_clock": 140.93
+      },
+      "memory": {
+        "working_set_mb": 741.8,
+        "peak_working_set_mb": 748.9,
+        "private_mb": 756.1
+      },
+      "ok": true
+    },
+    {
+      "cell": "fr60",
+      "rep": 3,
+      "framerate": 60,
+      "timescale": null,
+      "t_hello_s": 4.836,
+      "dll_load_ms": 5.0238,
+      "suite_cmd": {
+        "frame": 2,
+        "id": 1,
+        "ok": true,
+        "start_frame": 60,
+        "t": "res"
+      },
+      "suite_wall_s": 22.695,
+      "suite": {
+        "arena": {
+          "x": -600,
+          "y": -1400
+        },
+        "before_scene": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 98304,
+              "id": 0,
+              "name": "air"
+            }
+          ]
+        },
+        "enemy": {
+          "alive_at_end": true,
+          "end_x": -370,
+          "end_y": -1324,
+          "file": "data/entities/animals/scavenger_smg.xml",
+          "frames": 600,
+          "pellets": 12,
+          "timing": {
+            "fps": 60.0046,
+            "frames": 600,
+            "seconds": 9.99924
+          },
+          "volleys": 12
+        },
+        "floor": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 16384,
+              "id": 425,
+              "name": "templebrick_static"
+            }
+          ]
+        },
+        "liquid": {
+          "extent_x": 361,
+          "extent_y": 5,
+          "frames": 120,
+          "max_x": 290,
+          "min_x": -70,
+          "missing": 0,
+          "timing": {
+            "fps": 60.012,
+            "frames": 120,
+            "seconds": 1.9996
+          },
+          "top": [
+            {
+              "cells": 40064,
+              "id": 0,
+              "name": "air"
+            },
+            {
+              "cells": 576,
+              "id": 56,
+              "name": "water"
+            }
+          ],
+          "water_cells": 576
+        },
+        "projectile": {
+          "dist": 199.098,
+          "frames": 30,
+          "path_every5": [
+            [
+              -484.093,
+              -1349.22
+            ],
+            [
+              -444.331,
+              -1347.27
+            ],
+            [
+              -409.892,
+              -1344.31
+            ],
+            [
+              -380.063,
+              -1340.46
+            ],
+            [
+              -354.227,
+              -1335.86
+            ],
+            [
+              -331.85,
+              -1330.6
+            ]
+          ],
+          "timing": {
+            "fps": 60.1713,
+            "frames": 30,
+            "seconds": 0.498576
+          },
+          "vx": 600,
+          "vy": 0,
+          "x0": -530,
+          "x1": -331.85,
+          "y0": -1350,
+          "y1": -1330.6
+        },
+        "start_frame": 60,
+        "total": {
+          "fps": 59.9301,
+          "frames": 1200,
+          "seconds": 20.0233
+        },
+        "walk": {
+          "dx": 279.612,
+          "frames": 300,
+          "timing": {
+            "fps": 60.0114,
+            "frames": 300,
+            "seconds": 4.99905
+          },
+          "x0": -560,
+          "x1": -280.388,
+          "xs": [
+            -554.824,
+            -546.175,
+            -536.842,
+            -527.375,
+            -517.882,
+            -508.383,
+            -498.884,
+            -489.384,
+            -479.884,
+            -470.384,
+            -460.884,
+            -451.385,
+            -441.885,
+            -432.385,
+            -422.885,
+            -413.385,
+            -403.886,
+            -394.386,
+            -384.886,
+            -375.386,
+            -365.886,
+            -356.386,
+            -346.887,
+            -337.387,
+            -327.887,
+            -318.387,
+            -308.887,
+            -299.388,
+            -289.888,
+            -280.388
+          ],
+          "y0": -1323,
+          "y1": -1322.76
+        }
+      },
+      "clock_ratio": null,
+      "fps_quiet": {
+        "frames": 480,
+        "wall_s": 8.011,
+        "fps_wall": 59.92,
+        "fps_mod_clock": 59.92
+      },
+      "busy_spawn": {
+        "frame": 1968,
+        "id": 3,
+        "ok": true,
+        "spawned": 20,
+        "t": "res"
+      },
+      "fps_busy": {
+        "frames": 480,
+        "wall_s": 8.002,
+        "fps_wall": 59.99,
+        "fps_mod_clock": 59.99
+      },
+      "memory": {
+        "working_set_mb": 749.0,
+        "peak_working_set_mb": 762.0,
+        "private_mb": 767.2
+      },
+      "ok": true
+    },
+    {
+      "cell": "fr60",
+      "rep": 4,
+      "framerate": 60,
+      "timescale": null,
+      "t_hello_s": 4.89,
+      "dll_load_ms": 5.0849,
+      "suite_cmd": {
+        "frame": 2,
+        "id": 1,
+        "ok": true,
+        "start_frame": 60,
+        "t": "res"
+      },
+      "suite_wall_s": 22.685,
+      "suite": {
+        "arena": {
+          "x": -600,
+          "y": -1400
+        },
+        "before_scene": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 98304,
+              "id": 0,
+              "name": "air"
+            }
+          ]
+        },
+        "enemy": {
+          "alive_at_end": true,
+          "end_x": -370,
+          "end_y": -1323,
+          "file": "data/entities/animals/scavenger_smg.xml",
+          "frames": 600,
+          "pellets": 12,
+          "timing": {
+            "fps": 60.0048,
+            "frames": 600,
+            "seconds": 9.99921
+          },
+          "volleys": 12
+        },
+        "floor": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 16384,
+              "id": 425,
+              "name": "templebrick_static"
+            }
+          ]
+        },
+        "liquid": {
+          "extent_x": 356,
+          "extent_y": 4,
+          "frames": 120,
+          "max_x": 289,
+          "min_x": -66,
+          "missing": 0,
+          "timing": {
+            "fps": 60.0072,
+            "frames": 120,
+            "seconds": 1.99976
+          },
+          "top": [
+            {
+              "cells": 40064,
+              "id": 0,
+              "name": "air"
+            },
+            {
+              "cells": 576,
+              "id": 56,
+              "name": "water"
+            }
+          ],
+          "water_cells": 576
+        },
+        "projectile": {
+          "dist": 199.098,
+          "frames": 30,
+          "path_every5": [
+            [
+              -484.093,
+              -1349.22
+            ],
+            [
+              -444.331,
+              -1347.27
+            ],
+            [
+              -409.892,
+              -1344.31
+            ],
+            [
+              -380.063,
+              -1340.46
+            ],
+            [
+              -354.227,
+              -1335.86
+            ],
+            [
+              -331.85,
+              -1330.6
+            ]
+          ],
+          "timing": {
+            "fps": 60.0254,
+            "frames": 30,
+            "seconds": 0.499789
+          },
+          "vx": 600,
+          "vy": 0,
+          "x0": -530,
+          "x1": -331.85,
+          "y0": -1350,
+          "y1": -1330.6
+        },
+        "start_frame": 60,
+        "total": {
+          "fps": 59.9371,
+          "frames": 1200,
+          "seconds": 20.021
+        },
+        "walk": {
+          "dx": 279.612,
+          "frames": 300,
+          "timing": {
+            "fps": 59.7314,
+            "frames": 300,
+            "seconds": 5.02248
+          },
+          "x0": -560,
+          "x1": -280.388,
+          "xs": [
+            -554.824,
+            -546.175,
+            -536.842,
+            -527.375,
+            -517.882,
+            -508.383,
+            -498.884,
+            -489.384,
+            -479.884,
+            -470.384,
+            -460.884,
+            -451.385,
+            -441.885,
+            -432.385,
+            -422.885,
+            -413.385,
+            -403.886,
+            -394.386,
+            -384.886,
+            -375.386,
+            -365.886,
+            -356.386,
+            -346.887,
+            -337.387,
+            -327.887,
+            -318.387,
+            -308.887,
+            -299.388,
+            -289.888,
+            -280.388
+          ],
+          "y0": -1323,
+          "y1": -1322.76
+        }
+      },
+      "clock_ratio": null,
+      "fps_quiet": {
+        "frames": 480,
+        "wall_s": 8.023,
+        "fps_wall": 59.83,
+        "fps_mod_clock": 59.83
+      },
+      "busy_spawn": {
+        "frame": 1968,
+        "id": 3,
+        "ok": true,
+        "spawned": 20,
+        "t": "res"
+      },
+      "fps_busy": {
+        "frames": 480,
+        "wall_s": 8.0,
+        "fps_wall": 60.0,
+        "fps_mod_clock": 60.0
+      },
+      "memory": {
+        "working_set_mb": 741.8,
+        "peak_working_set_mb": 762.8,
+        "private_mb": 756.2
+      },
+      "ok": true
+    },
+    {
+      "cell": "ts3",
+      "rep": 0,
+      "framerate": 60,
+      "timescale": 3.0,
+      "t_hello_s": 4.904,
+      "dll_load_ms": 5.0393,
+      "timescale_set": {
+        "id": 1,
+        "ok": true,
+        "scale": 3,
+        "t": "res",
+        "tgt_hooked": true,
+        "_bytes": 57
+      },
+      "suite_cmd": {
+        "frame": 3,
+        "id": 2,
+        "ok": true,
+        "start_frame": 60,
+        "t": "res",
+        "_bytes": 56
+      },
+      "suite_wall_s": 11.789,
+      "suite": {
+        "arena": {
+          "x": -600,
+          "y": -1400
+        },
+        "before_scene": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 98304,
+              "id": 0,
+              "name": "air"
+            }
+          ]
+        },
+        "enemy": {
+          "alive_at_end": true,
+          "end_x": -370,
+          "end_y": -1324,
+          "file": "data/entities/animals/scavenger_smg.xml",
+          "frames": 600,
+          "pellets": 12,
+          "timing": {
+            "fps": 106.793,
+            "frames": 600,
+            "seconds": 5.61833
+          },
+          "volleys": 12
+        },
+        "floor": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 16384,
+              "id": 425,
+              "name": "templebrick_static"
+            }
+          ]
+        },
+        "liquid": {
+          "extent_x": 343,
+          "extent_y": 5,
+          "frames": 120,
+          "max_x": 300,
+          "min_x": -42,
+          "missing": 0,
+          "timing": {
+            "fps": 106.465,
+            "frames": 120,
+            "seconds": 1.12713
+          },
+          "top": [
+            {
+              "cells": 40064,
+              "id": 0,
+              "name": "air"
+            },
+            {
+              "cells": 576,
+              "id": 56,
+              "name": "water"
+            }
+          ],
+          "water_cells": 576
+        },
+        "projectile": {
+          "dist": 199.098,
+          "frames": 30,
+          "path_every5": [
+            [
+              -484.093,
+              -1349.22
+            ],
+            [
+              -444.331,
+              -1347.27
+            ],
+            [
+              -409.892,
+              -1344.31
+            ],
+            [
+              -380.063,
+              -1340.46
+            ],
+            [
+              -354.227,
+              -1335.86
+            ],
+            [
+              -331.85,
+              -1330.6
+            ]
+          ],
+          "timing": {
+            "fps": 127.136,
+            "frames": 30,
+            "seconds": 0.235969
+          },
+          "vx": 600,
+          "vy": 0,
+          "x0": -530,
+          "x1": -331.85,
+          "y0": -1350,
+          "y1": -1330.6
+        },
+        "start_frame": 60,
+        "total": {
+          "fps": 116.152,
+          "frames": 1200,
+          "seconds": 10.3313
+        },
+        "walk": {
+          "dx": 279.612,
+          "frames": 300,
+          "timing": {
+            "fps": 138.418,
+            "frames": 300,
+            "seconds": 2.16734
+          },
+          "x0": -560,
+          "x1": -280.388,
+          "xs": [
+            -554.824,
+            -546.175,
+            -536.842,
+            -527.375,
+            -517.882,
+            -508.383,
+            -498.884,
+            -489.384,
+            -479.884,
+            -470.384,
+            -460.884,
+            -451.385,
+            -441.885,
+            -432.385,
+            -422.885,
+            -413.385,
+            -403.886,
+            -394.386,
+            -384.886,
+            -375.386,
+            -365.886,
+            -356.386,
+            -346.887,
+            -337.387,
+            -327.887,
+            -318.387,
+            -308.887,
+            -299.388,
+            -289.888,
+            -280.388
+          ],
+          "y0": -1323,
+          "y1": -1322.76
+        }
+      },
+      "clock_ratio": {
+        "raw_ticks": 20020185,
+        "mapped_ticks": 60060555,
+        "ratio": 3.0
+      },
+      "fps_quiet": {
+        "frames": 1290,
+        "wall_s": 8.014,
+        "fps_wall": 160.98,
+        "fps_mod_clock": 148.37
+      },
+      "busy_spawn": {
+        "frame": 2778,
+        "id": 6,
+        "ok": true,
+        "spawned": 20,
+        "t": "res",
+        "_bytes": 55
+      },
+      "fps_busy": {
+        "frames": 1185,
+        "wall_s": 8.065,
+        "fps_wall": 146.92,
+        "fps_mod_clock": 146.92
+      },
+      "memory": {
+        "working_set_mb": 744.9,
+        "peak_working_set_mb": 750.7,
+        "private_mb": 758.7
+      },
+      "ok": true
+    },
+    {
+      "cell": "ts4",
+      "rep": 3,
+      "framerate": 60,
+      "timescale": 4.0,
+      "t_hello_s": 4.979,
+      "dll_load_ms": 6.2052,
+      "timescale_set": {
+        "id": 1,
+        "ok": true,
+        "scale": 4,
+        "t": "res",
+        "tgt_hooked": true,
+        "_bytes": 57
+      },
+      "suite_cmd": {
+        "frame": 3,
+        "id": 2,
+        "ok": true,
+        "start_frame": 60,
+        "t": "res",
+        "_bytes": 56
+      },
+      "suite_wall_s": 8.78,
+      "suite": {
+        "arena": {
+          "x": -600,
+          "y": -1400
+        },
+        "before_scene": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 98304,
+              "id": 0,
+              "name": "air"
+            }
+          ]
+        },
+        "enemy": {
+          "alive_at_end": true,
+          "end_x": -370,
+          "end_y": -1323,
+          "file": "data/entities/animals/scavenger_smg.xml",
+          "frames": 600,
+          "pellets": 12,
+          "timing": {
+            "fps": 151.754,
+            "frames": 600,
+            "seconds": 3.95377
+          },
+          "volleys": 12
+        },
+        "floor": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 16384,
+              "id": 425,
+              "name": "templebrick_static"
+            }
+          ]
+        },
+        "liquid": {
+          "extent_x": 375,
+          "extent_y": 5,
+          "frames": 120,
+          "max_x": 304,
+          "min_x": -70,
+          "missing": 0,
+          "timing": {
+            "fps": 182.382,
+            "frames": 120,
+            "seconds": 0.657961
+          },
+          "top": [
+            {
+              "cells": 40064,
+              "id": 0,
+              "name": "air"
+            },
+            {
+              "cells": 576,
+              "id": 56,
+              "name": "water"
+            }
+          ],
+          "water_cells": 576
+        },
+        "projectile": {
+          "dist": 199.098,
+          "frames": 30,
+          "path_every5": [
+            [
+              -484.093,
+              -1349.22
+            ],
+            [
+              -444.331,
+              -1347.27
+            ],
+            [
+              -409.892,
+              -1344.31
+            ],
+            [
+              -380.063,
+              -1340.46
+            ],
+            [
+              -354.227,
+              -1335.86
+            ],
+            [
+              -331.85,
+              -1330.6
+            ]
+          ],
+          "timing": {
+            "fps": 160.669,
+            "frames": 30,
+            "seconds": 0.186719
+          },
+          "vx": 600,
+          "vy": 0,
+          "x0": -530,
+          "x1": -331.85,
+          "y0": -1350,
+          "y1": -1330.6
+        },
+        "start_frame": 60,
+        "total": {
+          "fps": 164.681,
+          "frames": 1200,
+          "seconds": 7.28683
+        },
+        "walk": {
+          "dx": 279.612,
+          "frames": 300,
+          "timing": {
+            "fps": 204.979,
+            "frames": 300,
+            "seconds": 1.46357
+          },
+          "x0": -560,
+          "x1": -280.388,
+          "xs": [
+            -554.824,
+            -546.175,
+            -536.842,
+            -527.375,
+            -517.882,
+            -508.383,
+            -498.884,
+            -489.384,
+            -479.884,
+            -470.384,
+            -460.884,
+            -451.385,
+            -441.885,
+            -432.385,
+            -422.885,
+            -413.385,
+            -403.886,
+            -394.386,
+            -384.886,
+            -375.386,
+            -365.886,
+            -356.386,
+            -346.887,
+            -337.387,
+            -327.887,
+            -318.387,
+            -308.887,
+            -299.388,
+            -289.888,
+            -280.388
+          ],
+          "y0": -1323,
+          "y1": -1322.76
+        }
+      },
+      "clock_ratio": {
+        "raw_ticks": 20051666,
+        "mapped_ticks": 80206672,
+        "ratio": 4.0
+      },
+      "fps_quiet": {
+        "frames": 1755,
+        "wall_s": 8.018,
+        "fps_wall": 218.88,
+        "fps_mod_clock": 192.62
+      },
+      "busy_spawn": {
+        "frame": 3243,
+        "id": 6,
+        "ok": true,
+        "spawned": 20,
+        "t": "res",
+        "_bytes": 55
+      },
+      "fps_busy": {
+        "frames": 1155,
+        "wall_s": 8.083,
+        "fps_wall": 142.89,
+        "fps_mod_clock": 142.89
+      },
+      "memory": {
+        "working_set_mb": 742.1,
+        "peak_working_set_mb": 749.9,
+        "private_mb": 756.6
+      },
+      "ok": true
+    },
+    {
+      "cell": "ts8",
+      "rep": 0,
+      "framerate": 60,
+      "timescale": 8.0,
+      "t_hello_s": 5.548,
+      "dll_load_ms": 4.7635,
+      "timescale_set": {
+        "id": 1,
+        "ok": true,
+        "scale": 8,
+        "t": "res",
+        "tgt_hooked": true,
+        "_bytes": 57
+      },
+      "suite_cmd": {
+        "frame": 3,
+        "id": 2,
+        "ok": true,
+        "start_frame": 60,
+        "t": "res",
+        "_bytes": 56
+      },
+      "suite_wall_s": 5.178,
+      "suite": {
+        "arena": {
+          "x": -600,
+          "y": -1400
+        },
+        "before_scene": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 98304,
+              "id": 0,
+              "name": "air"
+            }
+          ]
+        },
+        "enemy": {
+          "alive_at_end": true,
+          "end_x": -370,
+          "end_y": -1323,
+          "file": "data/entities/animals/scavenger_smg.xml",
+          "frames": 600,
+          "pellets": 12,
+          "timing": {
+            "fps": 348.321,
+            "frames": 600,
+            "seconds": 1.72255
+          },
+          "volleys": 12
+        },
+        "floor": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 16384,
+              "id": 425,
+              "name": "templebrick_static"
+            }
+          ]
+        },
+        "liquid": {
+          "extent_x": 335,
+          "extent_y": 6,
+          "frames": 120,
+          "max_x": 276,
+          "min_x": -58,
+          "missing": 0,
+          "timing": {
+            "fps": 334.32,
+            "frames": 120,
+            "seconds": 0.358938
+          },
+          "top": [
+            {
+              "cells": 40064,
+              "id": 0,
+              "name": "air"
+            },
+            {
+              "cells": 576,
+              "id": 56,
+              "name": "water"
+            }
+          ],
+          "water_cells": 576
+        },
+        "projectile": {
+          "dist": 199.098,
+          "frames": 30,
+          "path_every5": [
+            [
+              -484.093,
+              -1349.22
+            ],
+            [
+              -444.331,
+              -1347.27
+            ],
+            [
+              -409.892,
+              -1344.31
+            ],
+            [
+              -380.063,
+              -1340.46
+            ],
+            [
+              -354.227,
+              -1335.86
+            ],
+            [
+              -331.85,
+              -1330.6
+            ]
+          ],
+          "timing": {
+            "fps": 345.047,
+            "frames": 30,
+            "seconds": 0.0869448
+          },
+          "vx": 600,
+          "vy": 0,
+          "x0": -530,
+          "x1": -331.85,
+          "y0": -1350,
+          "y1": -1330.6
+        },
+        "start_frame": 60,
+        "total": {
+          "fps": 315.26,
+          "frames": 1200,
+          "seconds": 3.80638
+        },
+        "walk": {
+          "dx": 279.612,
+          "frames": 300,
+          "timing": {
+            "fps": 266.198,
+            "frames": 300,
+            "seconds": 1.12698
+          },
+          "x0": -560,
+          "x1": -280.388,
+          "xs": [
+            -554.824,
+            -546.175,
+            -536.842,
+            -527.375,
+            -517.882,
+            -508.383,
+            -498.884,
+            -489.384,
+            -479.884,
+            -470.384,
+            -460.884,
+            -451.385,
+            -441.885,
+            -432.385,
+            -422.885,
+            -413.385,
+            -403.886,
+            -394.386,
+            -384.886,
+            -375.386,
+            -365.886,
+            -356.386,
+            -346.887,
+            -337.387,
+            -327.887,
+            -318.387,
+            -308.887,
+            -299.388,
+            -289.888,
+            -280.388
+          ],
+          "y0": -1323,
+          "y1": -1322.76
+        }
+      },
+      "clock_ratio": {
+        "raw_ticks": 20031977,
+        "mapped_ticks": 160255816,
+        "ratio": 8.0
+      },
+      "fps_quiet": {
+        "frames": 2475,
+        "wall_s": 8.027,
+        "fps_wall": 308.32,
+        "fps_mod_clock": 256.18
+      },
+      "busy_spawn": {
+        "frame": 3963,
+        "id": 6,
+        "ok": true,
+        "spawned": 20,
+        "t": "res",
+        "_bytes": 55
+      },
+      "fps_busy": {
+        "frames": 1230,
+        "wall_s": 8.092,
+        "fps_wall": 152.01,
+        "fps_mod_clock": 152.01
+      },
+      "memory": {
+        "working_set_mb": 676.7,
+        "peak_working_set_mb": 684.9,
+        "private_mb": 688.9
+      },
+      "ok": true
+    },
+    {
+      "cell": "ts3",
+      "rep": 1,
+      "framerate": 60,
+      "timescale": 3.0,
+      "t_hello_s": 4.945,
+      "dll_load_ms": 5.0251,
+      "timescale_set": {
+        "id": 1,
+        "ok": true,
+        "scale": 3,
+        "t": "res",
+        "tgt_hooked": true,
+        "_bytes": 57
+      },
+      "suite_cmd": {
+        "frame": 3,
+        "id": 2,
+        "ok": true,
+        "start_frame": 60,
+        "t": "res",
+        "_bytes": 56
+      },
+      "suite_wall_s": 11.588,
+      "suite": {
+        "arena": {
+          "x": -600,
+          "y": -1400
+        },
+        "before_scene": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 98304,
+              "id": 0,
+              "name": "air"
+            }
+          ]
+        },
+        "enemy": {
+          "alive_at_end": true,
+          "end_x": -370,
+          "end_y": -1323,
+          "file": "data/entities/animals/scavenger_smg.xml",
+          "frames": 600,
+          "pellets": 12,
+          "timing": {
+            "fps": 112.148,
+            "frames": 600,
+            "seconds": 5.35008
+          },
+          "volleys": 12
+        },
+        "floor": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 16384,
+              "id": 425,
+              "name": "templebrick_static"
+            }
+          ]
+        },
+        "liquid": {
+          "extent_x": 357,
+          "extent_y": 4,
+          "frames": 120,
+          "max_x": 281,
+          "min_x": -75,
+          "missing": 0,
+          "timing": {
+            "fps": 105.084,
+            "frames": 120,
+            "seconds": 1.14194
+          },
+          "top": [
+            {
+              "cells": 40064,
+              "id": 0,
+              "name": "air"
+            },
+            {
+              "cells": 576,
+              "id": 56,
+              "name": "water"
+            }
+          ],
+          "water_cells": 576
+        },
+        "projectile": {
+          "dist": 199.098,
+          "frames": 30,
+          "path_every5": [
+            [
+              -484.093,
+              -1349.22
+            ],
+            [
+              -444.331,
+              -1347.27
+            ],
+            [
+              -409.892,
+              -1344.31
+            ],
+            [
+              -380.063,
+              -1340.46
+            ],
+            [
+              -354.227,
+              -1335.86
+            ],
+            [
+              -331.85,
+              -1330.6
+            ]
+          ],
+          "timing": {
+            "fps": 107.206,
+            "frames": 30,
+            "seconds": 0.279835
+          },
+          "vx": 600,
+          "vy": 0,
+          "x0": -530,
+          "x1": -331.85,
+          "y0": -1350,
+          "y1": -1330.6
+        },
+        "start_frame": 60,
+        "total": {
+          "fps": 117.92,
+          "frames": 1200,
+          "seconds": 10.1764
+        },
+        "walk": {
+          "dx": 279.612,
+          "frames": 300,
+          "timing": {
+            "fps": 132.108,
+            "frames": 300,
+            "seconds": 2.27087
+          },
+          "x0": -560,
+          "x1": -280.388,
+          "xs": [
+            -554.824,
+            -546.175,
+            -536.842,
+            -527.375,
+            -517.882,
+            -508.383,
+            -498.884,
+            -489.384,
+            -479.884,
+            -470.384,
+            -460.884,
+            -451.385,
+            -441.885,
+            -432.385,
+            -422.885,
+            -413.385,
+            -403.886,
+            -394.386,
+            -384.886,
+            -375.386,
+            -365.886,
+            -356.386,
+            -346.887,
+            -337.387,
+            -327.887,
+            -318.387,
+            -308.887,
+            -299.388,
+            -289.888,
+            -280.388
+          ],
+          "y0": -1323,
+          "y1": -1322.76
+        }
+      },
+      "clock_ratio": {
+        "raw_ticks": 20016663,
+        "mapped_ticks": 60049986,
+        "ratio": 3.0
+      },
+      "fps_quiet": {
+        "frames": 1305,
+        "wall_s": 8.029,
+        "fps_wall": 162.54,
+        "fps_mod_clock": 150.08
+      },
+      "busy_spawn": {
+        "frame": 2793,
+        "id": 6,
+        "ok": true,
+        "spawned": 20,
+        "t": "res",
+        "_bytes": 55
+      },
+      "fps_busy": {
+        "frames": 1200,
+        "wall_s": 8.011,
+        "fps_wall": 149.79,
+        "fps_mod_clock": 149.79
+      },
+      "memory": {
+        "working_set_mb": 740.9,
+        "peak_working_set_mb": 750.1,
+        "private_mb": 754.9
+      },
+      "ok": true
+    },
+    {
+      "cell": "ts4",
+      "rep": 4,
+      "framerate": 60,
+      "timescale": 4.0,
+      "t_hello_s": 4.82,
+      "dll_load_ms": 5.53,
+      "timescale_set": {
+        "id": 1,
+        "ok": true,
+        "scale": 4,
+        "t": "res",
+        "tgt_hooked": true,
+        "_bytes": 57
+      },
+      "suite_cmd": {
+        "frame": 3,
+        "id": 2,
+        "ok": true,
+        "start_frame": 60,
+        "t": "res",
+        "_bytes": 56
+      },
+      "suite_wall_s": 9.373,
+      "suite": {
+        "arena": {
+          "x": -600,
+          "y": -1400
+        },
+        "before_scene": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 98304,
+              "id": 0,
+              "name": "air"
+            }
+          ]
+        },
+        "enemy": {
+          "alive_at_end": true,
+          "end_x": -370,
+          "end_y": -1323,
+          "file": "data/entities/animals/scavenger_smg.xml",
+          "frames": 600,
+          "pellets": 12,
+          "timing": {
+            "fps": 140.231,
+            "frames": 600,
+            "seconds": 4.27865
+          },
+          "volleys": 12
+        },
+        "floor": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 16384,
+              "id": 425,
+              "name": "templebrick_static"
+            }
+          ]
+        },
+        "liquid": {
+          "extent_x": 333,
+          "extent_y": 4,
+          "frames": 120,
+          "max_x": 269,
+          "min_x": -63,
+          "missing": 0,
+          "timing": {
+            "fps": 133.986,
+            "frames": 120,
+            "seconds": 0.895619
+          },
+          "top": [
+            {
+              "cells": 40064,
+              "id": 0,
+              "name": "air"
+            },
+            {
+              "cells": 576,
+              "id": 56,
+              "name": "water"
+            }
+          ],
+          "water_cells": 576
+        },
+        "projectile": {
+          "dist": 199.098,
+          "frames": 30,
+          "path_every5": [
+            [
+              -484.093,
+              -1349.22
+            ],
+            [
+              -444.331,
+              -1347.27
+            ],
+            [
+              -409.892,
+              -1344.31
+            ],
+            [
+              -380.063,
+              -1340.46
+            ],
+            [
+              -354.227,
+              -1335.86
+            ],
+            [
+              -331.85,
+              -1330.6
+            ]
+          ],
+          "timing": {
+            "fps": 169.372,
+            "frames": 30,
+            "seconds": 0.177125
+          },
+          "vx": 600,
+          "vy": 0,
+          "x0": -530,
+          "x1": -331.85,
+          "y0": -1350,
+          "y1": -1330.6
+        },
+        "start_frame": 60,
+        "total": {
+          "fps": 151.807,
+          "frames": 1200,
+          "seconds": 7.9048
+        },
+        "walk": {
+          "dx": 279.612,
+          "frames": 300,
+          "timing": {
+            "fps": 200.503,
+            "frames": 300,
+            "seconds": 1.49623
+          },
+          "x0": -560,
+          "x1": -280.388,
+          "xs": [
+            -554.824,
+            -546.175,
+            -536.842,
+            -527.375,
+            -517.882,
+            -508.383,
+            -498.884,
+            -489.384,
+            -479.884,
+            -470.384,
+            -460.884,
+            -451.385,
+            -441.885,
+            -432.385,
+            -422.885,
+            -413.385,
+            -403.886,
+            -394.386,
+            -384.886,
+            -375.386,
+            -365.886,
+            -356.386,
+            -346.887,
+            -337.387,
+            -327.887,
+            -318.387,
+            -308.887,
+            -299.388,
+            -289.888,
+            -280.388
+          ],
+          "y0": -1323,
+          "y1": -1322.76
+        }
+      },
+      "clock_ratio": {
+        "raw_ticks": 20016219,
+        "mapped_ticks": 80064876,
+        "ratio": 4.0
+      },
+      "fps_quiet": {
+        "frames": 1815,
+        "wall_s": 8.032,
+        "fps_wall": 225.98,
+        "fps_mod_clock": 198.38
+      },
+      "busy_spawn": {
+        "frame": 3303,
+        "id": 6,
+        "ok": true,
+        "spawned": 20,
+        "t": "res",
+        "_bytes": 55
+      },
+      "fps_busy": {
+        "frames": 1050,
+        "wall_s": 8.041,
+        "fps_wall": 130.58,
+        "fps_mod_clock": 130.58
+      },
+      "memory": {
+        "working_set_mb": 743.0,
+        "peak_working_set_mb": 748.8,
+        "private_mb": 756.5
+      },
+      "ok": true
+    },
+    {
+      "cell": "ts8",
+      "rep": 1,
+      "framerate": 60,
+      "timescale": 8.0,
+      "t_hello_s": 5.056,
+      "dll_load_ms": 5.0689,
+      "timescale_set": {
+        "id": 1,
+        "ok": true,
+        "scale": 8,
+        "t": "res",
+        "tgt_hooked": true,
+        "_bytes": 57
+      },
+      "suite_cmd": {
+        "frame": 3,
+        "id": 2,
+        "ok": true,
+        "start_frame": 60,
+        "t": "res",
+        "_bytes": 56
+      },
+      "suite_wall_s": 4.778,
+      "suite": {
+        "arena": {
+          "x": -600,
+          "y": -1400
+        },
+        "before_scene": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 98304,
+              "id": 0,
+              "name": "air"
+            }
+          ]
+        },
+        "enemy": {
+          "alive_at_end": true,
+          "end_x": -370,
+          "end_y": -1324,
+          "file": "data/entities/animals/scavenger_smg.xml",
+          "frames": 600,
+          "pellets": 12,
+          "timing": {
+            "fps": 340.122,
+            "frames": 600,
+            "seconds": 1.76407
+          },
+          "volleys": 12
+        },
+        "floor": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 16384,
+              "id": 425,
+              "name": "templebrick_static"
+            }
+          ]
+        },
+        "liquid": {
+          "extent_x": 345,
+          "extent_y": 4,
+          "frames": 120,
+          "max_x": 286,
+          "min_x": -58,
+          "missing": 0,
+          "timing": {
+            "fps": 378.703,
+            "frames": 120,
+            "seconds": 0.316871
+          },
+          "top": [
+            {
+              "cells": 40064,
+              "id": 0,
+              "name": "air"
+            },
+            {
+              "cells": 576,
+              "id": 56,
+              "name": "water"
+            }
+          ],
+          "water_cells": 576
+        },
+        "projectile": {
+          "dist": 199.098,
+          "frames": 30,
+          "path_every5": [
+            [
+              -484.093,
+              -1349.22
+            ],
+            [
+              -444.331,
+              -1347.27
+            ],
+            [
+              -409.892,
+              -1344.31
+            ],
+            [
+              -380.063,
+              -1340.46
+            ],
+            [
+              -354.227,
+              -1335.86
+            ],
+            [
+              -331.85,
+              -1330.6
+            ]
+          ],
+          "timing": {
+            "fps": 363.706,
+            "frames": 30,
+            "seconds": 0.0824842
+          },
+          "vx": 600,
+          "vy": 0,
+          "x0": -530,
+          "x1": -331.85,
+          "y0": -1350,
+          "y1": -1330.6
+        },
+        "start_frame": 60,
+        "total": {
+          "fps": 338.45,
+          "frames": 1200,
+          "seconds": 3.54557
+        },
+        "walk": {
+          "dx": 279.612,
+          "frames": 300,
+          "timing": {
+            "fps": 325.231,
+            "frames": 300,
+            "seconds": 0.922422
+          },
+          "x0": -560,
+          "x1": -280.388,
+          "xs": [
+            -554.824,
+            -546.175,
+            -536.842,
+            -527.375,
+            -517.882,
+            -508.383,
+            -498.884,
+            -489.384,
+            -479.884,
+            -470.384,
+            -460.884,
+            -451.385,
+            -441.885,
+            -432.385,
+            -422.885,
+            -413.385,
+            -403.886,
+            -394.386,
+            -384.886,
+            -375.386,
+            -365.886,
+            -356.386,
+            -346.887,
+            -337.387,
+            -327.887,
+            -318.387,
+            -308.887,
+            -299.388,
+            -289.888,
+            -280.388
+          ],
+          "y0": -1323,
+          "y1": -1322.76
+        }
+      },
+      "clock_ratio": {
+        "raw_ticks": 20035385,
+        "mapped_ticks": 160283080,
+        "ratio": 8.0
+      },
+      "fps_quiet": {
+        "frames": 2445,
+        "wall_s": 8.008,
+        "fps_wall": 305.33,
+        "fps_mod_clock": 253.16
+      },
+      "busy_spawn": {
+        "frame": 3933,
+        "id": 6,
+        "ok": true,
+        "spawned": 20,
+        "t": "res",
+        "_bytes": 55
+      },
+      "fps_busy": {
+        "frames": 1260,
+        "wall_s": 8.068,
+        "fps_wall": 156.17,
+        "fps_mod_clock": 156.17
+      },
+      "memory": {
+        "working_set_mb": 676.3,
+        "peak_working_set_mb": 684.9,
+        "private_mb": 689.7
+      },
+      "ok": true
+    },
+    {
+      "cell": "ts3",
+      "rep": 2,
+      "framerate": 60,
+      "timescale": 3.0,
+      "t_hello_s": 4.838,
+      "dll_load_ms": 4.765,
+      "timescale_set": {
+        "id": 1,
+        "ok": true,
+        "scale": 3,
+        "t": "res",
+        "tgt_hooked": true,
+        "_bytes": 57
+      },
+      "suite_cmd": {
+        "frame": 3,
+        "id": 2,
+        "ok": true,
+        "start_frame": 60,
+        "t": "res",
+        "_bytes": 56
+      },
+      "suite_wall_s": 11.753,
+      "suite": {
+        "arena": {
+          "x": -600,
+          "y": -1400
+        },
+        "before_scene": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 98304,
+              "id": 0,
+              "name": "air"
+            }
+          ]
+        },
+        "enemy": {
+          "alive_at_end": true,
+          "end_x": -370,
+          "end_y": -1324,
+          "file": "data/entities/animals/scavenger_smg.xml",
+          "frames": 600,
+          "pellets": 12,
+          "timing": {
+            "fps": 109.603,
+            "frames": 600,
+            "seconds": 5.4743
+          },
+          "volleys": 12
+        },
+        "floor": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 16384,
+              "id": 425,
+              "name": "templebrick_static"
+            }
+          ]
+        },
+        "liquid": {
+          "extent_x": 352,
+          "extent_y": 4,
+          "frames": 120,
+          "max_x": 284,
+          "min_x": -67,
+          "missing": 0,
+          "timing": {
+            "fps": 106.228,
+            "frames": 120,
+            "seconds": 1.12965
+          },
+          "top": [
+            {
+              "cells": 40064,
+              "id": 0,
+              "name": "air"
+            },
+            {
+              "cells": 576,
+              "id": 56,
+              "name": "water"
+            }
+          ],
+          "water_cells": 576
+        },
+        "projectile": {
+          "dist": 199.098,
+          "frames": 30,
+          "path_every5": [
+            [
+              -484.093,
+              -1349.22
+            ],
+            [
+              -444.331,
+              -1347.27
+            ],
+            [
+              -409.892,
+              -1344.31
+            ],
+            [
+              -380.063,
+              -1340.46
+            ],
+            [
+              -354.227,
+              -1335.86
+            ],
+            [
+              -331.85,
+              -1330.6
+            ]
+          ],
+          "timing": {
+            "fps": 109.983,
+            "frames": 30,
+            "seconds": 0.272768
+          },
+          "vx": 600,
+          "vy": 0,
+          "x0": -530,
+          "x1": -331.85,
+          "y0": -1350,
+          "y1": -1330.6
+        },
+        "start_frame": 60,
+        "total": {
+          "fps": 116.939,
+          "frames": 1200,
+          "seconds": 10.2618
+        },
+        "walk": {
+          "dx": 279.612,
+          "frames": 300,
+          "timing": {
+            "fps": 140.098,
+            "frames": 300,
+            "seconds": 2.14136
+          },
+          "x0": -560,
+          "x1": -280.388,
+          "xs": [
+            -554.824,
+            -546.175,
+            -536.842,
+            -527.375,
+            -517.882,
+            -508.383,
+            -498.884,
+            -489.384,
+            -479.884,
+            -470.384,
+            -460.884,
+            -451.385,
+            -441.885,
+            -432.385,
+            -422.885,
+            -413.385,
+            -403.886,
+            -394.386,
+            -384.886,
+            -375.386,
+            -365.886,
+            -356.386,
+            -346.887,
+            -337.387,
+            -327.887,
+            -318.387,
+            -308.887,
+            -299.388,
+            -289.888,
+            -280.388
+          ],
+          "y0": -1323,
+          "y1": -1322.76
+        }
+      },
+      "clock_ratio": {
+        "raw_ticks": 20040211,
+        "mapped_ticks": 60120636,
+        "ratio": 3.0
+      },
+      "fps_quiet": {
+        "frames": 1290,
+        "wall_s": 8.023,
+        "fps_wall": 160.79,
+        "fps_mod_clock": 148.41
+      },
+      "busy_spawn": {
+        "frame": 2778,
+        "id": 6,
+        "ok": true,
+        "spawned": 20,
+        "t": "res",
+        "_bytes": 55
+      },
+      "fps_busy": {
+        "frames": 1110,
+        "wall_s": 8.066,
+        "fps_wall": 137.61,
+        "fps_mod_clock": 137.61
+      },
+      "memory": {
+        "working_set_mb": 747.1,
+        "peak_working_set_mb": 752.9,
+        "private_mb": 761.1
+      },
+      "ok": true
+    },
+    {
+      "cell": "ts4",
+      "rep": 5,
+      "framerate": 60,
+      "timescale": 4.0,
+      "t_hello_s": 5.025,
+      "dll_load_ms": 5.0072,
+      "timescale_set": {
+        "id": 1,
+        "ok": true,
+        "scale": 4,
+        "t": "res",
+        "tgt_hooked": true,
+        "_bytes": 57
+      },
+      "suite_cmd": {
+        "frame": 3,
+        "id": 2,
+        "ok": true,
+        "start_frame": 60,
+        "t": "res",
+        "_bytes": 56
+      },
+      "suite_wall_s": 8.876,
+      "suite": {
+        "arena": {
+          "x": -600,
+          "y": -1400
+        },
+        "before_scene": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 98304,
+              "id": 0,
+              "name": "air"
+            }
+          ]
+        },
+        "enemy": {
+          "alive_at_end": true,
+          "end_x": -370,
+          "end_y": -1323,
+          "file": "data/entities/animals/scavenger_smg.xml",
+          "frames": 600,
+          "pellets": 12,
+          "timing": {
+            "fps": 160.31,
+            "frames": 600,
+            "seconds": 3.74276
+          },
+          "volleys": 12
+        },
+        "floor": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 16384,
+              "id": 425,
+              "name": "templebrick_static"
+            }
+          ]
+        },
+        "liquid": {
+          "extent_x": 353,
+          "extent_y": 5,
+          "frames": 120,
+          "max_x": 281,
+          "min_x": -71,
+          "missing": 0,
+          "timing": {
+            "fps": 148.302,
+            "frames": 120,
+            "seconds": 0.809162
+          },
+          "top": [
+            {
+              "cells": 40064,
+              "id": 0,
+              "name": "air"
+            },
+            {
+              "cells": 576,
+              "id": 56,
+              "name": "water"
+            }
+          ],
+          "water_cells": 576
+        },
+        "projectile": {
+          "dist": 199.098,
+          "frames": 30,
+          "path_every5": [
+            [
+              -484.093,
+              -1349.22
+            ],
+            [
+              -444.331,
+              -1347.27
+            ],
+            [
+              -409.892,
+              -1344.31
+            ],
+            [
+              -380.063,
+              -1340.46
+            ],
+            [
+              -354.227,
+              -1335.86
+            ],
+            [
+              -331.85,
+              -1330.6
+            ]
+          ],
+          "timing": {
+            "fps": 163.663,
+            "frames": 30,
+            "seconds": 0.183304
+          },
+          "vx": 600,
+          "vy": 0,
+          "x0": -530,
+          "x1": -331.85,
+          "y0": -1350,
+          "y1": -1330.6
+        },
+        "start_frame": 60,
+        "total": {
+          "fps": 164.098,
+          "frames": 1200,
+          "seconds": 7.31269
+        },
+        "walk": {
+          "dx": 279.612,
+          "frames": 300,
+          "timing": {
+            "fps": 191.351,
+            "frames": 300,
+            "seconds": 1.5678
+          },
+          "x0": -560,
+          "x1": -280.388,
+          "xs": [
+            -554.824,
+            -546.175,
+            -536.842,
+            -527.375,
+            -517.882,
+            -508.383,
+            -498.884,
+            -489.384,
+            -479.884,
+            -470.384,
+            -460.884,
+            -451.385,
+            -441.885,
+            -432.385,
+            -422.885,
+            -413.385,
+            -403.886,
+            -394.386,
+            -384.886,
+            -375.386,
+            -365.886,
+            -356.386,
+            -346.887,
+            -337.387,
+            -327.887,
+            -318.387,
+            -308.887,
+            -299.388,
+            -289.888,
+            -280.388
+          ],
+          "y0": -1323,
+          "y1": -1322.76
+        }
+      },
+      "clock_ratio": {
+        "raw_ticks": 20080662,
+        "mapped_ticks": 80322652,
+        "ratio": 4.0
+      },
+      "fps_quiet": {
+        "frames": 1755,
+        "wall_s": 8.004,
+        "fps_wall": 219.28,
+        "fps_mod_clock": 193.14
+      },
+      "busy_spawn": {
+        "frame": 3243,
+        "id": 6,
+        "ok": true,
+        "spawned": 20,
+        "t": "res",
+        "_bytes": 55
+      },
+      "fps_busy": {
+        "frames": 1125,
+        "wall_s": 8.062,
+        "fps_wall": 139.55,
+        "fps_mod_clock": 139.55
+      },
+      "memory": {
+        "working_set_mb": 744.5,
+        "peak_working_set_mb": 749.2,
+        "private_mb": 760.3
+      },
+      "ok": true
+    },
+    {
+      "cell": "ts8",
+      "rep": 2,
+      "framerate": 60,
+      "timescale": 8.0,
+      "t_hello_s": 4.837,
+      "dll_load_ms": 6.8899,
+      "timescale_set": {
+        "id": 1,
+        "ok": true,
+        "scale": 8,
+        "t": "res",
+        "tgt_hooked": true,
+        "_bytes": 57
+      },
+      "suite_cmd": {
+        "frame": 3,
+        "id": 2,
+        "ok": true,
+        "start_frame": 60,
+        "t": "res",
+        "_bytes": 56
+      },
+      "suite_wall_s": 5.091,
+      "suite": {
+        "arena": {
+          "x": -600,
+          "y": -1400
+        },
+        "before_scene": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 98304,
+              "id": 0,
+              "name": "air"
+            }
+          ]
+        },
+        "enemy": {
+          "alive_at_end": true,
+          "end_x": -370,
+          "end_y": -1323,
+          "file": "data/entities/animals/scavenger_smg.xml",
+          "frames": 600,
+          "pellets": 12,
+          "timing": {
+            "fps": 359.677,
+            "frames": 600,
+            "seconds": 1.66816
+          },
+          "volleys": 12
+        },
+        "floor": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 16384,
+              "id": 425,
+              "name": "templebrick_static"
+            }
+          ]
+        },
+        "liquid": {
+          "extent_x": 343,
+          "extent_y": 4,
+          "frames": 120,
+          "max_x": 271,
+          "min_x": -71,
+          "missing": 0,
+          "timing": {
+            "fps": 373.608,
+            "frames": 120,
+            "seconds": 0.321192
+          },
+          "top": [
+            {
+              "cells": 40064,
+              "id": 0,
+              "name": "air"
+            },
+            {
+              "cells": 576,
+              "id": 56,
+              "name": "water"
+            }
+          ],
+          "water_cells": 576
+        },
+        "projectile": {
+          "dist": 199.098,
+          "frames": 30,
+          "path_every5": [
+            [
+              -484.093,
+              -1349.22
+            ],
+            [
+              -444.331,
+              -1347.27
+            ],
+            [
+              -409.892,
+              -1344.31
+            ],
+            [
+              -380.063,
+              -1340.46
+            ],
+            [
+              -354.227,
+              -1335.86
+            ],
+            [
+              -331.85,
+              -1330.6
+            ]
+          ],
+          "timing": {
+            "fps": 259.995,
+            "frames": 30,
+            "seconds": 0.115387
+          },
+          "vx": 600,
+          "vy": 0,
+          "x0": -530,
+          "x1": -331.85,
+          "y0": -1350,
+          "y1": -1330.6
+        },
+        "start_frame": 60,
+        "total": {
+          "fps": 322.571,
+          "frames": 1200,
+          "seconds": 3.72011
+        },
+        "walk": {
+          "dx": 279.612,
+          "frames": 300,
+          "timing": {
+            "fps": 275.696,
+            "frames": 300,
+            "seconds": 1.08815
+          },
+          "x0": -560,
+          "x1": -280.388,
+          "xs": [
+            -554.824,
+            -546.175,
+            -536.842,
+            -527.375,
+            -517.882,
+            -508.383,
+            -498.884,
+            -489.384,
+            -479.884,
+            -470.384,
+            -460.884,
+            -451.385,
+            -441.885,
+            -432.385,
+            -422.885,
+            -413.385,
+            -403.886,
+            -394.386,
+            -384.886,
+            -375.386,
+            -365.886,
+            -356.386,
+            -346.887,
+            -337.387,
+            -327.887,
+            -318.387,
+            -308.887,
+            -299.388,
+            -289.888,
+            -280.388
+          ],
+          "y0": -1323,
+          "y1": -1322.76
+        }
+      },
+      "clock_ratio": {
+        "raw_ticks": 20013649,
+        "mapped_ticks": 160109192,
+        "ratio": 8.0
+      },
+      "fps_quiet": {
+        "frames": 2430,
+        "wall_s": 8.029,
+        "fps_wall": 302.65,
+        "fps_mod_clock": 250.68
+      },
+      "busy_spawn": {
+        "frame": 3918,
+        "id": 6,
+        "ok": true,
+        "spawned": 20,
+        "t": "res",
+        "_bytes": 55
+      },
+      "fps_busy": {
+        "frames": 1290,
+        "wall_s": 8.068,
+        "fps_wall": 159.88,
+        "fps_mod_clock": 159.88
+      },
+      "memory": {
+        "working_set_mb": 675.0,
+        "peak_working_set_mb": 682.2,
+        "private_mb": 687.8
+      },
+      "ok": true
+    },
+    {
+      "cell": "ts3",
+      "rep": 3,
+      "framerate": 60,
+      "timescale": 3.0,
+      "t_hello_s": 4.818,
+      "dll_load_ms": 4.8174,
+      "timescale_set": {
+        "id": 1,
+        "ok": true,
+        "scale": 3,
+        "t": "res",
+        "tgt_hooked": true,
+        "_bytes": 57
+      },
+      "suite_cmd": {
+        "frame": 3,
+        "id": 2,
+        "ok": true,
+        "start_frame": 60,
+        "t": "res",
+        "_bytes": 56
+      },
+      "suite_wall_s": 12.058,
+      "suite": {
+        "arena": {
+          "x": -600,
+          "y": -1400
+        },
+        "before_scene": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 98304,
+              "id": 0,
+              "name": "air"
+            }
+          ]
+        },
+        "enemy": {
+          "alive_at_end": true,
+          "end_x": -370,
+          "end_y": -1323,
+          "file": "data/entities/animals/scavenger_smg.xml",
+          "frames": 600,
+          "pellets": 12,
+          "timing": {
+            "fps": 108.806,
+            "frames": 600,
+            "seconds": 5.51438
+          },
+          "volleys": 12
+        },
+        "floor": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 16384,
+              "id": 425,
+              "name": "templebrick_static"
+            }
+          ]
+        },
+        "liquid": {
+          "extent_x": 361,
+          "extent_y": 5,
+          "frames": 120,
+          "max_x": 289,
+          "min_x": -71,
+          "missing": 0,
+          "timing": {
+            "fps": 106.068,
+            "frames": 120,
+            "seconds": 1.13135
+          },
+          "top": [
+            {
+              "cells": 40064,
+              "id": 0,
+              "name": "air"
+            },
+            {
+              "cells": 576,
+              "id": 56,
+              "name": "water"
+            }
+          ],
+          "water_cells": 576
+        },
+        "projectile": {
+          "dist": 199.098,
+          "frames": 30,
+          "path_every5": [
+            [
+              -484.093,
+              -1349.22
+            ],
+            [
+              -444.331,
+              -1347.27
+            ],
+            [
+              -409.892,
+              -1344.31
+            ],
+            [
+              -380.063,
+              -1340.46
+            ],
+            [
+              -354.227,
+              -1335.86
+            ],
+            [
+              -331.85,
+              -1330.6
+            ]
+          ],
+          "timing": {
+            "fps": 105.768,
+            "frames": 30,
+            "seconds": 0.283639
+          },
+          "vx": 600,
+          "vy": 0,
+          "x0": -530,
+          "x1": -331.85,
+          "y0": -1350,
+          "y1": -1330.6
+        },
+        "start_frame": 60,
+        "total": {
+          "fps": 114.802,
+          "frames": 1200,
+          "seconds": 10.4528
+        },
+        "walk": {
+          "dx": 279.612,
+          "frames": 300,
+          "timing": {
+            "fps": 131.326,
+            "frames": 300,
+            "seconds": 2.2844
+          },
+          "x0": -560,
+          "x1": -280.388,
+          "xs": [
+            -554.824,
+            -546.175,
+            -536.842,
+            -527.375,
+            -517.882,
+            -508.383,
+            -498.884,
+            -489.384,
+            -479.884,
+            -470.384,
+            -460.884,
+            -451.385,
+            -441.885,
+            -432.385,
+            -422.885,
+            -413.385,
+            -403.886,
+            -394.386,
+            -384.886,
+            -375.386,
+            -365.886,
+            -356.386,
+            -346.887,
+            -337.387,
+            -327.887,
+            -318.387,
+            -308.887,
+            -299.388,
+            -289.888,
+            -280.388
+          ],
+          "y0": -1323,
+          "y1": -1322.76
+        }
+      },
+      "clock_ratio": {
+        "raw_ticks": 20029323,
+        "mapped_ticks": 60087969,
+        "ratio": 3.0
+      },
+      "fps_quiet": {
+        "frames": 1305,
+        "wall_s": 8.002,
+        "fps_wall": 163.09,
+        "fps_mod_clock": 150.68
+      },
+      "busy_spawn": {
+        "frame": 2793,
+        "id": 6,
+        "ok": true,
+        "spawned": 20,
+        "t": "res",
+        "_bytes": 55
+      },
+      "fps_busy": {
+        "frames": 1200,
+        "wall_s": 8.095,
+        "fps_wall": 148.24,
+        "fps_mod_clock": 148.24
+      },
+      "memory": {
+        "working_set_mb": 746.3,
+        "peak_working_set_mb": 751.7,
+        "private_mb": 760.0
+      },
+      "ok": true
+    },
+    {
+      "cell": "ts4",
+      "rep": 6,
+      "framerate": 60,
+      "timescale": 4.0,
+      "t_hello_s": 4.962,
+      "dll_load_ms": 5.2309,
+      "timescale_set": {
+        "id": 1,
+        "ok": true,
+        "scale": 4,
+        "t": "res",
+        "tgt_hooked": true,
+        "_bytes": 57
+      },
+      "suite_cmd": {
+        "frame": 3,
+        "id": 2,
+        "ok": true,
+        "start_frame": 60,
+        "t": "res",
+        "_bytes": 56
+      },
+      "suite_wall_s": 8.765,
+      "suite": {
+        "arena": {
+          "x": -600,
+          "y": -1400
+        },
+        "before_scene": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 98304,
+              "id": 0,
+              "name": "air"
+            }
+          ]
+        },
+        "enemy": {
+          "alive_at_end": true,
+          "end_x": -370,
+          "end_y": -1323,
+          "file": "data/entities/animals/scavenger_smg.xml",
+          "frames": 600,
+          "pellets": 12,
+          "timing": {
+            "fps": 158.411,
+            "frames": 600,
+            "seconds": 3.78762
+          },
+          "volleys": 12
+        },
+        "floor": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 16384,
+              "id": 425,
+              "name": "templebrick_static"
+            }
+          ]
+        },
+        "liquid": {
+          "extent_x": 333,
+          "extent_y": 5,
+          "frames": 120,
+          "max_x": 262,
+          "min_x": -70,
+          "missing": 0,
+          "timing": {
+            "fps": 146.554,
+            "frames": 120,
+            "seconds": 0.818813
+          },
+          "top": [
+            {
+              "cells": 40064,
+              "id": 0,
+              "name": "air"
+            },
+            {
+              "cells": 576,
+              "id": 56,
+              "name": "water"
+            }
+          ],
+          "water_cells": 576
+        },
+        "projectile": {
+          "dist": 199.098,
+          "frames": 30,
+          "path_every5": [
+            [
+              -484.093,
+              -1349.22
+            ],
+            [
+              -444.331,
+              -1347.27
+            ],
+            [
+              -409.892,
+              -1344.31
+            ],
+            [
+              -380.063,
+              -1340.46
+            ],
+            [
+              -354.227,
+              -1335.86
+            ],
+            [
+              -331.85,
+              -1330.6
+            ]
+          ],
+          "timing": {
+            "fps": 168.429,
+            "frames": 30,
+            "seconds": 0.178117
+          },
+          "vx": 600,
+          "vy": 0,
+          "x0": -530,
+          "x1": -331.85,
+          "y0": -1350,
+          "y1": -1330.6
+        },
+        "start_frame": 60,
+        "total": {
+          "fps": 165.531,
+          "frames": 1200,
+          "seconds": 7.2494
+        },
+        "walk": {
+          "dx": 279.612,
+          "frames": 300,
+          "timing": {
+            "fps": 201.522,
+            "frames": 300,
+            "seconds": 1.48867
+          },
+          "x0": -560,
+          "x1": -280.388,
+          "xs": [
+            -554.824,
+            -546.175,
+            -536.842,
+            -527.375,
+            -517.882,
+            -508.383,
+            -498.884,
+            -489.384,
+            -479.884,
+            -470.384,
+            -460.884,
+            -451.385,
+            -441.885,
+            -432.385,
+            -422.885,
+            -413.385,
+            -403.886,
+            -394.386,
+            -384.886,
+            -375.386,
+            -365.886,
+            -356.386,
+            -346.887,
+            -337.387,
+            -327.887,
+            -318.387,
+            -308.887,
+            -299.388,
+            -289.888,
+            -280.388
+          ],
+          "y0": -1323,
+          "y1": -1322.76
+        }
+      },
+      "clock_ratio": {
+        "raw_ticks": 20076816,
+        "mapped_ticks": 80307252,
+        "ratio": 4.0
+      },
+      "fps_quiet": {
+        "frames": 1770,
+        "wall_s": 8.067,
+        "fps_wall": 219.42,
+        "fps_mod_clock": 194.88
+      },
+      "busy_spawn": {
+        "frame": 3258,
+        "id": 6,
+        "ok": true,
+        "spawned": 20,
+        "t": "res",
+        "_bytes": 55
+      },
+      "fps_busy": {
+        "frames": 1155,
+        "wall_s": 8.086,
+        "fps_wall": 142.84,
+        "fps_mod_clock": 142.84
+      },
+      "memory": {
+        "working_set_mb": 743.9,
+        "peak_working_set_mb": 747.8,
+        "private_mb": 757.9
+      },
+      "ok": true
+    },
+    {
+      "cell": "ts8",
+      "rep": 3,
+      "framerate": 60,
+      "timescale": 8.0,
+      "t_hello_s": 4.852,
+      "dll_load_ms": 6.4944,
+      "timescale_set": {
+        "id": 1,
+        "ok": true,
+        "scale": 8,
+        "t": "res",
+        "tgt_hooked": true,
+        "_bytes": 57
+      },
+      "suite_cmd": {
+        "frame": 3,
+        "id": 2,
+        "ok": true,
+        "start_frame": 60,
+        "t": "res",
+        "_bytes": 56
+      },
+      "suite_wall_s": 5.23,
+      "suite": {
+        "arena": {
+          "x": -600,
+          "y": -1400
+        },
+        "before_scene": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 98304,
+              "id": 0,
+              "name": "air"
+            }
+          ]
+        },
+        "enemy": {
+          "alive_at_end": true,
+          "end_x": -370,
+          "end_y": -1324,
+          "file": "data/entities/animals/scavenger_smg.xml",
+          "frames": 600,
+          "pellets": 12,
+          "timing": {
+            "fps": 364.838,
+            "frames": 600,
+            "seconds": 1.64457
+          },
+          "volleys": 12
+        },
+        "floor": {
+          "missing": 0,
+          "top": [
+            {
+              "cells": 16384,
+              "id": 425,
+              "name": "templebrick_static"
+            }
+          ]
+        },
+        "liquid": {
+          "extent_x": 342,
+          "extent_y": 5,
+          "frames": 120,
+          "max_x": 287,
+          "min_x": -54,
+          "missing": 0,
+          "timing": {
+            "fps": 383.896,
+            "frames": 120,
+            "seconds": 0.312584
+          },
+          "top": [
+            {
+              "cells": 40064,
+              "id": 0,
+              "name": "air"
+            },
+            {
+              "cells": 576,
+              "id": 56,
+              "name": "water"
+            }
+          ],
+          "water_cells": 576
+        },
+        "projectile": {
+          "dist": 199.098,
+          "frames": 30,
+          "path_every5": [
+            [
+              -484.093,
+              -1349.22
+            ],
+            [
+              -444.331,
+              -1347.27
+            ],
+            [
+              -409.892,
+              -1344.31
+            ],
+            [
+              -380.063,
+              -1340.46
+            ],
+            [
+              -354.227,
+              -1335.86
+            ],
+            [
+              -331.85,
+              -1330.6
+            ]
+          ],
+          "timing": {
+            "fps": 282.542,
+            "frames": 30,
+            "seconds": 0.106179
+          },
+          "vx": 600,
+          "vy": 0,
+          "x0": -530,
+          "x1": -331.85,
+          "y0": -1350,
+          "y1": -1330.6
+        },
+        "start_frame": 60,
+        "total": {
+          "fps": 311.473,
+          "frames": 1200,
+          "seconds": 3.85266
+        },
+        "walk": {
+          "dx": 279.612,
+          "frames": 300,
+          "timing": {
+            "fps": 244.311,
+            "frames": 300,
+            "seconds": 1.22794
+          },
+          "x0": -560,
+          "x1": -280.388,
+          "xs": [
+            -554.824,
+            -546.175,
+            -536.842,
+            -527.375,
+            -517.882,
+            -508.383,
+            -498.884,
+            -489.384,
+            -479.884,
+            -470.384,
+            -460.884,
+            -451.385,
+            -441.885,
+            -432.385,
+            -422.885,
+            -413.385,
+            -403.886,
+            -394.386,
+            -384.886,
+            -375.386,
+            -365.886,
+            -356.386,
+            -346.887,
+            -337.387,
+            -327.887,
+            -318.387,
+            -308.887,
+            -299.388,
+            -289.888,
+            -280.388
+          ],
+          "y0": -1323,
+          "y1": -1322.76
+        }
+      },
+      "clock_ratio": {
+        "raw_ticks": 20017244,
+        "mapped_ticks": 160137944,
+        "ratio": 8.0
+      },
+      "fps_quiet": {
+        "frames": 2445,
+        "wall_s": 8.044,
+        "fps_wall": 303.94,
+        "fps_mod_clock": 251.84
+      },
+      "busy_spawn": {
+        "frame": 3933,
+        "id": 6,
+        "ok": true,
+        "spawned": 20,
+        "t": "res",
+        "_bytes": 55
+      },
+      "fps_busy": {
+        "frames": 1320,
+        "wall_s": 8.031,
+        "fps_wall": 164.36,
+        "fps_mod_clock": 164.36
+      },
+      "memory": {
+        "working_set_mb": 675.2,
+        "peak_working_set_mb": 685.5,
+        "private_mb": 687.0
+      },
+      "ok": true
+    }
+  ]
+}

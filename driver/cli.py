@@ -4,7 +4,7 @@ import sys
 import time
 from pathlib import Path
 
-from . import gameconfig, launcher, paths, smoke, snapshot
+from . import actions, gameconfig, launcher, paths, smoke, snapshot, test1, test2
 
 
 def _render(a) -> gameconfig.RenderOptions:
@@ -73,6 +73,44 @@ def cmd_smoke(a):
     print(f"wrote {out}")
 
 
+def save_result(prefix: str, res: dict) -> Path:
+    paths.RESULTS_DIR.mkdir(exist_ok=True)
+    out = paths.RESULTS_DIR / f"{prefix}_{time.strftime('%Y%m%d-%H%M%S')}.json"
+    out.write_text(json.dumps(res, indent=2))
+    print(f"wrote {out}", flush=True)
+    return out
+
+
+def _log(msg):
+    print(msg, flush=True)
+
+
+def cmd_test1(a):
+    prior = json.loads(Path(a.append).read_text()) if a.append else None
+    save_result("test1", test1.run(cells=a.cells, reps=a.reps, baseline_reps=a.baseline_reps, log=_log,
+                                   prior=prior))
+
+
+def cmd_test2(a):
+    save_result("test2", test2.run(framerate=a.framerate, timescale=a.timescale or None, log=_log))
+
+
+def cmd_suite(a):
+    """Every test implemented so far, in order; one result file each plus an index."""
+    t0 = time.perf_counter()
+    files = {
+        "smoke": str(smoke.save(smoke.run(storage="workdir"))),
+        "actions": str(save_result("actions", actions.run())),
+        "test1": str(save_result("test1", test1.run(reps=a.reps, baseline_reps=a.baseline_reps, log=_log))),
+        "test2": str(save_result("test2", test2.run(framerate=60, timescale=8.0, log=_log))),
+    }
+    save_result("suite", {"results": files, "minutes": round((time.perf_counter() - t0) / 60, 1)})
+
+
+def cmd_actions(a):
+    save_result("actions", actions.run())
+
+
 def cmd_diff_backup(a):
     """Lists differences between the live user data and an external backup copy."""
     import filecmp
@@ -131,6 +169,26 @@ def main(argv=None):
     p.add_argument("--no-restore", action="store_true")
     _add_render(p)
     p.set_defaults(fn=cmd_smoke)
+
+    p = sub.add_parser("test1", help="speed vs consistency matrix; writes results/test1_*.json")
+    p.add_argument("--cells", nargs="*", choices=list(test1.CELLS), default=None)
+    p.add_argument("--reps", type=int, default=3)
+    p.add_argument("--baseline-reps", type=int, default=5)
+    p.add_argument("--append", help="earlier test1 result file whose runs are kept and extended")
+    p.set_defaults(fn=cmd_test1)
+
+    sub.add_parser("actions", help="check that each action changes the game").set_defaults(fn=cmd_actions)
+
+    p = sub.add_parser("test2", help="grid read cost; writes results/test2_*.json")
+    p.add_argument("--framerate", type=int, default=60)
+    p.add_argument("--timescale", type=float, default=8.0,
+                   help="clock scale (default 8: the fastest, uncapped setting from Test 1); 0 = no hook")
+    p.set_defaults(fn=cmd_test2)
+
+    p = sub.add_parser("suite", help="run every implemented test (smoke, actions, test1, test2)")
+    p.add_argument("--reps", type=int, default=3)
+    p.add_argument("--baseline-reps", type=int, default=5)
+    p.set_defaults(fn=cmd_suite)
 
     p = sub.add_parser("diff-backup", help="compare live user data with a backup folder")
     p.add_argument("backup")

@@ -34,6 +34,90 @@ local function send_obj(t)
   if not rlb_link.send(json.encode(t) .. "\n") then B.connected = false end
 end
 
+rlb_bench.send = send_obj
+
+local function refresh_player()
+  local ps = EntityGetWithTag("player_unit")
+  local p = ps and ps[1]
+  if p ~= B.player then
+    B.player = p
+    B.cdc = p and EntityGetFirstComponent(p, "CharacterDataComponent") or nil
+    B.dmc = p and EntityGetFirstComponent(p, "DamageModelComponent") or nil
+  end
+  return p
+end
+rlb_bench.player = refresh_player
+
+function rlb_bench.teleport(x, y)
+  local p = refresh_player()
+  if not p then return false end
+  EntitySetTransform(p, x, y)
+  EntityApplyTransform(p, x, y)
+  if B.cdc then ComponentSetValue2(B.cdc, "mVelocity", 0, 0) end
+  return true
+end
+
+local DAMAGE_TYPES = { "melee", "projectile", "explosion", "electricity", "fire", "drill", "slice",
+  "ice", "physics_hit", "radioactive", "poison", "overeating", "curse", "holy" }
+
+-- Keeps the player alive: huge hp, every damage multiplier 0, no air needed.
+function rlb_bench.god()
+  local p = refresh_player()
+  if not p or not B.dmc then return false end
+  ComponentSetValue2(B.dmc, "max_hp", 100000)
+  ComponentSetValue2(B.dmc, "hp", 100000)
+  ComponentSetValue2(B.dmc, "air_needed", false)
+  for _, t in ipairs(DAMAGE_TYPES) do
+    pcall(ComponentObjectSetValue2, B.dmc, "damage_multipliers", t, 0)
+  end
+  return true
+end
+
+-- Time scaling through xinput_hook.dll's QPC hook. Once the hook is in, the mod clock reads
+-- the unscaled counter.
+local function set_timescale(a)
+  local dll = rlb_input.dll()
+  if not dll then return { ok = false, error = "DLL not loaded" } end
+  local scale = tonumber(a.scale) or 1
+  if dll.time_install() ~= 1 then return { ok = false, error = "xh_install_timehooks failed" } end
+  rlb_clock.use_raw(dll.qpc_raw)
+  if scale == 1 then dll.time_clear() else dll.time_set(scale) end
+  return { ok = true, scale = dll.time_get(), tgt_hooked = dll.time_tgt_installed() == 1 }
+end
+
+local function time_status()
+  local dll = rlb_input.dll()
+  if not dll then return { ok = false, error = "DLL not loaded" } end
+  local r, s = ffi.new("int64_t[1]"), ffi.new("int64_t[1]")
+  dll.qpc_raw(r)
+  dll.qpc_scaled(s)
+  return { ok = true, scale = dll.time_get(), calls = dll.time_calls(), scaled = dll.time_scaled(),
+           raw = tonumber(r[0]), mapped = tonumber(s[0]) }
+end
+
+rlb_bench.frame_hooks = rlb_bench.frame_hooks or {}
+
+-- Frame-scheduled script (coroutine), resumed once per frame from post_update.
+local script = nil
+function rlb_bench.run_script(name, fn)
+  script = { name = name, co = coroutine.create(fn) }
+end
+function rlb_bench.wait(n)
+  for _ = 1, n or 1 do coroutine.yield() end
+end
+
+local function resume_script()
+  if not script then return end
+  local ok, err = coroutine.resume(script.co)
+  if not ok then
+    send_obj({ t = "event", what = "script_error", name = script.name, error = tostring(err),
+               frame = GameGetFrameNum() })
+    script = nil
+  elseif coroutine.status(script.co) == "dead" then
+    script = nil
+  end
+end
+
 local function not_implemented(name)
   return function() return { ok = false, error = name .. " is not implemented yet" } end
 end
@@ -67,11 +151,14 @@ local CMDS = {
     for i, id in ipairs(a.ids or {}) do out[i] = CellFactory_GetName(id) end
     return { ok = true, names = out }
   end,
+  teleport = function(a) return { ok = rlb_bench.teleport(a.x, a.y), frame = GameGetFrameNum() } end,
+  god = function() return { ok = rlb_bench.god() } end,
+  set_timescale = set_timescale,
+  time_status = time_status,
   spawn = not_implemented("spawn"),
-  teleport = not_implemented("teleport"),
   kill_player = not_implemented("kill_player"),
-  set_timescale = not_implemented("set_timescale"),
 }
+rlb_bench.cmds = CMDS
 
 -- Returns true when the message was an action.
 local function handle(line)
@@ -126,17 +213,6 @@ local function wait_action()
   return false
 end
 
-local function refresh_player()
-  local ps = EntityGetWithTag("player_unit")
-  local p = ps and ps[1]
-  if p ~= B.player then
-    B.player = p
-    B.cdc = p and EntityGetFirstComponent(p, "CharacterDataComponent") or nil
-    B.dmc = p and EntityGetFirstComponent(p, "DamageModelComponent") or nil
-  end
-  return p
-end
-
 local function fmt(v) return v and string.format("%.3f", v) or "null" end
 
 local function send_state(frame)
@@ -155,13 +231,13 @@ local function send_state(frame)
   if B.grid and x then
     local g = B.grid
     local t0 = clock()
-    local b, x0, y0 = rlb_grid.read(x, y, g.size, g.stride)
+    local b, x0, y0, missing = rlb_grid.read(x, y, g.size, g.stride)
     local t1 = clock()
     if b then
       local hex = rlb_grid.hex(b, g.size * g.size)
       local t2 = clock()
-      grid = string.format(',"grid":{"size":%d,"stride":%d,"x0":%d,"y0":%d,"read_ms":%.4f,"encode_ms":%.4f,"hex":"%s"}',
-        g.size, g.stride, x0, y0, t1 - t0, t2 - t1, hex)
+      grid = string.format(',"grid":{"size":%d,"stride":%d,"x0":%d,"y0":%d,"missing":%d,"read_ms":%.4f,"encode_ms":%.4f,"hex":"%s"}',
+        g.size, g.stride, x0, y0, missing, t1 - t0, t2 - t1, hex)
     else
       grid = string.format(',"grid":{"error":%q}', tostring(x0))
     end
@@ -194,8 +270,11 @@ function rlb_bench.on_world_init()
     return
   end
   B.connected = true
-  local input = rlb_input.init(env("RL_BENCH_INPUT") or "sdl",
-    rlb_input.cwd() .. "\\mods\\rl_bench\\bin\\xinput_hook.dll")
+  local dll_path = rlb_input.cwd() .. "\\mods\\rl_bench\\bin\\xinput_hook.dll"
+  local t_dll = clock()
+  local dll = rlb_input.load_dll(dll_path)
+  dll.load_ms = clock() - t_dll
+  local input = rlb_input.init(env("RL_BENCH_INPUT") or "sdl", dll_path)
   local s1, s2 = read_seed()
   send_obj({
     t = "hello",
@@ -207,6 +286,7 @@ function rlb_bench.on_world_init()
     seed_alt = s2,
     magic_seed = MagicNumbersGetValue("WORLD_SEED"),
     input = input,
+    dll = dll,
     k = B.k,
     mode = B.mode,
   })
@@ -218,6 +298,8 @@ function rlb_bench.post_update()
   local waited = 0
   local frame = GameGetFrameNum()
   if B.mode ~= "lockstep" then drain() end
+  resume_script()
+  for _, h in ipairs(rlb_bench.frame_hooks) do h() end
   if B.connected and frame - B.last_obs >= B.k then
     B.last_obs = frame
     send_state(frame)

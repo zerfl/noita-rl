@@ -4,6 +4,7 @@ dofile_once("mods/rl_bench/files/link.lua")
 dofile_once("mods/rl_bench/files/input.lua")
 dofile_once("mods/rl_bench/files/grid.lua")
 dofile_once("mods/rl_bench/files/bench.lua")
+dofile_once("mods/rl_bench/files/probes.lua")
 
 -- World seed from the driver. The virtual file keeps per-instance seeds off disk.
 local seed = tonumber(os.getenv("RL_BENCH_SEED") or "")

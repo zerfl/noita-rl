@@ -60,10 +60,16 @@ class Conn:
                 raise LinkClosed
             self.buf += chunk
 
+    def _next(self, timeout: float | None) -> dict:
+        line = self._read_line(timeout)
+        m = json.loads(line)
+        m["_bytes"] = len(line) + 1
+        return m
+
     def recv(self, timeout: float | None = None) -> dict:
         if self.pending:
             return self.pending.popleft()
-        return json.loads(self._read_line(timeout))
+        return self._next(timeout)
 
     def recv_type(self, t: str, timeout: float | None = None) -> dict:
         """Next message of type t; others are dropped except command results."""
@@ -74,15 +80,15 @@ class Conn:
             if m.get("t") == t:
                 return m
 
-    def cmd(self, name: str, timeout: float = 10.0, **args) -> dict:
+    def cmd(self, cmd_name: str, timeout: float = 10.0, **args) -> dict:
         cid = self.next_id
         self.next_id += 1
-        self.send({"t": "cmd", "id": cid, "cmd": name, "args": args})
+        self.send({"t": "cmd", "id": cid, "cmd": cmd_name, "args": args})
         deadline = time.perf_counter() + timeout
         held = []
         try:
             while True:
-                m = json.loads(self._read_line(max(0.0, deadline - time.perf_counter())))
+                m = self._next(max(0.0, deadline - time.perf_counter()))
                 if m.get("t") == "res" and m.get("id") == cid:
                     return m
                 held.append(m)

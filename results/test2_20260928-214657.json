@@ -1,0 +1,1602 @@
+{
+  "test": "test2_grid_cost",
+  "started": "2026-09-28T21:44:58",
+  "seed": 123456789,
+  "framerate": 60,
+  "timescale": 8.0,
+  "scene": {
+    "kind": "quiet",
+    "at": [
+      100,
+      300
+    ]
+  },
+  "render": {
+    "window_w": 640,
+    "window_h": 360,
+    "framerate": 60,
+    "vsync": 0,
+    "mute": true
+  },
+  "timescale_set": {
+    "id": 1,
+    "ok": true,
+    "scale": 8,
+    "t": "res",
+    "tgt_hooked": true,
+    "_bytes": 57
+  },
+  "packet_bytes_no_grid": 223,
+  "read_cost": [
+    {
+      "size": 32,
+      "stride": 1,
+      "cells": 1024,
+      "span_px": 32,
+      "read_ms": {
+        "n": 60,
+        "p50": 0.0183,
+        "p95": 0.0358,
+        "mean": 0.0215,
+        "min": 0.0147,
+        "max": 0.0989
+      },
+      "encode_ms": {
+        "n": 60,
+        "p50": 0.0381,
+        "p95": 0.0734,
+        "mean": 0.045,
+        "min": 0.0359,
+        "max": 0.0972
+      },
+      "driver_decode_ms": {
+        "n": 60,
+        "p50": 0.0098,
+        "p95": 0.0147,
+        "mean": 0.0102,
+        "min": 0.0087,
+        "max": 0.0167
+      },
+      "packet_bytes": {
+        "n": 60,
+        "p50": 4423.0,
+        "p95": 4424.0,
+        "mean": 4423.4167,
+        "min": 4423,
+        "max": 4424
+      },
+      "missing_cells_max": 0,
+      "distinct_ids": 7,
+      "air_fraction": 0.75
+    },
+    {
+      "size": 32,
+      "stride": 2,
+      "cells": 1024,
+      "span_px": 64,
+      "read_ms": {
+        "n": 60,
+        "p50": 0.0207,
+        "p95": 0.0257,
+        "mean": 0.0214,
+        "min": 0.0187,
+        "max": 0.0379
+      },
+      "encode_ms": {
+        "n": 60,
+        "p50": 0.0387,
+        "p95": 0.0701,
+        "mean": 0.0437,
+        "min": 0.0369,
+        "max": 0.0927
+      },
+      "driver_decode_ms": {
+        "n": 60,
+        "p50": 0.0094,
+        "p95": 0.0118,
+        "mean": 0.0097,
+        "min": 0.0085,
+        "max": 0.0147
+      },
+      "packet_bytes": {
+        "n": 60,
+        "p50": 4424.0,
+        "p95": 4424.0,
+        "mean": 4424.0,
+        "min": 4424,
+        "max": 4424
+      },
+      "missing_cells_max": 0,
+      "distinct_ids": 7,
+      "air_fraction": 0.63
+    },
+    {
+      "size": 32,
+      "stride": 4,
+      "cells": 1024,
+      "span_px": 128,
+      "read_ms": {
+        "n": 60,
+        "p50": 0.0227,
+        "p95": 0.0336,
+        "mean": 0.0241,
+        "min": 0.0206,
+        "max": 0.0354
+      },
+      "encode_ms": {
+        "n": 60,
+        "p50": 0.0389,
+        "p95": 0.0688,
+        "mean": 0.0444,
+        "min": 0.0369,
+        "max": 0.0798
+      },
+      "driver_decode_ms": {
+        "n": 60,
+        "p50": 0.0092,
+        "p95": 0.0124,
+        "mean": 0.0097,
+        "min": 0.0085,
+        "max": 0.0257
+      },
+      "packet_bytes": {
+        "n": 60,
+        "p50": 4424.0,
+        "p95": 4424.0,
+        "mean": 4424.0,
+        "min": 4424,
+        "max": 4424
+      },
+      "missing_cells_max": 0,
+      "distinct_ids": 10,
+      "air_fraction": 0.65
+    },
+    {
+      "size": 64,
+      "stride": 1,
+      "cells": 4096,
+      "span_px": 64,
+      "read_ms": {
+        "n": 60,
+        "p50": 0.0604,
+        "p95": 0.0763,
+        "mean": 0.0645,
+        "min": 0.0566,
+        "max": 0.1287
+      },
+      "encode_ms": {
+        "n": 60,
+        "p50": 0.1355,
+        "p95": 0.2011,
+        "mean": 0.1514,
+        "min": 0.1286,
+        "max": 0.2732
+      },
+      "driver_decode_ms": {
+        "n": 60,
+        "p50": 0.024,
+        "p95": 0.0283,
+        "mean": 0.0232,
+        "min": 0.0164,
+        "max": 0.0525
+      },
+      "packet_bytes": {
+        "n": 60,
+        "p50": 16714.0,
+        "p95": 16714.0,
+        "mean": 16713.65,
+        "min": 16713,
+        "max": 16714
+      },
+      "missing_cells_max": 0,
+      "distinct_ids": 8,
+      "air_fraction": 0.62
+    },
+    {
+      "size": 64,
+      "stride": 2,
+      "cells": 4096,
+      "span_px": 128,
+      "read_ms": {
+        "n": 60,
+        "p50": 0.0696,
+        "p95": 0.1359,
+        "mean": 0.085,
+        "min": 0.0595,
+        "max": 0.1503
+      },
+      "encode_ms": {
+        "n": 60,
+        "p50": 0.1351,
+        "p95": 0.182,
+        "mean": 0.1461,
+        "min": 0.1282,
+        "max": 0.2497
+      },
+      "driver_decode_ms": {
+        "n": 60,
+        "p50": 0.0233,
+        "p95": 0.0274,
+        "mean": 0.023,
+        "min": 0.0165,
+        "max": 0.0587
+      },
+      "packet_bytes": {
+        "n": 60,
+        "p50": 16714.0,
+        "p95": 16714.0,
+        "mean": 16714.0,
+        "min": 16714,
+        "max": 16714
+      },
+      "missing_cells_max": 0,
+      "distinct_ids": 12,
+      "air_fraction": 0.646
+    },
+    {
+      "size": 64,
+      "stride": 4,
+      "cells": 4096,
+      "span_px": 256,
+      "read_ms": {
+        "n": 60,
+        "p50": 0.1293,
+        "p95": 0.2015,
+        "mean": 0.1466,
+        "min": 0.1225,
+        "max": 0.227
+      },
+      "encode_ms": {
+        "n": 60,
+        "p50": 0.1435,
+        "p95": 0.2214,
+        "mean": 0.1576,
+        "min": 0.1359,
+        "max": 0.2464
+      },
+      "driver_decode_ms": {
+        "n": 60,
+        "p50": 0.0239,
+        "p95": 0.0276,
+        "mean": 0.0228,
+        "min": 0.0166,
+        "max": 0.0413
+      },
+      "packet_bytes": {
+        "n": 60,
+        "p50": 16715.0,
+        "p95": 16715.0,
+        "mean": 16715.0,
+        "min": 16715,
+        "max": 16715
+      },
+      "missing_cells_max": 0,
+      "distinct_ids": 16,
+      "air_fraction": 0.404
+    },
+    {
+      "size": 128,
+      "stride": 1,
+      "cells": 16384,
+      "span_px": 128,
+      "read_ms": {
+        "n": 60,
+        "p50": 0.2845,
+        "p95": 0.3135,
+        "mean": 0.2878,
+        "min": 0.2662,
+        "max": 0.4661
+      },
+      "encode_ms": {
+        "n": 60,
+        "p50": 0.512,
+        "p95": 0.536,
+        "mean": 0.5197,
+        "min": 0.51,
+        "max": 0.8236
+      },
+      "driver_decode_ms": {
+        "n": 60,
+        "p50": 0.0593,
+        "p95": 0.0819,
+        "mean": 0.066,
+        "min": 0.0485,
+        "max": 0.104
+      },
+      "packet_bytes": {
+        "n": 60,
+        "p50": 65867.0,
+        "p95": 65867.0,
+        "mean": 65867.0,
+        "min": 65867,
+        "max": 65867
+      },
+      "missing_cells_max": 0,
+      "distinct_ids": 13,
+      "air_fraction": 0.644
+    },
+    {
+      "size": 128,
+      "stride": 2,
+      "cells": 16384,
+      "span_px": 256,
+      "read_ms": {
+        "n": 60,
+        "p50": 0.48,
+        "p95": 0.5537,
+        "mean": 0.4948,
+        "min": 0.4537,
+        "max": 0.7721
+      },
+      "encode_ms": {
+        "n": 60,
+        "p50": 0.5134,
+        "p95": 0.5637,
+        "mean": 0.5245,
+        "min": 0.5094,
+        "max": 0.6969
+      },
+      "driver_decode_ms": {
+        "n": 60,
+        "p50": 0.0596,
+        "p95": 0.0778,
+        "mean": 0.0643,
+        "min": 0.0475,
+        "max": 0.0793
+      },
+      "packet_bytes": {
+        "n": 60,
+        "p50": 65868.0,
+        "p95": 65868.0,
+        "mean": 65868.0,
+        "min": 65868,
+        "max": 65868
+      },
+      "missing_cells_max": 0,
+      "distinct_ids": 18,
+      "air_fraction": 0.404
+    },
+    {
+      "size": 128,
+      "stride": 4,
+      "cells": 16384,
+      "span_px": 512,
+      "read_ms": {
+        "n": 60,
+        "p50": 0.5333,
+        "p95": 0.6002,
+        "mean": 0.5413,
+        "min": 0.5053,
+        "max": 0.6461
+      },
+      "encode_ms": {
+        "n": 60,
+        "p50": 0.5181,
+        "p95": 0.544,
+        "mean": 0.5261,
+        "min": 0.5114,
+        "max": 0.7449
+      },
+      "driver_decode_ms": {
+        "n": 60,
+        "p50": 0.0605,
+        "p95": 0.0799,
+        "mean": 0.0656,
+        "min": 0.0483,
+        "max": 0.0896
+      },
+      "packet_bytes": {
+        "n": 60,
+        "p50": 65868.0,
+        "p95": 65868.0,
+        "mean": 65868.0,
+        "min": 65868,
+        "max": 65868
+      },
+      "missing_cells_max": 0,
+      "distinct_ids": 22,
+      "air_fraction": 0.403
+    }
+  ],
+  "lockstep_k4_rounds": [
+    [
+      {
+        "grid": null,
+        "steps": 200,
+        "steps_per_s": 62.29,
+        "game_fps": 249.16,
+        "step_roundtrip_ms": {
+          "n": 200,
+          "p50": 15.1271,
+          "p95": 21.3196,
+          "mean": 16.0521,
+          "min": 12.7693,
+          "max": 23.8927
+        },
+        "mod_lua_ms_per_step": {
+          "n": 200,
+          "p50": 0.0809,
+          "p95": 0.0946,
+          "mean": 0.0827,
+          "min": 0.0713,
+          "max": 0.1598
+        },
+        "round": 0,
+        "fps_drop_pct_vs_round_no_grid": 5.17
+      },
+      {
+        "grid": {
+          "size": 32,
+          "stride": 1
+        },
+        "steps": 200,
+        "steps_per_s": 67.17,
+        "game_fps": 268.67,
+        "step_roundtrip_ms": {
+          "n": 200,
+          "p50": 14.5257,
+          "p95": 17.2725,
+          "mean": 14.8861,
+          "min": 12.4907,
+          "max": 19.7858
+        },
+        "mod_lua_ms_per_step": {
+          "n": 200,
+          "p50": 0.1442,
+          "p95": 0.2042,
+          "mean": 0.1536,
+          "min": 0.133,
+          "max": 0.241
+        },
+        "round": 0,
+        "fps_drop_pct_vs_round_no_grid": -2.26
+      },
+      {
+        "grid": {
+          "size": 32,
+          "stride": 2
+        },
+        "steps": 200,
+        "steps_per_s": 69.68,
+        "game_fps": 278.72,
+        "step_roundtrip_ms": {
+          "n": 200,
+          "p50": 14.0659,
+          "p95": 16.6508,
+          "mean": 14.3497,
+          "min": 12.1315,
+          "max": 18.8506
+        },
+        "mod_lua_ms_per_step": {
+          "n": 200,
+          "p50": 0.1499,
+          "p95": 0.1964,
+          "mean": 0.1609,
+          "min": 0.1401,
+          "max": 0.3308
+        },
+        "round": 0,
+        "fps_drop_pct_vs_round_no_grid": -6.08
+      },
+      {
+        "grid": {
+          "size": 32,
+          "stride": 4
+        },
+        "steps": 200,
+        "steps_per_s": 65.37,
+        "game_fps": 261.5,
+        "step_roundtrip_ms": {
+          "n": 200,
+          "p50": 14.5239,
+          "p95": 19.7695,
+          "mean": 15.2947,
+          "min": 12.2698,
+          "max": 22.6716
+        },
+        "mod_lua_ms_per_step": {
+          "n": 200,
+          "p50": 0.1541,
+          "p95": 0.2173,
+          "mean": 0.1632,
+          "min": 0.1411,
+          "max": 0.257
+        },
+        "round": 0,
+        "fps_drop_pct_vs_round_no_grid": 0.47
+      },
+      {
+        "grid": {
+          "size": 64,
+          "stride": 1
+        },
+        "steps": 200,
+        "steps_per_s": 67.17,
+        "game_fps": 268.68,
+        "step_roundtrip_ms": {
+          "n": 200,
+          "p50": 14.2288,
+          "p95": 18.8036,
+          "mean": 14.8857,
+          "min": 11.76,
+          "max": 23.4282
+        },
+        "mod_lua_ms_per_step": {
+          "n": 200,
+          "p50": 0.305,
+          "p95": 0.3573,
+          "mean": 0.3113,
+          "min": 0.2828,
+          "max": 0.4244
+        },
+        "round": 0,
+        "fps_drop_pct_vs_round_no_grid": -2.26
+      },
+      {
+        "grid": {
+          "size": 64,
+          "stride": 2
+        },
+        "steps": 200,
+        "steps_per_s": 69.48,
+        "game_fps": 277.91,
+        "step_roundtrip_ms": {
+          "n": 200,
+          "p50": 14.0794,
+          "p95": 17.1643,
+          "mean": 14.3916,
+          "min": 12.2399,
+          "max": 19.6793
+        },
+        "mod_lua_ms_per_step": {
+          "n": 200,
+          "p50": 0.3153,
+          "p95": 0.3917,
+          "mean": 0.3312,
+          "min": 0.2948,
+          "max": 0.5367
+        },
+        "round": 0,
+        "fps_drop_pct_vs_round_no_grid": -5.78
+      },
+      {
+        "grid": {
+          "size": 64,
+          "stride": 4
+        },
+        "steps": 200,
+        "steps_per_s": 62.73,
+        "game_fps": 250.91,
+        "step_roundtrip_ms": {
+          "n": 200,
+          "p50": 14.7627,
+          "p95": 21.8004,
+          "mean": 15.9402,
+          "min": 12.3956,
+          "max": 45.6993
+        },
+        "mod_lua_ms_per_step": {
+          "n": 200,
+          "p50": 0.3846,
+          "p95": 0.5036,
+          "mean": 0.4063,
+          "min": 0.3553,
+          "max": 0.6617
+        },
+        "round": 0,
+        "fps_drop_pct_vs_round_no_grid": 4.5
+      },
+      {
+        "grid": {
+          "size": 128,
+          "stride": 1
+        },
+        "steps": 200,
+        "steps_per_s": 64.08,
+        "game_fps": 256.31,
+        "step_roundtrip_ms": {
+          "n": 200,
+          "p50": 15.0914,
+          "p95": 18.7214,
+          "mean": 15.6045,
+          "min": 12.8359,
+          "max": 32.9272
+        },
+        "mod_lua_ms_per_step": {
+          "n": 200,
+          "p50": 0.9491,
+          "p95": 1.0251,
+          "mean": 0.962,
+          "min": 0.9091,
+          "max": 1.2918
+        },
+        "round": 0,
+        "fps_drop_pct_vs_round_no_grid": 2.45
+      },
+      {
+        "grid": {
+          "size": 128,
+          "stride": 2
+        },
+        "steps": 200,
+        "steps_per_s": 62.44,
+        "game_fps": 249.74,
+        "step_roundtrip_ms": {
+          "n": 200,
+          "p50": 15.8138,
+          "p95": 18.8129,
+          "mean": 16.0148,
+          "min": 13.6065,
+          "max": 22.0306
+        },
+        "mod_lua_ms_per_step": {
+          "n": 200,
+          "p50": 1.1285,
+          "p95": 1.2831,
+          "mean": 1.1502,
+          "min": 1.0903,
+          "max": 1.8379
+        },
+        "round": 0,
+        "fps_drop_pct_vs_round_no_grid": 4.95
+      },
+      {
+        "grid": {
+          "size": 128,
+          "stride": 4
+        },
+        "steps": 200,
+        "steps_per_s": 59.01,
+        "game_fps": 236.02,
+        "step_roundtrip_ms": {
+          "n": 200,
+          "p50": 16.4264,
+          "p95": 21.2508,
+          "mean": 16.9457,
+          "min": 14.0071,
+          "max": 28.6691
+        },
+        "mod_lua_ms_per_step": {
+          "n": 200,
+          "p50": 1.1898,
+          "p95": 1.3032,
+          "mean": 1.2052,
+          "min": 1.1545,
+          "max": 1.6287
+        },
+        "round": 0,
+        "fps_drop_pct_vs_round_no_grid": 10.17
+      },
+      {
+        "grid": null,
+        "steps": 200,
+        "steps_per_s": 69.08,
+        "game_fps": 276.31,
+        "step_roundtrip_ms": {
+          "n": 200,
+          "p50": 14.0373,
+          "p95": 18.0179,
+          "mean": 14.4746,
+          "min": 12.0152,
+          "max": 21.5502
+        },
+        "mod_lua_ms_per_step": {
+          "n": 200,
+          "p50": 0.0806,
+          "p95": 0.0913,
+          "mean": 0.0816,
+          "min": 0.0685,
+          "max": 0.1246
+        },
+        "round": 0,
+        "fps_drop_pct_vs_round_no_grid": -5.17
+      }
+    ],
+    [
+      {
+        "grid": null,
+        "steps": 200,
+        "steps_per_s": 71.33,
+        "game_fps": 285.3,
+        "step_roundtrip_ms": {
+          "n": 200,
+          "p50": 13.7692,
+          "p95": 16.3602,
+          "mean": 14.0186,
+          "min": 11.6672,
+          "max": 20.4169
+        },
+        "mod_lua_ms_per_step": {
+          "n": 200,
+          "p50": 0.088,
+          "p95": 0.097,
+          "mean": 0.0873,
+          "min": 0.071,
+          "max": 0.1165
+        },
+        "round": 1,
+        "fps_drop_pct_vs_round_no_grid": -0.92
+      },
+      {
+        "grid": {
+          "size": 32,
+          "stride": 1
+        },
+        "steps": 200,
+        "steps_per_s": 70.04,
+        "game_fps": 280.18,
+        "step_roundtrip_ms": {
+          "n": 200,
+          "p50": 14.042,
+          "p95": 16.7729,
+          "mean": 14.2751,
+          "min": 11.9513,
+          "max": 19.5599
+        },
+        "mod_lua_ms_per_step": {
+          "n": 200,
+          "p50": 0.1439,
+          "p95": 0.1951,
+          "mean": 0.1518,
+          "min": 0.1342,
+          "max": 0.2664
+        },
+        "round": 1,
+        "fps_drop_pct_vs_round_no_grid": 0.89
+      },
+      {
+        "grid": {
+          "size": 32,
+          "stride": 2
+        },
+        "steps": 200,
+        "steps_per_s": 66.03,
+        "game_fps": 264.13,
+        "step_roundtrip_ms": {
+          "n": 200,
+          "p50": 14.3901,
+          "p95": 19.5179,
+          "mean": 15.1424,
+          "min": 12.0937,
+          "max": 24.1764
+        },
+        "mod_lua_ms_per_step": {
+          "n": 200,
+          "p50": 0.152,
+          "p95": 0.1975,
+          "mean": 0.16,
+          "min": 0.139,
+          "max": 0.228
+        },
+        "round": 1,
+        "fps_drop_pct_vs_round_no_grid": 6.57
+      },
+      {
+        "grid": {
+          "size": 32,
+          "stride": 4
+        },
+        "steps": 200,
+        "steps_per_s": 67.81,
+        "game_fps": 271.23,
+        "step_roundtrip_ms": {
+          "n": 200,
+          "p50": 14.1218,
+          "p95": 19.2841,
+          "mean": 14.7457,
+          "min": 11.9593,
+          "max": 22.6294
+        },
+        "mod_lua_ms_per_step": {
+          "n": 200,
+          "p50": 0.154,
+          "p95": 0.2007,
+          "mean": 0.1601,
+          "min": 0.1392,
+          "max": 0.2659
+        },
+        "round": 1,
+        "fps_drop_pct_vs_round_no_grid": 4.05
+      },
+      {
+        "grid": {
+          "size": 64,
+          "stride": 1
+        },
+        "steps": 200,
+        "steps_per_s": 71.1,
+        "game_fps": 284.42,
+        "step_roundtrip_ms": {
+          "n": 200,
+          "p50": 13.7936,
+          "p95": 16.5619,
+          "mean": 14.0621,
+          "min": 12.1693,
+          "max": 18.1642
+        },
+        "mod_lua_ms_per_step": {
+          "n": 200,
+          "p50": 0.3014,
+          "p95": 0.3474,
+          "mean": 0.3099,
+          "min": 0.2834,
+          "max": 0.4921
+        },
+        "round": 1,
+        "fps_drop_pct_vs_round_no_grid": -0.61
+      },
+      {
+        "grid": {
+          "size": 64,
+          "stride": 2
+        },
+        "steps": 200,
+        "steps_per_s": 63.07,
+        "game_fps": 252.26,
+        "step_roundtrip_ms": {
+          "n": 200,
+          "p50": 14.7146,
+          "p95": 21.5481,
+          "mean": 15.8546,
+          "min": 12.351,
+          "max": 33.9485
+        },
+        "mod_lua_ms_per_step": {
+          "n": 200,
+          "p50": 0.3164,
+          "p95": 0.3806,
+          "mean": 0.3261,
+          "min": 0.2939,
+          "max": 0.4645
+        },
+        "round": 1,
+        "fps_drop_pct_vs_round_no_grid": 10.76
+      },
+      {
+        "grid": {
+          "size": 64,
+          "stride": 4
+        },
+        "steps": 200,
+        "steps_per_s": 69.44,
+        "game_fps": 277.76,
+        "step_roundtrip_ms": {
+          "n": 200,
+          "p50": 14.0076,
+          "p95": 16.9924,
+          "mean": 14.3991,
+          "min": 12.2955,
+          "max": 22.3589
+        },
+        "mod_lua_ms_per_step": {
+          "n": 200,
+          "p50": 0.3804,
+          "p95": 0.4472,
+          "mean": 0.3874,
+          "min": 0.353,
+          "max": 0.6553
+        },
+        "round": 1,
+        "fps_drop_pct_vs_round_no_grid": 1.74
+      },
+      {
+        "grid": {
+          "size": 128,
+          "stride": 1
+        },
+        "steps": 200,
+        "steps_per_s": 65.16,
+        "game_fps": 260.64,
+        "step_roundtrip_ms": {
+          "n": 200,
+          "p50": 15.1055,
+          "p95": 17.7574,
+          "mean": 15.3453,
+          "min": 13.0568,
+          "max": 20.863
+        },
+        "mod_lua_ms_per_step": {
+          "n": 200,
+          "p50": 0.939,
+          "p95": 1.0518,
+          "mean": 0.9547,
+          "min": 0.8991,
+          "max": 1.3187
+        },
+        "round": 1,
+        "fps_drop_pct_vs_round_no_grid": 7.8
+      },
+      {
+        "grid": {
+          "size": 128,
+          "stride": 2
+        },
+        "steps": 200,
+        "steps_per_s": 60.3,
+        "game_fps": 241.18,
+        "step_roundtrip_ms": {
+          "n": 200,
+          "p50": 16.1681,
+          "p95": 20.2509,
+          "mean": 16.5833,
+          "min": 13.5067,
+          "max": 24.145
+        },
+        "mod_lua_ms_per_step": {
+          "n": 200,
+          "p50": 1.13,
+          "p95": 1.267,
+          "mean": 1.1533,
+          "min": 1.0855,
+          "max": 1.7626
+        },
+        "round": 1,
+        "fps_drop_pct_vs_round_no_grid": 14.68
+      },
+      {
+        "grid": {
+          "size": 128,
+          "stride": 4
+        },
+        "steps": 200,
+        "steps_per_s": 61.82,
+        "game_fps": 247.3,
+        "step_roundtrip_ms": {
+          "n": 200,
+          "p50": 15.5592,
+          "p95": 21.2073,
+          "mean": 16.1731,
+          "min": 13.2999,
+          "max": 25.2323
+        },
+        "mod_lua_ms_per_step": {
+          "n": 200,
+          "p50": 1.1803,
+          "p95": 1.3663,
+          "mean": 1.215,
+          "min": 1.1509,
+          "max": 1.8596
+        },
+        "round": 1,
+        "fps_drop_pct_vs_round_no_grid": 12.52
+      },
+      {
+        "grid": null,
+        "steps": 200,
+        "steps_per_s": 70.02,
+        "game_fps": 280.08,
+        "step_roundtrip_ms": {
+          "n": 200,
+          "p50": 13.7881,
+          "p95": 17.6671,
+          "mean": 14.2799,
+          "min": 11.912,
+          "max": 20.4529
+        },
+        "mod_lua_ms_per_step": {
+          "n": 200,
+          "p50": 0.0802,
+          "p95": 0.0917,
+          "mean": 0.0815,
+          "min": 0.0699,
+          "max": 0.1361
+        },
+        "round": 1,
+        "fps_drop_pct_vs_round_no_grid": 0.92
+      }
+    ],
+    [
+      {
+        "grid": null,
+        "steps": 200,
+        "steps_per_s": 68.7,
+        "game_fps": 274.79,
+        "step_roundtrip_ms": {
+          "n": 200,
+          "p50": 14.0399,
+          "p95": 18.0173,
+          "mean": 14.5548,
+          "min": 11.7578,
+          "max": 20.5624
+        },
+        "mod_lua_ms_per_step": {
+          "n": 200,
+          "p50": 0.0884,
+          "p95": 0.1101,
+          "mean": 0.0897,
+          "min": 0.0706,
+          "max": 0.1266
+        },
+        "round": 2,
+        "fps_drop_pct_vs_round_no_grid": -4.0
+      },
+      {
+        "grid": {
+          "size": 32,
+          "stride": 1
+        },
+        "steps": 200,
+        "steps_per_s": 64.29,
+        "game_fps": 257.15,
+        "step_roundtrip_ms": {
+          "n": 200,
+          "p50": 14.7051,
+          "p95": 20.5379,
+          "mean": 15.5533,
+          "min": 12.3873,
+          "max": 27.0722
+        },
+        "mod_lua_ms_per_step": {
+          "n": 200,
+          "p50": 0.1447,
+          "p95": 0.2032,
+          "mean": 0.1542,
+          "min": 0.1345,
+          "max": 0.2771
+        },
+        "round": 2,
+        "fps_drop_pct_vs_round_no_grid": 2.68
+      },
+      {
+        "grid": {
+          "size": 32,
+          "stride": 2
+        },
+        "steps": 200,
+        "steps_per_s": 65.31,
+        "game_fps": 261.24,
+        "step_roundtrip_ms": {
+          "n": 200,
+          "p50": 14.3455,
+          "p95": 19.3997,
+          "mean": 15.3097,
+          "min": 12.1054,
+          "max": 35.2169
+        },
+        "mod_lua_ms_per_step": {
+          "n": 200,
+          "p50": 0.1526,
+          "p95": 0.2098,
+          "mean": 0.1619,
+          "min": 0.1409,
+          "max": 0.3495
+        },
+        "round": 2,
+        "fps_drop_pct_vs_round_no_grid": 1.13
+      },
+      {
+        "grid": {
+          "size": 32,
+          "stride": 4
+        },
+        "steps": 200,
+        "steps_per_s": 70.78,
+        "game_fps": 283.11,
+        "step_roundtrip_ms": {
+          "n": 200,
+          "p50": 13.8691,
+          "p95": 16.6712,
+          "mean": 14.1269,
+          "min": 12.0195,
+          "max": 21.0478
+        },
+        "mod_lua_ms_per_step": {
+          "n": 200,
+          "p50": 0.1521,
+          "p95": 0.2,
+          "mean": 0.1612,
+          "min": 0.1435,
+          "max": 0.2647
+        },
+        "round": 2,
+        "fps_drop_pct_vs_round_no_grid": -7.15
+      },
+      {
+        "grid": {
+          "size": 64,
+          "stride": 1
+        },
+        "steps": 200,
+        "steps_per_s": 63.71,
+        "game_fps": 254.85,
+        "step_roundtrip_ms": {
+          "n": 200,
+          "p50": 14.6551,
+          "p95": 21.1647,
+          "mean": 15.6938,
+          "min": 12.382,
+          "max": 25.9173
+        },
+        "mod_lua_ms_per_step": {
+          "n": 200,
+          "p50": 0.3052,
+          "p95": 0.3695,
+          "mean": 0.3149,
+          "min": 0.2846,
+          "max": 0.5292
+        },
+        "round": 2,
+        "fps_drop_pct_vs_round_no_grid": 3.55
+      },
+      {
+        "grid": {
+          "size": 64,
+          "stride": 2
+        },
+        "steps": 200,
+        "steps_per_s": 68.64,
+        "game_fps": 274.58,
+        "step_roundtrip_ms": {
+          "n": 200,
+          "p50": 14.2437,
+          "p95": 17.2747,
+          "mean": 14.5662,
+          "min": 12.3617,
+          "max": 19.4309
+        },
+        "mod_lua_ms_per_step": {
+          "n": 200,
+          "p50": 0.3125,
+          "p95": 0.3579,
+          "mean": 0.3194,
+          "min": 0.2922,
+          "max": 0.5166
+        },
+        "round": 2,
+        "fps_drop_pct_vs_round_no_grid": -3.92
+      },
+      {
+        "grid": {
+          "size": 64,
+          "stride": 4
+        },
+        "steps": 200,
+        "steps_per_s": 68.12,
+        "game_fps": 272.47,
+        "step_roundtrip_ms": {
+          "n": 200,
+          "p50": 14.334,
+          "p95": 17.94,
+          "mean": 14.6787,
+          "min": 12.5912,
+          "max": 20.8902
+        },
+        "mod_lua_ms_per_step": {
+          "n": 200,
+          "p50": 0.3785,
+          "p95": 0.454,
+          "mean": 0.3903,
+          "min": 0.354,
+          "max": 0.6381
+        },
+        "round": 2,
+        "fps_drop_pct_vs_round_no_grid": -3.12
+      },
+      {
+        "grid": {
+          "size": 128,
+          "stride": 1
+        },
+        "steps": 200,
+        "steps_per_s": 61.56,
+        "game_fps": 246.22,
+        "step_roundtrip_ms": {
+          "n": 200,
+          "p50": 15.6607,
+          "p95": 20.6408,
+          "mean": 16.2436,
+          "min": 13.1972,
+          "max": 23.0689
+        },
+        "mod_lua_ms_per_step": {
+          "n": 200,
+          "p50": 0.9378,
+          "p95": 1.0135,
+          "mean": 0.9477,
+          "min": 0.9018,
+          "max": 1.1841
+        },
+        "round": 2,
+        "fps_drop_pct_vs_round_no_grid": 6.81
+      },
+      {
+        "grid": {
+          "size": 128,
+          "stride": 2
+        },
+        "steps": 200,
+        "steps_per_s": 63.19,
+        "game_fps": 252.76,
+        "step_roundtrip_ms": {
+          "n": 200,
+          "p50": 15.6063,
+          "p95": 18.3718,
+          "mean": 15.8235,
+          "min": 13.3172,
+          "max": 23.8675
+        },
+        "mod_lua_ms_per_step": {
+          "n": 200,
+          "p50": 1.1225,
+          "p95": 1.2272,
+          "mean": 1.1369,
+          "min": 1.0845,
+          "max": 1.8038
+        },
+        "round": 2,
+        "fps_drop_pct_vs_round_no_grid": 4.34
+      },
+      {
+        "grid": {
+          "size": 128,
+          "stride": 4
+        },
+        "steps": 200,
+        "steps_per_s": 62.45,
+        "game_fps": 249.79,
+        "step_roundtrip_ms": {
+          "n": 200,
+          "p50": 15.7371,
+          "p95": 18.8452,
+          "mean": 16.0119,
+          "min": 13.8594,
+          "max": 23.5044
+        },
+        "mod_lua_ms_per_step": {
+          "n": 200,
+          "p50": 1.1831,
+          "p95": 1.3111,
+          "mean": 1.2042,
+          "min": 1.1505,
+          "max": 1.9447
+        },
+        "round": 2,
+        "fps_drop_pct_vs_round_no_grid": 5.46
+      },
+      {
+        "grid": null,
+        "steps": 200,
+        "steps_per_s": 63.41,
+        "game_fps": 253.65,
+        "step_roundtrip_ms": {
+          "n": 200,
+          "p50": 14.8633,
+          "p95": 21.4626,
+          "mean": 15.7677,
+          "min": 12.401,
+          "max": 27.6008
+        },
+        "mod_lua_ms_per_step": {
+          "n": 200,
+          "p50": 0.0802,
+          "p95": 0.1034,
+          "mean": 0.0832,
+          "min": 0.0713,
+          "max": 0.121
+        },
+        "round": 2,
+        "fps_drop_pct_vs_round_no_grid": 4.0
+      }
+    ]
+  ],
+  "lockstep_k4_summary": [
+    {
+      "grid": null,
+      "game_fps": {
+        "n": 3,
+        "p50": 274.79,
+        "p95": 284.249,
+        "mean": 269.75,
+        "min": 249.16,
+        "max": 285.3
+      },
+      "steps_per_s_mean": 67.44,
+      "fps_drop_pct": {
+        "n": 3,
+        "p50": -0.92,
+        "p95": 4.561,
+        "mean": 0.0833,
+        "min": -4.0,
+        "max": 5.17
+      },
+      "mod_lua_ms_per_step_p50": {
+        "n": 3,
+        "p50": 0.088,
+        "p95": 0.0884,
+        "mean": 0.0858,
+        "min": 0.0809,
+        "max": 0.0884
+      }
+    },
+    {
+      "grid": {
+        "size": 32,
+        "stride": 1
+      },
+      "game_fps": {
+        "n": 3,
+        "p50": 268.67,
+        "p95": 279.029,
+        "mean": 268.6667,
+        "min": 257.15,
+        "max": 280.18
+      },
+      "steps_per_s_mean": 67.17,
+      "fps_drop_pct": {
+        "n": 3,
+        "p50": 0.89,
+        "p95": 2.501,
+        "mean": 0.4367,
+        "min": -2.26,
+        "max": 2.68
+      },
+      "mod_lua_ms_per_step_p50": {
+        "n": 3,
+        "p50": 0.1442,
+        "p95": 0.1447,
+        "mean": 0.1443,
+        "min": 0.1439,
+        "max": 0.1447
+      }
+    },
+    {
+      "grid": {
+        "size": 32,
+        "stride": 2
+      },
+      "game_fps": {
+        "n": 3,
+        "p50": 264.13,
+        "p95": 277.261,
+        "mean": 268.03,
+        "min": 261.24,
+        "max": 278.72
+      },
+      "steps_per_s_mean": 67.01,
+      "fps_drop_pct": {
+        "n": 3,
+        "p50": 1.13,
+        "p95": 6.026,
+        "mean": 0.54,
+        "min": -6.08,
+        "max": 6.57
+      },
+      "mod_lua_ms_per_step_p50": {
+        "n": 3,
+        "p50": 0.152,
+        "p95": 0.1525,
+        "mean": 0.1515,
+        "min": 0.1499,
+        "max": 0.1526
+      }
+    },
+    {
+      "grid": {
+        "size": 32,
+        "stride": 4
+      },
+      "game_fps": {
+        "n": 3,
+        "p50": 271.23,
+        "p95": 281.922,
+        "mean": 271.9467,
+        "min": 261.5,
+        "max": 283.11
+      },
+      "steps_per_s_mean": 67.99,
+      "fps_drop_pct": {
+        "n": 3,
+        "p50": 0.47,
+        "p95": 3.692,
+        "mean": -0.8767,
+        "min": -7.15,
+        "max": 4.05
+      },
+      "mod_lua_ms_per_step_p50": {
+        "n": 3,
+        "p50": 0.154,
+        "p95": 0.1541,
+        "mean": 0.1534,
+        "min": 0.1521,
+        "max": 0.1541
+      }
+    },
+    {
+      "grid": {
+        "size": 64,
+        "stride": 1
+      },
+      "game_fps": {
+        "n": 3,
+        "p50": 268.68,
+        "p95": 282.846,
+        "mean": 269.3167,
+        "min": 254.85,
+        "max": 284.42
+      },
+      "steps_per_s_mean": 67.33,
+      "fps_drop_pct": {
+        "n": 3,
+        "p50": -0.61,
+        "p95": 3.134,
+        "mean": 0.2267,
+        "min": -2.26,
+        "max": 3.55
+      },
+      "mod_lua_ms_per_step_p50": {
+        "n": 3,
+        "p50": 0.305,
+        "p95": 0.3052,
+        "mean": 0.3039,
+        "min": 0.3014,
+        "max": 0.3052
+      }
+    },
+    {
+      "grid": {
+        "size": 64,
+        "stride": 2
+      },
+      "game_fps": {
+        "n": 3,
+        "p50": 274.58,
+        "p95": 277.577,
+        "mean": 268.25,
+        "min": 252.26,
+        "max": 277.91
+      },
+      "steps_per_s_mean": 67.06,
+      "fps_drop_pct": {
+        "n": 3,
+        "p50": -3.92,
+        "p95": 9.292,
+        "mean": 0.3533,
+        "min": -5.78,
+        "max": 10.76
+      },
+      "mod_lua_ms_per_step_p50": {
+        "n": 3,
+        "p50": 0.3153,
+        "p95": 0.3163,
+        "mean": 0.3147,
+        "min": 0.3125,
+        "max": 0.3164
+      }
+    },
+    {
+      "grid": {
+        "size": 64,
+        "stride": 4
+      },
+      "game_fps": {
+        "n": 3,
+        "p50": 272.47,
+        "p95": 277.231,
+        "mean": 267.0467,
+        "min": 250.91,
+        "max": 277.76
+      },
+      "steps_per_s_mean": 66.76,
+      "fps_drop_pct": {
+        "n": 3,
+        "p50": 1.74,
+        "p95": 4.224,
+        "mean": 1.04,
+        "min": -3.12,
+        "max": 4.5
+      },
+      "mod_lua_ms_per_step_p50": {
+        "n": 3,
+        "p50": 0.3804,
+        "p95": 0.3842,
+        "mean": 0.3812,
+        "min": 0.3785,
+        "max": 0.3846
+      }
+    },
+    {
+      "grid": {
+        "size": 128,
+        "stride": 1
+      },
+      "game_fps": {
+        "n": 3,
+        "p50": 256.31,
+        "p95": 260.207,
+        "mean": 254.39,
+        "min": 246.22,
+        "max": 260.64
+      },
+      "steps_per_s_mean": 63.6,
+      "fps_drop_pct": {
+        "n": 3,
+        "p50": 6.81,
+        "p95": 7.701,
+        "mean": 5.6867,
+        "min": 2.45,
+        "max": 7.8
+      },
+      "mod_lua_ms_per_step_p50": {
+        "n": 3,
+        "p50": 0.939,
+        "p95": 0.9481,
+        "mean": 0.942,
+        "min": 0.9378,
+        "max": 0.9491
+      }
+    },
+    {
+      "grid": {
+        "size": 128,
+        "stride": 2
+      },
+      "game_fps": {
+        "n": 3,
+        "p50": 249.74,
+        "p95": 252.458,
+        "mean": 247.8933,
+        "min": 241.18,
+        "max": 252.76
+      },
+      "steps_per_s_mean": 61.98,
+      "fps_drop_pct": {
+        "n": 3,
+        "p50": 4.95,
+        "p95": 13.707,
+        "mean": 7.99,
+        "min": 4.34,
+        "max": 14.68
+      },
+      "mod_lua_ms_per_step_p50": {
+        "n": 3,
+        "p50": 1.1285,
+        "p95": 1.1298,
+        "mean": 1.127,
+        "min": 1.1225,
+        "max": 1.13
+      }
+    },
+    {
+      "grid": {
+        "size": 128,
+        "stride": 4
+      },
+      "game_fps": {
+        "n": 3,
+        "p50": 247.3,
+        "p95": 249.541,
+        "mean": 244.37,
+        "min": 236.02,
+        "max": 249.79
+      },
+      "steps_per_s_mean": 61.09,
+      "fps_drop_pct": {
+        "n": 3,
+        "p50": 10.17,
+        "p95": 12.285,
+        "mean": 9.3833,
+        "min": 5.46,
+        "max": 12.52
+      },
+      "mod_lua_ms_per_step_p50": {
+        "n": 3,
+        "p50": 1.1831,
+        "p95": 1.1891,
+        "mean": 1.1844,
+        "min": 1.1803,
+        "max": 1.1898
+      }
+    }
+  ],
+  "target_64x64_under_1ms": {
+    "p95_read_ms": 0.0763,
+    "met": true
+  },
+  "memory": {
+    "working_set_mb": 673.9,
+    "peak_working_set_mb": 685.2,
+    "private_mb": 684.4
+  },
+  "ok": true,
+  "finished": "2026-09-28T21:46:57"
+}

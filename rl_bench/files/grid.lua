@@ -48,27 +48,26 @@ local function engine()
   return ct, base, (rd(cf + 8) - rd(cf + 4)) / NAME_STRIDE
 end
 
--- Fills an internal uint16 buffer with size*size material ids, row-major, top-left at
--- (x0, y0); sample spacing `stride` world pixels. Empty cells are 0 (air).
-function rlb_grid.read(cx_world, cy_world, size, stride)
+-- Fills an internal uint16 buffer with w*h material ids, row-major, top-left at (x0, y0),
+-- sample spacing `stride` world pixels. Empty cells are 0 (air); cells in chunks that are
+-- not loaded are also 0 and are counted in `missing`.
+function rlb_grid.read_rect(x0, y0, w, h, stride)
   local ct_addr, base, count = engine()
   if not ct_addr then return nil, base end
-  local n = size * size
+  local n = w * h
   if n > buf_n then
     buf = ffi.new("uint16_t[?]", n)
     buf_n = n
   end
   local ct = ffi.cast(U32P, ct_addr)
-  local half = math.floor(size * stride / 2)
-  local x0 = math.floor(cx_world) - half
-  local y0 = math.floor(cy_world) - half
-  local idx = 0
-  for j = 0, size - 1 do
+  x0, y0 = math.floor(x0), math.floor(y0)
+  local idx, missing = 0, 0
+  for j = 0, h - 1 do
     local y = y0 + j * stride
     local chunk_row = band(arshift(y, 9) - 256, 511) * 512
     local row_off = lshift(band(y, 511), 9)
     local last_cx, cells = -1, nil
-    for i = 0, size - 1 do
+    for i = 0, w - 1 do
       local x = x0 + i * stride
       local cx = band(arshift(x, 9) - 256, 511)
       if cx ~= last_cx then
@@ -88,12 +87,23 @@ function rlb_grid.read(cx_world, cy_world, size, stride)
           id = (cd - base) / CELLDATA_STRIDE
           if id < 0 or id >= count or id % 1 ~= 0 then id = BAD_ID end
         end
+      else
+        missing = missing + 1
       end
       buf[idx] = id
       idx = idx + 1
     end
   end
-  return buf, x0, y0
+  return buf, missing
+end
+
+-- size x size cells centred on (cx, cy). Returns buf, x0, y0, missing.
+function rlb_grid.read(cx, cy, size, stride)
+  local half = math.floor(size * stride / 2)
+  local x0, y0 = math.floor(cx) - half, math.floor(cy) - half
+  local b, missing = rlb_grid.read_rect(x0, y0, size, size, stride)
+  if not b then return nil, missing end
+  return b, x0, y0, missing
 end
 
 -- 4 hex chars per cell, big-endian uint16.

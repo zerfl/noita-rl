@@ -4,7 +4,7 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 from unittest import mock
 
-from driver import gameconfig, link, paths, snapshot
+from driver import gameconfig, link, paths, snapshot, test1
 
 
 class SnapshotRestore(unittest.TestCase):
@@ -96,6 +96,34 @@ class ModConfig(unittest.TestCase):
 class GridDecode(unittest.TestCase):
     def test_hex_is_big_endian_uint16_per_cell(self):
         self.assertEqual(list(link.decode_grid({"hex": "0000013fffff"})), [0, 319, 65535])
+
+
+def _run(cell, walk, liquid=100.0, fps=60.0):
+    suite = {"walk": {"dx": walk}, "projectile": {"dist": 200.0},
+             "enemy": {"volleys": 12, "pellets": 12},
+             "liquid": {"extent_x": liquid, "water_cells": 576}, "total": {"fps": fps}}
+    return {"cell": cell, "ok": True, "suite": suite,
+            "fps_quiet": {"fps_wall": fps}, "fps_busy": {"fps_wall": fps}}
+
+
+class Test1Analysis(unittest.TestCase):
+    def test_cells_pass_only_when_every_probe_is_within_tolerance(self):
+        runs = [_run("fr60", 280.0) for _ in range(3)]
+        runs += [_run("ts2", 281.0, fps=110) for _ in range(3)]
+        runs += [_run("fr240", 70.0, fps=210) for _ in range(3)]
+        runs += [_run("ts4", 280.0 * 1.04, fps=120) for _ in range(3)]
+        a = test1.analyse(runs)
+        self.assertTrue(a["cells"]["ts2"]["pass"])
+        self.assertFalse(a["cells"]["fr240"]["pass"])
+        self.assertFalse(a["cells"]["ts4"]["pass"])
+        self.assertEqual(a["cells"]["ts4"]["probes"]["walk_dx"]["delta_pct_vs_baseline"], 4.0)
+        self.assertEqual(a["fastest_passing"]["cell"], "ts2")
+
+    def test_baseline_spread_above_tolerance_is_flagged(self):
+        runs = [_run("fr60", 280.0, liquid=v) for v in (90.0, 100.0, 110.0)]
+        a = test1.analyse(runs)
+        self.assertIn("liquid_extent_x", a["baseline_noisy_metrics"])
+        self.assertNotIn("walk_dx", a["baseline_noisy_metrics"])
 
 
 if __name__ == "__main__":
