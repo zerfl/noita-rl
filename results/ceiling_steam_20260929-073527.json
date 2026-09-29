@@ -1,0 +1,994 @@
+{
+  "test": "ceiling_steam",
+  "started": "2026-09-29T07:26:15",
+  "seed": 123456789,
+  "method": "Test 4 measurement (clock 3.0x, free-run K=4, 64x64 grid decoded, quiet Mines), 3 launches x 30.0 s per condition, median aggregate fps.",
+  "cpu": {
+    "logical": 12,
+    "physical": 6
+  },
+  "steam_before": [
+    {
+      "pid": 3492,
+      "name": "SteamService.exe",
+      "exe": "C:\\Program Files (x86)\\Common Files\\Steam\\SteamService.exe",
+      "cmdline": null
+    },
+    {
+      "pid": 3628,
+      "name": "steamwebhelper.exe",
+      "exe": "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe",
+      "cmdline": [
+        "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe",
+        "--type=crashpad-handler",
+        "/prefetch:4",
+        "--max-uploads=5",
+        "--max-db-size=20",
+        "--max-db-age=5",
+        "--monitor-self-annotation=ptype=crashpad-handler",
+        "--database=C:\\Program Files (x86)\\Steam\\dumps",
+        "--metrics-dir=C:\\Users\\<user>\\AppData\\Local\\CEF\\User Data",
+        "--url=https://crash.steampowered.com/submit",
+        "--annotation=platform=win64",
+        "--annotation=product=cefwebhelper",
+        "--annotation=version=1790545198",
+        "--initial-client-data=0x380,0x384,0x388,0x37c,0x38c,0x7ffc6069aea0,0x7ffc6069aeac,0x7ffc6069aeb8"
+      ]
+    },
+    {
+      "pid": 6164,
+      "name": "steam.exe",
+      "exe": "C:\\Program Files (x86)\\Steam\\steam.exe",
+      "cmdline": [
+        "C:\\Program Files (x86)\\Steam\\steam.exe",
+        "-silent"
+      ]
+    },
+    {
+      "pid": 7508,
+      "name": "steamwebhelper.exe",
+      "exe": "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe",
+      "cmdline": [
+        "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe",
+        "--type=renderer",
+        "--enable-chrome-runtime",
+        "--user-data-dir=C:\\Users\\<user>\\AppData\\Local\\Steam\\htmlcache",
+        "--user-agent-product=Valve Steam Client",
+        "--buildid=1790545198",
+        "--steamid=0",
+        "--gaia-url=http://disabled.invalid",
+        "--lang=en-GB",
+        "--device-scale-factor=1",
+        "--num-raster-threads=4",
+        "--enable-main-frame-before-activation",
+        "--renderer-client-id=9",
+        "--time-ticks-at-unix-epoch=-1790656311308597",
+        "--launch-time-ticks=54528054",
+        "--field-trial-handle=5720,i,18243370264418090462,9180638255435134960,262144",
+        "--enable-features=PlatformHEVCDecoderSupport",
+        "--disable-features=BlockPromptsIfIgnoredOften,SpareRendererForSitePerProcess,ValveFFmpegAllowLowDelayHEVC,WebUsbDeviceDetection,WinRetrieveSuggestionsOnlyOnDemand",
+        "--variations-seed-version",
+        "--enable-logging=handle",
+        "--log-file=5728",
+        "--mojo-platform-channel-handle=5716",
+        "/prefetch:1"
+      ]
+    },
+    {
+      "pid": 15700,
+      "name": "steamwebhelper.exe",
+      "exe": "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe",
+      "cmdline": [
+        "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe",
+        "--type=gpu-process",
+        "--start-stack-profiler",
+        "--enable-chrome-runtime",
+        "--user-data-dir=C:\\Users\\<user>\\AppData\\Local\\Steam\\htmlcache",
+        "--user-agent-product=Valve Steam Client",
+        "--buildid=1790545198",
+        "--steamid=0",
+        "--gpu-preferences=WAAAAAAAAADgAAAMAAAAAAAAAAAAAAAAAABgAAEAAAA4AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGAAAAAAAAAAYAAAAAAAAAAgAAAAAAAAACAAAAAAAAAAIAAAAAAAAAA==",
+        "--field-trial-handle=1964,i,18243370264418090462,9180638255435134960,262144",
+        "--enable-features=PlatformHEVCDecoderSupport",
+        "--disable-features=BlockPromptsIfIgnoredOften,SpareRendererForSitePerProcess,ValveFFmpegAllowLowDelayHEVC,WebUsbDeviceDetection,WinRetrieveSuggestionsOnlyOnDemand",
+        "--variations-seed-version",
+        "--enable-logging=handle",
+        "--log-file=1968",
+        "--mojo-platform-channel-handle=1960",
+        "/prefetch:2"
+      ]
+    },
+    {
+      "pid": 17248,
+      "name": "steamwebhelper.exe",
+      "exe": "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe",
+      "cmdline": [
+        "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe",
+        "-nocrashdialog",
+        "-lang=en_US",
+        "-cachedir=C:\\Users\\<user>\\AppData\\Local\\Steam\\htmlcache",
+        "-steampid=6164",
+        "-buildid=1790545198",
+        "-steamid=0",
+        "-logdir=C:\\Program Files (x86)\\Steam\\logs",
+        "-uimode=7",
+        "-startcount=0",
+        "-steamuniverse=Public",
+        "-realm=Global",
+        "-clientui=C:\\Program Files (x86)\\Steam\\clientui",
+        "-steampath=C:\\Program Files (x86)\\Steam\\steam.exe",
+        "-launcher=0",
+        "--valve-enable-site-isolation",
+        "--enable-smooth-scrolling",
+        "--log-file=C:\\Program Files (x86)\\Steam\\logs\\cef_log.txt",
+        "--disable-quick-menu",
+        "--disable-component-update",
+        "--gaia-url=http://disabled.invalid",
+        "--enable-features=PlatformHEVCDecoderSupport",
+        "--disable-features=WinRetrieveSuggestionsOnlyOnDemand,SpareRendererForSitePerProcess,BlockPromptsIfIgnoredOften,WebUsbDeviceDetection,ValveFFmpegAllowLowDelayHEVC"
+      ]
+    },
+    {
+      "pid": 17516,
+      "name": "steamwebhelper.exe",
+      "exe": "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe",
+      "cmdline": [
+        "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe",
+        "--type=utility",
+        "--utility-sub-type=network.mojom.NetworkService",
+        "--lang=en-GB",
+        "--service-sandbox-type=none",
+        "--start-stack-profiler",
+        "--enable-chrome-runtime",
+        "--user-data-dir=C:\\Users\\<user>\\AppData\\Local\\Steam\\htmlcache",
+        "--user-agent-product=Valve Steam Client",
+        "--buildid=1790545198",
+        "--steamid=0",
+        "--field-trial-handle=2252,i,18243370264418090462,9180638255435134960,262144",
+        "--enable-features=PlatformHEVCDecoderSupport",
+        "--disable-features=BlockPromptsIfIgnoredOften,SpareRendererForSitePerProcess,ValveFFmpegAllowLowDelayHEVC,WebUsbDeviceDetection,WinRetrieveSuggestionsOnlyOnDemand",
+        "--variations-seed-version",
+        "--enable-logging=handle",
+        "--log-file=2264",
+        "--mojo-platform-channel-handle=2260",
+        "/prefetch:11"
+      ]
+    },
+    {
+      "pid": 17620,
+      "name": "steamwebhelper.exe",
+      "exe": "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe",
+      "cmdline": [
+        "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe",
+        "--type=utility",
+        "--utility-sub-type=storage.mojom.StorageService",
+        "--lang=en-GB",
+        "--service-sandbox-type=service",
+        "--enable-chrome-runtime",
+        "--user-data-dir=C:\\Users\\<user>\\AppData\\Local\\Steam\\htmlcache",
+        "--user-agent-product=Valve Steam Client",
+        "--buildid=1790545198",
+        "--steamid=0",
+        "--field-trial-handle=2404,i,18243370264418090462,9180638255435134960,262144",
+        "--enable-features=PlatformHEVCDecoderSupport",
+        "--disable-features=BlockPromptsIfIgnoredOften,SpareRendererForSitePerProcess,ValveFFmpegAllowLowDelayHEVC,WebUsbDeviceDetection,WinRetrieveSuggestionsOnlyOnDemand",
+        "--variations-seed-version",
+        "--enable-logging=handle",
+        "--log-file=2424",
+        "--mojo-platform-channel-handle=2420",
+        "/prefetch:13"
+      ]
+    },
+    {
+      "pid": 17732,
+      "name": "steamwebhelper.exe",
+      "exe": "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe",
+      "cmdline": [
+        "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe",
+        "--type=renderer",
+        "--enable-chrome-runtime",
+        "--user-data-dir=C:\\Users\\<user>\\AppData\\Local\\Steam\\htmlcache",
+        "--user-agent-product=Valve Steam Client",
+        "--buildid=1790545198",
+        "--steamid=0",
+        "--gaia-url=http://disabled.invalid",
+        "--lang=en-GB",
+        "--device-scale-factor=1",
+        "--num-raster-threads=4",
+        "--enable-main-frame-before-activation",
+        "--renderer-client-id=5",
+        "--time-ticks-at-unix-epoch=-1790656311308597",
+        "--launch-time-ticks=42376467",
+        "--field-trial-handle=3932,i,18243370264418090462,9180638255435134960,262144",
+        "--enable-features=PlatformHEVCDecoderSupport",
+        "--disable-features=BlockPromptsIfIgnoredOften,SpareRendererForSitePerProcess,ValveFFmpegAllowLowDelayHEVC,WebUsbDeviceDetection,WinRetrieveSuggestionsOnlyOnDemand",
+        "--variations-seed-version",
+        "--enable-logging=handle",
+        "--log-file=3944",
+        "--mojo-platform-channel-handle=3940",
+        "/prefetch:1"
+      ]
+    }
+  ],
+  "baseline": {
+    "solo": {
+      "n": 1,
+      "aggregate_fps_median": 146.7,
+      "aggregate_fps_runs": [
+        146.9,
+        146.7,
+        142.9
+      ],
+      "per_instance_fps_median": 146.7,
+      "cpu_percent_median": 4.6,
+      "failures": 0,
+      "runs": [
+        {
+          "n": 1,
+          "timescale": 3.0,
+          "grid": {
+            "size": 64,
+            "stride": 1
+          },
+          "window_s": 30.0,
+          "launch_to_all_ready_s": 6.8,
+          "launch_failures": [],
+          "crashed_during_window": [],
+          "aggregate_fps": 146.9,
+          "aggregate_realtime_multiple": 2.45,
+          "per_instance_fps": {
+            "min": 146.9,
+            "median": 146.9,
+            "max": 146.9,
+            "all": [
+              146.9
+            ]
+          },
+          "working_set_mb": {
+            "per_instance_median": 741.0,
+            "max": 741.0,
+            "total": 741.0,
+            "max_peak": 745.3
+          },
+          "system": {
+            "cpu_percent": 5.8,
+            "available_ram_mb": 13836,
+            "total_ram_mb": 32706
+          },
+          "driver_grid_decode_ms_per_packet": {
+            "n": 1,
+            "p50": 0.0222,
+            "p95": 0.0222,
+            "mean": 0.0222,
+            "min": 0.0222,
+            "max": 0.0222
+          }
+        },
+        {
+          "n": 1,
+          "timescale": 3.0,
+          "grid": {
+            "size": 64,
+            "stride": 1
+          },
+          "window_s": 30.0,
+          "launch_to_all_ready_s": 7.3,
+          "launch_failures": [],
+          "crashed_during_window": [],
+          "aggregate_fps": 146.7,
+          "aggregate_realtime_multiple": 2.45,
+          "per_instance_fps": {
+            "min": 146.7,
+            "median": 146.7,
+            "max": 146.7,
+            "all": [
+              146.7
+            ]
+          },
+          "working_set_mb": {
+            "per_instance_median": 740.9,
+            "max": 740.9,
+            "total": 740.9,
+            "max_peak": 740.9
+          },
+          "system": {
+            "cpu_percent": 4.2,
+            "available_ram_mb": 13715,
+            "total_ram_mb": 32706
+          },
+          "driver_grid_decode_ms_per_packet": {
+            "n": 1,
+            "p50": 0.0233,
+            "p95": 0.0233,
+            "mean": 0.0233,
+            "min": 0.0233,
+            "max": 0.0233
+          }
+        },
+        {
+          "n": 1,
+          "timescale": 3.0,
+          "grid": {
+            "size": 64,
+            "stride": 1
+          },
+          "window_s": 30.0,
+          "launch_to_all_ready_s": 6.8,
+          "launch_failures": [],
+          "crashed_during_window": [],
+          "aggregate_fps": 142.9,
+          "aggregate_realtime_multiple": 2.38,
+          "per_instance_fps": {
+            "min": 142.9,
+            "median": 142.9,
+            "max": 142.9,
+            "all": [
+              142.9
+            ]
+          },
+          "working_set_mb": {
+            "per_instance_median": 740.1,
+            "max": 740.1,
+            "total": 740.1,
+            "max_peak": 743.9
+          },
+          "system": {
+            "cpu_percent": 4.6,
+            "available_ram_mb": 13719,
+            "total_ram_mb": 32706
+          },
+          "driver_grid_decode_ms_per_packet": {
+            "n": 1,
+            "p50": 0.0213,
+            "p95": 0.0213,
+            "mean": 0.0213,
+            "min": 0.0213,
+            "max": 0.0213
+          }
+        }
+      ]
+    },
+    "n4": {
+      "n": 4,
+      "aggregate_fps_median": 298.2,
+      "aggregate_fps_runs": [
+        298.2,
+        304.3,
+        292.5
+      ],
+      "per_instance_fps_median": 74.3,
+      "cpu_percent_median": 14.2,
+      "failures": 0,
+      "runs": [
+        {
+          "n": 4,
+          "timescale": 3.0,
+          "grid": {
+            "size": 64,
+            "stride": 1
+          },
+          "window_s": 30.0,
+          "launch_to_all_ready_s": 12.6,
+          "launch_failures": [],
+          "crashed_during_window": [],
+          "aggregate_fps": 298.2,
+          "aggregate_realtime_multiple": 4.97,
+          "per_instance_fps": {
+            "min": 73.5,
+            "median": 74.1,
+            "max": 76.5,
+            "all": [
+              76.5,
+              73.5,
+              74.5,
+              73.7
+            ]
+          },
+          "working_set_mb": {
+            "per_instance_median": 689.0,
+            "max": 690.2,
+            "total": 2754.6,
+            "max_peak": 696.9
+          },
+          "system": {
+            "cpu_percent": 14.2,
+            "available_ram_mb": 11757,
+            "total_ram_mb": 32706
+          },
+          "driver_grid_decode_ms_per_packet": {
+            "n": 4,
+            "p50": 0.0256,
+            "p95": 0.0263,
+            "mean": 0.0257,
+            "min": 0.0253,
+            "max": 0.0264
+          }
+        },
+        {
+          "n": 4,
+          "timescale": 3.0,
+          "grid": {
+            "size": 64,
+            "stride": 1
+          },
+          "window_s": 30.0,
+          "launch_to_all_ready_s": 12.3,
+          "launch_failures": [],
+          "crashed_during_window": [],
+          "aggregate_fps": 304.3,
+          "aggregate_realtime_multiple": 5.07,
+          "per_instance_fps": {
+            "min": 75.2,
+            "median": 76.2,
+            "max": 76.9,
+            "all": [
+              76.4,
+              75.2,
+              75.9,
+              76.9
+            ]
+          },
+          "working_set_mb": {
+            "per_instance_median": 687.9,
+            "max": 692.9,
+            "total": 2754.4,
+            "max_peak": 696.4
+          },
+          "system": {
+            "cpu_percent": 14.2,
+            "available_ram_mb": 11587,
+            "total_ram_mb": 32706
+          },
+          "driver_grid_decode_ms_per_packet": {
+            "n": 4,
+            "p50": 0.0254,
+            "p95": 0.0259,
+            "mean": 0.0255,
+            "min": 0.0251,
+            "max": 0.026
+          }
+        },
+        {
+          "n": 4,
+          "timescale": 3.0,
+          "grid": {
+            "size": 64,
+            "stride": 1
+          },
+          "window_s": 30.0,
+          "launch_to_all_ready_s": 12.5,
+          "launch_failures": [],
+          "crashed_during_window": [],
+          "aggregate_fps": 292.5,
+          "aggregate_realtime_multiple": 4.88,
+          "per_instance_fps": {
+            "min": 72.0,
+            "median": 73.2,
+            "max": 74.1,
+            "all": [
+              74.1,
+              73.7,
+              72.7,
+              72.0
+            ]
+          },
+          "working_set_mb": {
+            "per_instance_median": 688.7,
+            "max": 690.7,
+            "total": 2755.9,
+            "max_peak": 697.5
+          },
+          "system": {
+            "cpu_percent": 20.3,
+            "available_ram_mb": 11337,
+            "total_ram_mb": 32706
+          },
+          "driver_grid_decode_ms_per_packet": {
+            "n": 4,
+            "p50": 0.0253,
+            "p95": 0.0257,
+            "mean": 0.0254,
+            "min": 0.0251,
+            "max": 0.0257
+          }
+        }
+      ]
+    }
+  },
+  "client_closed": true,
+  "steam_during": [],
+  "launch_without_steam": {
+    "starts": true,
+    "t_hello_s": 4.93
+  },
+  "no_steam": {
+    "solo": {
+      "n": 1,
+      "aggregate_fps_median": 145.5,
+      "aggregate_fps_runs": [
+        143.9,
+        145.5,
+        147.3
+      ],
+      "per_instance_fps_median": 145.5,
+      "cpu_percent_median": 4.4,
+      "failures": 0,
+      "runs": [
+        {
+          "n": 1,
+          "timescale": 3.0,
+          "grid": {
+            "size": 64,
+            "stride": 1
+          },
+          "window_s": 30.0,
+          "launch_to_all_ready_s": 6.0,
+          "launch_failures": [],
+          "crashed_during_window": [],
+          "aggregate_fps": 143.9,
+          "aggregate_realtime_multiple": 2.4,
+          "per_instance_fps": {
+            "min": 143.9,
+            "median": 143.9,
+            "max": 143.9,
+            "all": [
+              143.9
+            ]
+          },
+          "working_set_mb": {
+            "per_instance_median": 713.1,
+            "max": 713.1,
+            "total": 713.1,
+            "max_peak": 713.1
+          },
+          "system": {
+            "cpu_percent": 4.3,
+            "available_ram_mb": 21320,
+            "total_ram_mb": 32706
+          },
+          "driver_grid_decode_ms_per_packet": {
+            "n": 1,
+            "p50": 0.0228,
+            "p95": 0.0228,
+            "mean": 0.0228,
+            "min": 0.0228,
+            "max": 0.0228
+          }
+        },
+        {
+          "n": 1,
+          "timescale": 3.0,
+          "grid": {
+            "size": 64,
+            "stride": 1
+          },
+          "window_s": 30.0,
+          "launch_to_all_ready_s": 6.1,
+          "launch_failures": [],
+          "crashed_during_window": [],
+          "aggregate_fps": 145.5,
+          "aggregate_realtime_multiple": 2.43,
+          "per_instance_fps": {
+            "min": 145.5,
+            "median": 145.5,
+            "max": 145.5,
+            "all": [
+              145.5
+            ]
+          },
+          "working_set_mb": {
+            "per_instance_median": 700.0,
+            "max": 700.0,
+            "total": 700.0,
+            "max_peak": 700.0
+          },
+          "system": {
+            "cpu_percent": 4.4,
+            "available_ram_mb": 21387,
+            "total_ram_mb": 32706
+          },
+          "driver_grid_decode_ms_per_packet": {
+            "n": 1,
+            "p50": 0.0224,
+            "p95": 0.0224,
+            "mean": 0.0224,
+            "min": 0.0224,
+            "max": 0.0224
+          }
+        },
+        {
+          "n": 1,
+          "timescale": 3.0,
+          "grid": {
+            "size": 64,
+            "stride": 1
+          },
+          "window_s": 30.0,
+          "launch_to_all_ready_s": 6.3,
+          "launch_failures": [],
+          "crashed_during_window": [],
+          "aggregate_fps": 147.3,
+          "aggregate_realtime_multiple": 2.45,
+          "per_instance_fps": {
+            "min": 147.3,
+            "median": 147.3,
+            "max": 147.3,
+            "all": [
+              147.3
+            ]
+          },
+          "working_set_mb": {
+            "per_instance_median": 696.5,
+            "max": 696.5,
+            "total": 696.5,
+            "max_peak": 696.6
+          },
+          "system": {
+            "cpu_percent": 4.5,
+            "available_ram_mb": 21186,
+            "total_ram_mb": 32706
+          },
+          "driver_grid_decode_ms_per_packet": {
+            "n": 1,
+            "p50": 0.0225,
+            "p95": 0.0225,
+            "mean": 0.0225,
+            "min": 0.0225,
+            "max": 0.0225
+          }
+        }
+      ]
+    },
+    "n4": {
+      "n": 4,
+      "aggregate_fps_median": 319.2,
+      "aggregate_fps_runs": [
+        322.9,
+        319.2,
+        303.0
+      ],
+      "per_instance_fps_median": 79.3,
+      "cpu_percent_median": 12.7,
+      "failures": 0,
+      "runs": [
+        {
+          "n": 4,
+          "timescale": 3.0,
+          "grid": {
+            "size": 64,
+            "stride": 1
+          },
+          "window_s": 30.0,
+          "launch_to_all_ready_s": 13.1,
+          "launch_failures": [],
+          "crashed_during_window": [],
+          "aggregate_fps": 322.9,
+          "aggregate_realtime_multiple": 5.38,
+          "per_instance_fps": {
+            "min": 79.2,
+            "median": 80.5,
+            "max": 82.7,
+            "all": [
+              79.9,
+              81.1,
+              82.7,
+              79.2
+            ]
+          },
+          "working_set_mb": {
+            "per_instance_median": 690.05,
+            "max": 693.4,
+            "total": 2721.2,
+            "max_peak": 705.1
+          },
+          "system": {
+            "cpu_percent": 12.7,
+            "available_ram_mb": 19392,
+            "total_ram_mb": 32706
+          },
+          "driver_grid_decode_ms_per_packet": {
+            "n": 4,
+            "p50": 0.0246,
+            "p95": 0.0249,
+            "mean": 0.0247,
+            "min": 0.0245,
+            "max": 0.0249
+          }
+        },
+        {
+          "n": 4,
+          "timescale": 3.0,
+          "grid": {
+            "size": 64,
+            "stride": 1
+          },
+          "window_s": 30.0,
+          "launch_to_all_ready_s": 11.5,
+          "launch_failures": [],
+          "crashed_during_window": [],
+          "aggregate_fps": 319.2,
+          "aggregate_realtime_multiple": 5.32,
+          "per_instance_fps": {
+            "min": 78.8,
+            "median": 79.7,
+            "max": 81.0,
+            "all": [
+              81.0,
+              79.4,
+              80.0,
+              78.8
+            ]
+          },
+          "working_set_mb": {
+            "per_instance_median": 643.45,
+            "max": 647.4,
+            "total": 2575.6,
+            "max_peak": 653.3
+          },
+          "system": {
+            "cpu_percent": 12.6,
+            "available_ram_mb": 19464,
+            "total_ram_mb": 32706
+          },
+          "driver_grid_decode_ms_per_packet": {
+            "n": 4,
+            "p50": 0.0247,
+            "p95": 0.0256,
+            "mean": 0.0249,
+            "min": 0.0246,
+            "max": 0.0258
+          }
+        },
+        {
+          "n": 4,
+          "timescale": 3.0,
+          "grid": {
+            "size": 64,
+            "stride": 1
+          },
+          "window_s": 30.0,
+          "launch_to_all_ready_s": 11.4,
+          "launch_failures": [],
+          "crashed_during_window": [],
+          "aggregate_fps": 303.0,
+          "aggregate_realtime_multiple": 5.05,
+          "per_instance_fps": {
+            "min": 74.5,
+            "median": 76.0,
+            "max": 76.5,
+            "all": [
+              76.5,
+              74.5,
+              76.3,
+              75.8
+            ]
+          },
+          "working_set_mb": {
+            "per_instance_median": 645.45,
+            "max": 647.1,
+            "total": 2579.7,
+            "max_peak": 657.4
+          },
+          "system": {
+            "cpu_percent": 19.0,
+            "available_ram_mb": 19742,
+            "total_ram_mb": 32706
+          },
+          "driver_grid_decode_ms_per_packet": {
+            "n": 4,
+            "p50": 0.025,
+            "p95": 0.0255,
+            "mean": 0.0251,
+            "min": 0.0246,
+            "max": 0.0256
+          }
+        }
+      ]
+    }
+  },
+  "steam_seen_in_windows": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    []
+  ],
+  "restarted": true,
+  "steam_after": [
+    {
+      "pid": 4860,
+      "name": "steamwebhelper.exe",
+      "exe": "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe",
+      "cmdline": [
+        "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe",
+        "--type=utility",
+        "--utility-sub-type=network.mojom.NetworkService",
+        "--lang=en-GB",
+        "--service-sandbox-type=none",
+        "--start-stack-profiler",
+        "--enable-chrome-runtime",
+        "--user-data-dir=C:\\Users\\<user>\\AppData\\Local\\Steam\\htmlcache",
+        "--user-agent-product=Valve Steam Client",
+        "--buildid=1790545198",
+        "--steamid=0",
+        "--field-trial-handle=2296,i,7161294333710967026,9291169652704780875,262144",
+        "--enable-features=PlatformHEVCDecoderSupport",
+        "--disable-features=BlockPromptsIfIgnoredOften,SpareRendererForSitePerProcess,ValveFFmpegAllowLowDelayHEVC,WebUsbDeviceDetection,WinRetrieveSuggestionsOnlyOnDemand",
+        "--variations-seed-version",
+        "--enable-logging=handle",
+        "--log-file=2324",
+        "--mojo-platform-channel-handle=2320",
+        "/prefetch:11"
+      ]
+    },
+    {
+      "pid": 17764,
+      "name": "steamwebhelper.exe",
+      "exe": "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe",
+      "cmdline": [
+        "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe",
+        "--type=renderer",
+        "--enable-chrome-runtime",
+        "--user-data-dir=C:\\Users\\<user>\\AppData\\Local\\Steam\\htmlcache",
+        "--user-agent-product=Valve Steam Client",
+        "--buildid=1790545198",
+        "--steamid=0",
+        "--gaia-url=http://disabled.invalid",
+        "--lang=en-GB",
+        "--device-scale-factor=1",
+        "--num-raster-threads=4",
+        "--enable-main-frame-before-activation",
+        "--renderer-client-id=5",
+        "--time-ticks-at-unix-epoch=-1790656311309936",
+        "--launch-time-ticks=3814763738",
+        "--field-trial-handle=3580,i,7161294333710967026,9291169652704780875,262144",
+        "--enable-features=PlatformHEVCDecoderSupport",
+        "--disable-features=BlockPromptsIfIgnoredOften,SpareRendererForSitePerProcess,ValveFFmpegAllowLowDelayHEVC,WebUsbDeviceDetection,WinRetrieveSuggestionsOnlyOnDemand",
+        "--variations-seed-version",
+        "--enable-logging=handle",
+        "--log-file=3680",
+        "--mojo-platform-channel-handle=3640",
+        "/prefetch:1"
+      ]
+    },
+    {
+      "pid": 23060,
+      "name": "steamwebhelper.exe",
+      "exe": "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe",
+      "cmdline": [
+        "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe",
+        "--type=crashpad-handler",
+        "/prefetch:4",
+        "--max-uploads=5",
+        "--max-db-size=20",
+        "--max-db-age=5",
+        "--monitor-self-annotation=ptype=crashpad-handler",
+        "--database=C:\\Program Files (x86)\\Steam\\dumps",
+        "--metrics-dir=C:\\Users\\<user>\\AppData\\Local\\CEF\\User Data",
+        "--url=https://crash.steampowered.com/submit",
+        "--annotation=platform=win64",
+        "--annotation=product=cefwebhelper",
+        "--annotation=version=1790545198",
+        "--initial-client-data=0x380,0x384,0x388,0x37c,0x38c,0x7ffc5feaaea0,0x7ffc5feaaeac,0x7ffc5feaaeb8"
+      ]
+    },
+    {
+      "pid": 26216,
+      "name": "steam.exe",
+      "exe": "C:\\Program Files (x86)\\Steam\\steam.exe",
+      "cmdline": [
+        "C:\\Program Files (x86)\\Steam\\steam.exe",
+        "-silent"
+      ]
+    },
+    {
+      "pid": 27040,
+      "name": "steamwebhelper.exe",
+      "exe": "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe",
+      "cmdline": [
+        "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe",
+        "--type=utility",
+        "--utility-sub-type=storage.mojom.StorageService",
+        "--lang=en-GB",
+        "--service-sandbox-type=service",
+        "--enable-chrome-runtime",
+        "--user-data-dir=C:\\Users\\<user>\\AppData\\Local\\Steam\\htmlcache",
+        "--user-agent-product=Valve Steam Client",
+        "--buildid=1790545198",
+        "--steamid=0",
+        "--field-trial-handle=2380,i,7161294333710967026,9291169652704780875,262144",
+        "--enable-features=PlatformHEVCDecoderSupport",
+        "--disable-features=BlockPromptsIfIgnoredOften,SpareRendererForSitePerProcess,ValveFFmpegAllowLowDelayHEVC,WebUsbDeviceDetection,WinRetrieveSuggestionsOnlyOnDemand",
+        "--variations-seed-version",
+        "--enable-logging=handle",
+        "--log-file=2400",
+        "--mojo-platform-channel-handle=2396",
+        "/prefetch:13"
+      ]
+    },
+    {
+      "pid": 28208,
+      "name": "SteamService.exe",
+      "exe": "C:\\Program Files (x86)\\Common Files\\Steam\\SteamService.exe",
+      "cmdline": null
+    },
+    {
+      "pid": 29116,
+      "name": "steamwebhelper.exe",
+      "exe": "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe",
+      "cmdline": [
+        "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe",
+        "-nocrashdialog",
+        "-lang=en_US",
+        "-cachedir=C:\\Users\\<user>\\AppData\\Local\\Steam\\htmlcache",
+        "-steampid=26216",
+        "-buildid=1790545198",
+        "-steamid=0",
+        "-logdir=C:\\Program Files (x86)\\Steam\\logs",
+        "-uimode=7",
+        "-startcount=0",
+        "-steamuniverse=Public",
+        "-realm=Global",
+        "-clientui=C:\\Program Files (x86)\\Steam\\clientui",
+        "-steampath=C:\\Program Files (x86)\\Steam\\steam.exe",
+        "-launcher=0",
+        "--valve-enable-site-isolation",
+        "--enable-smooth-scrolling",
+        "--log-file=C:\\Program Files (x86)\\Steam\\logs\\cef_log.txt",
+        "--disable-quick-menu",
+        "--disable-component-update",
+        "--gaia-url=http://disabled.invalid",
+        "--enable-features=PlatformHEVCDecoderSupport",
+        "--disable-features=WinRetrieveSuggestionsOnlyOnDemand,SpareRendererForSitePerProcess,BlockPromptsIfIgnoredOften,WebUsbDeviceDetection,ValveFFmpegAllowLowDelayHEVC"
+      ]
+    },
+    {
+      "pid": 29732,
+      "name": "steamwebhelper.exe",
+      "exe": "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe",
+      "cmdline": [
+        "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe",
+        "--type=gpu-process",
+        "--start-stack-profiler",
+        "--enable-chrome-runtime",
+        "--user-data-dir=C:\\Users\\<user>\\AppData\\Local\\Steam\\htmlcache",
+        "--user-agent-product=Valve Steam Client",
+        "--buildid=1790545198",
+        "--steamid=0",
+        "--gpu-preferences=WAAAAAAAAADgAAAMAAAAAAAAAAAAAAAAAABgAAEAAAA4AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGAAAAAAAAAAYAAAAAAAAAAgAAAAAAAAACAAAAAAAAAAIAAAAAAAAAA==",
+        "--field-trial-handle=1964,i,7161294333710967026,9291169652704780875,262144",
+        "--enable-features=PlatformHEVCDecoderSupport",
+        "--disable-features=BlockPromptsIfIgnoredOften,SpareRendererForSitePerProcess,ValveFFmpegAllowLowDelayHEVC,WebUsbDeviceDetection,WinRetrieveSuggestionsOnlyOnDemand",
+        "--variations-seed-version",
+        "--enable-logging=handle",
+        "--log-file=1968",
+        "--mojo-platform-channel-handle=1960",
+        "/prefetch:2"
+      ]
+    }
+  ],
+  "table": [
+    {
+      "condition": "baseline",
+      "solo_fps": 146.7,
+      "n4_aggregate_fps": 298.2,
+      "solo_delta_pct": 0.0,
+      "n4_delta_pct": 0.0
+    },
+    {
+      "condition": "Steam client closed",
+      "solo_fps": 145.5,
+      "n4_aggregate_fps": 319.2,
+      "solo_delta_pct": -0.8,
+      "n4_delta_pct": 7.0
+    }
+  ],
+  "wall_minutes": 9.2
+}
