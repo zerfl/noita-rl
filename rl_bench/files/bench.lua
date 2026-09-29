@@ -25,7 +25,9 @@ local B = {
 }
 
 pcall(ffi.cdef, "uint32_t GetCurrentProcessId(void);")
-local PID = ffi.load("kernel32").GetCurrentProcessId()
+pcall(ffi.cdef, "uint32_t GetCurrentThreadId(void);")
+local kernel32 = ffi.load("kernel32")
+local PID = kernel32.GetCurrentProcessId()
 
 local function read_seed()
   if not rlb_np.address_ok then return 0, 0 end
@@ -304,6 +306,7 @@ function rlb_bench.on_world_init()
     t = "hello",
     instance = env("RL_BENCH_INSTANCE"),
     pid = PID,
+    tid = kernel32.GetCurrentThreadId(),   -- the thread mod callbacks run on
     frame = GameGetFrameNum(),
     t_ms = clock(),
     seed_requested = tonumber(env("RL_BENCH_SEED") or ""),

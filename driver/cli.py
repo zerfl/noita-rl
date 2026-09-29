@@ -3,7 +3,7 @@ import json
 import time
 from pathlib import Path
 
-from . import actions, gameconfig, launcher, np_bench, paths, smoke, test1, test2, test3, test4, timer_bench
+from . import actions, ceiling, etw, gameconfig, launcher, np_bench, paths, smoke, test1, test2, test3, test4, timer_bench
 
 
 def _render(a) -> gameconfig.RenderOptions:
@@ -103,6 +103,16 @@ def cmd_timer(a):
         save_result("timer", timer_bench.run(ns=tuple(a.ns), timescale=a.timescale, log=_log))
 
 
+def cmd_ceiling(a):
+    if a.mode == "hold":
+        etl = Path(a.etl) if a.etl else etw.TRACE_DIR / f"n{a.n}_{time.strftime('%Y%m%d-%H%M%S')}.etl"
+        save_result(f"ceiling_hold_n{a.n}", ceiling.run_hold(a.n, etl.resolve(), log=_log))
+    elif a.mode == "trace":
+        save_result("ceiling_trace", ceiling.run_trace(Path(a.hold), Path(a.etl) if a.etl else None, log=_log))
+    else:
+        save_result(f"ceiling_{a.mode}", ceiling.run(a.mode, runs=a.runs, window_s=a.window, log=_log))
+
+
 def cmd_suite(a):
     """Every test in order; one result file each plus an index."""
     t0 = time.perf_counter()
@@ -184,6 +194,15 @@ def main(argv=None):
     p.add_argument("--render-share", action="store_true",
                    help="N=4 with all but one instance paused (results/timer_render_share_*.json)")
     p.set_defaults(fn=cmd_timer)
+
+    p = sub.add_parser("ceiling", help="diagnose the shared ~300 fps ceiling; writes results/ceiling_*.json")
+    p.add_argument("mode", choices=[*ceiling.MODES, "hold", "trace"])
+    p.add_argument("--runs", type=int, default=3)
+    p.add_argument("--window", type=float, default=30.0)
+    p.add_argument("--n", type=int, default=1, help="hold: instances")
+    p.add_argument("--etl", help="hold: the ETL to wait for; trace: override the hold's ETL")
+    p.add_argument("--hold", help="trace: results/ceiling_hold_*.json")
+    p.set_defaults(fn=cmd_ceiling)
 
     p = sub.add_parser("suite", help="run every test: smoke, actions, test1-4, np (about 60 min)")
     p.add_argument("--reps", type=int, default=3)

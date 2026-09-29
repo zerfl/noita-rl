@@ -91,3 +91,21 @@ def disable_power_throttling(pid: int) -> bool:
                                                    ctypes.byref(info), ctypes.sizeof(info)))
     finally:
         kernel32.CloseHandle(h)
+
+
+class _LogicalProcessorInfo(ctypes.Structure):
+    _fields_ = [("mask", ctypes.c_size_t), ("relationship", ctypes.c_int), ("_union", ctypes.c_ulonglong * 2)]
+
+
+RELATION_PROCESSOR_CORE = 0
+
+
+def physical_cores() -> list[list[int]]:
+    """Logical CPU indices of each physical core (SMT siblings together), in core order."""
+    size = wintypes.DWORD(0)
+    kernel32.GetLogicalProcessorInformation(None, ctypes.byref(size))
+    n = size.value // ctypes.sizeof(_LogicalProcessorInfo)
+    buf = (_LogicalProcessorInfo * n)()
+    if not kernel32.GetLogicalProcessorInformation(buf, ctypes.byref(size)):
+        raise ctypes.WinError(ctypes.get_last_error())
+    return [[b for b in range(64) if e.mask >> b & 1] for e in buf if e.relationship == RELATION_PROCESSOR_CORE]

@@ -10,3 +10,7 @@ __pycache__/
 
 # per-instance workdirs, the relaunch shim build and tracked pids
 .rl_bench_state/
+
+# trace analyzer build output
+tools/etwcpu/bin/
+tools/etwcpu/obj/

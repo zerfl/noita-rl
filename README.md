@@ -10,6 +10,8 @@ Feasibility benchmark for reinforcement learning on Noita (release branch, build
 - `driver/`: Python package (uv project at the repo root) that launches isolated instances
   and runs the tests. It never touches the user's installed mods, mod list or saves.
 - `results/`: JSON output of each test run.
+- `tools/etwcpu/`: .NET TraceProcessor tool (needs the .NET 10 SDK) that summarises a WPR trace
+  like WPA's CPU Usage (Precise): per-thread waits, readying threads and blocking stacks.
 
 ## Usage
 
@@ -27,6 +29,11 @@ uv run python -m driver np           # NoitaPatcher experiments (about 10 min)
 uv run python -m driver np --only commands grid firing world fps
 uv run python -m driver timer        # timer resolution vs the fps ceiling, N=1 and N=4 (about 8 min)
 uv run python -m driver timer --render-share   # N=4 with all but one instance paused
+uv run python -m driver ceiling baseline   # N=1 and N=4, 3 launches x 30 s, medians (about 5 min)
+uv run python -m driver ceiling power      # also: affinity, steam, restarts (each reruns the baseline)
+uv run python -m driver ceiling hold --n 4 --etl .rl_bench_state/traces/n4.etl   # then record, elevated:
+#   wpr -start CPU -filemode; Start-Sleep 10; wpr -stop <repo>\.rl_bench_state\traces\n4.etl
+uv run python -m driver ceiling trace --hold results/ceiling_hold_n4_X.json   # CPU Usage (Precise) summary
 uv run python -m driver actions      # each action changes the game
 uv run python -m driver smoke
 uv run python -m driver launch --seconds 30

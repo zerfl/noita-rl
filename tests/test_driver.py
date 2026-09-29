@@ -3,7 +3,7 @@ import unittest
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
-from driver import gameconfig, launcher, link, test1
+from driver import ceiling, gameconfig, launcher, link, test1
 
 
 class BenchConfig(unittest.TestCase):
@@ -80,6 +80,47 @@ class Test1Analysis(unittest.TestCase):
         a = test1.analyse(runs)
         self.assertIn("liquid_extent_x", a["baseline_noisy_metrics"])
         self.assertNotIn("walk_dx", a["baseline_noisy_metrics"])
+
+
+class AffinityPlan(unittest.TestCase):
+    CORES = [[0, 1], [2, 3], [4, 5], [6, 7], [8, 9], [10, 11]]
+
+    def test_whole_cores_are_disjoint_and_never_split_siblings(self):
+        plan = ceiling.affinity_plan(self.CORES, 4)["whole_core"]
+        cpus = [c for s in plan for c in s]
+        self.assertEqual(len(cpus), len(set(cpus)))
+        for s in plan:
+            self.assertIn(s, self.CORES)
+
+    def test_single_cpu_sets_use_one_thread_of_the_same_cores(self):
+        plan = ceiling.affinity_plan(self.CORES, 4)
+        for whole, single in zip(plan["whole_core"], plan["single_cpu"]):
+            self.assertEqual(len(single), 1)
+            self.assertIn(single[0], whole)
+
+    def test_too_few_cores_is_refused(self):
+        with self.assertRaises(ValueError):
+            ceiling.affinity_plan(self.CORES[:3], 4)
+
+
+class PowercfgParse(unittest.TestCase):
+    def test_reads_hex_ac_and_dc_indexes(self):
+        text = ("    GUID Alias: CPMINCORES\n    Current AC Power Setting Index: 0x00000064\n"
+                "    Current DC Power Setting Index: 0x00000005\n")
+        self.assertEqual(ceiling.parse_setting(text), {"ac": 100, "dc": 5})
+
+    def test_missing_index_is_none(self):
+        self.assertEqual(ceiling.parse_setting("no such setting"), {"ac": None, "dc": None})
+
+
+class FramesBetween(unittest.TestCase):
+    SAMPLES = [[10.0, 100], [11.0, 200], [12.0, 300]]
+
+    def test_interpolates_inside_the_samples(self):
+        self.assertAlmostEqual(ceiling.frames_between(self.SAMPLES, 10.5, 11.5), 100)
+
+    def test_outside_the_samples_is_unknown(self):
+        self.assertIsNone(ceiling.frames_between(self.SAMPLES, 9.0, 11.0))
 
 
 if __name__ == "__main__":

@@ -6,6 +6,7 @@ scene, player idle under god mode. N grows until aggregate game fps stops rising
 an instance fails, or available RAM would drop below the reserve.
 """
 
+import contextlib
 import threading
 import time
 
@@ -89,11 +90,16 @@ class Worker:
         self.inst.stop()
 
 
-def run_n(n: int, timescale: float | None, grid: dict | None, window_s: float, log) -> dict:
+def run_n(n: int, timescale: float | None, grid: dict | None, window_s: float, log,
+          on_launch=None, around_window=None) -> dict:
+    """on_launch(worker) runs right after each process starts; around_window(live workers) is a
+    context manager entered after warm-up and left after the measurement window."""
     workers = [Worker(i, timescale, grid) for i in range(n)]
     t_launch = time.perf_counter()
     for w in workers:
         w.start()
+        if on_launch:
+            on_launch(w)
         time.sleep(0.5)
     for w in workers:
         w.ready.wait(300)
@@ -101,11 +107,12 @@ def run_n(n: int, timescale: float | None, grid: dict | None, window_s: float, l
     failed = [{"instance": w.idx, "error": w.error, "alive": w.inst.alive()} for w in workers if w.error]
     live = [w for w in workers if not w.error]
     time.sleep(3)
-    psutil.cpu_percent(None)
-    t0 = time.perf_counter()
-    time.sleep(window_s)
-    t1 = time.perf_counter()
-    cpu = psutil.cpu_percent(None)
+    with around_window(live) if around_window else contextlib.nullcontext():
+        psutil.cpu_percent(None)
+        t0 = time.perf_counter()
+        time.sleep(window_s)
+        t1 = time.perf_counter()
+        cpu = psutil.cpu_percent(None)
     vm = psutil.virtual_memory()
     fps = [w.window(t0, t1) for w in live]
     mem = [w.memory() for w in live]
