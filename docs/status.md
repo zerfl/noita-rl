@@ -116,6 +116,8 @@ The benchmark is complete (`FINDINGS.md`). Phase 8 builds the runner; plan and b
       overnight when the user leaves the PC (`uv run --no-sync python -m driver rl train --task
       live --algo dreamer --n 4 --steps 250000`). JAX in WSL2 prepared (`tools/wsl/`), trainer
       not built. Evaluate with `rl eval --stochastic`.
+      Second runs for the spread between runs: `--seed 1` (learner seed; games differ anyway),
+      PPO and BDQ first; not started.
    c. Deferred: async collection (update is 6 % of wall time). Parked: render skip.
    Wand search parked.
 3. Tighten the liquid probe (more repetitions) to decide whether 4x can be promoted.
