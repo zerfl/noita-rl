@@ -1,0 +1,165 @@
+{
+  "test": "rl_baselines",
+  "started": "2026-09-30T19:18:03",
+  "max_steps": 150,
+  "random": {
+    "episodes": 10,
+    "return": {
+      "mean": 1.74,
+      "sd": 2.219
+    },
+    "kills": {
+      "mean": 0.5,
+      "sd": 0.527
+    },
+    "self_damage": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "cleared_fraction": 0.0,
+    "clear_frames_mean": null
+  },
+  "scripted": {
+    "episodes": 10,
+    "return": {
+      "mean": 12.558,
+      "sd": 0.04
+    },
+    "kills": {
+      "mean": 3.0,
+      "sd": 0.0
+    },
+    "self_damage": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "cleared_fraction": 1.0,
+    "clear_frames_mean": 176.8
+  },
+  "episodes": {
+    "random": [
+      {
+        "return": -0.3000000000000009,
+        "kills": 0,
+        "self_damage": 0.0,
+        "steps": 150
+      },
+      {
+        "return": 2.700000000000025,
+        "kills": 1,
+        "self_damage": 0.0,
+        "steps": 150
+      },
+      {
+        "return": 3.100000000000022,
+        "kills": 1,
+        "self_damage": 0.0,
+        "steps": 150
+      },
+      {
+        "return": 4.300000000000026,
+        "kills": 1,
+        "self_damage": 0.0,
+        "steps": 150
+      },
+      {
+        "return": 4.300000000000026,
+        "kills": 1,
+        "self_damage": 0.0,
+        "steps": 150
+      },
+      {
+        "return": -0.3000000000000009,
+        "kills": 0,
+        "self_damage": 0.0,
+        "steps": 150
+      },
+      {
+        "return": -0.30000000000000115,
+        "kills": 0,
+        "self_damage": 0.0,
+        "steps": 150
+      },
+      {
+        "return": -0.30000000000000093,
+        "kills": 0,
+        "self_damage": 0.0,
+        "steps": 150
+      },
+      {
+        "return": 4.500000000000023,
+        "kills": 1,
+        "self_damage": 0.0,
+        "steps": 150
+      },
+      {
+        "return": -0.30000000000000115,
+        "kills": 0,
+        "self_damage": 0.0,
+        "steps": 150
+      }
+    ],
+    "scripted": [
+      {
+        "return": 12.550000000000006,
+        "kills": 3,
+        "self_damage": 0.0,
+        "steps": 45
+      },
+      {
+        "return": 12.490000000000007,
+        "kills": 3,
+        "self_damage": 0.0,
+        "steps": 51
+      },
+      {
+        "return": 12.590000000000005,
+        "kills": 3,
+        "self_damage": 0.0,
+        "steps": 41
+      },
+      {
+        "return": 12.600000000000005,
+        "kills": 3,
+        "self_damage": 0.0,
+        "steps": 40
+      },
+      {
+        "return": 12.500000000000007,
+        "kills": 3,
+        "self_damage": 0.0,
+        "steps": 50
+      },
+      {
+        "return": 12.590000000000005,
+        "kills": 3,
+        "self_damage": 0.0,
+        "steps": 41
+      },
+      {
+        "return": 12.540000000000006,
+        "kills": 3,
+        "self_damage": 0.0,
+        "steps": 46
+      },
+      {
+        "return": 12.540000000000006,
+        "kills": 3,
+        "self_damage": 0.0,
+        "steps": 46
+      },
+      {
+        "return": 12.590000000000005,
+        "kills": 3,
+        "self_damage": 0.0,
+        "steps": 41
+      },
+      {
+        "return": 12.590000000000005,
+        "kills": 3,
+        "self_damage": 0.0,
+        "steps": 41
+      }
+    ]
+  }
+}

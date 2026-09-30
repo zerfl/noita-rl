@@ -1,7 +1,7 @@
 # Runner design
 
-Status: proposed 2026-09-30. First consumer: **wand search** (decision in
-[decisions.md](decisions.md)). RL combat training comes second, on the same pool.
+Status: 2026-09-30. Next consumer: **RL** (Gymnasium env + PPO on the arena task); wand search is
+parked (decisions.md).
 
 ## Why the benchmark supports building it
 
@@ -85,7 +85,22 @@ run manager      run dir: config, git sha, seeds, logs, metrics, checkpoints
 - Rewards guard against the pitfalls in [ideas.md](ideas.md): continuous self-damage penalty,
   credit only the wand's own damage, include mana and recharge in the window.
 
-### RL (second consumer)
+### RL: arena combat (`driver/rl_env.py`, `driver/rl_train.py`)
+
+- One game per env, lockstep K=4, episode = `arena_reset` (same arena and targets as
+  `wand_eval`) then up to 150 steps (600 frames); ends early when all three targets are dead.
+- Observation (15 floats): player position in the arena, velocity, hp fraction, time fraction;
+  per target the offset from the player (/200 px) and hp fraction (0 = dead).
+- Action: MultiDiscrete [move left/none/right, levitate, fire, aim in 72 directions (5 deg)]; the
+  mod turns the angle into a mouse position 100 px from the player, sent as injected input.
+- Reward per step: +10 x damage dealt (all targets hold 1.0 hp units), +1 per kill, -2.5 x
+  self-damage (player max hp 4.0), -0.01.
+- PPO (stable-baselines3, MLP 2x64, GPU), 4 games in `SubprocVecEnv`, pinned; runs in `runs/`.
+- Baselines (`results/rl_baselines_20260930-191803.json`, 10 episodes, spark bolt): random return
+  1.7, 0.5 kills, never clears; scripted aimer (nearest target, fire) return 12.6, clears every
+  episode in 177 frames. 16 aim directions were too coarse (scripted: 1.5 kills).
+
+### RL: later
 
 - Gymnasium `VectorEnv` with auto-reset over the pool, lockstep K=4. Observation: grid, player
   state, nearby entities, wand state. Action: move, jump/levitate, aim angle, fire.
@@ -125,5 +140,5 @@ Windows only, on this machine. Games run minimized; Ctrl+C checkpoints and stops
    ~15 %, so about 5 repeats give a mean within ~7 %. Open: ballistic aim for arcing spells.
 3. Supervisor and pool: done (`driver/pool.py`: job queue, re-queue up to 3 attempts, relaunch on
    crash, hang or working set above 2.5 GB).
-4. Wand-search MVP: search loop, SQLite archive, resume, `simulate_wand` pre-filter.
-5. Gymnasium VectorEnv and a PPO baseline on a small combat task.
+4. Gymnasium env and a PPO baseline on the arena task (in progress).
+5. Parked: wand-search MVP (search loop, SQLite archive, resume, `simulate_wand` pre-filter).

@@ -4,6 +4,11 @@ Newest first. Each entry: what, why, and what would change it.
 
 ## 2026-09-30
 
+- **RL comes next; wand search is parked.** The project's purpose is Noita as an RL environment,
+  and RL needs none of the search. Next: a Gymnasium env over the pool (arena task: kill three
+  frozen targets with a fixed wand) and a PPO baseline. The wand-search design stays in
+  runner-design.md. Supersedes "wand search is the first consumer" below.
+
 - **Wand search changes the deck only**: the wand body (stats) comes from the game's own wand
   generator and stays fixed; the search picks spells and their order. The spell pool is every
   spell in the game, not tier-limited. Stats are not searched, since that only finds maxed-out
