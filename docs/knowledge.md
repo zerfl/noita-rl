@@ -284,3 +284,16 @@ and a live counter cross-check on this 6-core / 12-thread machine.
   mouse within 0.3-0.6 px of the target on average.
 - Corpses are physics ragdolls that block shots: a target behind a killed one is shielded (a lone
   miner at 190 px dies to 9 spark bolts; behind two corpses it takes none of 30).
+- Targets: AI and `CharacterPlatformingComponent` disabled, so they neither attack nor fall; they
+  hover at fixed spots (floor, +50, +100 px) with separate lines of fire, and corpses drop away.
+  Standing them on ledges failed: shots from the floor clipped the ledge corners.
+- Player: real max hp and damage multipliers (explosion 0.35, holy 1.5, rest 1; fire damage
+  scales with max hp, so a raised max hp inflated it 140x), `wait_for_kill_flag_on_death` so hp
+  can go below 0 without a game over. Self-damage is logged by type through a `LuaComponent`
+  `script_damage_received` (`files/damage_log.lua`).
+- Score noise (`results/scenario_noise_20260930-185743.json`, 10 repeats, 600 frames, one
+  instance): damage dealt CV 0-3 %, time to clear all three targets CV about 15 % (spark bolt
+  363 +- 55 frames, double spark 205 +- 32), bomb self-damage CV 33 %. About 2-6 s wall per
+  evaluation solo at clock 3x; working set flat at 660 MB after 40 evaluations.
+- Aim is straight at the target: projectiles that drop (magic arrow) miss the high target in
+  every run. A ballistic aimer would be needed to rate arcing spells fairly.

@@ -72,8 +72,9 @@ run manager      run dir: config, git sha, seeds, logs, metrics, checkpoints
   run for a fixed number of frames, report. Reset in-run without a relaunch.
 - **Reward events** are computed in the game, where the attribution is known: damage dealt by the
   player's own projectiles, self-damage, kills, mana spent, frames survived.
-- **Wand evaluation runs inside the game** (scripted or auto-aimed firing, no per-step round
-  trip), so search uses free-run speed. Only RL needs lockstep.
+- **Wand evaluation runs inside the game** (the mod aims the mouse and holds fire, no per-step
+  round trip), so search uses free-run speed. Only RL needs lockstep. The game applies every wand
+  mechanic; only the setup is scripted (wand written directly, targets frozen in place).
 
 ### Wand search (first consumer)
 
@@ -118,8 +119,9 @@ Windows only, on this machine. Games run minimized; Ctrl+C checkpoints and stops
 ## Build order
 
 1. Gate spike (above): done except the soak.
-2. Scenario API in the mod: `wand_eval` works (player-like firing); target layout and score
-   noise open.
+2. Scenario API in the mod: done. `wand_eval` fires like a player (mouse aim, fire button,
+   natural spread), targets hover in staggered lanes. Noise: damage CV 0-3 %, time to clear CV
+   ~15 %, so about 5 repeats give a mean within ~7 %. Open: ballistic aim for arcing spells.
 3. Supervisor and pool.
 4. Wand-search MVP: search loop, SQLite archive, resume, `simulate_wand` pre-filter.
 5. Gymnasium VectorEnv and a PPO baseline on a small combat task.
