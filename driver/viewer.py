@@ -79,8 +79,9 @@ def layout(n: int, w: int, h: int, area: tuple[int, int, int, int]) -> list[tupl
     return out
 
 
-def _game_windows() -> list[int]:
-    """Top-level windows of running harness-started games, in instance order."""
+def _game_windows(skipped: list | None = None) -> list[int]:
+    """Top-level windows of running harness-started games, in instance order. Games that cannot be
+    shown are appended to `skipped` with the reason."""
     if not launcher.PIDS_FILE.exists():
         return []
     found = []
@@ -89,10 +90,18 @@ def _game_windows() -> list[int]:
             p = psutil.Process(pid)
             if (p.name() or "").lower() not in launcher.GAME_NAMES:
                 continue
-            key = p.cwd()
-        except psutil.Error:
+        except psutil.Error as e:
+            if skipped is not None:
+                skipped.append({"pid": pid, "reason": type(e).__name__})
             continue
-        found += [(key, h) for h in winutil.windows_of(pid)]
+        try:
+            key = p.cwd()   # instance folder, for a stable order; can fail on a busy 32-bit process
+        except psutil.Error:
+            key = f"~{pid}"
+        hwnds = winutil.windows_of(pid)
+        if not hwnds and skipped is not None:
+            skipped.append({"pid": pid, "reason": "no visible window"})
+        found += [(key, h) for h in hwnds]
     return [h for _, h in sorted(found)]
 
 
@@ -107,9 +116,10 @@ def _work_area_under_mouse() -> tuple[int, int, int, int]:
 
 def show() -> dict:
     ctypes.windll.user32.SetProcessDPIAware()
-    hwnds = _game_windows()
+    skipped = []
+    hwnds = _game_windows(skipped)
     if not hwnds:
-        return {"windows": 0}
+        return {"windows": 0, "skipped": skipped}
     for h in hwnds:
         user32.ShowWindow(h, SW_RESTORE)
     r = wintypes.RECT()
@@ -120,7 +130,8 @@ def show() -> dict:
     for hwnd, (x, y) in zip(hwnds, spots):
         user32.SetWindowPos(hwnd, HWND_NOTOPMOST, x, y, 0, 0, SWP_NOSIZE | SWP_NOACTIVATE)
         _activate(hwnd)
-    return {"windows": len(hwnds), "rows": balanced_rows(len(hwnds)), "window_px": [w, h], "work_area": area}
+    return {"windows": len(hwnds), "rows": balanced_rows(len(hwnds)), "window_px": [w, h], "work_area": area,
+            "skipped": skipped}
 
 
 def hide() -> dict:
