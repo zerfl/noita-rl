@@ -102,6 +102,16 @@ class AffinityPlan(unittest.TestCase):
         with self.assertRaises(ValueError):
             ceiling.affinity_plan(self.CORES[:3], 4)
 
+    def test_scaling_fills_every_core_before_any_sibling(self):
+        cpus = ceiling.scaling_cpus(self.CORES, len(self.CORES) + 1)
+        firsts = {c[0] for c in self.CORES}
+        self.assertEqual(set(cpus[:len(self.CORES)]), firsts)
+        self.assertNotIn(cpus[-1], firsts)
+
+    def test_scaling_uses_every_logical_cpu_once(self):
+        all_cpus = sorted(c for core in self.CORES for c in core)
+        self.assertEqual(sorted(ceiling.scaling_cpus(self.CORES, len(all_cpus))), all_cpus)
+
 
 class PowercfgParse(unittest.TestCase):
     def test_reads_hex_ac_and_dc_indexes(self):

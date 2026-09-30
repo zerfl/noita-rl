@@ -174,6 +174,35 @@ def run_affinity(runs: int, window_s: float, log) -> dict:
     return out
 
 
+SCALING_N = (4, 6, 8, 12)
+
+
+def scaling_cpus(cores: list[list[int]], n: int) -> list[int]:
+    """One logical CPU per instance: a thread of each physical core first (last cores first),
+    then their SMT siblings."""
+    order = [c[0] for c in reversed(cores)] + [x for c in reversed(cores) for x in c[1:]]
+    if len(order) < n:
+        raise ValueError(f"{len(order)} logical CPUs for {n} instances")
+    return order[:n]
+
+
+def run_scaling(runs: int, window_s: float, log) -> dict:
+    cores = winutil.physical_cores()
+    out = {"physical_cores": cores, "conditions": {}, "table": []}
+    for n in SCALING_N:
+        cpus = scaling_cpus(cores, n)
+        seen = []
+        free = measure(n, runs, window_s, log)
+        pinned = measure(n, runs, window_s, log, **_pinned([[c] for c in cpus], seen))
+        pinned["observed"] = seen
+        out["conditions"][f"n{n}"] = {"cpus": cpus, "unpinned": free, "pinned": pinned}
+        out["table"].append({"n": n, "unpinned_fps": free["aggregate_fps_median"],
+                             "pinned_fps": pinned["aggregate_fps_median"],
+                             "pinned_delta_pct": delta_pct(pinned["aggregate_fps_median"], free["aggregate_fps_median"]),
+                             "failures": free["failures"] + pinned["failures"]})
+    return out
+
+
 # ---------------------------------------------------------------- steam
 
 STEAM_NAMES = {"steam.exe", "steamwebhelper.exe", "steamservice.exe"}
@@ -401,7 +430,8 @@ def run_baseline(runs: int, window_s: float, log) -> dict:
     return {"baseline": base, "table": [_base_row(base)]}
 
 
-MODES = {"baseline": run_baseline, "power": run_power, "affinity": run_affinity, "steam": run_steam, "restarts": run_restarts}
+MODES = {"baseline": run_baseline, "power": run_power, "affinity": run_affinity, "steam": run_steam, "restarts": run_restarts,
+         "scaling": run_scaling}
 
 
 def run(mode: str, runs: int = 3, window_s: float = 30.0, log=_log_default) -> dict:

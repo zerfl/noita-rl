@@ -21,8 +21,15 @@ var sched = tp.UseCpuSchedulingData();
 var syms = tp.UseSymbols();
 tp.Process();
 if (symDir != "")
+{
+    // Only the target processes plus System (kernel and driver frames); loading every image in a
+    // whole-system trace downloads thousands of PDBs.
+    var images = sched.Result.ThreadActivity.Where(a => a.Process != null && pids.Contains(a.Process.Id))
+        .Select(a => a.Process.ImageName).Append("System").Distinct().ToArray();
     await syms.Result.LoadSymbolsAsync(new SymCachePath(Path.Combine(symDir, "symcache")),
-        new SymbolPath($"srv*{Path.Combine(symDir, "sym")}*https://msdl.microsoft.com/download/symbols"));
+        new SymbolPath($"srv*{Path.Combine(symDir, "sym")}*https://msdl.microsoft.com/download/symbols"),
+        null, images, []);
+}
 
 // Frames that only say "the thread waited", skipped when naming the caller that waited.
 string[] plumbing = ["ntoskrnl.exe", "ntdll.dll", "wow64.dll", "wow64cpu.dll", "wow64win.dll", "wow64base.dll",
