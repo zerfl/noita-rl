@@ -1,7 +1,8 @@
 """Show harness-started games in a balanced grid on the screen under the mouse, or minimize them.
 
 Windows are only moved, never resized (aiming assumes 640x360 client pixels), and never
-activated, so focus stays where it is. Visible games run somewhat slower than minimized ones.
+activated, so focus stays where it is. Shown windows stay on top until hidden. Visible games run
+somewhat slower than minimized ones, and keys typed into a clicked game window reach the game.
 """
 
 import ctypes
@@ -15,8 +16,8 @@ from . import launcher, winutil
 
 user32 = winutil.user32
 SW_SHOWNOACTIVATE, SW_SHOWMINNOACTIVE = 4, 7
-SWP_NOSIZE, SWP_NOACTIVATE = 0x0001, 0x0010
-HWND_TOP = 0
+SWP_NOSIZE, SWP_NOMOVE, SWP_NOACTIVATE = 0x0001, 0x0002, 0x0010
+HWND_TOPMOST, HWND_NOTOPMOST = -1, -2
 MONITOR_DEFAULTTONEAREST = 2
 
 
@@ -99,12 +100,15 @@ def show() -> dict:
     area = _work_area_under_mouse()
     spots = layout(len(hwnds), w, h, area)
     for hwnd, (x, y) in zip(hwnds, spots):
-        user32.SetWindowPos(hwnd, HWND_TOP, x, y, 0, 0, SWP_NOSIZE | SWP_NOACTIVATE)
+        # Always on top until hide(): a normal window cannot rise above the foreground app
+        # without taking focus.
+        user32.SetWindowPos(hwnd, HWND_TOPMOST, x, y, 0, 0, SWP_NOSIZE | SWP_NOACTIVATE)
     return {"windows": len(hwnds), "rows": balanced_rows(len(hwnds)), "window_px": [w, h], "work_area": area}
 
 
 def hide() -> dict:
     hwnds = _game_windows()
     for h in hwnds:
+        user32.SetWindowPos(h, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE)
         user32.ShowWindow(h, SW_SHOWMINNOACTIVE)
     return {"windows": len(hwnds), "minimized": True}
