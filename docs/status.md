@@ -99,6 +99,21 @@ byte-identical to the backup.
 
 ## Next steps
 
+**In flight (2026-09-30):** PPO 500k steps at N=4, run dir `runs/ppo_20260930-193103/` (per-episode log
+`episodes.jsonl`, checkpoints every 10k, `final.zip` at the end; summary goes to
+`results/rl_train_*.json`). When it has finished (no `noita.exe` left, `final.zip` present):
+
+1. `uv run python -m driver rl eval --model runs/ppo_20260930-193103/final.zip` (20 episodes, same arena).
+2. Learning curve from `episodes.jsonl` (return, kills, clear rate per 50k steps) against the
+   baselines (random 1.7 / scripted 12.6, clears in 177 frames).
+3. Write an RL section in `FINDINGS.md` and update runner-design.md, knowledge.md and this file;
+   commit (`docs(rl): ...`).
+4. Then: async collection or staggered resets (the training stalls), a harder arena task
+   (moving targets, own damage risk), grid observations.
+
+If the run died (check the tail of `episodes.jsonl` and running processes), resume from the
+latest checkpoint rather than restarting.
+
 The benchmark is complete (`FINDINGS.md`). Phase 8 builds the runner; plan and build order in
 [runner-design.md](runner-design.md).
 
