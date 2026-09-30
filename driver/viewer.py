@@ -1,8 +1,8 @@
 """Show harness-started games in a balanced grid on the screen under the mouse, or minimize them.
 
-Windows are only moved, never resized (aiming assumes 640x360 client pixels), and never
-activated, so focus stays where it is. Shown windows stay on top until hidden. Visible games run
-somewhat slower than minimized ones, and keys typed into a clicked game window reach the game.
+Windows are only moved, never resized (aiming assumes 640x360 client pixels). Showing activates
+them to bring them to the front, so the last one has focus: keys typed now reach that game.
+Visible games run somewhat slower than minimized ones.
 """
 
 import ctypes
@@ -15,9 +15,9 @@ import psutil
 from . import launcher, winutil
 
 user32 = winutil.user32
-SW_SHOWNOACTIVATE, SW_SHOWMINNOACTIVE = 4, 7
+SW_RESTORE, SW_SHOWMINNOACTIVE = 9, 7
 SWP_NOSIZE, SWP_NOMOVE, SWP_NOACTIVATE = 0x0001, 0x0002, 0x0010
-HWND_TOPMOST, HWND_NOTOPMOST = -1, -2
+HWND_NOTOPMOST = -2
 MONITOR_DEFAULTTONEAREST = 2
 
 
@@ -32,6 +32,24 @@ user32.GetMonitorInfoW.argtypes = [wintypes.HANDLE, ctypes.POINTER(MONITORINFO)]
 user32.SetWindowPos.argtypes = [wintypes.HWND, wintypes.HWND, ctypes.c_int, ctypes.c_int, ctypes.c_int,
                                 ctypes.c_int, wintypes.UINT]
 user32.ShowWindow.argtypes = [wintypes.HWND, ctypes.c_int]
+user32.SetForegroundWindow.argtypes = [wintypes.HWND]
+user32.BringWindowToTop.argtypes = [wintypes.HWND]
+user32.GetForegroundWindow.restype = wintypes.HWND
+user32.AttachThreadInput.argtypes = [wintypes.DWORD, wintypes.DWORD, wintypes.BOOL]
+
+
+def _activate(hwnd: int):
+    # Windows only lets the foreground thread hand out the foreground; sharing its input queue
+    # for the call makes this work from a background shell too.
+    fg = user32.GetWindowThreadProcessId(user32.GetForegroundWindow(), None)
+    me = ctypes.windll.kernel32.GetCurrentThreadId()
+    attached = fg != me and user32.AttachThreadInput(me, fg, True)
+    try:
+        user32.BringWindowToTop(hwnd)
+        user32.SetForegroundWindow(hwnd)
+    finally:
+        if attached:
+            user32.AttachThreadInput(me, fg, False)
 
 
 def balanced_rows(n: int) -> list[int]:
@@ -93,22 +111,20 @@ def show() -> dict:
     if not hwnds:
         return {"windows": 0}
     for h in hwnds:
-        user32.ShowWindow(h, SW_SHOWNOACTIVATE)
+        user32.ShowWindow(h, SW_RESTORE)
     r = wintypes.RECT()
     user32.GetWindowRect(hwnds[0], ctypes.byref(r))
     w, h = r.right - r.left, r.bottom - r.top
     area = _work_area_under_mouse()
     spots = layout(len(hwnds), w, h, area)
     for hwnd, (x, y) in zip(hwnds, spots):
-        # Always on top until hide(): a normal window cannot rise above the foreground app
-        # without taking focus.
-        user32.SetWindowPos(hwnd, HWND_TOPMOST, x, y, 0, 0, SWP_NOSIZE | SWP_NOACTIVATE)
+        user32.SetWindowPos(hwnd, HWND_NOTOPMOST, x, y, 0, 0, SWP_NOSIZE | SWP_NOACTIVATE)
+        _activate(hwnd)
     return {"windows": len(hwnds), "rows": balanced_rows(len(hwnds)), "window_px": [w, h], "work_area": area}
 
 
 def hide() -> dict:
     hwnds = _game_windows()
     for h in hwnds:
-        user32.SetWindowPos(h, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE)
         user32.ShowWindow(h, SW_SHOWMINNOACTIVE)
     return {"windows": len(hwnds), "minimized": True}
