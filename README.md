@@ -42,6 +42,7 @@ uv run python -m driver rl train --task live --algo dqn --replay-ratio 0.25   # 
 uv run python -m driver rl train --n 4 --steps 500000 --resume runs/<run>/checkpoints/<ckpt>.zip
 uv run python -m driver rl eval --model runs/<run>/final.zip
 uv run python -m driver rl curve --run runs/<run>   # return, kills, clear rate per 50k steps
+uv run python -m driver rl compare --runs runs/<a> runs/<b> --target 6.3   # env steps to a return
 uv run python -m driver ceiling hold --n 4 --etl .rl_bench_state/traces/n4.etl   # then record, elevated:
 #   wpr -start CPU -filemode; Start-Sleep 10; wpr -stop <repo>\.rl_bench_state\traces\n4.etl
 uv run python -m driver ceiling trace --hold results/ceiling_hold_n4_X.json   # CPU Usage (Precise) summary

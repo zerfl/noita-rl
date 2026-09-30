@@ -139,6 +139,13 @@ def cmd_rl(a):
     elif a.mode == "train":
         save_result("rl_train", rl_train.train(n=a.n, steps=a.steps, resume=a.resume and Path(a.resume),
                                                     task=a.task, algo=a.algo, replay_ratio=a.replay_ratio, log=_log))
+    elif a.mode == "compare":
+        rows = rl_train.compare([Path(r) for r in a.runs], a.target, a.window)
+        for r in rows:
+            hit = r["reached"]
+            _log(f"{r['run']:<32} {r['algo']:<4} {r['task']:<6} final {r['final_return']:6.2f}  target "
+                 + (f"at {hit['timesteps']} steps ({hit['t_s'] / 60:.0f} min)" if hit else "not reached"))
+        save_result("rl_compare", {"test": "rl_compare", "target": a.target, "window": a.window, "runs": rows})
     elif a.mode == "curve":
         rows = rl_train.curve(Path(a.run), a.bin)
         for r in rows:
@@ -274,7 +281,7 @@ def main(argv=None):
     p.set_defaults(fn=cmd_pool)
 
     p = sub.add_parser("rl", help="arena combat RL: baselines, PPO training, evaluation; writes results/rl_*.json")
-    p.add_argument("mode", choices=["baselines", "train", "eval", "curve"])
+    p.add_argument("mode", choices=["baselines", "train", "eval", "curve", "compare"])
     p.add_argument("--task", choices=["frozen", "live"], default="frozen",
                    help="baselines/train: targets hover with AI off, or live (AI on, they attack)")
     p.add_argument("--algo", choices=["ppo", "dqn"], default="ppo", help="train: algorithm")
@@ -284,6 +291,9 @@ def main(argv=None):
     p.add_argument("--resume", help="train: continue from runs/<run>/checkpoints/<ckpt>.zip")
     p.add_argument("--run", help="curve: runs/<run>")
     p.add_argument("--bin", type=int, default=50_000, help="curve: env steps per row")
+    p.add_argument("--runs", nargs="+", help="compare: runs/<run> ...")
+    p.add_argument("--target", type=float, help="compare: return to reach (e.g. the scripted baseline)")
+    p.add_argument("--window", type=int, default=200, help="compare: episodes in the rolling mean")
     p.add_argument("--episodes", type=int, default=20, help="baselines/eval: episodes per policy")
     p.add_argument("--model", help="eval: runs/<run>/final.zip")
     p.set_defaults(fn=cmd_rl)

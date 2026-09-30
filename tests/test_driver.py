@@ -207,3 +207,12 @@ class RlCurve(unittest.TestCase):
             rows = curve(Path(d), 1000)
         self.assertEqual([(r["from"], r["episodes"], r["return"]["mean"]) for r in rows], [(0, 2, 2.0), (1000, 1, 5.0)])
         self.assertEqual((rows[0]["cleared_fraction"], rows[0]["clear_frames_mean"]), (0.5, 400.0))
+
+
+class RlStepsToTarget(unittest.TestCase):
+    def test_first_full_window_at_or_above_target(self):
+        from driver.rl_train import steps_to_target
+        eps = [{"timesteps": 10 * (i + 1), "return": r} for i, r in enumerate([0, 10, 0, 10, 10, 0])]
+        self.assertEqual(steps_to_target(eps, 5.0, window=2)["timesteps"], 20)
+        self.assertEqual(steps_to_target(eps, 10.0, window=2)["timesteps"], 50)
+        self.assertIsNone(steps_to_target(eps, 10.0, window=3))

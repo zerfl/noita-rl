@@ -188,6 +188,33 @@ def curve(run: Path, bin_steps: int = 50_000) -> list[dict]:
     return [{"from": b * bin_steps, "to": (b + 1) * bin_steps} | _episode_summary(bins[b]) for b in sorted(bins)]
 
 
+def steps_to_target(eps: list[dict], target: float, window: int = 200) -> dict | None:
+    """First point where the mean return of the last `window` episodes reaches `target`."""
+    total = 0.0
+    for i, e in enumerate(eps):
+        total += e["return"]
+        if i >= window:
+            total -= eps[i - window]["return"]
+        if i + 1 >= window and total / window >= target:
+            return {"timesteps": e["timesteps"], "t_s": e.get("t"), "episodes": i + 1}
+    return None
+
+
+def compare(runs: list[Path], target: float, window: int = 200) -> list[dict]:
+    """Sample efficiency across runs: env steps (and wall time) until the rolling mean return reaches
+    `target`, plus the final rolling mean."""
+    out = []
+    for run in runs:
+        eps = [e for e in map(json.loads, open(run / "episodes.jsonl", encoding="utf-8")) if not e["crash"]]
+        cfg = _config(run)
+        last = eps[-window:]
+        out.append({"run": run.name, "algo": cfg["algo"], "task": cfg["task"], "episodes": len(eps),
+                    "timesteps": eps[-1]["timesteps"] if eps else 0,
+                    "reached": steps_to_target(eps, target, window),
+                    "final_return": round(statistics.fmean(e["return"] for e in last), 3) if last else None})
+    return out
+
+
 def timing(run: Path) -> dict | None:
     """Where training wall time goes: collection vs updates, and per-episode resets."""
     path = run / "timing.jsonl"
