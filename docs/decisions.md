@@ -8,7 +8,7 @@ Newest first. Each entry: what, why, and what would change it.
   tick-sampled counters read 0.3 core per Noita process against 3.5 measured by context switches,
   which made phases 3-6 rule out CPU wrongly. `cpu_percent` fields in older results are unreliable.
 - **Parallel runs pin each instance to one logical CPU**, physical cores first, then SMT siblings
-  (`ceiling.scaling_cpus`). N=12 pinned: 609 aggregate fps vs 325 unpinned. Benchmark modes stay
+  (`winutil.pin_order`, `LaunchSpec.cpus`). N=12 pinned: 609 aggregate fps vs 325 unpinned. Benchmark modes stay
   unpinned unless they test pinning, so older results remain comparable.
 - **Games launch minimized and never take focus** (`LaunchSpec.foreground=False` default): the user
   keeps working while the harness launches. Nothing in the harness needs focus (input is injected

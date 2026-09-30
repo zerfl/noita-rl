@@ -42,6 +42,7 @@ class LaunchSpec:
     extra_args: list[str] = field(default_factory=list)
     env: dict[str, str] = field(default_factory=dict)   # extra RL_BENCH_* variables
     foreground: bool = False         # False: window starts minimized and never takes focus
+    cpus: list[int] | None = None    # affinity, set right after creation (see winutil.pin_order)
 
 
 def _track(pid: int, add: bool):
@@ -196,6 +197,9 @@ class Instance:
                                      startupinfo=None if s.foreground else _no_activate())
         self.pids = [self.proc.pid]
         _track(self.proc.pid, True)
+        if s.cpus:
+            # Before the game's thread pool sizes itself to the CPUs it sees.
+            psutil.Process(self.proc.pid).cpu_affinity(s.cpus)
 
     @property
     def pid(self) -> int:

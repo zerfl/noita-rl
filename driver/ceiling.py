@@ -177,20 +177,11 @@ def run_affinity(runs: int, window_s: float, log) -> dict:
 SCALING_N = (4, 6, 8, 12)
 
 
-def scaling_cpus(cores: list[list[int]], n: int) -> list[int]:
-    """One logical CPU per instance: a thread of each physical core first (last cores first),
-    then their SMT siblings."""
-    order = [c[0] for c in reversed(cores)] + [x for c in reversed(cores) for x in c[1:]]
-    if len(order) < n:
-        raise ValueError(f"{len(order)} logical CPUs for {n} instances")
-    return order[:n]
-
-
 def run_scaling(runs: int, window_s: float, log, ns: tuple[int, ...] = SCALING_N) -> dict:
     cores = winutil.physical_cores()
     out = {"physical_cores": cores, "conditions": {}, "table": []}
     for n in ns:
-        cpus = scaling_cpus(cores, n)
+        cpus = winutil.pin_order(cores, n)
         seen = []
         free = measure(n, runs, window_s, log)
         pinned = measure(n, runs, window_s, log, **_pinned([[c] for c in cpus], seen))

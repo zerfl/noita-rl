@@ -102,8 +102,8 @@ The benchmark is complete; see `FINDINGS.md` (includes phase 5). Candidate follo
 started:
 
 1. The ~300 fps ceiling was CPU saturation; one logical CPU per instance reaches 609 fps at N=12
-   (phase 7, knowledge.md "Shared ceiling"). Pinning lives only in `ceiling._pinned`; an RL runner
-   should carry it as a launch option.
+   (phase 7, knowledge.md "Shared ceiling"). `LaunchSpec.cpus` and `winutil.pin_order` carry it
+   (`driver launch --cpu N`).
 2. Tighten the liquid probe (more repetitions) to decide whether 4x can be promoted.
 3. Start the wand-design track in [ideas.md](ideas.md) on top of the scenario reset.
 

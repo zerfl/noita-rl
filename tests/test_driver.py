@@ -3,7 +3,7 @@ import unittest
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
-from driver import ceiling, gameconfig, launcher, link, test1
+from driver import ceiling, gameconfig, launcher, link, test1, winutil
 
 
 class BenchConfig(unittest.TestCase):
@@ -103,14 +103,14 @@ class AffinityPlan(unittest.TestCase):
             ceiling.affinity_plan(self.CORES[:3], 4)
 
     def test_scaling_fills_every_core_before_any_sibling(self):
-        cpus = ceiling.scaling_cpus(self.CORES, len(self.CORES) + 1)
+        cpus = winutil.pin_order(self.CORES, len(self.CORES) + 1)
         firsts = {c[0] for c in self.CORES}
         self.assertEqual(set(cpus[:len(self.CORES)]), firsts)
         self.assertNotIn(cpus[-1], firsts)
 
     def test_scaling_uses_every_logical_cpu_once(self):
         all_cpus = sorted(c for core in self.CORES for c in core)
-        self.assertEqual(sorted(ceiling.scaling_cpus(self.CORES, len(all_cpus))), all_cpus)
+        self.assertEqual(sorted(winutil.pin_order(self.CORES, len(all_cpus))), all_cpus)
 
 
 class PowercfgParse(unittest.TestCase):

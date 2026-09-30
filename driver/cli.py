@@ -34,7 +34,8 @@ def cmd_cleanup(a):
 
 def cmd_launch(a):
     spec = launcher.LaunchSpec(seed=a.seed, k=a.k, mode="free", save_slot=a.save_slot,
-                               input_backend=a.input, render=_render(a))
+                               input_backend=a.input, render=_render(a),
+                               cpus=[a.cpu] if a.cpu is not None else None, foreground=a.foreground)
     inst = launcher.Instance(spec)
     inst.start()
     try:
@@ -148,6 +149,8 @@ def main(argv=None):
     p.add_argument("--save-slot", type=int, default=5)
     p.add_argument("--input", choices=["sdl", "dll"], default="sdl")
     p.add_argument("--seconds", type=float, default=20)
+    p.add_argument("--cpu", type=int, help="pin to this logical CPU")
+    p.add_argument("--foreground", action="store_true", help="visible, focused window")
     _add_render(p)
     p.set_defaults(fn=cmd_launch)
 

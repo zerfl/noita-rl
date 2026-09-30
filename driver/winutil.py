@@ -109,3 +109,12 @@ def physical_cores() -> list[list[int]]:
     if not kernel32.GetLogicalProcessorInformation(buf, ctypes.byref(size)):
         raise ctypes.WinError(ctypes.get_last_error())
     return [[b for b in range(64) if e.mask >> b & 1] for e in buf if e.relationship == RELATION_PROCESSOR_CORE]
+
+
+def pin_order(cores: list[list[int]], n: int) -> list[int]:
+    """One logical CPU per instance: a thread of each physical core first (last cores first),
+    then their SMT siblings."""
+    order = [c[0] for c in reversed(cores)] + [x for c in reversed(cores) for x in c[1:]]
+    if len(order) < n:
+        raise ValueError(f"{len(order)} logical CPUs for {n} instances")
+    return order[:n]
