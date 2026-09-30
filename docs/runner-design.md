@@ -78,7 +78,8 @@ run manager      run dir: config, git sha, seeds, logs, metrics, checkpoints
 
 ### Wand search (first consumer)
 
-- Genome: wand stats + spell deck. Pre-filter with Noita-MCP's `simulate_wand` (cast order, mana,
+- Genome: the spell deck (ids and order) on a fixed wand body from the game's generator; every
+  spell in the game is allowed (decisions.md). Pre-filter with Noita-MCP's `simulate_wand` (cast order, mana,
   cast delay) before spending game time.
 - Evolutionary / bandit search, later a surrogate model trained on the archive.
 - Rewards guard against the pitfalls in [ideas.md](ideas.md): continuous self-damage penalty,
@@ -122,6 +123,7 @@ Windows only, on this machine. Games run minimized; Ctrl+C checkpoints and stops
 2. Scenario API in the mod: done. `wand_eval` fires like a player (mouse aim, fire button,
    natural spread), targets hover in staggered lanes. Noise: damage CV 0-3 %, time to clear CV
    ~15 %, so about 5 repeats give a mean within ~7 %. Open: ballistic aim for arcing spells.
-3. Supervisor and pool.
+3. Supervisor and pool: done (`driver/pool.py`: job queue, re-queue up to 3 attempts, relaunch on
+   crash, hang or working set above 2.5 GB).
 4. Wand-search MVP: search loop, SQLite archive, resume, `simulate_wand` pre-filter.
 5. Gymnasium VectorEnv and a PPO baseline on a small combat task.

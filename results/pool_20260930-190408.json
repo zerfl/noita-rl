@@ -1,0 +1,3144 @@
+{
+  "test": "pool",
+  "started": "2026-09-30T19:02:51",
+  "n": 4,
+  "jobs": 40,
+  "kill_after": 10,
+  "stats": [
+    {
+      "instance": 0,
+      "cpu": 10,
+      "evals": 13,
+      "launches": 2,
+      "failures": 1
+    },
+    {
+      "instance": 1,
+      "cpu": 8,
+      "evals": 4,
+      "launches": 1,
+      "failures": 0
+    },
+    {
+      "instance": 2,
+      "cpu": 6,
+      "evals": 19,
+      "launches": 1,
+      "failures": 0
+    },
+    {
+      "instance": 3,
+      "cpu": 4,
+      "evals": 4,
+      "launches": 1,
+      "failures": 0
+    }
+  ],
+  "events": [
+    {
+      "t": "19:03:23",
+      "what": "failure",
+      "instance": 0,
+      "job": 13,
+      "error": "ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None)"
+    }
+  ],
+  "killed": {
+    "instance": 0,
+    "pid": 34560,
+    "after_results": 10
+  },
+  "wall_s": 76.7,
+  "completed": 40,
+  "gave_up": [],
+  "evals_per_s": 0.522,
+  "retried": 1,
+  "per_wand": {
+    "spark_bolt": 10,
+    "double_spark": 10,
+    "magic_arrow": 10,
+    "bomb": 10
+  },
+  "results": [
+    {
+      "job": 2,
+      "instance": 2,
+      "attempt": 1,
+      "wall_s": 5.3,
+      "result": {
+        "aim_error_px": 0.343429,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "cleared_entities": 0,
+        "damage_dealt": 0.56,
+        "frame": 754,
+        "frames_run": 600,
+        "kills": 2,
+        "mana_used": 450,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 7,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "dead_frame": 36,
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0.44,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/deck/bullet.xml": 30
+        },
+        "self_damage": 0,
+        "self_damage_by_type": [],
+        "setup_frames": 91,
+        "shots": 30,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 5.29
+      },
+      "wand": "magic_arrow"
+    },
+    {
+      "job": 4,
+      "instance": 2,
+      "attempt": 1,
+      "wall_s": 2.0,
+      "result": {
+        "aim_error_px": 0.29546,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "clear_frame": 261,
+        "cleared_entities": 0,
+        "damage_dealt": 1,
+        "frame": 1041,
+        "frames_run": 261,
+        "kills": 3,
+        "mana_used": 0,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 26,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "dead_frame": 112,
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "dead_frame": 261,
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/deck/light_bullet.xml": 14
+        },
+        "self_damage": 0,
+        "self_damage_by_type": [],
+        "setup_frames": 25,
+        "shots": 14,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 1.99
+      },
+      "wand": "spark_bolt"
+    },
+    {
+      "job": 5,
+      "instance": 2,
+      "attempt": 1,
+      "wall_s": 1.27,
+      "result": {
+        "aim_error_px": 0.28224,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "clear_frame": 161,
+        "cleared_entities": 0,
+        "damage_dealt": 1,
+        "frame": 1228,
+        "frames_run": 161,
+        "kills": 3,
+        "mana_used": 45,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 6,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "dead_frame": 54,
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "dead_frame": 161,
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/deck/light_bullet.xml": 18
+        },
+        "self_damage": 0,
+        "self_damage_by_type": [],
+        "setup_frames": 25,
+        "shots": 18,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 1.27
+      },
+      "wand": "double_spark"
+    },
+    {
+      "job": 6,
+      "instance": 2,
+      "attempt": 1,
+      "wall_s": 4.11,
+      "result": {
+        "aim_error_px": 0.306165,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "cleared_entities": 0,
+        "damage_dealt": 0.56,
+        "frame": 1854,
+        "frames_run": 600,
+        "kills": 2,
+        "mana_used": 450,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 7,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "dead_frame": 37,
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0.44,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/deck/bullet.xml": 30
+        },
+        "self_damage": 0,
+        "self_damage_by_type": [],
+        "setup_frames": 25,
+        "shots": 30,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 4.1
+      },
+      "wand": "magic_arrow"
+    },
+    {
+      "job": 1,
+      "instance": 0,
+      "attempt": 1,
+      "wall_s": 9.94,
+      "result": {
+        "aim_error_px": 0.410104,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "clear_frame": 181,
+        "cleared_entities": 0,
+        "damage_dealt": 1,
+        "frame": 335,
+        "frames_run": 181,
+        "kills": 3,
+        "mana_used": 50,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 6,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "dead_frame": 54,
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "dead_frame": 181,
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/deck/light_bullet.xml": 20
+        },
+        "self_damage": 0,
+        "self_damage_by_type": [],
+        "setup_frames": 91,
+        "shots": 20,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 9.9
+      },
+      "wand": "double_spark"
+    },
+    {
+      "job": 7,
+      "instance": 2,
+      "attempt": 1,
+      "wall_s": 4.22,
+      "result": {
+        "aim_error_px": 0.539393,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "cleared_entities": 0,
+        "damage_dealt": 0.2,
+        "frame": 2480,
+        "frames_run": 600,
+        "kills": 1,
+        "mana_used": 60,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 180,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0.36,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0.44,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/bomb.xml": 3
+        },
+        "self_damage": 2.31,
+        "self_damage_by_type": {
+          "$damage_explosion": 1.75,
+          "$damage_fire": 0.559997
+        },
+        "setup_frames": 25,
+        "shots": 3,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 4.21
+      },
+      "wand": "bomb"
+    },
+    {
+      "job": 0,
+      "instance": 3,
+      "attempt": 1,
+      "wall_s": 14.83,
+      "result": {
+        "aim_error_px": 0.341093,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "clear_frame": 322,
+        "cleared_entities": 0,
+        "damage_dealt": 1,
+        "frame": 476,
+        "frames_run": 322,
+        "kills": 3,
+        "mana_used": 0,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 26,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "dead_frame": 113,
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "dead_frame": 322,
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/deck/light_bullet.xml": 17
+        },
+        "self_damage": 0,
+        "self_damage_by_type": [],
+        "setup_frames": 91,
+        "shots": 17,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 14.77
+      },
+      "wand": "spark_bolt"
+    },
+    {
+      "job": 9,
+      "instance": 2,
+      "attempt": 1,
+      "wall_s": 1.3,
+      "result": {
+        "aim_error_px": 0.282665,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "clear_frame": 182,
+        "cleared_entities": 0,
+        "damage_dealt": 1,
+        "frame": 2688,
+        "frames_run": 182,
+        "kills": 3,
+        "mana_used": 50,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 6,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "dead_frame": 53,
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "dead_frame": 182,
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/deck/light_bullet.xml": 20
+        },
+        "self_damage": 0.242665,
+        "self_damage_by_type": {
+          "$damage_fire": 0.242665
+        },
+        "setup_frames": 25,
+        "shots": 20,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 1.3
+      },
+      "wand": "double_spark"
+    },
+    {
+      "job": 11,
+      "instance": 2,
+      "attempt": 1,
+      "wall_s": 3.95,
+      "result": {
+        "aim_error_px": 0.551232,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "cleared_entities": 0,
+        "damage_dealt": 0.278933,
+        "frame": 3314,
+        "frames_run": 600,
+        "kills": 1,
+        "mana_used": 60,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 180,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0.281067,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0.44,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/bomb.xml": 3
+        },
+        "self_damage": 3.97066,
+        "self_damage_by_type": {
+          "$damage_explosion": 3.5,
+          "$damage_fire": 0.647996
+        },
+        "setup_frames": 25,
+        "shots": 3,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 3.94
+      },
+      "wand": "bomb"
+    },
+    {
+      "job": 8,
+      "instance": 0,
+      "attempt": 1,
+      "wall_s": 9.88,
+      "result": {
+        "aim_error_px": 0.285053,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "clear_frame": 261,
+        "cleared_entities": 0,
+        "damage_dealt": 1,
+        "frame": 622,
+        "frames_run": 261,
+        "kills": 3,
+        "mana_used": 0,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 26,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "dead_frame": 114,
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "dead_frame": 261,
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/deck/light_bullet.xml": 14
+        },
+        "self_damage": 0,
+        "self_damage_by_type": [],
+        "setup_frames": 25,
+        "shots": 14,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 9.84
+      },
+      "wand": "spark_bolt"
+    },
+    {
+      "job": 12,
+      "instance": 2,
+      "attempt": 1,
+      "wall_s": 2.75,
+      "result": {
+        "aim_error_px": 0.28064,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "clear_frame": 381,
+        "cleared_entities": 0,
+        "damage_dealt": 1,
+        "frame": 3721,
+        "frames_run": 381,
+        "kills": 3,
+        "mana_used": 0,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 26,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "dead_frame": 114,
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "dead_frame": 381,
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/deck/light_bullet.xml": 20
+        },
+        "self_damage": 0.367998,
+        "self_damage_by_type": {
+          "$damage_fire": 0.367998
+        },
+        "setup_frames": 25,
+        "shots": 20,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 2.74
+      },
+      "wand": "spark_bolt"
+    },
+    {
+      "job": 15,
+      "instance": 2,
+      "attempt": 1,
+      "wall_s": 4.05,
+      "result": {
+        "aim_error_px": 0.55952,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "cleared_entities": 0,
+        "damage_dealt": 0.2,
+        "frame": 4347,
+        "frames_run": 600,
+        "kills": 1,
+        "mana_used": 60,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 180,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0.36,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0.44,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/bomb.xml": 3
+        },
+        "self_damage": 4.00133,
+        "self_damage_by_type": {
+          "$damage_explosion": 3.5,
+          "$damage_fire": 0.559997
+        },
+        "setup_frames": 25,
+        "shots": 3,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 4.04
+      },
+      "wand": "bomb"
+    },
+    {
+      "job": 3,
+      "instance": 1,
+      "attempt": 1,
+      "wall_s": 26.33,
+      "result": {
+        "aim_error_px": 0.564017,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "cleared_entities": 0,
+        "damage_dealt": 0.273066,
+        "frame": 754,
+        "frames_run": 600,
+        "kills": 1,
+        "mana_used": 60,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 180,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0.286934,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0.44,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/bomb.xml": 3
+        },
+        "self_damage": 4.00133,
+        "self_damage_by_type": {
+          "$damage_explosion": 3.5,
+          "$damage_fire": 0.559997
+        },
+        "setup_frames": 91,
+        "shots": 3,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 26.29
+      },
+      "wand": "bomb"
+    },
+    {
+      "job": 16,
+      "instance": 2,
+      "attempt": 1,
+      "wall_s": 3.82,
+      "result": {
+        "aim_error_px": 0.283189,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "clear_frame": 542,
+        "cleared_entities": 0,
+        "damage_dealt": 1,
+        "frame": 4915,
+        "frames_run": 542,
+        "kills": 3,
+        "mana_used": 0,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 26,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "dead_frame": 113,
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "dead_frame": 542,
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/deck/light_bullet.xml": 28
+        },
+        "self_damage": 0.367998,
+        "self_damage_by_type": {
+          "$damage_fire": 0.367998
+        },
+        "setup_frames": 25,
+        "shots": 28,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 3.82
+      },
+      "wand": "spark_bolt"
+    },
+    {
+      "job": 14,
+      "instance": 0,
+      "attempt": 1,
+      "wall_s": 5.18,
+      "result": {
+        "aim_error_px": 0.344728,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "cleared_entities": 0,
+        "damage_dealt": 0.56,
+        "frame": 754,
+        "frames_run": 600,
+        "kills": 2,
+        "mana_used": 450,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 7,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "dead_frame": 37,
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0.44,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/deck/bullet.xml": 30
+        },
+        "self_damage": 0,
+        "self_damage_by_type": [],
+        "setup_frames": 91,
+        "shots": 30,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 5.17
+      },
+      "wand": "magic_arrow"
+    },
+    {
+      "job": 18,
+      "instance": 2,
+      "attempt": 1,
+      "wall_s": 4.11,
+      "result": {
+        "aim_error_px": 0.328596,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "cleared_entities": 0,
+        "damage_dealt": 0.56,
+        "frame": 5541,
+        "frames_run": 600,
+        "kills": 2,
+        "mana_used": 450,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 7,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "dead_frame": 37,
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0.44,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/deck/bullet.xml": 30
+        },
+        "self_damage": 0,
+        "self_damage_by_type": [],
+        "setup_frames": 25,
+        "shots": 30,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 4.11
+      },
+      "wand": "magic_arrow"
+    },
+    {
+      "job": 10,
+      "instance": 3,
+      "attempt": 1,
+      "wall_s": 20.15,
+      "result": {
+        "aim_error_px": 0.316788,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "cleared_entities": 0,
+        "damage_dealt": 0.56,
+        "frame": 1102,
+        "frames_run": 600,
+        "kills": 2,
+        "mana_used": 450,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 7,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "dead_frame": 36,
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0.44,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/deck/bullet.xml": 30
+        },
+        "self_damage": 0,
+        "self_damage_by_type": [],
+        "setup_frames": 25,
+        "shots": 30,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 20.11
+      },
+      "wand": "magic_arrow"
+    },
+    {
+      "job": 17,
+      "instance": 1,
+      "attempt": 1,
+      "wall_s": 9.26,
+      "result": {
+        "aim_error_px": 0.309987,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "clear_frame": 241,
+        "cleared_entities": 0,
+        "damage_dealt": 1,
+        "frame": 1021,
+        "frames_run": 241,
+        "kills": 3,
+        "mana_used": 65,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 6,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "dead_frame": 53,
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "dead_frame": 241,
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/deck/light_bullet.xml": 26
+        },
+        "self_damage": 0.319998,
+        "self_damage_by_type": {
+          "$damage_fire": 0.319998
+        },
+        "setup_frames": 25,
+        "shots": 26,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 9.22
+      },
+      "wand": "double_spark"
+    },
+    {
+      "job": 20,
+      "instance": 2,
+      "attempt": 1,
+      "wall_s": 3.03,
+      "result": {
+        "aim_error_px": 0.290069,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "clear_frame": 401,
+        "cleared_entities": 0,
+        "damage_dealt": 1,
+        "frame": 5968,
+        "frames_run": 401,
+        "kills": 3,
+        "mana_used": 0,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 26,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "dead_frame": 113,
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "dead_frame": 401,
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/deck/light_bullet.xml": 21
+        },
+        "self_damage": 0,
+        "self_damage_by_type": [],
+        "setup_frames": 25,
+        "shots": 21,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 3.03
+      },
+      "wand": "spark_bolt"
+    },
+    {
+      "job": 19,
+      "instance": 0,
+      "attempt": 1,
+      "wall_s": 4.28,
+      "result": {
+        "aim_error_px": 0.565242,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "cleared_entities": 0,
+        "damage_dealt": 0.2,
+        "frame": 1380,
+        "frames_run": 600,
+        "kills": 1,
+        "mana_used": 60,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 180,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0.36,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0.44,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/bomb.xml": 3
+        },
+        "self_damage": 4.00133,
+        "self_damage_by_type": {
+          "$damage_explosion": 3.5,
+          "$damage_fire": 0.559997
+        },
+        "setup_frames": 25,
+        "shots": 3,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 4.27
+      },
+      "wand": "bomb"
+    },
+    {
+      "job": 24,
+      "instance": 0,
+      "attempt": 1,
+      "wall_s": 2.59,
+      "result": {
+        "aim_error_px": 0.276082,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "clear_frame": 342,
+        "cleared_entities": 0,
+        "damage_dealt": 1,
+        "frame": 1748,
+        "frames_run": 342,
+        "kills": 3,
+        "mana_used": 0,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 26,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "dead_frame": 113,
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "dead_frame": 342,
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/deck/light_bullet.xml": 18
+        },
+        "self_damage": 0.367998,
+        "self_damage_by_type": {
+          "$damage_fire": 0.367998
+        },
+        "setup_frames": 25,
+        "shots": 18,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 2.58
+      },
+      "wand": "spark_bolt"
+    },
+    {
+      "job": 23,
+      "instance": 2,
+      "attempt": 1,
+      "wall_s": 4.05,
+      "result": {
+        "aim_error_px": 0.640845,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "cleared_entities": 0,
+        "damage_dealt": 0.2,
+        "frame": 6594,
+        "frames_run": 600,
+        "kills": 1,
+        "mana_used": 60,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 180,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0.36,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0.44,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/bomb.xml": 3
+        },
+        "self_damage": 2.31,
+        "self_damage_by_type": {
+          "$damage_explosion": 1.75,
+          "$damage_fire": 0.559997
+        },
+        "setup_frames": 25,
+        "shots": 3,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 4.04
+      },
+      "wand": "bomb"
+    },
+    {
+      "job": 21,
+      "instance": 3,
+      "attempt": 1,
+      "wall_s": 6.25,
+      "result": {
+        "aim_error_px": 0.314144,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "clear_frame": 160,
+        "cleared_entities": 0,
+        "damage_dealt": 1,
+        "frame": 1288,
+        "frames_run": 160,
+        "kills": 3,
+        "mana_used": 40,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 6,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "dead_frame": 54,
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "dead_frame": 160,
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/deck/light_bullet.xml": 16
+        },
+        "self_damage": 0,
+        "self_damage_by_type": [],
+        "setup_frames": 25,
+        "shots": 16,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 6.22
+      },
+      "wand": "double_spark"
+    },
+    {
+      "job": 25,
+      "instance": 0,
+      "attempt": 1,
+      "wall_s": 1.62,
+      "result": {
+        "aim_error_px": 0.288719,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "clear_frame": 201,
+        "cleared_entities": 0,
+        "damage_dealt": 1,
+        "frame": 1975,
+        "frames_run": 201,
+        "kills": 3,
+        "mana_used": 55,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 6,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "dead_frame": 54,
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "dead_frame": 201,
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/deck/light_bullet.xml": 22
+        },
+        "self_damage": 0,
+        "self_damage_by_type": [],
+        "setup_frames": 25,
+        "shots": 22,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 1.62
+      },
+      "wand": "double_spark"
+    },
+    {
+      "job": 28,
+      "instance": 0,
+      "attempt": 1,
+      "wall_s": 3.08,
+      "result": {
+        "aim_error_px": 0.273577,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "clear_frame": 402,
+        "cleared_entities": 0,
+        "damage_dealt": 1,
+        "frame": 2403,
+        "frames_run": 402,
+        "kills": 3,
+        "mana_used": 0,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 26,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "dead_frame": 113,
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "dead_frame": 402,
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/deck/light_bullet.xml": 21
+        },
+        "self_damage": 0,
+        "self_damage_by_type": [],
+        "setup_frames": 25,
+        "shots": 21,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 3.07
+      },
+      "wand": "spark_bolt"
+    },
+    {
+      "job": 26,
+      "instance": 2,
+      "attempt": 1,
+      "wall_s": 4.25,
+      "result": {
+        "aim_error_px": 0.319728,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "cleared_entities": 0,
+        "damage_dealt": 0.56,
+        "frame": 7220,
+        "frames_run": 600,
+        "kills": 2,
+        "mana_used": 450,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 7,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "dead_frame": 36,
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0.44,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/deck/bullet.xml": 30
+        },
+        "self_damage": 0.367998,
+        "self_damage_by_type": {
+          "$damage_fire": 0.367998
+        },
+        "setup_frames": 25,
+        "shots": 30,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 4.24
+      },
+      "wand": "magic_arrow"
+    },
+    {
+      "job": 29,
+      "instance": 0,
+      "attempt": 1,
+      "wall_s": 1.64,
+      "result": {
+        "aim_error_px": 0.289312,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "clear_frame": 201,
+        "cleared_entities": 0,
+        "damage_dealt": 1,
+        "frame": 2630,
+        "frames_run": 201,
+        "kills": 3,
+        "mana_used": 55,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 6,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "dead_frame": 54,
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "dead_frame": 201,
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/deck/light_bullet.xml": 22
+        },
+        "self_damage": 0,
+        "self_damage_by_type": [],
+        "setup_frames": 25,
+        "shots": 22,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 1.63
+      },
+      "wand": "double_spark"
+    },
+    {
+      "job": 30,
+      "instance": 2,
+      "attempt": 1,
+      "wall_s": 4.23,
+      "result": {
+        "aim_error_px": 0.327134,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "cleared_entities": 0,
+        "damage_dealt": 0.56,
+        "frame": 7846,
+        "frames_run": 600,
+        "kills": 2,
+        "mana_used": 450,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 7,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "dead_frame": 36,
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0.44,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/deck/bullet.xml": 30
+        },
+        "self_damage": 0,
+        "self_damage_by_type": [],
+        "setup_frames": 25,
+        "shots": 30,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 4.22
+      },
+      "wand": "magic_arrow"
+    },
+    {
+      "job": 31,
+      "instance": 0,
+      "attempt": 1,
+      "wall_s": 4.15,
+      "result": {
+        "aim_error_px": 0.552513,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "cleared_entities": 0,
+        "damage_dealt": 0.2,
+        "frame": 3256,
+        "frames_run": 600,
+        "kills": 1,
+        "mana_used": 60,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 180,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0.36,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0.44,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/bomb.xml": 3
+        },
+        "self_damage": 4.00133,
+        "self_damage_by_type": {
+          "$damage_explosion": 3.5,
+          "$damage_fire": 0.558663
+        },
+        "setup_frames": 25,
+        "shots": 3,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 4.14
+      },
+      "wand": "bomb"
+    },
+    {
+      "job": 33,
+      "instance": 0,
+      "attempt": 1,
+      "wall_s": 1.27,
+      "result": {
+        "aim_error_px": 0.312787,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "clear_frame": 161,
+        "cleared_entities": 0,
+        "damage_dealt": 1,
+        "frame": 3443,
+        "frames_run": 161,
+        "kills": 3,
+        "mana_used": 45,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 6,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "dead_frame": 53,
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "dead_frame": 161,
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/deck/light_bullet.xml": 18
+        },
+        "self_damage": 0.214665,
+        "self_damage_by_type": {
+          "$damage_fire": 0.214665
+        },
+        "setup_frames": 25,
+        "shots": 18,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 1.26
+      },
+      "wand": "double_spark"
+    },
+    {
+      "job": 32,
+      "instance": 2,
+      "attempt": 1,
+      "wall_s": 3.44,
+      "result": {
+        "aim_error_px": 0.2769,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "clear_frame": 460,
+        "cleared_entities": 0,
+        "damage_dealt": 1,
+        "frame": 8332,
+        "frames_run": 460,
+        "kills": 3,
+        "mana_used": 0,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 26,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "dead_frame": 114,
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "dead_frame": 460,
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/deck/light_bullet.xml": 23
+        },
+        "self_damage": 0,
+        "self_damage_by_type": [],
+        "setup_frames": 25,
+        "shots": 23,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 3.43
+      },
+      "wand": "spark_bolt"
+    },
+    {
+      "job": 34,
+      "instance": 0,
+      "attempt": 1,
+      "wall_s": 4.26,
+      "result": {
+        "aim_error_px": 0.302715,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "cleared_entities": 0,
+        "damage_dealt": 0.56,
+        "frame": 4069,
+        "frames_run": 600,
+        "kills": 2,
+        "mana_used": 450,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 7,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "dead_frame": 36,
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0.44,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/deck/bullet.xml": 30
+        },
+        "self_damage": 0.118666,
+        "self_damage_by_type": {
+          "$damage_fire": 0.118666
+        },
+        "setup_frames": 25,
+        "shots": 30,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 4.25
+      },
+      "wand": "magic_arrow"
+    },
+    {
+      "job": 22,
+      "instance": 1,
+      "attempt": 1,
+      "wall_s": 20.96,
+      "result": {
+        "aim_error_px": 0.311892,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "cleared_entities": 0,
+        "damage_dealt": 0.56,
+        "frame": 1647,
+        "frames_run": 600,
+        "kills": 2,
+        "mana_used": 450,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 7,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "dead_frame": 37,
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0.44,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/deck/bullet.xml": 30
+        },
+        "self_damage": 0.0146666,
+        "self_damage_by_type": {
+          "$damage_fire": 0.0146666
+        },
+        "setup_frames": 25,
+        "shots": 30,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 20.92
+      },
+      "wand": "magic_arrow"
+    },
+    {
+      "job": 35,
+      "instance": 2,
+      "attempt": 1,
+      "wall_s": 4.0,
+      "result": {
+        "aim_error_px": 0.585971,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "cleared_entities": 0,
+        "damage_dealt": 0.272,
+        "frame": 8958,
+        "frames_run": 600,
+        "kills": 1,
+        "mana_used": 60,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 180,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0.288,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0.44,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/bomb.xml": 3
+        },
+        "self_damage": 2.30866,
+        "self_damage_by_type": {
+          "$damage_explosion": 1.75,
+          "$damage_fire": 0.558663
+        },
+        "setup_frames": 25,
+        "shots": 3,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 3.99
+      },
+      "wand": "bomb"
+    },
+    {
+      "job": 36,
+      "instance": 0,
+      "attempt": 1,
+      "wall_s": 3.55,
+      "result": {
+        "aim_error_px": 0.283941,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "clear_frame": 461,
+        "cleared_entities": 0,
+        "damage_dealt": 1,
+        "frame": 4556,
+        "frames_run": 461,
+        "kills": 3,
+        "mana_used": 0,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 26,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "dead_frame": 113,
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "dead_frame": 461,
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/deck/light_bullet.xml": 24
+        },
+        "self_damage": 0,
+        "self_damage_by_type": [],
+        "setup_frames": 25,
+        "shots": 24,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 3.54
+      },
+      "wand": "spark_bolt"
+    },
+    {
+      "job": 38,
+      "instance": 2,
+      "attempt": 1,
+      "wall_s": 4.09,
+      "result": {
+        "aim_error_px": 0.318481,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "cleared_entities": 0,
+        "damage_dealt": 0.56,
+        "frame": 9584,
+        "frames_run": 600,
+        "kills": 2,
+        "mana_used": 450,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 7,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "dead_frame": 37,
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0.44,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/deck/bullet.xml": 30
+        },
+        "self_damage": 0.367998,
+        "self_damage_by_type": {
+          "$damage_fire": 0.367998
+        },
+        "setup_frames": 25,
+        "shots": 30,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 4.08
+      },
+      "wand": "magic_arrow"
+    },
+    {
+      "job": 13,
+      "instance": 2,
+      "attempt": 2,
+      "wall_s": 1.43,
+      "result": {
+        "aim_error_px": 0.319423,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "clear_frame": 181,
+        "cleared_entities": 0,
+        "damage_dealt": 1,
+        "frame": 9791,
+        "frames_run": 181,
+        "kills": 3,
+        "mana_used": 50,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 6,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "dead_frame": 53,
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "dead_frame": 181,
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/deck/light_bullet.xml": 20
+        },
+        "self_damage": 0,
+        "self_damage_by_type": [],
+        "setup_frames": 25,
+        "shots": 20,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 1.42
+      },
+      "wand": "double_spark"
+    },
+    {
+      "job": 37,
+      "instance": 1,
+      "attempt": 1,
+      "wall_s": 7.03,
+      "result": {
+        "aim_error_px": 0.323167,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "clear_frame": 183,
+        "cleared_entities": 0,
+        "damage_dealt": 1,
+        "frame": 1856,
+        "frames_run": 183,
+        "kills": 3,
+        "mana_used": 50,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 6,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "dead_frame": 53,
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "dead_frame": 183,
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/deck/light_bullet.xml": 20
+        },
+        "self_damage": 0,
+        "self_damage_by_type": [],
+        "setup_frames": 25,
+        "shots": 20,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 7.0
+      },
+      "wand": "double_spark"
+    },
+    {
+      "job": 39,
+      "instance": 0,
+      "attempt": 1,
+      "wall_s": 4.15,
+      "result": {
+        "aim_error_px": 0.561208,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "cleared_entities": 0,
+        "damage_dealt": 0.2816,
+        "frame": 5182,
+        "frames_run": 600,
+        "kills": 1,
+        "mana_used": 60,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 180,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0.2784,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0.44,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/bomb.xml": 3
+        },
+        "self_damage": 4.00133,
+        "self_damage_by_type": {
+          "$damage_explosion": 3.5,
+          "$damage_fire": 0.559997
+        },
+        "setup_frames": 25,
+        "shots": 3,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 4.15
+      },
+      "wand": "bomb"
+    },
+    {
+      "job": 27,
+      "instance": 3,
+      "attempt": 1,
+      "wall_s": 23.47,
+      "result": {
+        "aim_error_px": 0.547982,
+        "calibration": {
+          "ox": 321.499,
+          "oy": 179.859,
+          "sx": 0.667188,
+          "sy": 0.667188
+        },
+        "cleared_entities": 0,
+        "damage_dealt": 0.2,
+        "frame": 1914,
+        "frames_run": 600,
+        "kills": 1,
+        "mana_used": 60,
+        "ok": true,
+        "per_target": [
+          {
+            "dead_frame": 180,
+            "file": "data/entities/animals/zombie_weak.xml",
+            "hp": 0,
+            "hp0": 0.2,
+            "x": 140,
+            "y": 164
+          },
+          {
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "hp": 0.36,
+            "hp0": 0.36,
+            "x": 200,
+            "y": 114
+          },
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "hp": 0.44,
+            "hp0": 0.44,
+            "x": 250,
+            "y": 64
+          }
+        ],
+        "player_multipliers": {
+          "curse": 1,
+          "drill": 1,
+          "electricity": 1,
+          "explosion": 0.35,
+          "fire": 1,
+          "holy": 1.5,
+          "ice": 1,
+          "max_hp": 4,
+          "melee": 1,
+          "overeating": 1,
+          "physics_hit": 1,
+          "poison": 1,
+          "projectile": 1,
+          "radioactive": 1,
+          "slice": 1
+        },
+        "projectiles": {
+          "data/entities/projectiles/bomb.xml": 3
+        },
+        "self_damage": 4.00133,
+        "self_damage_by_type": {
+          "$damage_explosion": 3.5,
+          "$damage_fire": 0.559997
+        },
+        "setup_frames": 25,
+        "shots": 3,
+        "targets": 3,
+        "what": "wand_eval_done",
+        "wall_s": 23.43
+      },
+      "wand": "bomb"
+    }
+  ]
+}

@@ -297,3 +297,15 @@ and a live counter cross-check on this 6-core / 12-thread machine.
   evaluation solo at clock 3x; working set flat at 660 MB after 40 evaluations.
 - Aim is straight at the target: projectiles that drop (magic arrow) miss the high target in
   every run. A ballistic aimer would be needed to rate arcing spells fairly.
+
+## Evaluation pool (2026-09-30)
+
+`driver/pool.py`, test `driver pool --n 4` (`results/pool_20260930-*.json`).
+
+- N=4 pinned, reference wands round-robin: 40/40 jobs with one game killed mid-run (its job
+  re-queued and finished on attempt 2, instance relaunched), 0.52 evals/s including launches and
+  the crash; a clean 24-job run 0.77 evals/s, 3.4-4.2 s median per evaluation on every instance.
+  Scores under load match solo (spark bolt clear 383 vs 363 +- 55 frames).
+- A single-CPU pin cannot dodge other load on that CPU: in the first run two instances took 7-26 s
+  per evaluation against 1-5 s (transient; gone on the rerun with idle CPUs). The shared queue
+  absorbs it, since fast instances take more jobs.

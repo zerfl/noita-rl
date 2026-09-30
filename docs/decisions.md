@@ -4,6 +4,11 @@ Newest first. Each entry: what, why, and what would change it.
 
 ## 2026-09-30
 
+- **Wand search changes the deck only**: the wand body (stats) comes from the game's own wand
+  generator and stays fixed; the search picks spells and their order. The spell pool is every
+  spell in the game, not tier-limited. Stats are not searched, since that only finds maxed-out
+  bodies.
+
 - **Wand evaluations fire like a player**: mouse aim plus the fire button through injected input,
   natural spread. NoitaPatcher `UseItem` (fires without aiming) and a fixed spread RNG (every shot
   deviates by the same angle) distort the mechanics and are not used for scoring.
