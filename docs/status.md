@@ -18,7 +18,7 @@ cost, reset path, parallel instances. No RL training yet. Deliverables: `rl_benc
 | 3 | Test 3 (reset paths) and Test 4 (parallel instances, at clock 3x) | Done (commit `e1456df`) |
 | 4 | `FINDINGS.md`, final restore check against the backup | Done |
 | 5 | NoitaPatcher integration: commands, Game Over recovery reset (Test 3d), fps-ceiling diagnosis, nsew grid reader, reproducible firing | Done (commit `55d64e6`) |
-| 8 | Runner: gate done (soak pending, unattended); scenario API and pool done; next: Gymnasium env + PPO (wand search parked) | In progress |
+| 8 | Runner: gate done (soak pending, unattended); scenario API and pool done; arena env + PPO done (matches the scripted aimer); next: harder arena task (wand search parked) | In progress |
 | 7 | Shared-ceiling diagnosis (power, affinity, Steam, restarts, WPR trace, pinned scaling), no-focus launch | Done |
 | 6 | Mod-control rule (userdata mode, snapshot/restore and install checks removed), release build verified, timer-resolution test of the fps ceiling | Done |
 
@@ -99,30 +99,17 @@ byte-identical to the backup.
 
 ## Next steps
 
-**In flight (2026-09-30):** PPO 500k steps at N=4, run dir `runs/ppo_20260930-193103/` (per-episode log
-`episodes.jsonl`, checkpoints every 40k (10k vec-env calls x 4 games; fixed to every 10k env steps since), `final.zip` at the end; summary goes to
-`results/rl_train_*.json`). When it has finished (no `noita.exe` left, `final.zip` present):
-
-1. `uv run python -m driver rl eval --model runs/ppo_20260930-193103/final.zip` (20 episodes, same arena).
-2. `uv run python -m driver rl curve --run runs/ppo_20260930-193103` (return, kills, clear rate
-   and clear time per 50k steps) against the baselines (random 1.7 / scripted 12.6, clears in 177 frames).
-3. Write an RL section in `FINDINGS.md` and update runner-design.md, knowledge.md and this file;
-   commit (`docs(rl): ...`).
-4. Then: async collection or staggered resets (the training stalls), a harder arena task
-   (moving targets, own damage risk), grid observations.
-
-If the run died (check the tail of `episodes.jsonl` and running processes), resume from the
-latest checkpoint rather than restarting: `uv run python -m driver rl train --n 4 --steps 500000
---resume runs/ppo_20260930-193103/checkpoints/<latest>.zip` (same run dir, `episodes.jsonl`
-appended; `--steps` is the total).
-
 The benchmark is complete (`FINDINGS.md`). Phase 8 builds the runner; plan and build order in
 [runner-design.md](runner-design.md).
 
 1. Soak, unattended (it occupies the whole PC): `uv run python -m driver gate soak --hours 8`.
-2. Arena combat env and PPO (`driver rl baselines | train | eval`): first 50k-step run learns
-   (return 1.4 -> 5.4, scripted 12.6). A 500k-step run is in progress; then `driver rl eval` on
-   its final model against the baselines.
+2. Arena combat RL (`driver rl baselines | train | eval | curve`, `--resume`): done for the
+   frozen-target task. PPO 500k steps (`runs/ppo_20260930-193103`) clears 20/20 in 194 frames
+   (scripted 177); see FINDINGS.md. Next, in order:
+   a. Harder arena: moving targets (AI on), damage risk, then terrain and grid observations.
+   b. On it, PPO vs an off-policy and a model-based method in game frames to the scripted level
+      (two runs each).
+   c. Deferred: async collection (update is 6 % of wall time). Parked: render skip.
    Wand search parked.
 3. Tighten the liquid probe (more repetitions) to decide whether 4x can be promoted.
 

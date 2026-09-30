@@ -1,0 +1,143 @@
+{
+  "test": "rl_eval",
+  "model": "runs\\ppo_20260930-193103\\final.zip",
+  "summary": {
+    "episodes": 20,
+    "return": {
+      "mean": 12.515,
+      "sd": 0.134
+    },
+    "kills": {
+      "mean": 3.0,
+      "sd": 0.0
+    },
+    "self_damage": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "cleared_fraction": 1.0,
+    "clear_frames_mean": 194.0
+  },
+  "episodes": [
+    {
+      "return": 12.570000000000006,
+      "kills": 3,
+      "self_damage": 0.0,
+      "steps": 43
+    },
+    {
+      "return": 12.570000000000006,
+      "kills": 3,
+      "self_damage": 0.0,
+      "steps": 43
+    },
+    {
+      "return": 12.110000000000014,
+      "kills": 3,
+      "self_damage": 0.0,
+      "steps": 89
+    },
+    {
+      "return": 12.570000000000006,
+      "kills": 3,
+      "self_damage": 0.0,
+      "steps": 43
+    },
+    {
+      "return": 12.570000000000006,
+      "kills": 3,
+      "self_damage": 0.0,
+      "steps": 43
+    },
+    {
+      "return": 12.570000000000006,
+      "kills": 3,
+      "self_damage": 0.0,
+      "steps": 43
+    },
+    {
+      "return": 12.570000000000006,
+      "kills": 3,
+      "self_damage": 0.0,
+      "steps": 43
+    },
+    {
+      "return": 12.570000000000007,
+      "kills": 3,
+      "self_damage": 0.0,
+      "steps": 43
+    },
+    {
+      "return": 12.27000000000001,
+      "kills": 3,
+      "self_damage": 0.0,
+      "steps": 73
+    },
+    {
+      "return": 12.570000000000006,
+      "kills": 3,
+      "self_damage": 0.0,
+      "steps": 43
+    },
+    {
+      "return": 12.27000000000001,
+      "kills": 3,
+      "self_damage": 0.0,
+      "steps": 73
+    },
+    {
+      "return": 12.570000000000007,
+      "kills": 3,
+      "self_damage": 0.0,
+      "steps": 43
+    },
+    {
+      "return": 12.570000000000006,
+      "kills": 3,
+      "self_damage": 0.0,
+      "steps": 43
+    },
+    {
+      "return": 12.570000000000006,
+      "kills": 3,
+      "self_damage": 0.0,
+      "steps": 43
+    },
+    {
+      "return": 12.620000000000005,
+      "kills": 3,
+      "self_damage": 0.0,
+      "steps": 38
+    },
+    {
+      "return": 12.570000000000006,
+      "kills": 3,
+      "self_damage": 0.0,
+      "steps": 43
+    },
+    {
+      "return": 12.570000000000007,
+      "kills": 3,
+      "self_damage": 0.0,
+      "steps": 43
+    },
+    {
+      "return": 12.570000000000006,
+      "kills": 3,
+      "self_damage": 0.0,
+      "steps": 43
+    },
+    {
+      "return": 12.480000000000006,
+      "kills": 3,
+      "self_damage": 0.0,
+      "steps": 52
+    },
+    {
+      "return": 12.570000000000006,
+      "kills": 3,
+      "self_damage": 0.0,
+      "steps": 43
+    }
+  ]
+}

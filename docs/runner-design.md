@@ -105,12 +105,27 @@ run manager      run dir: config, git sha, seeds, logs, metrics, checkpoints
   fifth of episodes; no self-damage; no episode cleared all three targets yet (scripted: 12.6,
   clears in 177 frames). Learning, far from converged.
 
-- A 500k-step run is in progress (started 2026-09-30, `runs/ppo_20260930-*`).
-- Throughput: synchronous PPO stalls all games during updates and simultaneous resets (knowledge.md,
-  "Arena combat RL"); async collection or staggered episodes would recover that time.
+- 500k-step run (`results/rl_train_20260930-211058.json`, 100 min): the final model clears every
+  episode in 194 frames (scripted 177, eval `rl_eval_20260930-211159.json`); 74 % of episodes
+  cleared at 150-200k steps. The arena task is solved; it no longer separates methods.
+- Wall time: collection 94 %, PPO update 6 %. Resets were ~25 % of collection with short episodes
+  and are halved by a 2-frame settle. `driver rl curve` prints the curve and the timing split
+  (`timing.jsonl` per rollout, `reset_s` per episode).
+- Overlapping collection with the update (async PPO, one update of policy lag) is deferred: it
+  would recover at most the 6 %. PPO's clipped ratio against the recorded behaviour log-probs
+  tolerates one update of lag, so no accuracy loss is expected, but it is unproven here. Accept it
+  only if the learning curve over game frames matches the synchronous run (two runs each; the
+  run-to-run spread is unknown).
 
 ### RL: later
 
+- Harder arena first, so frame budget matters: moving targets (AI on), damage risk (self-damage
+  and enemy damage), then terrain and grid observations.
+- Then compare PPO against an off-policy (DQN/SAC-discrete family) and a model-based (DreamerV3-
+  style) method on it, measured in game frames to reach the scripted level. The simulation is
+  CPU-bound; this is where the GPU pays off.
+- Parked: skipping rendering in the game (the NVIDIA driver thread is one of the busy threads per
+  instance; minimized is already ~10 % faster). Not tested whether it can be patched out.
 - Gymnasium `VectorEnv` with auto-reset over the pool, lockstep K=4. Observation: grid, player
   state, nearby entities, wand state. Action: move, jump/levitate, aim angle, fire.
 
@@ -152,5 +167,6 @@ Windows only, on this machine. Games run minimized; Ctrl+C checkpoints and stops
    ~15 %, so about 5 repeats give a mean within ~7 %. Open: ballistic aim for arcing spells.
 3. Supervisor and pool: done (`driver/pool.py`: job queue, re-queue up to 3 attempts, relaunch on
    crash, hang or working set above 2.5 GB).
-4. Gymnasium env and a PPO baseline on the arena task (in progress).
+4. Gymnasium env and a PPO baseline on the arena task: done (PPO matches the scripted aimer,
+   194 vs 177 frames to clear). Checkpoint resume and learning-curve tooling in `driver rl`.
 5. Parked: wand-search MVP (search loop, SQLite archive, resume, `simulate_wand` pre-filter).

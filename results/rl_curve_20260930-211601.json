@@ -1,0 +1,71 @@
+{
+  "test": "rl_curve",
+  "run": "runs/ppo_20260930-211213/",
+  "bin_steps": 10000,
+  "bins": [
+    {
+      "from": 0,
+      "to": 10000,
+      "episodes": 64,
+      "return": {
+        "mean": 1.097,
+        "sd": 2.046
+      },
+      "kills": {
+        "mean": 0.266,
+        "sd": 0.479
+      },
+      "self_damage": {
+        "mean": 0.0,
+        "sd": 0.0
+      },
+      "cleared_fraction": 0.0,
+      "clear_frames_mean": null
+    },
+    {
+      "from": 10000,
+      "to": 20000,
+      "episodes": 68,
+      "return": {
+        "mean": 2.734,
+        "sd": 2.46
+      },
+      "kills": {
+        "mean": 0.618,
+        "sd": 0.692
+      },
+      "self_damage": {
+        "mean": 0.0,
+        "sd": 0.0
+      },
+      "cleared_fraction": 0.0,
+      "clear_frames_mean": null
+    },
+    {
+      "from": 20000,
+      "to": 30000,
+      "episodes": 4,
+      "return": {
+        "mean": 3.5,
+        "sd": 3.171
+      },
+      "kills": {
+        "mean": 1.0,
+        "sd": 0.816
+      },
+      "self_damage": {
+        "mean": 0.0,
+        "sd": 0.0
+      },
+      "cleared_fraction": 0.0,
+      "clear_frames_mean": null
+    }
+  ],
+  "timing": {
+    "rollouts": 19,
+    "collect_s_mean": 9.706,
+    "update_s_mean": 0.627,
+    "update_fraction": 0.061,
+    "reset_s_mean": 0.551
+  }
+}

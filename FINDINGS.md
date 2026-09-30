@@ -101,6 +101,31 @@ overhead.
 Unpinned stays at ~325 whatever N is; pinned gains shrink once instances share SMT siblings (N>6).
 No failures or crashes at any N.
 
+## Arena combat RL (`rl_*_20260930-*.json`)
+
+Task: kill three hovering targets with a spark-bolt wand in a sealed sky arena, playing through
+injected keys and mouse like a player; lockstep K=4, at most 150 steps (600 frames). Observation 15
+floats, action [move, levitate, fire, aim in 72 directions]. PPO (stable-baselines3, MLP 2x64, GPU),
+4 pinned games.
+
+| Policy | Return | Kills | Cleared | Clear time |
+|---|---|---|---|---|
+| Random (10 episodes) | 1.7 | 0.5 | 0 % | - |
+| Scripted aimer: nearest target, fire (10 episodes) | 12.6 | 3.0 | 100 % | 177 frames |
+| PPO 500k steps, last fifth of training (stochastic, 1137 episodes) | 12.3 | 2.96 | 96 % | 234 frames |
+| PPO 500k steps, final model (deterministic, 20 episodes) | 12.5 | 3.0 | 100 % | 194 frames |
+
+- Learning curve (`rl_curve_20260930-211106.json`, per 50k steps): first clears at 50-100k (4 %),
+  74 % at 150-200k, 96 % at 450-500k; clear time 522 -> 230 frames.
+- 500k steps = 2 M game frames (9.3 h of game time) in 100 min, 83.5 steps/s, 0 crashes over 5,685
+  episodes. 92 steps/s until the user started playing another game at 160k steps, ~81 after.
+- Wall time (20k-step timing run, `rl_curve_20260930-211601.json`): collecting a 1,024-step
+  rollout 9.7 s, PPO update 0.63 s (6 %). An arena reset took 0.18 s (median) and holds all games;
+  with ~57-step episodes that was about 25 % of wall time. 20 of its 25 frames were a settle wait;
+  2 frames halve it (0.08 s) without changing the task (scripted return 12.59 vs 12.58).
+- The simulation is CPU-only; the GPU sits idle with this network. Game frames are the budget, so
+  the GPU's use is sample efficiency (off-policy or model-based methods) and larger observations.
+
 ## Recommended configuration
 
 `noita.exe`, workdir isolation, seed via virtual magic numbers, QPC clock 3x at framerate 60, vsync

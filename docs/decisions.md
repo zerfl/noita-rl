@@ -4,6 +4,17 @@ Newest first. Each entry: what, why, and what would change it.
 
 ## 2026-09-30
 
+- **The GPU's job is sample efficiency, not game speed.** The simulation is CPU-only. Next RL work
+  makes the arena harder (the frozen-target task is solved) and then compares PPO with off-policy
+  and model-based methods in game frames to a target score. More instances (12 pinned) are off the
+  table while the PC is in use; N stays at 4.
+- **Async PPO collection is deferred.** The update is 6 % of wall time; resets were ~25 % and are
+  halved by a 2-frame settle. Revisit when the update share grows (bigger networks, more epochs),
+  and accept only if the learning curve over game frames matches the synchronous run.
+- **The RL arena settles 2 frames after a reset, not 20.** The scripted aimer's return and clear
+  time are unchanged; reset time halves. `wand_eval` keeps 20.
+- **Skipping rendering is parked**, not rejected: worth a test later, not now.
+
 - **RL comes next; wand search is parked.** The project's purpose is Noita as an RL environment,
   and RL needs none of the search. Next: a Gymnasium env over the pool (arena task: kill three
   frozen targets with a fixed wand) and a PPO baseline. The wand-search design stays in

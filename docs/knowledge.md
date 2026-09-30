@@ -313,9 +313,20 @@ and a live counter cross-check on this 6-core / 12-thread machine.
 ## Arena combat RL (2026-09-30)
 
 - PPO with `SubprocVecEnv` steps all games together: every game waits for the slowest step, and
-  all wait for the network update (about 1 s every 256 steps per game, about 10 s at N=4). All
-  episodes run the full 150 steps until the agent clears arenas, so all games also reset at the
-  same moment (about every 6 s). Both show as every game freezing together for under a second;
-  it is idle time, not overload, and does not change with N. Overlapping collection with updates
-  or staggering episode starts would recover it.
+  all wait for the network update (0.63 s per 1,024-step rollout, which takes 9.7 s to collect at
+  N=4: 6 % of wall time). While every episode runs the full 150 steps, all games also reset at the
+  same moment. Both show as every game freezing together for under a second; it is idle time, not
+  overload, and does not change with N.
+- An arena reset holds every game (the vector env waits for all). It took 0.18 s median: 25 game
+  frames in free mode at clock 3x (about 156 fps), 20 of them a settle wait before firing. The RL
+  env settles 2 frames: 0.08 s, scripted aimer unchanged (return 12.59 vs 12.58, 40.9 vs 41.7
+  steps; the player starts 2.6 px higher, not yet landed). `wand_eval` keeps 20. A game's first
+  reset includes its launch (12.6 s); `reset_s` in `episodes.jsonl` now excludes it.
+- Lockstep collection at N=4: about 33 ms per vector step (4 frames in each game) excluding resets.
 - 50k steps at N=4: 95 env steps/s (380 game frames/s), no crashes over 332 episodes.
+- 500k steps at N=4 (`runs/ppo_20260930-193103`): 100 min, 0 crashes over 5,685 episodes. PPO
+  reaches the scripted aimer: final model clears 20/20 in 194 frames (scripted 177). Clears start
+  at ~50k steps; 74 % at 150-200k. Self-damage stays 0 with the spark bolt, so the self-damage
+  term is untested.
+- SB3's `CheckpointCallback(save_freq)` counts vector-env calls, not env steps: at N=4 a
+  save_freq of 10k saves every 40k steps.
