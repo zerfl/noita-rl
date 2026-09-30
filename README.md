@@ -32,7 +32,13 @@ uv run python -m driver timer --render-share   # N=4 with all but one instance p
 uv run python -m driver ceiling baseline   # N=1 and N=4, 3 launches x 30 s, medians (about 5 min)
 uv run python -m driver ceiling power      # also: affinity, steam, restarts (each reruns the baseline)
 uv run python -m driver ceiling scaling --ns 8 12   # unpinned vs one logical CPU per instance
-uv run python -m driver windows            # show running harness games in a centred grid; --hide minimizes
+uv run python -m driver windows            # bring running harness games to the front in a grid; --hide minimizes
+uv run python -m driver gate lockstep      # runner gate: lockstep vs free-run at N=10/12 (also: determinism, soak --hours 8)
+uv run python -m driver scenario noise     # wand_eval score spread, reference wands x 10 repeats
+uv run python -m driver pool --n 4         # evaluation pool: 40 jobs, one game killed mid-run
+uv run python -m driver rl baselines       # arena combat: random and scripted policies, 20 episodes each
+uv run python -m driver rl train --n 4 --steps 500000   # PPO; run dir in runs/
+uv run python -m driver rl eval --model runs/<run>/final.zip
 uv run python -m driver ceiling hold --n 4 --etl .rl_bench_state/traces/n4.etl   # then record, elevated:
 #   wpr -start CPU -filemode; Start-Sleep 10; wpr -stop <repo>\.rl_bench_state\traces\n4.etl
 uv run python -m driver ceiling trace --hold results/ceiling_hold_n4_X.json   # CPU Usage (Precise) summary
@@ -123,7 +129,7 @@ the seed), `RL_BENCH_NP` (`0` = do not load NoitaPatcher) and `RL_BENCH_NP_DETER
     `config.grid.reader` is `auto` (default), `direct` or `nsew`; `auto` picks `direct` when
     NoitaPatcher reports the verified build and `nsew` otherwise.
   - tests: `grid_stats pixel_scene player_info shot_counter scene suite spawn kill_player
-    scenario_reset ui convert_material` (`ui` runs frame-spaced clicks, key taps and key combos in
+    scenario_reset ui convert_material wand_eval wand_info inventory_info arena_reset` (`ui` runs frame-spaced clicks, key taps and key combos in
     window pixels; `pixel_scene` takes `dup`, LoadPixelScene's `load_even_if_duplicate`, default
     true)
   - NoitaPatcher: `np_info np_pause np_system np_magic np_magic_list np_player np_serialize
@@ -305,6 +311,11 @@ Phase 6 (release build, `results/timer_*.json`):
 Phase 7 (`results/ceiling_*.json`): the ceiling is CPU saturation. Pinning each instance to one
 logical CPU reaches 609 aggregate fps at N=12 (325 unpinned). Games launch minimized and never take
 focus. See FINDINGS "Shared ceiling".
+
+Phase 8 (runner, [docs/runner-design.md](docs/runner-design.md)): gate (lockstep costs nothing; runs
+are not deterministic), `wand_eval` scenario (player-like firing, hovering targets), evaluation
+pool with crash recovery, and the arena combat RL env with PPO (`driver/rl_env.py`,
+`driver/rl_train.py`). Wand search is parked.
 
 ## Known issues
 

@@ -105,6 +105,10 @@ run manager      run dir: config, git sha, seeds, logs, metrics, checkpoints
   fifth of episodes; no self-damage; no episode cleared all three targets yet (scripted: 12.6,
   clears in 177 frames). Learning, far from converged.
 
+- A 500k-step run is in progress (started 2026-09-30, `runs/ppo_20260930-*`).
+- Throughput: synchronous PPO stalls all games during updates and simultaneous resets (knowledge.md,
+  "Arena combat RL"); async collection or staggered episodes would recover that time.
+
 ### RL: later
 
 - Gymnasium `VectorEnv` with auto-reset over the pool, lockstep K=4. Observation: grid, player

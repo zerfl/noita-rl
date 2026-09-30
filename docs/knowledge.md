@@ -309,3 +309,13 @@ and a live counter cross-check on this 6-core / 12-thread machine.
 - A single-CPU pin cannot dodge other load on that CPU: in the first run two instances took 7-26 s
   per evaluation against 1-5 s (transient; gone on the rerun with idle CPUs). The shared queue
   absorbs it, since fast instances take more jobs.
+
+## Arena combat RL (2026-09-30)
+
+- PPO with `SubprocVecEnv` steps all games together: every game waits for the slowest step, and
+  all wait for the network update (about 1 s every 256 steps per game, about 10 s at N=4). All
+  episodes run the full 150 steps until the agent clears arenas, so all games also reset at the
+  same moment (about every 6 s). Both show as every game freezing together for under a second;
+  it is idle time, not overload, and does not change with N. Overlapping collection with updates
+  or staggering episode starts would recover it.
+- 50k steps at N=4: 95 env steps/s (380 game frames/s), no crashes over 332 episodes.
