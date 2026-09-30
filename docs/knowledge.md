@@ -267,3 +267,20 @@ and a live counter cross-check on this 6-core / 12-thread machine.
   steps, player state within 122-242 steps (1000-step runs, clock 1x or 3x, pinned or not, solo or
   in a loaded pool), 23 steps in the busy scene. The earlier "identical at frame 122" result is a
   short-horizon special case. Pinning does not restore determinism.
+
+## Wand evaluation scenario (2026-09-30)
+
+`wand_eval` in `rl_bench/files/scenario.lua`, driver side `driver/scenario.py`.
+
+- **The gun caches its deck and stats.** Rewriting the held wand's cards and `AbilityComponent`
+  changes the entity, but firing keeps the old deck until another item is held and the wand is
+  equipped again (`SetActiveHeldEntity` to another wand for a frame, then back).
+  `Inventory2Component.mForceRefresh` alone does nothing.
+- **NP `UseItem` bypasses aiming**: it fires the wand toward its target argument while the player
+  still faces the mouse, and misses accordingly. Evaluations fire like a player: mouse aim plus
+  the fire button (injected input), natural spread.
+- At a 640x360 window the view is about 427 x 240 world px (0.667 world px per screen px, centre
+  321.5 / 179.9); targets outside it cannot be aimed at. Calibration by two mouse pushes lands the
+  mouse within 0.3-0.6 px of the target on average.
+- Corpses are physics ragdolls that block shots: a target behind a killed one is shielded (a lone
+  miner at 190 px dies to 9 spark bolts; behind two corpses it takes none of 30).

@@ -118,7 +118,8 @@ Windows only, on this machine. Games run minimized; Ctrl+C checkpoints and stops
 ## Build order
 
 1. Gate spike (above): done except the soak.
-2. Scenario API in the mod.
+2. Scenario API in the mod: `wand_eval` works (player-like firing); target layout and score
+   noise open.
 3. Supervisor and pool.
 4. Wand-search MVP: search loop, SQLite archive, resume, `simulate_wand` pre-filter.
 5. Gymnasium VectorEnv and a PPO baseline on a small combat task.
