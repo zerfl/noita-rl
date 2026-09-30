@@ -38,7 +38,9 @@ uv run python -m driver scenario noise     # wand_eval score spread, reference w
 uv run python -m driver pool --n 4         # evaluation pool: 40 jobs, one game killed mid-run
 uv run python -m driver rl baselines       # arena combat: random and scripted policies, 20 episodes each
 uv run python -m driver rl train --n 4 --steps 500000   # PPO; run dir in runs/
+uv run python -m driver rl train --n 4 --steps 500000 --resume runs/<run>/checkpoints/<ckpt>.zip
 uv run python -m driver rl eval --model runs/<run>/final.zip
+uv run python -m driver rl curve --run runs/<run>   # return, kills, clear rate per 50k steps
 uv run python -m driver ceiling hold --n 4 --etl .rl_bench_state/traces/n4.etl   # then record, elevated:
 #   wpr -start CPU -filemode; Start-Sleep 10; wpr -stop <repo>\.rl_bench_state\traces\n4.etl
 uv run python -m driver ceiling trace --hold results/ceiling_hold_n4_X.json   # CPU Usage (Precise) summary

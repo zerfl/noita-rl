@@ -192,3 +192,18 @@ class ViewerLayout(unittest.TestCase):
         spots = layout(4, 400, 100, (0, 0, 600, 400))
         xs = [x for x, _ in spots]
         self.assertEqual((min(xs), max(xs) + 400), (0, 600))
+
+
+class RlCurve(unittest.TestCase):
+    def test_bins_by_end_timestep_and_drops_crashes(self):
+        import json
+        from driver.rl_train import curve
+        eps = [(600, 1.0, 0, False), (1000, 3.0, 3, False), (1001, 5.0, 1, False), (1500, 0.0, 0, True)]
+        with tempfile.TemporaryDirectory() as d:
+            with open(Path(d) / "episodes.jsonl", "w", encoding="utf-8") as f:
+                for ts, ret, kills, crash in eps:
+                    f.write(json.dumps({"timesteps": ts, "return": ret, "steps": 100, "kills": kills,
+                                        "self_damage": 0.0, "crash": crash}) + "\n")
+            rows = curve(Path(d), 1000)
+        self.assertEqual([(r["from"], r["episodes"], r["return"]["mean"]) for r in rows], [(0, 2, 2.0), (1000, 1, 5.0)])
+        self.assertEqual((rows[0]["cleared_fraction"], rows[0]["clear_frames_mean"]), (0.5, 400.0))

@@ -55,17 +55,23 @@ def run_baselines(episodes: int = 20, log=print) -> dict:
     return out
 
 
-def train(n: int = 4, steps: int = 50_000, log=print) -> dict:
+def train(n: int = 4, steps: int = 50_000, resume: Path | None = None, log=print) -> dict:
+    """PPO until `steps` total env steps. With `resume` (runs/<run>/checkpoints/*.zip), continue that
+    run: same run dir, episodes.jsonl appended, timesteps counted from the checkpoint."""
     from stable_baselines3 import PPO
     from stable_baselines3.common.callbacks import BaseCallback, CheckpointCallback
     from stable_baselines3.common.vec_env import SubprocVecEnv, VecMonitor
 
-    run = RUNS_DIR / time.strftime("ppo_%Y%m%d-%H%M%S")
-    run.mkdir(parents=True)
+    if resume:
+        run = resume.parent.parent
+    else:
+        run = RUNS_DIR / time.strftime("ppo_%Y%m%d-%H%M%S")
+        run.mkdir(parents=True)
     cpus = winutil.pin_order(winutil.physical_cores(), n)
     fns = [lambda i=i: ArenaEnv(cpu=cpus[i], instance=i) for i in range(n)]
-    env = VecMonitor(SubprocVecEnv(fns, start_method="spawn"), str(run / "monitor"),
-                     info_keywords=("kills", "self_damage"))
+    # VecMonitor overwrites its csv, so a resumed session gets its own.
+    monitor = run / (time.strftime("monitor_%H%M%S") if resume else "monitor")
+    env = VecMonitor(SubprocVecEnv(fns, start_method="spawn"), str(monitor), info_keywords=("kills", "self_damage"))
 
     class EpisodeLog(BaseCallback):
         def __init__(self):
@@ -91,23 +97,40 @@ def train(n: int = 4, steps: int = 50_000, log=print) -> dict:
                 log(f"ppo {self.num_timesteps} steps, {time.perf_counter() - self.t0:.0f} s: mean return "
                     f"{statistics.fmean(e['r'] for e in eps):.2f}, mean length {statistics.fmean(e['l'] for e in eps):.1f}")
 
-    model = PPO("MlpPolicy", env, n_steps=256, batch_size=256, n_epochs=10, gamma=0.99, learning_rate=3e-4,
-                ent_coef=0.01, device="cuda", seed=0, verbose=0)
+    if resume:
+        model = PPO.load(resume, env=env, device="cuda")
+        log(f"resuming {run.name} at {model.num_timesteps} steps")
+    else:
+        model = PPO("MlpPolicy", env, n_steps=256, batch_size=256, n_epochs=10, gamma=0.99, learning_rate=3e-4,
+                    ent_coef=0.01, device="cuda", seed=0, verbose=0)
+    start = model.num_timesteps
     t0 = time.perf_counter()
     try:
-        model.learn(steps, callback=[EpisodeLog(), CheckpointCallback(10_000, str(run / "checkpoints"))])
+        # save_freq counts vec-env steps: 10_000 // n of them is every 10k env steps.
+        model.learn(max(0, steps - start), reset_num_timesteps=not resume,
+                    callback=[EpisodeLog(), CheckpointCallback(max(1, 10_000 // n), str(run / "checkpoints"))])
         model.save(run / "final")
     finally:
         env.close()
     wall = time.perf_counter() - t0
     eps = [json.loads(line) for line in open(run / "episodes.jsonl", encoding="utf-8")]
     tail = eps[-max(1, len(eps) // 5):]
-    out = {"test": "rl_train", "run": str(run), "n": n, "steps": steps, "wall_s": round(wall, 1),
-           "steps_per_s": round(steps / wall, 1), "episodes": len(eps),
+    out = {"test": "rl_train", "run": str(run), "n": n, "steps": steps, "resumed_at": start if resume else None,
+           "wall_s": round(wall, 1), "steps_per_s": round((model.num_timesteps - start) / wall, 1), "episodes": len(eps),
            "crashes": sum(1 for e in eps if e["crash"]),
            "first_fifth": _episode_summary(eps[:max(1, len(eps) // 5)]), "last_fifth": _episode_summary(tail)}
     log(f"ppo done: {out}")
     return out
+
+
+def curve(run: Path, bin_steps: int = 50_000) -> list[dict]:
+    """Episode summaries per `bin_steps` of training, by the timestep each episode ended at."""
+    eps = [json.loads(line) for line in open(run / "episodes.jsonl", encoding="utf-8")]
+    bins: dict[int, list[dict]] = {}
+    for e in eps:
+        if not e["crash"]:
+            bins.setdefault(max(0, e["timesteps"] - 1) // bin_steps, []).append(e)
+    return [{"from": b * bin_steps, "to": (b + 1) * bin_steps} | _episode_summary(bins[b]) for b in sorted(bins)]
 
 
 def evaluate(model_path: Path, episodes: int = 20, log=print) -> dict:

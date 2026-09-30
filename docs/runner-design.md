@@ -129,6 +129,9 @@ run manager      run dir: config, git sha, seeds, logs, metrics, checkpoints
   their definition; region restore (`np_area_snapshot`/`np_area_restore`) and NP entity
   (de)serialisation cover small state. Starting from a mid-game world would need the game's own
   save-on-exit plus continue, at relaunch cost. Mid-episode resume is not supported.
+- Built so far (PPO, `driver rl train`): SB3 checkpoints (policy, optimizer, step counter) every
+  10k env steps and `final.zip`; `--resume <checkpoint>` continues the same run dir to the same
+  total. RNG states are not restored, so a resumed run does not repeat the original.
 
 ## Running it
 

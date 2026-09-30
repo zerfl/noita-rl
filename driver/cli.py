@@ -137,7 +137,14 @@ def cmd_rl(a):
     if a.mode == "baselines":
         save_result("rl_baselines", rl_train.run_baselines(episodes=a.episodes, log=_log))
     elif a.mode == "train":
-        save_result("rl_train", rl_train.train(n=a.n, steps=a.steps, log=_log))
+        save_result("rl_train", rl_train.train(n=a.n, steps=a.steps, resume=a.resume and Path(a.resume), log=_log))
+    elif a.mode == "curve":
+        rows = rl_train.curve(Path(a.run), a.bin)
+        for r in rows:
+            _log(f"{r['from']:>8}-{r['to']:<8} {r['episodes']:>4} eps  return {r['return']['mean']:6.2f}  "
+                 f"kills {r['kills']['mean']:.2f}  cleared {r['cleared_fraction']:.2f}  "
+                 f"clear frames {r['clear_frames_mean']}  self {r['self_damage']['mean']:.3f}")
+        save_result("rl_curve", {"test": "rl_curve", "run": a.run, "bin_steps": a.bin, "bins": rows})
     else:
         save_result("rl_eval", rl_train.evaluate(Path(a.model), episodes=a.episodes, log=_log))
 
@@ -263,9 +270,12 @@ def main(argv=None):
     p.set_defaults(fn=cmd_pool)
 
     p = sub.add_parser("rl", help="arena combat RL: baselines, PPO training, evaluation; writes results/rl_*.json")
-    p.add_argument("mode", choices=["baselines", "train", "eval"])
+    p.add_argument("mode", choices=["baselines", "train", "eval", "curve"])
     p.add_argument("--n", type=int, default=4, help="train: parallel games")
-    p.add_argument("--steps", type=int, default=50_000, help="train: env steps (4 frames each)")
+    p.add_argument("--steps", type=int, default=50_000, help="train: total env steps (4 frames each)")
+    p.add_argument("--resume", help="train: continue from runs/<run>/checkpoints/<ckpt>.zip")
+    p.add_argument("--run", help="curve: runs/<run>")
+    p.add_argument("--bin", type=int, default=50_000, help="curve: env steps per row")
     p.add_argument("--episodes", type=int, default=20, help="baselines/eval: episodes per policy")
     p.add_argument("--model", help="eval: runs/<run>/final.zip")
     p.set_defaults(fn=cmd_rl)
