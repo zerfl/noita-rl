@@ -106,9 +106,10 @@ The benchmark is complete (`FINDINGS.md`). Phase 8 builds the runner; plan and b
 2. Arena combat RL (`driver rl baselines | train | eval | curve`, `--resume`): done for the
    frozen-target task. PPO 500k steps (`runs/ppo_20260930-193103`) clears 20/20 in 194 frames
    (scripted 177); see FINDINGS.md. Next, in order:
-   a. Harder arena: moving targets (AI on), damage risk, then terrain and grid observations.
-   b. On it, PPO vs an off-policy and a model-based method in game frames to the scripted level
-      (two runs each).
+   a. Harder arena: live task built (AI on; baselines random 1.0 / scripted 6.3); PPO 500k on it
+      in progress (`runs/ppo_live_*`). Then terrain, projectiles in the observation, grid.
+   b. On it, PPO vs an off-policy (`--algo dqn`, built) and a model-based method in game frames
+      to the scripted level (two runs each).
    c. Deferred: async collection (update is 6 % of wall time). Parked: render skip.
    Wand search parked.
 3. Tighten the liquid probe (more repetitions) to decide whether 4x can be promoted.

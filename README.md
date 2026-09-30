@@ -38,6 +38,7 @@ uv run python -m driver scenario noise     # wand_eval score spread, reference w
 uv run python -m driver pool --n 4         # evaluation pool: 40 jobs, one game killed mid-run
 uv run python -m driver rl baselines       # arena combat: random and scripted policies, 20 episodes each
 uv run python -m driver rl train --n 4 --steps 500000   # PPO; run dir in runs/
+uv run python -m driver rl train --task live --algo dqn --replay-ratio 0.25   # AI-on targets, DQN
 uv run python -m driver rl train --n 4 --steps 500000 --resume runs/<run>/checkpoints/<ckpt>.zip
 uv run python -m driver rl eval --model runs/<run>/final.zip
 uv run python -m driver rl curve --run runs/<run>   # return, kills, clear rate per 50k steps

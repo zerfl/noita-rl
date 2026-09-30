@@ -330,3 +330,11 @@ and a live counter cross-check on this 6-core / 12-thread machine.
   term is untested.
 - SB3's `CheckpointCallback(save_freq)` counts vector-env calls, not env steps: at N=4 a
   save_freq of 10k saves every 40k steps.
+- Live task (`--task live`, AI on): all three targets drop to the floor within ~10 steps, so they
+  share the player's lane and a corpse shields the target behind it until that one walks around
+  it. The shotgunner and miner shoot back; the zombie walks in. Baselines
+  (`rl_baselines_20260930-212513.json`, 10 episodes): random return 1.0, 1.4 kills, self-damage
+  1.18 of 4.0; scripted aimer (stands still) return 6.3, 2.1 kills, 1 clear in 10, self-damage
+  0.55; no deaths. Clearing needs movement (levitate over corpses, close in), which the scripted
+  aimer lacks. `dealt` and kills count any hp the targets lose, including friendly fire.
+- The observation has no enemy projectiles; dodging can only be learned from enemy positions.

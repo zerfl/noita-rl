@@ -119,11 +119,17 @@ run manager      run dir: config, git sha, seeds, logs, metrics, checkpoints
 
 ### RL: later
 
-- Harder arena first, so frame budget matters: moving targets (AI on), damage risk (self-damage
-  and enemy damage), then terrain and grid observations.
-- Then compare PPO against an off-policy (DQN/SAC-discrete family) and a model-based (DreamerV3-
-  style) method on it, measured in game frames to reach the scripted level. The simulation is
-  CPU-bound; this is where the GPU pays off.
+- Harder arena, so frame budget matters: the live task (`--task live`: AI on, targets fall to the
+  floor, attack, corpses shield; the episode ends on player death). The observation appends each
+  target's velocity (px/frame from the last step), 21 floats; the frozen layout is unchanged.
+  Next: terrain, enemy projectiles in the observation, grid observations.
+- Compare PPO against an off-policy and a model-based (DreamerV3-style) method on it, measured in
+  game frames to reach the scripted level. The simulation is CPU-bound; this is where the GPU
+  pays off. `--algo dqn` is built: SB3 DQN over the flattened action (864 choices), MLP 2x256,
+  buffer 200k, 5k random steps, target update every 2k steps, epsilon 1 -> 0.05 over the first
+  10 %; `--replay-ratio` sets gradient steps per env step (default 0.25). Each run's
+  `config.json` holds task and algorithm; eval and `--resume` read it (a resumed DQN starts
+  with an empty replay buffer).
 - Parked: skipping rendering in the game (the NVIDIA driver thread is one of the busy threads per
   instance; minimized is already ~10 % faster). Not tested whether it can be patched out.
 - Gymnasium `VectorEnv` with auto-reset over the pool, lockstep K=4. Observation: grid, player
