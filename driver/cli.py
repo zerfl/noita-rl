@@ -132,6 +132,16 @@ def cmd_pool(a):
     save_result("pool", pool.run_test(n=a.n, jobs=a.jobs, kill_after=a.kill_after or None, log=_log))
 
 
+def cmd_rl(a):
+    from . import rl_train
+    if a.mode == "baselines":
+        save_result("rl_baselines", rl_train.run_baselines(episodes=a.episodes, log=_log))
+    elif a.mode == "train":
+        save_result("rl_train", rl_train.train(n=a.n, steps=a.steps, log=_log))
+    else:
+        save_result("rl_eval", rl_train.evaluate(Path(a.model), episodes=a.episodes, log=_log))
+
+
 def cmd_suite(a):
     """Every test in order; one result file each plus an index."""
     t0 = time.perf_counter()
@@ -246,6 +256,14 @@ def main(argv=None):
     p.add_argument("--jobs", type=int, default=40)
     p.add_argument("--kill-after", type=int, default=10, help="kill instance 0 after this many results (0: never)")
     p.set_defaults(fn=cmd_pool)
+
+    p = sub.add_parser("rl", help="arena combat RL: baselines, PPO training, evaluation; writes results/rl_*.json")
+    p.add_argument("mode", choices=["baselines", "train", "eval"])
+    p.add_argument("--n", type=int, default=4, help="train: parallel games")
+    p.add_argument("--steps", type=int, default=50_000, help="train: env steps (4 frames each)")
+    p.add_argument("--episodes", type=int, default=20, help="baselines/eval: episodes per policy")
+    p.add_argument("--model", help="eval: runs/<run>/final.zip")
+    p.set_defaults(fn=cmd_rl)
 
     p = sub.add_parser("suite", help="run every test: smoke, actions, test1-4, np (about 60 min)")
     p.add_argument("--reps", type=int, default=3)

@@ -169,16 +169,9 @@ local function nearest_alive(targets, px, py)
   return best
 end
 
--- args: wand (spec), targets, frames (max), settle (frames before firing). The player aims with
--- the mouse and holds fire (injected input), so the game applies every wand mechanic itself.
-cmds.wand_eval = function(a)
-  if not np then return { ok = false, error = "NoitaPatcher not loaded" } end
-  local p = rlb_bench.player()
-  if not p then return { ok = false, error = "no player" } end
-  local wand = held_wand(p)
-  if not wand then return { ok = false, error = "player holds no wand" } end
-  rlb_bench.run_script("wand_eval", function()
-    local f_start = GameGetFrameNum()
+-- Arena, player, wand and targets; runs inside a frame script. Returns targets, cleared count
+-- and an error.
+local function prepare(p, wand, a)
     setup_player(p)
     if not arena_ready then
       wait(60)   -- let the chunks around the arena stream in
@@ -189,10 +182,7 @@ cmds.wand_eval = function(a)
     wait(2)
     setup_player(p)
     local ok, err = setup_wand(wand, a.wand or {})
-    if not ok then
-      rlb_bench.send({ t = "event", what = "wand_eval_done", ok = false, error = err })
-      return
-    end
+    if not ok then return nil, cleared, err end
     -- The gun caches its deck until another item is held and the wand is equipped again.
     local other = nil
     for _, box in ipairs(EntityGetAllChildren(p) or {}) do
@@ -212,6 +202,24 @@ cmds.wand_eval = function(a)
     local targets = spawn_targets(a.targets or DEFAULT_TARGETS)
     if not cal then calibrate(p) end
     wait(a.settle or 20)
+    return targets, cleared
+end
+
+-- args: wand (spec), targets, frames (max), settle (frames before firing). The player aims with
+-- the mouse and holds fire (injected input), so the game applies every wand mechanic itself.
+cmds.wand_eval = function(a)
+  if not np then return { ok = false, error = "NoitaPatcher not loaded" } end
+  local p = rlb_bench.player()
+  if not p then return { ok = false, error = "no player" } end
+  local wand = held_wand(p)
+  if not wand then return { ok = false, error = "player holds no wand" } end
+  rlb_bench.run_script("wand_eval", function()
+    local f_start = GameGetFrameNum()
+    local targets, cleared, err = prepare(p, wand, a)
+    if not targets then
+      rlb_bench.send({ t = "event", what = "wand_eval_done", ok = false, error = err })
+      return
+    end
 
     local ab = EntityGetFirstComponentIncludingDisabled(wand, "AbilityComponent")
     local php0 = hp_of(p)
@@ -319,3 +327,71 @@ cmds.inventory_info = function()
   end
   return out
 end
+
+-- ---------------------------------------------------------------- RL episodes
+
+-- Live arena for RL: targets tracked every frame, reported in every state packet.
+local live = nil   -- { targets, php0, kills }
+
+function rlb_scenario_aim(angle, radius)
+  local p = rlb_bench.player()
+  if not p or not cal then return nil end
+  local px, py = EntityGetTransform(p)
+  local r = radius or 100
+  return to_screen(px + math.cos(angle) * r, py - 5 + math.sin(angle) * r)
+end
+
+rlb_bench.frame_hooks[#rlb_bench.frame_hooks + 1] = function()
+  if not live then return end
+  for _, t in ipairs(live.targets) do
+    if not t.dead_frame then
+      local h = EntityGetIsAlive(t.id) and hp_of(t.id) or nil
+      if h and h > 0 then
+        t.hp = h
+        t.x, t.y = EntityGetTransform(t.id)
+      else
+        t.hp, t.dead_frame = 0, GameGetFrameNum()
+        live.kills = live.kills + 1
+      end
+    end
+  end
+end
+
+-- JSON fragment for the state packet: per target [x, y, hp, hp0] (world), cumulative damage
+-- dealt, self-damage, kills.
+function rlb_scenario_state()
+  if not live then return "" end
+  local parts, dealt = {}, 0
+  for i, t in ipairs(live.targets) do
+    dealt = dealt + math.max(0, t.hp0 - t.hp)
+    parts[i] = string.format("[%.2f,%.2f,%.4f,%.4f]", t.x or 0, t.y or 0, t.hp, t.hp0)
+  end
+  local p = rlb_bench.player()
+  local php = p and hp_of(p) or live.php0
+  return string.format(',"arena":{"targets":[%s],"dealt":%.4f,"self":%.4f,"kills":%d,"x0":%d,"y0":%d}',
+    table.concat(parts, ","), dealt, live.php0 - php, live.kills, A.x, A.y)
+end
+
+-- Sets up an episode (same arena as wand_eval) and sends arena_ready; the driver then steps in
+-- lockstep and reads the "arena" field of each state packet.
+cmds.arena_reset = function(a)
+  if not np then return { ok = false, error = "NoitaPatcher not loaded" } end
+  local p = rlb_bench.player()
+  if not p then return { ok = false, error = "no player" } end
+  local wand = held_wand(p)
+  if not wand then return { ok = false, error = "player holds no wand" } end
+  live = nil
+  rlb_bench.run_script("arena_reset", function()
+    local targets, cleared, err = prepare(p, wand, a)
+    if not targets then
+      rlb_bench.send({ t = "event", what = "arena_ready", ok = false, error = err })
+      return
+    end
+    for _, t in ipairs(targets) do t.x, t.y = EntityGetTransform(t.id) end
+    live = { targets = targets, php0 = hp_of(p), kills = 0 }
+    rlb_bench.send({ t = "event", what = "arena_ready", ok = true, frame = GameGetFrameNum(),
+                     cleared = cleared, arena = { x = A.x, y = A.y, w = A.w, h = A.h } })
+  end)
+  return { ok = true, frame = GameGetFrameNum() }
+end
+

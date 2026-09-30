@@ -190,6 +190,9 @@ local function handle(line)
   local msg = json.decode(line)
   if type(msg) ~= "table" then return false end
   if msg.t == "act" then
+    if msg.aim_angle and rlb_scenario_aim then
+      msg.aim_x, msg.aim_y = rlb_scenario_aim(msg.aim_angle, msg.aim_radius)
+    end
     rlb_input.set(msg)
     return true
   elseif msg.t == "cmd" then
@@ -273,7 +276,8 @@ local function send_state(frame)
     '{"t":"state","frame":%d,"step":%d,"alive":%s,"x":%s,"y":%s,"vx":%s,"vy":%s,"hp":%s,"max_hp":%s,' ..
     '"seed":%d,"t_ms":%.3f,"lua_ms":%.4f,"wait_ms":%.4f,"pushes":%d,"push_fail":%d%s}\n',
     frame, B.step, tostring(alive), fmt(x), fmt(y), fmt(vx), fmt(vy), fmt(hp), fmt(max_hp),
-    s1, clock(), B.lua_ms, B.wait_ms, rlb_input.pushes, rlb_input.push_fail, grid)
+    s1, clock(), B.lua_ms, B.wait_ms, rlb_input.pushes, rlb_input.push_fail,
+    grid .. (rlb_scenario_state and rlb_scenario_state() or ""))
   B.step = B.step + 1
   B.lua_ms = 0
   if not rlb_link.send(line) then B.connected = false end

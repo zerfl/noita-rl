@@ -14,3 +14,4 @@ __pycache__/
 # trace analyzer build output
 tools/etwcpu/bin/
 tools/etwcpu/obj/
+runs/

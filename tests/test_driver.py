@@ -152,3 +152,24 @@ class GateTools(unittest.TestCase):
         self.assertEqual((c["first_state_diff_step"], c["first_grid_diff_step"]), (2, 3))
         self.assertEqual(c["state_equal_fraction"], 0.75)
         self.assertTrue(c["same_start"])
+
+
+class ArenaScripted(unittest.TestCase):
+    @staticmethod
+    def obs(*targets):
+        import numpy as np
+        return np.array([0, 0, 0, 0, 1, 0] + [v for t in targets for v in t], np.float32)
+
+    def test_aims_at_the_nearest_living_target(self):
+        from driver.rl_env import scripted_action
+        a = scripted_action(self.obs((0.0, -0.5, 1.0), (0.3, 0.0, 1.0), (1.0, 0.0, 1.0)))
+        self.assertEqual((a[2], a[3]), (1, 0))       # fire, straight right (world y points down)
+
+    def test_skips_dead_targets(self):
+        from driver.rl_env import AIM_BINS, scripted_action
+        a = scripted_action(self.obs((0.3, 0.0, 0.0), (0.0, -0.5, 1.0), (1.0, 0.0, 0.0)))
+        self.assertEqual(a[3], 3 * AIM_BINS // 4)       # straight up
+
+    def test_holds_fire_when_all_dead(self):
+        from driver.rl_env import scripted_action
+        self.assertEqual(scripted_action(self.obs((0.3, 0, 0), (0, -0.5, 0), (1, 0, 0)))[2], 0)
