@@ -10,14 +10,15 @@ local A = { x = -600, y = -1700, w = 512, h = 192, wall = 8, floor = 16, player_
 A.floor_y = A.y + A.h - A.floor
 A.cx, A.cy = A.x + A.w / 2, A.y + A.h / 2
 
--- Within the view (about 427 x 240 world px around the player), so the mouse can reach them.
+-- Staggered lanes: targets hold their position (dy above the floor), so each has its own line of
+-- fire and corpses fall out of the way; all within the view (about 427 x 240 world px around the
+-- player).
 local DEFAULT_TARGETS = {
-  { file = "data/entities/animals/zombie_weak.xml", dx = 130 },
-  { file = "data/entities/animals/shotgunner_weak.xml", dx = 190 },
-  { file = "data/entities/animals/miner_weak.xml", dx = 250 },
+  { file = "data/entities/animals/zombie_weak.xml", dx = 140, dy = 0 },
+  { file = "data/entities/animals/shotgunner_weak.xml", dx = 200, dy = 50 },
+  { file = "data/entities/animals/miner_weak.xml", dx = 250, dy = 100 },
 }
 
-local PLAYER_HP = 4000   -- 100,000 displayed: self-damage is measured, death is out of reach
 
 local GUN = { "actions_per_round", "deck_capacity", "reload_time", "shuffle_deck_when_empty" }
 local GUNACTION = { "fire_rate_wait", "spread_degrees", "speed_multiplier" }
@@ -51,12 +52,26 @@ local function clear_arena(p)
   return n
 end
 
+-- The player's own damage multipliers (e.g. reduced explosion damage), captured before anything
+-- (god mode) changes them.
+local player_mult = nil
+
 local function setup_player(p)
   local dmc = EntityGetFirstComponentIncludingDisabled(p, "DamageModelComponent")
-  ComponentSetValue2(dmc, "max_hp", PLAYER_HP)
-  ComponentSetValue2(dmc, "hp", PLAYER_HP)
+  if not player_mult then
+    player_mult = { max_hp = ComponentGetValue2(dmc, "max_hp") }
+    for _, t in ipairs(DAMAGE_TYPES) do player_mult[t] = ComponentObjectGetValue2(dmc, "damage_multipliers", t) end
+  end
+  -- Real max hp (fire damage scales with it); hp may go below 0 without a game over.
+  ComponentSetValue2(dmc, "wait_for_kill_flag_on_death", true)
+  ComponentSetValue2(dmc, "max_hp", player_mult.max_hp)
+  ComponentSetValue2(dmc, "hp", player_mult.max_hp)
   ComponentSetValue2(dmc, "air_needed", false)
-  for _, t in ipairs(DAMAGE_TYPES) do pcall(ComponentObjectSetValue2, dmc, "damage_multipliers", t, 1) end
+  for _, t in ipairs(DAMAGE_TYPES) do ComponentObjectSetValue2(dmc, "damage_multipliers", t, player_mult[t]) end
+  if not EntityGetFirstComponentIncludingDisabled(p, "LuaComponent", "rlb_damage_log") then
+    EntityAddComponent2(p, "LuaComponent", { _tags = "rlb_damage_log",
+      script_damage_received = "mods/rl_bench/files/damage_log.lua", execute_every_n_frame = -1 })
+  end
   rlb_input.set({})
   rlb_bench.teleport(A.x + A.player_dx, A.floor_y - 10)
 end
@@ -93,17 +108,21 @@ local function setup_wand(wand, spec)
   return true
 end
 
-local function freeze_ai(e)
+-- No AI (no attacks, no walking) and no platforming (no gravity): the target stays where it spawned.
+local function freeze(e)
   for _, c in ipairs(EntityGetAllComponents(e) or {}) do
-    if string.find(ComponentGetTypeName(c), "AIComponent", 1, true) then EntitySetComponentIsEnabled(e, c, false) end
+    local n = ComponentGetTypeName(c)
+    if string.find(n, "AIComponent", 1, true) or n == "CharacterPlatformingComponent" then
+      EntitySetComponentIsEnabled(e, c, false)
+    end
   end
 end
 
 local function spawn_targets(list)
   local out = {}
   for i, t in ipairs(list) do
-    local e = EntityLoad(t.file, A.x + t.dx, A.floor_y - (t.dy or 12))
-    freeze_ai(e)
+    local e = EntityLoad(t.file, A.x + t.dx, A.floor_y - (t.dy or 0) - 12)
+    freeze(e)
     out[i] = { id = e, file = t.file, hp0 = hp_of(e), hp = hp_of(e), dead_frame = nil }
   end
   return out
@@ -196,6 +215,7 @@ cmds.wand_eval = function(a)
 
     local ab = EntityGetFirstComponentIncludingDisabled(wand, "AbilityComponent")
     local php0 = hp_of(p)
+    GlobalsSetValue("rlb_dmg_log", "")
     local mana_prev, mana_used = ComponentGetValue2(ab, "mana"), 0
     local seen, shots, kinds = {}, 0, {}
     for _, e in ipairs(EntityGetWithTag("projectile") or {}) do seen[e] = true end
@@ -227,7 +247,12 @@ cmds.wand_eval = function(a)
       for _, t in ipairs(targets) do
         if not t.dead_frame then
           local h = EntityGetIsAlive(t.id) and hp_of(t.id) or nil
-          if h and h > 0 then t.hp = h else t.hp, t.dead_frame = 0, i end
+          if h and h > 0 then
+            t.hp = h
+            t.x, t.y = EntityGetTransform(t.id)
+          else
+            t.hp, t.dead_frame = 0, i
+          end
         end
       end
     end
@@ -235,14 +260,20 @@ cmds.wand_eval = function(a)
     for i, t in ipairs(targets) do
       dealt = dealt + math.max(0, t.hp0 - t.hp)
       if t.dead_frame then kills = kills + 1 end
-      per[i] = { file = t.file, hp0 = t.hp0, hp = t.hp, dead_frame = t.dead_frame }
+      per[i] = { file = t.file, hp0 = t.hp0, hp = t.hp, dead_frame = t.dead_frame,
+                 x = t.x and t.x - A.x, y = t.y and t.y - A.y }
     end
     local php = hp_of(p) or 0
+    local by_type = {}
+    for msg, d in string.gmatch(GlobalsGetValue("rlb_dmg_log", ""), "([^=;]*)=([^;]+);") do
+      by_type[msg] = (by_type[msg] or 0) + tonumber(d)
+    end
     rlb_input.set({})
     rlb_bench.send({
       t = "event", what = "wand_eval_done", ok = true,
       frames_run = GameGetFrameNum() - f0, clear_frame = clear_frame, kills = kills, targets = #targets,
-      damage_dealt = dealt, self_damage = math.max(0, php0 - php), mana_used = mana_used, shots = shots, projectiles = kinds,
+      damage_dealt = dealt, self_damage = php0 - php, self_damage_by_type = by_type,
+      player_multipliers = player_mult, mana_used = mana_used, shots = shots, projectiles = kinds,
       per_target = per, cleared_entities = cleared,
       aim_error_px = aim_n > 0 and aim_err / aim_n or nil, calibration = cal, setup_frames = f0 - f_start, frame = GameGetFrameNum(),
     })
