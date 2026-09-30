@@ -130,6 +130,10 @@ run manager      run dir: config, git sha, seeds, logs, metrics, checkpoints
   10 %; `--replay-ratio` sets gradient steps per env step (default 0.25). Each run's
   `config.json` holds task and algorithm; eval and `--resume` read it (a resumed DQN starts
   with an empty replay buffer).
+- JAX-only methods (official DreamerV3) need CUDA, which JAX does not ship for native Windows.
+  Fallback if a PyTorch port falls short: trainer in WSL2 (JAX CUDA works there;
+  `networkingMode=mirrored` in `.wslconfig` shares localhost), games and a small env server on
+  Windows (launch, pinning and windows stay Windows-side; the link is already TCP).
 - Parked: skipping rendering in the game (the NVIDIA driver thread is one of the busy threads per
   instance; minimized is already ~10 % faster). Not tested whether it can be patched out.
 - Gymnasium `VectorEnv` with auto-reset over the pool, lockstep K=4. Observation: grid, player
