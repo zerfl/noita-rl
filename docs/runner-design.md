@@ -129,7 +129,43 @@ run manager      run dir: config, git sha, seeds, logs, metrics, checkpoints
   buffer 200k, 5k random steps, target update every 2k steps, epsilon 1 -> 0.05 over the first
   10 %; `--replay-ratio` sets gradient steps per env step (default 0.25). Each run's
   `config.json` holds task and algorithm; eval and `--resume` read it (a resumed DQN starts
-  with an empty replay buffer).
+  with an empty replay buffer). Flat DQN did not learn the live task (knowledge.md).
+- `--algo bdq` (`driver/rl_bdq.py`): branching dueling Q-network, the off-policy candidate that
+  replaces flat DQN. Shared torso, state value, one advantage block per action dimension (79
+  outputs), double-DQN target averaged over the heads, epsilon per dimension (1 -> 0.05 over
+  25k steps), 5k random steps, target sync every 2k steps, replay (200k) on the GPU. No resume.
+- `--algo dreamer` is built (`driver/rl_dreamer.py`): DreamerV3 from NM512's r2dreamer (MIT),
+  cloned to `third_party/r2dreamer` (gitignored) at commit
+  `546e4fab8146ea4b14e1d7726bbc1a8a1d50322f`, unpatched:
+  `git clone https://github.com/NM512/r2dreamer third_party/r2dreamer && git -C third_party/r2dreamer checkout 546e4fa`.
+  Extra packages (added to pyproject): tensordict, torchrl, tensorboard (imported by its `tools.py`),
+  omegaconf. Hydra is not used; `_model_config` builds the config from its YAML files.
+  - Config: `rep_loss=dreamer` (decoder, not R2-Dreamer's Barlow loss), size12M (10.2M parameters),
+    batch 16 x 64, the observation as the MLP key `state`. The action is r2dreamer's multi-one-hot
+    over the MultiDiscrete dims (3 + 2 + 2 + 72 = 79 outputs), factored like PPO's and BDQ's: flat
+    DQN over the 864 joint actions did not learn the live task.
+    `--train-ratio` (replayed steps per env step, default 512, the DreamerV3/r2dreamer value for
+    proprio DMC at 500k steps) gives one 16x64 update per 2 env steps.
+  - Our loop replaces r2dreamer's OnlineTrainer: `ParallelEnv` with one worker process per game
+    (spawn), no eval envs, episode info carried as `log_*` observation keys. An env that ended
+    spends the next call on its reset (no env step counted). `episodes.jsonl`, `timing.jsonl`
+    and progress lines match rl_train, so `curve`, `compare` and `eval` work unchanged.
+  - Replay holds the whole run in CPU RAM (1.25 x steps; ~5 KB per env step, ~3.3 GB for 500k):
+    action stored as one index per dim, replay latents in fp16. r2dreamer's `Buffer.sample` is replaced in
+    a subclass: its in-place one-step action shift between overlapping views mispairs ~0.8 % of
+    sampled steps on CUDA (17 % on CPU).
+  - `_cal_grad` is compiled with `torch.compile(backend="cudagraphs")` (~2 min at start). Inductor
+    (r2dreamer's `reduce-overhead`) needs Triton; with triton-windows it did not finish compiling
+    in 25 min. It is used automatically if `triton` imports.
+  - Checkpoints (`checkpoints/dreamer_<steps>_steps.pt` every 10k env steps, `final.pt`): model,
+    optimizer, grad scaler, LR schedule, step and update counts. `--resume <.pt>` continues the run
+    dir; the replay buffer starts empty and updates wait for 65 steps per env. Eval takes mode
+    actions, or samples the actor with `rl eval --stochastic` (PPO/DQN: non-deterministic predict;
+    BDQ: epsilon 0.05), and carries the latent through the episode (`Policy.reset` per episode).
+  - Cost (fake env, N=4, GPU shared with a running DQN run): an update takes ~0.22 s (eager 1.3 s,
+    launch-bound at ~22k kernels). At train ratio 512 that is ~115 s per 1000 env steps, 97 % of
+    it updates; with the games' ~10 s per 1000 steps a 500k run is ~17 h (250k: ~9 h). Ratio 128
+    is ~4x fewer updates (500k: ~5 h). Peak GPU memory 1.5 GB allocated (1.8 GB reserved).
 - JAX-only methods (official DreamerV3, BBF) need CUDA, which JAX ships for Linux only; no
   maintained native Windows CUDA build exists (cloudhan/jax-windows-builder, CUDA 11.1, archived
   2025-01). Set up: trainer in WSL2, games on Windows.

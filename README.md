@@ -39,10 +39,14 @@ uv run python -m driver pool --n 4         # evaluation pool: 40 jobs, one game 
 uv run python -m driver rl baselines       # arena combat: random and scripted policies, 20 episodes each
 uv run python -m driver rl train --n 4 --steps 500000   # PPO; run dir in runs/
 uv run python -m driver rl train --task live --algo dqn --replay-ratio 0.25   # AI-on targets, DQN
+uv run python -m driver rl train --task live --algo bdq --n 4 --steps 250000   # branching Q-network
+uv run python -m driver rl train --task live --algo dreamer --n 4 --steps 250000   # DreamerV3 (third_party/r2dreamer)
 uv run python -m driver rl train --n 4 --steps 500000 --resume runs/<run>/checkpoints/<ckpt>.zip
-uv run python -m driver rl eval --model runs/<run>/final.zip
+uv run python -m driver rl eval --model runs/<run>/final.zip   # dreamer, bdq: .pt; --stochastic samples actions
 uv run python -m driver rl curve --run runs/<run>   # return, kills, clear rate per 50k steps
-uv run python -m driver rl compare --runs runs/<a> runs/<b> --target 6.3   # env steps to a return
+uv run python -m driver rl compare --runs runs/<a> runs/<b> --target 8.0   # env steps to a return
+uv run python -m driver.env_server --task live --n 4   # games for a trainer outside the driver (tools/wsl/arena_client.py)
+wsl -d Ubuntu-20.04 -- bash tools/wsl/setup_jax.sh   # JAX + CUDA venv in WSL2
 uv run python -m driver ceiling hold --n 4 --etl .rl_bench_state/traces/n4.etl   # then record, elevated:
 #   wpr -start CPU -filemode; Start-Sleep 10; wpr -stop <repo>\.rl_bench_state\traces\n4.etl
 uv run python -m driver ceiling trace --hold results/ceiling_hold_n4_X.json   # CPU Usage (Precise) summary

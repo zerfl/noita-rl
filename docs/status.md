@@ -109,9 +109,13 @@ The benchmark is complete (`FINDINGS.md`). Phase 8 builds the runner; plan and b
    a. Harder arena: live task built (AI on). PPO 250k (`runs/ppo_live_20260930-212614`):
       stochastic policy clears 19/20 in 73 steps vs scripted 13/20 in 127; passed the scripted
       level (8.0) at 99k steps. Then terrain, projectiles in the observation, grid.
-   b. On it, PPO vs DQN vs DreamerV3 in env steps to the scripted level (250k budget each; two
-      runs each later). DQN 250k running; DreamerV3 (PyTorch, r2dreamer) being integrated. JAX in
-      WSL2 prepared (`tools/wsl/`), trainer not built. `rl eval` needs a stochastic option.
+   b. On it, PPO vs off-policy vs DreamerV3 in env steps to the scripted level (250k budget
+      each; two runs each later). Flat DQN did not learn (stopped at 154k). BDQ 250k running
+      (`runs/bdq_live_*`). DreamerV3 (PyTorch, r2dreamer, `--algo dreamer`) built, tested on a
+      fake env only; ~115 s per 1000 env steps at train ratio 512, so ~9 h for 250k: runs
+      overnight when the user leaves the PC (`uv run --no-sync python -m driver rl train --task
+      live --algo dreamer --n 4 --steps 250000`). JAX in WSL2 prepared (`tools/wsl/`), trainer
+      not built. Evaluate with `rl eval --stochastic`.
    c. Deferred: async collection (update is 6 % of wall time). Parked: render skip.
    Wand search parked.
 3. Tighten the liquid probe (more repetitions) to decide whether 4x can be promoted.

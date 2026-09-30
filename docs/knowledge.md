@@ -340,11 +340,36 @@ and a live counter cross-check on this 6-core / 12-thread machine.
 - The observation has no enemy projectiles; dodging can only be learned from enemy positions.
   Dead targets keep their last position (the frame hook stops updating them) with hp 0, so the
   observation roughly locates corpses; later knockback is not seen.
+- DreamerV3 (r2dreamer `546e4fa`, size12M, batch 16x64) on this machine, measured with the GPU
+  shared by a running PPO run: one update takes 1.26 s eager (fp16 autocast; 0.74 s in fp32), CPU
+  launch-bound at ~22k kernels per update, against ~0.18 s of GPU time. `torch.compile` with the
+  `cudagraphs` backend: 0.22-0.24 s in fp16 or fp32, first compile ~2 min. Inductor with
+  triton-windows 3.7.1 (torch 2.11): compile not finished after 25 min. Peak GPU memory 1.5 GB
+  (multi-one-hot actions; 1.9 GB with the flat 864-way one-hot).
+- r2dreamer's `Buffer.sample` shifts the action one step back with `set_` between overlapping
+  views of one tensor; ~0.8 % of sampled steps on CUDA and 17 % on CPU get the action from two
+  steps back. `driver/rl_dreamer.py` samples without the in-place copy
+  (`tests/test_rl_dreamer.py`).
+- Fake arena env (reward 0.5 for fire, 1 for one aim bin, 50 steps; random ~12.7, best 74.5),
+  Dreamer N=4 at train ratio 512, one seed each. Multi-one-hot actions: mean return per 1k env
+  steps 13.2, 13.4, 20.3, 37.5, 69.3, then a transient drop (to ~13 at 5.6k) and back to ~72 at
+  6k; final model 74.5 with mode actions, 71.6 sampling. Flat 864-way one-hot: 12.7 through 3k,
+  50.9 at 4-6k. Injected crashes (5 per 6k steps) did not stop training. ~115 s per 1000 env
+  steps, 97 % in updates.
 - PPO on the live task (250k steps, `rl_behaviour_live_20260930.json`): stochastic policy clears
   19/20 in 73 steps with 0.23 self-damage, levitating 43 % of steps; deterministic (argmax per
   action dimension) only 12/20, no better than the scripted aimer (13/20, 127 steps). Evaluate
   live-task policies stochastically.
 - Live-task scripted level: return 8.0 (30 episodes: 6.3 over 10, 8.9 over 20); the spread
   between samples of 10-20 episodes is large, so baselines need 30+ episodes.
+- Flat DQN (SB3, 864 joint actions, `runs/dqn_live_20260930-222021`, `rl_curve_20260930-224934.json`)
+  did not learn the live task: return 0.5-1.4 per 50k steps up to 154k (random 1.0), where it was
+  stopped; PPO passed 8.0 at 99k. Its greedy action jumps between aim bins each step. Update
+  share 15 % at replay ratio 0.25; about 108 steps/s early on (measured while the Dreamer
+  integration trained on a fake env).
+- Branching dueling Q-network (`driver/rl_bdq.py`): one advantage head per action dimension
+  (79 outputs) instead of 864 joint actions. With the CPU saturated (4 games plus two trainers),
+  a gradient step took 19 ms on GPU and 20 ms on CPU; replay buffer on the GPU and one fused
+  advantage layer cut it to 10 ms. Kernel launches, not FLOPs, set the cost at this size.
 - Live-task timing (PPO, N=4): 11.1 s per 1,024-step rollout, update 5 %, reset 0.088 s with the
   2-frame settle; about 82 steps/s.

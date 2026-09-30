@@ -4,6 +4,21 @@ Newest first. Each entry: what, why, and what would change it.
 
 ## 2026-09-30
 
+- **DreamerV3 runs at the published train ratio (512), overnight.** ~9 h for 250k steps with the
+  GPU busy throughout; the user chose that over a reduced ratio now, so the comparison is to
+  DreamerV3 as published.
+
+- **DreamerV3 comes from r2dreamer (`rep_loss=dreamer`), unpatched, with our own training
+  loop.** Its loop has no hook for per-episode info and no checkpoints. Train ratio defaults to
+  512 (the paper/r2dreamer proprio setting) so the comparison uses DreamerV3 as published; that
+  costs ~115 s per 1000 env steps here (~9 h for 250k). If that is too long, lower
+  `--train-ratio` and report it with the result. Replay is kept on the CPU (whole run, compact)
+  since the GPU is shared. Actions are multi-one-hot over the MultiDiscrete dims, so every method
+  in the comparison acts factored (flat DQN over 864 joint actions did not learn).
+- **`torch.compile` uses the `cudagraphs` backend, not inductor.** Inductor needs Triton; with
+  triton-windows the compile had not finished after 25 min. CUDA graphs alone make an update
+  5x faster.
+
 - **Method comparison on the live task uses a 250k-step budget**, 4 games, and the scripted level
   (return 8.0 over 30 episodes) as the target for `rl compare`. PPO passed it at 99k and was
   still improving slowly at 250k; 500k would double the cost of each comparison run.
