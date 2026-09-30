@@ -81,13 +81,14 @@ def td_loss(online: BranchingQ, target: BranchingQ, batch, gamma: float) -> torc
 
 def train(env, run: Path, steps: int, replay_ratio: float = 0.25, lr: float = 1e-4, gamma: float = 0.99,
           buffer: int = 200_000, learning_starts: int = 5_000, batch: int = 256, target_every: int = 2_000,
-          explore_steps: int = 25_000, eps_final: float = 0.05, device: str = "cuda", log=print) -> dict:
+          explore_steps: int = 25_000, eps_final: float = 0.05, device: str = "cuda", seed: int = 0,
+          log=print) -> dict:
     """`env`: an SB3 VecEnv (VecMonitor-wrapped, MultiDiscrete actions). Writes episodes.jsonl,
     timing.jsonl and checkpoints/*.pt into `run`; returns the final checkpoint path."""
     n = env.num_envs
     obs_dim = env.observation_space.shape[0]
-    rng = np.random.default_rng(0)
-    torch.manual_seed(0)
+    rng = np.random.default_rng(seed)
+    torch.manual_seed(seed)
     online = BranchingQ(obs_dim).to(device)
     target = BranchingQ(obs_dim).to(device)
     target.load_state_dict(online.state_dict())
@@ -180,7 +181,8 @@ class Policy:
         return self.net.act(obs[None], self.eps, rng, "cpu")[0]
 
 
-def run(n: int = 4, steps: int = 250_000, task: str = "live", replay_ratio: float = 0.25, log=print) -> dict:
+def run(n: int = 4, steps: int = 250_000, task: str = "live", replay_ratio: float = 0.25, seed: int = 0,
+        log=print) -> dict:
     """Train on n pinned games; run dir runs/bdq_<task>_<ts>/ like rl_train.train."""
     from stable_baselines3.common.vec_env import SubprocVecEnv, VecMonitor
 
@@ -191,12 +193,12 @@ def run(n: int = 4, steps: int = 250_000, task: str = "live", replay_ratio: floa
     run_dir = RUNS_DIR / time.strftime(f"bdq_{task}_%Y%m%d-%H%M%S")
     run_dir.mkdir(parents=True)
     (run_dir / "config.json").write_text(json.dumps({"task": task, "algo": "bdq", "n": n, "steps": steps,
-                                                      "replay_ratio": replay_ratio}))
+                                                      "replay_ratio": replay_ratio, "seed": seed}))
     cpus = winutil.pin_order(winutil.physical_cores(), n)
     fns = [lambda i=i: ArenaEnv(cpu=cpus[i], instance=i, task=task) for i in range(n)]
     env = VecMonitor(SubprocVecEnv(fns, start_method="spawn"), info_keywords=("kills", "self_damage", "died"))
     try:
-        out = train(env, run_dir, steps, replay_ratio=replay_ratio, log=log)
+        out = train(env, run_dir, steps, replay_ratio=replay_ratio, seed=seed, log=log)
     finally:
         env.close()
     log(f"bdq done: {out}")

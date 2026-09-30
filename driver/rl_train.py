@@ -41,15 +41,15 @@ def _algo_class(algo: str):
     return {"ppo": PPO, "dqn": DQN}[algo]
 
 
-def _new_model(algo: str, env, replay_ratio: float, n: int):
+def _new_model(algo: str, env, replay_ratio: float, n: int, seed: int = 0):
     if algo == "ppo":
         return _algo_class(algo)("MlpPolicy", env, n_steps=256, batch_size=256, n_epochs=10, gamma=0.99,
-                                 learning_rate=3e-4, ent_coef=0.01, device="cuda", seed=0, verbose=0)
+                                 learning_rate=3e-4, ent_coef=0.01, device="cuda", seed=seed, verbose=0)
     # One vec-env call collects n transitions; replay_ratio = gradient steps per transition.
     return _algo_class(algo)("MlpPolicy", env, learning_rate=1e-4, buffer_size=200_000, learning_starts=5_000,
                              batch_size=256, gamma=0.99, train_freq=1, gradient_steps=max(1, round(replay_ratio * n)),
                              target_update_interval=2_000, exploration_fraction=0.1, exploration_final_eps=0.05,
-                             policy_kwargs={"net_arch": [256, 256]}, device="cuda", seed=0, verbose=0)
+                             policy_kwargs={"net_arch": [256, 256]}, device="cuda", seed=seed, verbose=0)
 
 
 def run_episodes(policy, episodes: int, cpu: int | None = None, task: str = "frozen", log=print) -> list[dict]:
@@ -88,7 +88,7 @@ def run_baselines(episodes: int = 20, task: str = "frozen", log=print) -> dict:
 
 
 def train(n: int = 4, steps: int = 50_000, resume: Path | None = None, task: str = "frozen", algo: str = "ppo",
-          replay_ratio: float = 0.25, train_ratio: float | None = None, log=print) -> dict:
+          replay_ratio: float = 0.25, train_ratio: float | None = None, seed: int = 0, log=print) -> dict:
     """Train until `steps` total env steps. With `resume` (runs/<run>/checkpoints/*.zip), continue that
     run: same run dir, task and algorithm, episodes.jsonl appended, timesteps counted from the
     checkpoint. `replay_ratio` (DQN, BDQ): gradient steps per env step. Dreamer runs in
@@ -97,10 +97,10 @@ def train(n: int = 4, steps: int = 50_000, resume: Path | None = None, task: str
         if resume:
             raise ValueError("bdq has no resume")
         from . import rl_bdq
-        return rl_bdq.run(n, steps, task, replay_ratio, log)
+        return rl_bdq.run(n, steps, task, replay_ratio, seed=seed, log=log)
     if algo == "dreamer" or (resume and _config(_run_dir(resume))["algo"] == "dreamer"):
         from . import rl_dreamer
-        return rl_dreamer.train(n, steps, task, train_ratio or rl_dreamer.TRAIN_RATIO, resume, log)
+        return rl_dreamer.train(n, steps, task, train_ratio or rl_dreamer.TRAIN_RATIO, resume, log, seed=seed)
     from stable_baselines3.common.callbacks import BaseCallback, CheckpointCallback
     from stable_baselines3.common.vec_env import SubprocVecEnv, VecMonitor
 
@@ -111,7 +111,7 @@ def train(n: int = 4, steps: int = 50_000, resume: Path | None = None, task: str
     else:
         run = RUNS_DIR / time.strftime(f"{algo}_{task}_%Y%m%d-%H%M%S")
         run.mkdir(parents=True)
-        cfg = {"task": task, "algo": algo, "n": n, "steps": steps} | ({"replay_ratio": replay_ratio} if algo == "dqn" else {})
+        cfg = {"task": task, "algo": algo, "n": n, "steps": steps, "seed": seed} | ({"replay_ratio": replay_ratio} if algo == "dqn" else {})
         (run / "config.json").write_text(json.dumps(cfg))
     cpus = winutil.pin_order(winutil.physical_cores(), n)
     wrap = FlatActions if algo == "dqn" else (lambda e: e)
@@ -173,7 +173,7 @@ def train(n: int = 4, steps: int = 50_000, resume: Path | None = None, task: str
         model = _algo_class(algo).load(resume, env=env, device="cuda")
         log(f"resuming {run.name} at {model.num_timesteps} steps (replay buffer starts empty)")
     else:
-        model = _new_model(algo, env, replay_ratio, n)
+        model = _new_model(algo, env, replay_ratio, n, seed)
     start = model.num_timesteps
     t0 = time.perf_counter()
     try:

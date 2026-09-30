@@ -162,7 +162,7 @@ def _load(agent, path: Path) -> dict:
 
 
 def train(n: int = 4, steps: int = 500_000, task: str = "frozen", train_ratio: float = TRAIN_RATIO,
-          resume: Path | None = None, log=print) -> dict:
+          resume: Path | None = None, log=print, seed: int = 0) -> dict:
     """Train until `steps` total env steps. With `resume` (runs/<run>/checkpoints/*.pt or final.pt),
     continue that run: same run dir and settings, episodes.jsonl appended, timesteps counted from
     the checkpoint; the replay buffer starts empty. `train_ratio`: replayed steps per env step."""
@@ -182,10 +182,10 @@ def train(n: int = 4, steps: int = 500_000, task: str = "frozen", train_ratio: f
         run = RUNS_DIR / time.strftime(f"dreamer_{task}_%Y%m%d-%H%M%S")
         run.mkdir(parents=True)
         (run / "config.json").write_text(json.dumps({"task": task, "algo": "dreamer", "n": n, "steps": steps,
-                                                     "train_ratio": train_ratio}))
+                                                     "train_ratio": train_ratio, "seed": seed}))
     (run / "checkpoints").mkdir(exist_ok=True)
     device = "cuda"
-    tools.set_seed_everywhere(0)
+    tools.set_seed_everywhere(seed)
     agent = _new_agent(task, device, compile=True)
     step = updates = 0
     if resume:

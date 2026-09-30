@@ -139,7 +139,7 @@ def cmd_rl(a):
     elif a.mode == "train":
         save_result("rl_train", rl_train.train(n=a.n, steps=a.steps, resume=a.resume and Path(a.resume),
                                                     task=a.task, algo=a.algo, replay_ratio=a.replay_ratio,
-                                                    train_ratio=a.train_ratio, log=_log))
+                                                    train_ratio=a.train_ratio, seed=a.rl_seed, log=_log))
     elif a.mode == "compare":
         rows = rl_train.compare([Path(r) for r in a.runs], a.target, a.window)
         for r in rows:
@@ -291,6 +291,8 @@ def main(argv=None):
     p.add_argument("--train-ratio", type=float, default=512,
                    help="train, dreamer: replayed steps per env step (512: one update of 16x64 per 2 env steps)")
     p.add_argument("--n", type=int, default=4, help="train: parallel games")
+    p.add_argument("--seed", dest="rl_seed", type=int, default=0,
+                   help="train: learner seed (the game seed stays fixed; runs differ anyway)")
     p.add_argument("--steps", type=int, default=50_000, help="train: total env steps (4 frames each)")
     p.add_argument("--resume", help="train: continue from runs/<run>/checkpoints/<ckpt>.zip (dreamer: .pt)")
     p.add_argument("--run", help="curve: runs/<run>")
