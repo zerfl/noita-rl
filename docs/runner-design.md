@@ -130,10 +130,18 @@ run manager      run dir: config, git sha, seeds, logs, metrics, checkpoints
   10 %; `--replay-ratio` sets gradient steps per env step (default 0.25). Each run's
   `config.json` holds task and algorithm; eval and `--resume` read it (a resumed DQN starts
   with an empty replay buffer).
-- JAX-only methods (official DreamerV3) need CUDA, which JAX does not ship for native Windows.
-  Fallback if a PyTorch port falls short: trainer in WSL2 (JAX CUDA works there;
-  `networkingMode=mirrored` in `.wslconfig` shares localhost), games and a small env server on
-  Windows (launch, pinning and windows stay Windows-side; the link is already TCP).
+- JAX-only methods (official DreamerV3, BBF) need CUDA, which JAX ships for Linux only; no
+  maintained native Windows CUDA build exists (cloudhan/jax-windows-builder, CUDA 11.1, archived
+  2025-01). Set up: trainer in WSL2, games on Windows.
+  - `tools/wsl/setup_jax.sh` (run with `wsl -d Ubuntu-20.04 -- bash tools/wsl/setup_jax.sh`)
+    creates `~/noita-rl-jax/.venv` with `jax[cuda12]`; verified: jax 0.11.2 sees the RTX 3070 Ti.
+    Set `XLA_PYTHON_CLIENT_PREALLOCATE=false` so JAX does not take 75 % of GPU memory.
+  - `driver/env_server.py` runs the N arena envs on Windows (pinning, launch, crash recovery,
+    `episodes.jsonl` in rl_train's format, so `rl curve`/`rl compare` work) and connects to the
+    trainer; `tools/wsl/arena_client.py` (numpy only) is the trainer side and listens on
+    127.0.0.1:47800. Direction matters: Windows Firewall blocks inbound from the WSL adapter,
+    while WSL2 forwards Windows localhost to WSL listeners. Round trip 2.5 ms per vector step.
+  - Not built yet: a JAX trainer on top of the client.
 - Parked: skipping rendering in the game (the NVIDIA driver thread is one of the busy threads per
   instance; minimized is already ~10 % faster). Not tested whether it can be patched out.
 - Gymnasium `VectorEnv` with auto-reset over the pool, lockstep K=4. Observation: grid, player
