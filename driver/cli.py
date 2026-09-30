@@ -135,9 +135,10 @@ def cmd_pool(a):
 def cmd_rl(a):
     from . import rl_train
     if a.mode == "baselines":
-        save_result("rl_baselines", rl_train.run_baselines(episodes=a.episodes, log=_log))
+        save_result("rl_baselines", rl_train.run_baselines(episodes=a.episodes, task=a.task, log=_log))
     elif a.mode == "train":
-        save_result("rl_train", rl_train.train(n=a.n, steps=a.steps, resume=a.resume and Path(a.resume), log=_log))
+        save_result("rl_train", rl_train.train(n=a.n, steps=a.steps, resume=a.resume and Path(a.resume),
+                                                    task=a.task, algo=a.algo, replay_ratio=a.replay_ratio, log=_log))
     elif a.mode == "curve":
         rows = rl_train.curve(Path(a.run), a.bin)
         for r in rows:
@@ -274,6 +275,10 @@ def main(argv=None):
 
     p = sub.add_parser("rl", help="arena combat RL: baselines, PPO training, evaluation; writes results/rl_*.json")
     p.add_argument("mode", choices=["baselines", "train", "eval", "curve"])
+    p.add_argument("--task", choices=["frozen", "live"], default="frozen",
+                   help="baselines/train: targets hover with AI off, or live (AI on, they attack)")
+    p.add_argument("--algo", choices=["ppo", "dqn"], default="ppo", help="train: algorithm")
+    p.add_argument("--replay-ratio", type=float, default=0.25, help="train, dqn: gradient steps per env step")
     p.add_argument("--n", type=int, default=4, help="train: parallel games")
     p.add_argument("--steps", type=int, default=50_000, help="train: total env steps (4 frames each)")
     p.add_argument("--resume", help="train: continue from runs/<run>/checkpoints/<ckpt>.zip")

@@ -118,11 +118,11 @@ local function freeze(e)
   end
 end
 
-local function spawn_targets(list)
+local function spawn_targets(list, ai)
   local out = {}
   for i, t in ipairs(list) do
     local e = EntityLoad(t.file, A.x + t.dx, A.floor_y - (t.dy or 0) - 12)
-    freeze(e)
+    if not ai then freeze(e) end
     out[i] = { id = e, file = t.file, hp0 = hp_of(e), hp = hp_of(e), dead_frame = nil }
   end
   return out
@@ -199,7 +199,7 @@ local function prepare(p, wand, a)
     np.SetActiveHeldEntity(p, wand, false, false)
     wait(2)
     rlb_np.fire_rng = nil   -- natural spread
-    local targets = spawn_targets(a.targets or DEFAULT_TARGETS)
+    local targets = spawn_targets(a.targets or DEFAULT_TARGETS, a.ai)
     if not cal then calibrate(p) end
     wait(a.settle or 20)
     return targets, cleared

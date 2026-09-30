@@ -1,7 +1,8 @@
 """Gymnasium env: the wand arena as a combat task (rl_bench/files/scenario.lua, arena_reset).
 
-One game per env, lockstep K=4. Kill the three frozen targets with a fixed wand, fast, without
-hurting yourself. Actions go through the same injected keys and mouse a player uses.
+One game per env, lockstep K=4. Kill the three targets with a fixed wand, fast, without getting
+hurt. Actions go through the same injected keys and mouse a player uses. Tasks: "frozen" (targets
+hover, AI off) and "live" (AI on: they walk, fall and attack; the episode ends if the player dies).
 """
 
 import math
@@ -18,7 +19,8 @@ K = 4
 MAX_STEPS = 150          # 600 frames, the wand_eval window
 AIM_BINS = 72           # 5 degrees: within ~8 px at the farthest target
 N_TARGETS = 3
-OBS_DIM = 6 + 3 * N_TARGETS
+TASKS = ("frozen", "live")
+ACTION_NVEC = (3, 2, 2, AIM_BINS)
 
 # Reward: damage dealt (target hp units; all three hold 1.0) x10, +1 per kill, self-damage (player
 # max hp is 4.0) x2.5, -0.01 per step.
@@ -28,17 +30,21 @@ W_DEALT, W_KILL, W_SELF, W_STEP = 10.0, 1.0, 2.5, 0.01
 class ArenaEnv(gym.Env):
     metadata = {"render_modes": []}
 
-    def __init__(self, cpu: int | None = None, instance: int = 0, wand: dict | None = None, settle: int = 2):
-        self.cpu, self.instance, self.settle = cpu, instance, settle
+    def __init__(self, cpu: int | None = None, instance: int = 0, wand: dict | None = None, settle: int = 2,
+                 task: str = "frozen"):
+        if task not in TASKS:
+            raise ValueError(f"task {task!r} not in {TASKS}")
+        self.cpu, self.instance, self.settle, self.task = cpu, instance, settle, task
         self.wand = wand or scenario.REFERENCE_WANDS["spark_bolt"]
-        self.observation_space = gym.spaces.Box(-5.0, 5.0, (OBS_DIM,), np.float32)
-        self.action_space = gym.spaces.MultiDiscrete([3, 2, 2, AIM_BINS])   # move, levitate, fire, aim
+        self.observation_space = gym.spaces.Box(-5.0, 5.0, (obs_dim(task),), np.float32)
+        self.action_space = gym.spaces.MultiDiscrete(ACTION_NVEC)   # move, levitate, fire, aim
         self.inst = None
         self.state = None
         self.prev = None
         self.steps = 0
         self.crashes = 0
         self.reset_s = 0.0
+        self.prev_targets = None
 
     # -------------------------------------------------------------- game link
 
@@ -56,7 +62,7 @@ class ArenaEnv(gym.Env):
     def _start_episode(self) -> dict:
         c = self.inst.conn
         c.cmd("config", k=K, grid=False, mode="free", timeout=30)
-        res = c.cmd("arena_reset", wand=self.wand, settle=self.settle, timeout=30)
+        res = c.cmd("arena_reset", wand=self.wand, settle=self.settle, ai=self.task == "live", timeout=30)
         if not res.get("ok"):
             raise RuntimeError(f"arena_reset: {res}")
         while True:
@@ -76,6 +82,11 @@ class ArenaEnv(gym.Env):
              (s["hp"] or 0) / (s["max_hp"] or 1), self.steps / MAX_STEPS]
         for x, y, hp, hp0 in a["targets"]:
             o += [(x - px) / 200, (y - py) / 200, hp / hp0 if hp0 else 0.0]
+        if self.task == "live":
+            # Target velocity in px per frame, from the last step; appended so the frozen layout stays.
+            prev = self.prev_targets or a["targets"]
+            for (x, y, *_), (x1, y1, *_) in zip(a["targets"], prev):
+                o += [(x - x1) / K, (y - y1) / K]
         return np.clip(np.asarray(o, np.float32), -5, 5)
 
     def _info(self) -> dict:
@@ -99,6 +110,7 @@ class ArenaEnv(gym.Env):
                     raise
         self.reset_s = round(time.perf_counter() - t0, 3)
         self.prev = dict(self.state["arena"])
+        self.prev_targets = None
         self.steps = 0
         return self._obs(self.state), self._info()
 
@@ -118,13 +130,31 @@ class ArenaEnv(gym.Env):
         a, p = s["arena"], self.prev
         reward = (W_DEALT * (a["dealt"] - p["dealt"]) + W_KILL * (a["kills"] - p["kills"])
                   - W_SELF * (a["self"] - p["self"]) - W_STEP)
+        died = (s["hp"] or 0) <= 0
+        obs = self._obs(s)
+        self.prev_targets = a["targets"]
         self.state, self.prev = s, dict(a)
-        terminated = a["kills"] >= N_TARGETS
+        terminated = a["kills"] >= N_TARGETS or died
         truncated = self.steps >= MAX_STEPS
-        return self._obs(s), float(reward), terminated, truncated, self._info()
+        return obs, float(reward), terminated, truncated, self._info() | {"died": died}
 
     def close(self):
         self._drop()
+
+
+class FlatActions(gym.ActionWrapper):
+    """The MultiDiscrete action as one Discrete choice (for DQN): 3 x 2 x 2 x 72 = 864."""
+
+    def __init__(self, env):
+        super().__init__(env)
+        self.action_space = gym.spaces.Discrete(int(np.prod(ACTION_NVEC)))
+
+    def action(self, a):
+        return np.array(np.unravel_index(int(a), ACTION_NVEC))
+
+
+def obs_dim(task: str) -> int:
+    return 6 + 3 * N_TARGETS + (2 * N_TARGETS if task == "live" else 0)
 
 
 def scripted_action(obs: np.ndarray) -> np.ndarray:
