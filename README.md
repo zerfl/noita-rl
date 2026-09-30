@@ -31,6 +31,7 @@ uv run python -m driver timer        # timer resolution vs the fps ceiling, N=1 
 uv run python -m driver timer --render-share   # N=4 with all but one instance paused
 uv run python -m driver ceiling baseline   # N=1 and N=4, 3 launches x 30 s, medians (about 5 min)
 uv run python -m driver ceiling power      # also: affinity, steam, restarts (each reruns the baseline)
+uv run python -m driver ceiling scaling --ns 8 12   # unpinned vs one logical CPU per instance
 uv run python -m driver ceiling hold --n 4 --etl .rl_bench_state/traces/n4.etl   # then record, elevated:
 #   wpr -start CPU -filemode; Start-Sleep 10; wpr -stop <repo>\.rl_bench_state\traces\n4.etl
 uv run python -m driver ceiling trace --hold results/ceiling_hold_n4_X.json   # CPU Usage (Precise) summary
@@ -277,12 +278,13 @@ Phase 5 (NoitaPatcher 1.36.2, `results/np_*.json`, `results/test3_20260928-23273
   (`auto`) on builds other than the verified one.
 - **Pause:** `SetPauseState(1)` stops sim frames; a paused game runs its own loop at a fixed
   ~68 fps per instance on ~0.01 core, at N=1 and N=4 alike, and keeps answering commands.
-- **~300 fps ceiling (clock 3x, quiet Mines, K=240, no grid):** each game process uses only
-  ~0.3 of a core at baseline, at N=1 (131-151 fps) and at N=4 (83-95 fps per instance). Turning
+- **~300 fps ceiling (clock 3x, quiet Mines, K=240, no grid):** psutil reads ~0.3 of a core per
+  process at N=1 (131-151 fps) and N=4 (83-95 fps per instance); that reading is tick-sampled and
+  wrong (phase 7: ~3.5 logical CPUs per process). Turning
   off all 165 component systems (`ComponentUpdatesSetEnabled`) raised N=4 to 421 fps aggregate
   (x1.21 of the neighbouring baselines, 334 and 364) but lowered N=1 (x0.78); the N=4 baselines
   themselves drifted 334 -> 381 within one run (297 in Test 4). So entity-system work is not the
-  cap, and the processes sit mostly idle. `DEBUG_PAUSE_GRID_UPDATE` and `DEBUG_PAUSE_BOX2D` take
+  cap. `DEBUG_PAUSE_GRID_UPDATE` and `DEBUG_PAUSE_BOX2D` take
   the value (at init or at runtime) but do nothing in this build (water kept flowing), so cell and
   box2d cost could not be switched off.
 
@@ -298,6 +300,10 @@ Phase 6 (release build, `results/timer_*.json`):
   `NtSetTimerResolution(..., FALSE)` also drops SDL's request; undo by requesting 1 ms again.
 - **The ceiling is in simulated frames.** At N=4, pausing three instances (they keep looping at
   ~70 fps) lifts the fourth from ~88 to ~140 fps, its N=1 rate.
+
+Phase 7 (`results/ceiling_*.json`): the ceiling is CPU saturation. Pinning each instance to one
+logical CPU reaches 609 aggregate fps at N=12 (325 unpinned). Games launch minimized and never take
+focus. See FINDINGS "Shared ceiling".
 
 ## Known issues
 

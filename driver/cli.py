@@ -110,7 +110,8 @@ def cmd_ceiling(a):
     elif a.mode == "trace":
         save_result("ceiling_trace", ceiling.run_trace(Path(a.hold), Path(a.etl) if a.etl else None, log=_log))
     else:
-        save_result(f"ceiling_{a.mode}", ceiling.run(a.mode, runs=a.runs, window_s=a.window, log=_log))
+        kw = {"ns": tuple(a.ns)} if a.mode == "scaling" and a.ns else {}
+        save_result(f"ceiling_{a.mode}", ceiling.run(a.mode, runs=a.runs, window_s=a.window, log=_log, **kw))
 
 
 def cmd_suite(a):
@@ -200,6 +201,7 @@ def main(argv=None):
     p.add_argument("--runs", type=int, default=3)
     p.add_argument("--window", type=float, default=30.0)
     p.add_argument("--n", type=int, default=1, help="hold: instances")
+    p.add_argument("--ns", type=int, nargs="+", help="scaling: instance counts (default 4 6 8 12)")
     p.add_argument("--etl", help="hold: the ETL to wait for; trace: override the hold's ETL")
     p.add_argument("--hold", help="trace: results/ceiling_hold_*.json")
     p.set_defaults(fn=cmd_ceiling)

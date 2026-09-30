@@ -186,10 +186,10 @@ def scaling_cpus(cores: list[list[int]], n: int) -> list[int]:
     return order[:n]
 
 
-def run_scaling(runs: int, window_s: float, log) -> dict:
+def run_scaling(runs: int, window_s: float, log, ns: tuple[int, ...] = SCALING_N) -> dict:
     cores = winutil.physical_cores()
     out = {"physical_cores": cores, "conditions": {}, "table": []}
-    for n in SCALING_N:
+    for n in ns:
         cpus = scaling_cpus(cores, n)
         seen = []
         free = measure(n, runs, window_s, log)
@@ -434,13 +434,13 @@ MODES = {"baseline": run_baseline, "power": run_power, "affinity": run_affinity,
          "scaling": run_scaling}
 
 
-def run(mode: str, runs: int = 3, window_s: float = 30.0, log=_log_default) -> dict:
+def run(mode: str, runs: int = 3, window_s: float = 30.0, log=_log_default, **kw) -> dict:
     t0 = time.perf_counter()
     res = {"test": f"ceiling_{mode}", "started": time.strftime("%Y-%m-%dT%H:%M:%S"), "seed": SEED,
            "method": f"Test 4 measurement (clock {TIMESCALE}x, free-run K=4, 64x64 grid decoded, quiet Mines), "
                      f"{runs} launches x {window_s} s per condition, median aggregate fps.",
            "cpu": {"logical": psutil.cpu_count(), "physical": psutil.cpu_count(logical=False)}}
-    res.update(MODES[mode](runs, window_s, log))
+    res.update(MODES[mode](runs, window_s, log, **kw))
     res["wall_minutes"] = round((time.perf_counter() - t0) / 60, 1)
     for row in res.get("table", []):
         log(f"ceiling {mode}: {row}")

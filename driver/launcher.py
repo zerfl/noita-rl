@@ -41,6 +41,7 @@ class LaunchSpec:
     render: gameconfig.RenderOptions = field(default_factory=gameconfig.RenderOptions)
     extra_args: list[str] = field(default_factory=list)
     env: dict[str, str] = field(default_factory=dict)   # extra RL_BENCH_* variables
+    foreground: bool = False         # False: window starts minimized and never takes focus
 
 
 def _track(pid: int, add: bool):
@@ -148,6 +149,18 @@ def check_only_our_mod(wd: Path):
 
 # ---------------------------------------------------------------- launch
 
+SW_SHOWMINNOACTIVE = 7
+
+
+def _no_activate() -> subprocess.STARTUPINFO:
+    # Windows applies wShowWindow to the process's first ShowWindow call; SDL 2.0.7 has no
+    # no-activation hint of its own.
+    si = subprocess.STARTUPINFO()
+    si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+    si.wShowWindow = SW_SHOWMINNOACTIVE
+    return si
+
+
 class Instance:
     def __init__(self, spec: LaunchSpec):
         self.spec = spec
@@ -179,7 +192,8 @@ class Instance:
             env["RL_BENCH_SEED"] = str(s.seed)
         env.update(s.env)
         self.t_launch = time.perf_counter()
-        self.proc = subprocess.Popen(self.cmdline, cwd=str(cwd), env=env)
+        self.proc = subprocess.Popen(self.cmdline, cwd=str(cwd), env=env,
+                                     startupinfo=None if s.foreground else _no_activate())
         self.pids = [self.proc.pid]
         _track(self.proc.pid, True)
 
@@ -241,9 +255,11 @@ class Instance:
                 p = psutil.Process(pid)
                 if (p.name() or "").lower() in GAME_NAMES:
                     p.kill()
-                    p.wait(15)
+                    p.wait(60)
             except psutil.NoSuchProcess:
                 pass
+            except psutil.TimeoutExpired:
+                continue   # stays tracked for `cleanup`
             _track(pid, False)
 
 
