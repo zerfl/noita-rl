@@ -4,6 +4,11 @@ Newest first. Each entry: what, why, and what would change it.
 
 ## 2026-09-30
 
+- **Wand evaluations are statistical**: each candidate runs several times in the same arena and
+  seed, and search uses mean and spread. Nothing in the runner may rely on exact replay; the game
+  diverges within ~20-250 steps of identical input (gate determinism).
+- **The runner uses lockstep freely**: it costs nothing measurable at N=10/12 (gate lockstep).
+
 - **Build the runner; wand search is its first consumer**, RL combat second on the same pool
   ([runner-design.md](runner-design.md)). Wand evaluation runs inside the game at free-run speed,
   so it does not depend on lockstep throughput. A gate spike (lockstep at N=10/12, long-horizon

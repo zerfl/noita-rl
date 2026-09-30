@@ -123,6 +123,10 @@ firing, fix the spread RNG in `OnProjectileFired` (NP) and fire with `UseItem(ch
 
 - **The ~300 game fps ceiling was CPU saturation**, lifted to ~610 by pinning one logical CPU per
   instance; see "Shared ceiling". Earlier "not CPU" readings came from tick-sampled counters.
+- **Not deterministic beyond short horizons.** Same seed and actions diverge within 17-74 steps
+  (grid) and 122-242 steps (player state), pinned or not (`gate_determinism_20260930-*.json`).
+  Evaluations must be repeated and scored statistically; exact replay is not available. Lockstep
+  itself costs nothing (`gate_lockstep_20260930-*.json`).
 - **No true in-process world reset, even with NoitaPatcher.** Region cell restores work; physics
   bodies and entities must be cleared and respawned by the mod. A fresh world is a 5.3 s restart.
 - **NP `SetProjectileSpreadRNG` kills the game if called before `InstallShootProjectileFiredCallbacks`.**

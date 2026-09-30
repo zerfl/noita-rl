@@ -18,7 +18,7 @@ cost, reset path, parallel instances. No RL training yet. Deliverables: `rl_benc
 | 3 | Test 3 (reset paths) and Test 4 (parallel instances, at clock 3x) | Done (commit `e1456df`) |
 | 4 | `FINDINGS.md`, final restore check against the backup | Done |
 | 5 | NoitaPatcher integration: commands, Game Over recovery reset (Test 3d), fps-ceiling diagnosis, nsew grid reader, reproducible firing | Done (commit `55d64e6`) |
-| 8 | Runner: gate spike (lockstep throughput, determinism, soak), then build order in runner-design.md | In progress |
+| 8 | Runner: gate spike done (lockstep free, not deterministic; soak pending, run unattended), then build order in runner-design.md | In progress |
 | 7 | Shared-ceiling diagnosis (power, affinity, Steam, restarts, WPR trace, pinned scaling), no-focus launch | Done |
 | 6 | Mod-control rule (userdata mode, snapshot/restore and install checks removed), release build verified, timer-resolution test of the fps ceiling | Done |
 
@@ -102,8 +102,7 @@ byte-identical to the backup.
 The benchmark is complete (`FINDINGS.md`). Phase 8 builds the runner; plan and build order in
 [runner-design.md](runner-design.md).
 
-1. Gate spike: `driver gate lockstep | determinism | soak` (lockstep throughput at N=10/12 pinned,
-   10,000-frame determinism, multi-hour soak).
+1. Soak, unattended (it occupies the whole PC): `uv run python -m driver gate soak --hours 8`.
 2. Scenario API in the mod, then supervisor and pool, then the wand-search MVP.
 3. Tighten the liquid probe (more repetitions) to decide whether 4x can be promoted.
 

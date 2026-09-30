@@ -1,0 +1,201 @@
+{
+  "test": "gate_determinism",
+  "started": "2026-09-30T17:58:16",
+  "method": "seed 123456789, launched blocked in lockstep, set up once the player is alive (god mode, spread RNG fixed), lockstep K=4, 1000 steps of a seeded action sequence (move, levitate, aim, fire unless noted). Per step: player state and 64x64 grid. Pinned runs use the last logical CPU.",
+  "variants": {
+    "spawn_1x_nofire": {
+      "pinned": false,
+      "scene": null,
+      "timescale": 1,
+      "fire": false
+    },
+    "spawn_1x_nofire_pin1": {
+      "pinned": true,
+      "scene": null,
+      "timescale": 1,
+      "fire": false
+    },
+    "spawn_3x_fire_pin1": {
+      "pinned": true,
+      "scene": null,
+      "timescale": 3.0,
+      "fire": true
+    },
+    "busy_3x_fire_pin1": {
+      "pinned": true,
+      "scene": "busy",
+      "timescale": 3.0,
+      "fire": true
+    }
+  },
+  "comparisons": [
+    {
+      "pair": "spawn_1x_nofire_1 vs spawn_1x_nofire_2",
+      "same_start": true,
+      "steps": 1000,
+      "first_state_diff_step": 240,
+      "first_grid_diff_step": 17,
+      "state_equal_fraction": 0.974,
+      "grid_equal_fraction": 0.565,
+      "at_first_state_diff": [
+        "978|True|186.523|-65.1|-56.913|60.0|100000.0",
+        "978|True|186.523|-64.759|-56.913|60.0|100000.0"
+      ],
+      "grid_cells_differing": {
+        "max": 270,
+        "last": 0,
+        "of": 4096
+      }
+    },
+    {
+      "pair": "spawn_1x_nofire_pin1_1 vs spawn_1x_nofire_pin1_2",
+      "same_start": true,
+      "steps": 1000,
+      "first_state_diff_step": 122,
+      "first_grid_diff_step": 74,
+      "state_equal_fraction": 0.984,
+      "grid_equal_fraction": 0.473,
+      "at_first_state_diff": [
+        "506|True|185.077|-63.927|27.246|60.0|100000.0",
+        "506|True|185.077|-62.927|27.246|60.0|100000.0"
+      ],
+      "grid_cells_differing": {
+        "max": 244,
+        "last": 0,
+        "of": 4096
+      }
+    },
+    {
+      "pair": "spawn_3x_fire_pin1_1 vs spawn_3x_fire_pin1_2",
+      "same_start": true,
+      "steps": 1000,
+      "first_state_diff_step": 242,
+      "first_grid_diff_step": 23,
+      "state_equal_fraction": 0.389,
+      "grid_equal_fraction": 0.147,
+      "at_first_state_diff": [
+        "986|True|178.929|-59.662|-56.976|65.833|100000.0",
+        "986|True|178.929|-59.688|-56.976|60.0|100000.0"
+      ],
+      "grid_cells_differing": {
+        "max": 3084,
+        "last": 2368,
+        "of": 4096
+      }
+    },
+    {
+      "pair": "busy_3x_fire_pin1_1 vs busy_3x_fire_pin1_2",
+      "same_start": true,
+      "steps": 1000,
+      "first_state_diff_step": 23,
+      "first_grid_diff_step": 0,
+      "state_equal_fraction": 0.029,
+      "grid_equal_fraction": 0.0,
+      "at_first_state_diff": [
+        "110|True|113.108|311.997|-0.159|60.0|100000.0",
+        "110|True|113.109|311.9|-0.116|51.989|100000.0"
+      ],
+      "grid_cells_differing": {
+        "max": 3973,
+        "last": 1612,
+        "of": 4096
+      }
+    },
+    {
+      "pair": "spawn_3x_fire_pin1_1 vs spawn_3x_fire_pin1_in_n12",
+      "same_start": true,
+      "steps": 1000,
+      "first_state_diff_step": 123,
+      "first_grid_diff_step": 24,
+      "state_equal_fraction": 0.388,
+      "grid_equal_fraction": 0.158,
+      "at_first_state_diff": [
+        "510|True|187.534|-66.1|41.468|60.0|100000.0",
+        "510|True|187.534|-64.849|41.468|60.0|100000.0"
+      ],
+      "grid_cells_differing": {
+        "max": 3084,
+        "last": 2369,
+        "of": 4096
+      }
+    }
+  ],
+  "load_errors": [
+    "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+    "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+    "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+    "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+    "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+    "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+    "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+    "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+    "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+    "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+    "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)"
+  ],
+  "runs": [
+    {
+      "label": "spawn_1x_nofire_1",
+      "cpu": null,
+      "first_frame": 2,
+      "alive_frame": 14,
+      "seconds": 66.8
+    },
+    {
+      "label": "spawn_1x_nofire_2",
+      "cpu": null,
+      "first_frame": 2,
+      "alive_frame": 14,
+      "seconds": 66.7
+    },
+    {
+      "label": "spawn_1x_nofire_pin1_1",
+      "cpu": 10,
+      "first_frame": 2,
+      "alive_frame": 14,
+      "seconds": 66.9
+    },
+    {
+      "label": "spawn_1x_nofire_pin1_2",
+      "cpu": 10,
+      "first_frame": 2,
+      "alive_frame": 14,
+      "seconds": 67.0
+    },
+    {
+      "label": "spawn_3x_fire_pin1_1",
+      "cpu": 10,
+      "first_frame": 2,
+      "alive_frame": 14,
+      "seconds": 33.2
+    },
+    {
+      "label": "spawn_3x_fire_pin1_2",
+      "cpu": 10,
+      "first_frame": 2,
+      "alive_frame": 14,
+      "seconds": 33.1
+    },
+    {
+      "label": "busy_3x_fire_pin1_1",
+      "cpu": 10,
+      "first_frame": 2,
+      "alive_frame": 14,
+      "seconds": 60.9
+    },
+    {
+      "label": "busy_3x_fire_pin1_2",
+      "cpu": 10,
+      "first_frame": 2,
+      "alive_frame": 14,
+      "seconds": 62.8
+    },
+    {
+      "label": "spawn_3x_fire_pin1_in_n12",
+      "cpu": 10,
+      "first_frame": 2,
+      "alive_frame": 14,
+      "seconds": 64.6
+    }
+  ]
+}

@@ -1,0 +1,577 @@
+{
+  "test": "gate_lockstep",
+  "started": "2026-09-30T18:08:28",
+  "method": "pinned one logical CPU each, clock 3.0x, K=4, 64x64 grid decoded, quiet Mines, god mode; 2 launches x 30.0 s per condition, median aggregate fps. Lockstep: the driver answers every state at once (NOOP or seeded random action).",
+  "conditions": {
+    "n10": {
+      "free": {
+        "n": 10,
+        "aggregate_fps_median": 582.5,
+        "aggregate_fps_runs": [
+          582.2,
+          582.7
+        ],
+        "per_instance_fps_median": 56.5,
+        "cpu_percent_median": 83.75,
+        "failures": 0,
+        "runs": [
+          {
+            "n": 10,
+            "timescale": 3.0,
+            "grid": {
+              "size": 64,
+              "stride": 1
+            },
+            "window_s": 30.0,
+            "launch_to_all_ready_s": 20.7,
+            "launch_failures": [],
+            "crashed_during_window": [],
+            "aggregate_fps": 582.2,
+            "aggregate_realtime_multiple": 9.7,
+            "per_instance_fps": {
+              "min": 54.5,
+              "median": 56.3,
+              "max": 68.5,
+              "all": [
+                54.5,
+                56.0,
+                58.4,
+                57.8,
+                68.5,
+                64.8,
+                54.9,
+                55.4,
+                56.6,
+                55.3
+              ]
+            },
+            "working_set_mb": {
+              "per_instance_median": 662.1,
+              "max": 665.8,
+              "total": 6618.1,
+              "max_peak": 677.6
+            },
+            "system": {
+              "cpu_percent": 83.7,
+              "available_ram_mb": 14176,
+              "total_ram_mb": 32706
+            },
+            "driver_grid_decode_ms_per_packet": {
+              "n": 10,
+              "p50": 0.0276,
+              "p95": 0.0288,
+              "mean": 0.0278,
+              "min": 0.0272,
+              "max": 0.0295
+            }
+          },
+          {
+            "n": 10,
+            "timescale": 3.0,
+            "grid": {
+              "size": 64,
+              "stride": 1
+            },
+            "window_s": 30.0,
+            "launch_to_all_ready_s": 19.7,
+            "launch_failures": [],
+            "crashed_during_window": [],
+            "aggregate_fps": 582.7,
+            "aggregate_realtime_multiple": 9.71,
+            "per_instance_fps": {
+              "min": 54.8,
+              "median": 56.5,
+              "max": 68.0,
+              "all": [
+                56.7,
+                56.4,
+                57.9,
+                56.6,
+                68.0,
+                64.7,
+                55.9,
+                54.8,
+                56.2,
+                55.4
+              ]
+            },
+            "working_set_mb": {
+              "per_instance_median": 661.25,
+              "max": 667.6,
+              "total": 6626.3,
+              "max_peak": 675.3
+            },
+            "system": {
+              "cpu_percent": 83.8,
+              "available_ram_mb": 14225,
+              "total_ram_mb": 32706
+            },
+            "driver_grid_decode_ms_per_packet": {
+              "n": 10,
+              "p50": 0.0275,
+              "p95": 0.0277,
+              "mean": 0.0274,
+              "min": 0.0266,
+              "max": 0.0277
+            }
+          }
+        ]
+      },
+      "noop": [
+        {
+          "n": 10,
+          "act": "noop",
+          "aggregate_fps": 585.0,
+          "per_instance_fps": [
+            55.3,
+            56.1,
+            58.7,
+            56.9,
+            67.7,
+            63.8,
+            56.1,
+            56.4,
+            56.7,
+            57.2
+          ],
+          "step_interval_ms": {
+            "n": 4376,
+            "p50": 69.552,
+            "p95": 77.1251,
+            "mean": 68.373,
+            "min": 49.4647,
+            "max": 145.1404
+          },
+          "errors": [
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)"
+          ]
+        },
+        {
+          "n": 10,
+          "act": "noop",
+          "aggregate_fps": 591.0,
+          "per_instance_fps": [
+            56.7,
+            57.2,
+            57.2,
+            55.2,
+            69.1,
+            67.7,
+            57.8,
+            55.6,
+            57.9,
+            56.6
+          ],
+          "step_interval_ms": {
+            "n": 4423,
+            "p50": 69.105,
+            "p95": 76.8695,
+            "mean": 67.6852,
+            "min": 47.2793,
+            "max": 198.2832
+          },
+          "errors": [
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)"
+          ]
+        }
+      ],
+      "random": [
+        {
+          "n": 10,
+          "act": "random",
+          "aggregate_fps": 504.6,
+          "per_instance_fps": [
+            48.7,
+            48.6,
+            52.1,
+            48.8,
+            55.2,
+            53.5,
+            49.5,
+            48.4,
+            50.1,
+            49.6
+          ],
+          "step_interval_ms": {
+            "n": 3773,
+            "p50": 77.2382,
+            "p95": 105.6085,
+            "mean": 79.2718,
+            "min": 52.5761,
+            "max": 291.6015
+          },
+          "errors": [
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)"
+          ]
+        },
+        {
+          "n": 10,
+          "act": "random",
+          "aggregate_fps": 526.0,
+          "per_instance_fps": [
+            54.0,
+            50.4,
+            52.8,
+            49.3,
+            62.1,
+            52.3,
+            51.2,
+            50.5,
+            52.9,
+            50.5
+          ],
+          "step_interval_ms": {
+            "n": 3936,
+            "p50": 76.462,
+            "p95": 86.1815,
+            "mean": 76.0485,
+            "min": 48.9799,
+            "max": 157.487
+          },
+          "errors": [
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)"
+          ]
+        }
+      ]
+    },
+    "n12": {
+      "free": {
+        "n": 12,
+        "aggregate_fps_median": 569.8,
+        "aggregate_fps_runs": [
+          573.3,
+          566.3
+        ],
+        "per_instance_fps_median": 49.5,
+        "cpu_percent_median": 100.0,
+        "failures": 0,
+        "runs": [
+          {
+            "n": 12,
+            "timescale": 3.0,
+            "grid": {
+              "size": 64,
+              "stride": 1
+            },
+            "window_s": 30.07,
+            "launch_to_all_ready_s": 25.3,
+            "launch_failures": [],
+            "crashed_during_window": [],
+            "aggregate_fps": 573.3,
+            "aggregate_realtime_multiple": 9.56,
+            "per_instance_fps": {
+              "min": 37.5,
+              "median": 49.5,
+              "max": 53.5,
+              "all": [
+                52.3,
+                47.6,
+                53.5,
+                50.4,
+                44.0,
+                37.5,
+                50.8,
+                48.5,
+                51.5,
+                52.1,
+                43.2,
+                41.9
+              ]
+            },
+            "working_set_mb": {
+              "per_instance_median": 660.9000000000001,
+              "max": 664.5,
+              "total": 7924.5,
+              "max_peak": 672.6
+            },
+            "system": {
+              "cpu_percent": 100.0,
+              "available_ram_mb": 12961,
+              "total_ram_mb": 32706
+            },
+            "driver_grid_decode_ms_per_packet": {
+              "n": 12,
+              "p50": 0.0299,
+              "p95": 0.033,
+              "mean": 0.0303,
+              "min": 0.028,
+              "max": 0.0339
+            }
+          },
+          {
+            "n": 12,
+            "timescale": 3.0,
+            "grid": {
+              "size": 64,
+              "stride": 1
+            },
+            "window_s": 30.17,
+            "launch_to_all_ready_s": 25.3,
+            "launch_failures": [],
+            "crashed_during_window": [],
+            "aggregate_fps": 566.3,
+            "aggregate_realtime_multiple": 9.44,
+            "per_instance_fps": {
+              "min": 36.2,
+              "median": 49.5,
+              "max": 51.6,
+              "all": [
+                50.1,
+                48.4,
+                51.1,
+                50.3,
+                43.9,
+                36.2,
+                51.3,
+                48.9,
+                51.6,
+                50.9,
+                42.9,
+                40.6
+              ]
+            },
+            "working_set_mb": {
+              "per_instance_median": 660.6,
+              "max": 665.4,
+              "total": 7928.5,
+              "max_peak": 672.5
+            },
+            "system": {
+              "cpu_percent": 100.0,
+              "available_ram_mb": 12878,
+              "total_ram_mb": 32706
+            },
+            "driver_grid_decode_ms_per_packet": {
+              "n": 12,
+              "p50": 0.0295,
+              "p95": 0.0334,
+              "mean": 0.03,
+              "min": 0.0278,
+              "max": 0.0364
+            }
+          }
+        ]
+      },
+      "noop": [
+        {
+          "n": 12,
+          "act": "noop",
+          "aggregate_fps": 576.8,
+          "per_instance_fps": [
+            50.1,
+            47.6,
+            54.6,
+            51.7,
+            42.0,
+            37.1,
+            50.2,
+            50.2,
+            54.6,
+            53.8,
+            43.6,
+            41.2
+          ],
+          "step_interval_ms": {
+            "n": 4326,
+            "p50": 79.1939,
+            "p95": 110.1964,
+            "mean": 83.2125,
+            "min": 60.323,
+            "max": 177.6302
+          },
+          "errors": [
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)"
+          ]
+        },
+        {
+          "n": 12,
+          "act": "noop",
+          "aggregate_fps": 572.3,
+          "per_instance_fps": [
+            52.6,
+            48.1,
+            55.3,
+            52.7,
+            42.1,
+            35.7,
+            50.7,
+            49.1,
+            50.3,
+            51.9,
+            44.5,
+            39.3
+          ],
+          "step_interval_ms": {
+            "n": 4288,
+            "p50": 79.423,
+            "p95": 112.3215,
+            "mean": 83.8673,
+            "min": 60.9459,
+            "max": 191.4163
+          },
+          "errors": [
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)"
+          ]
+        }
+      ],
+      "random": [
+        {
+          "n": 12,
+          "act": "random",
+          "aggregate_fps": 536.4,
+          "per_instance_fps": [
+            46.3,
+            44.3,
+            50.6,
+            45.2,
+            40.7,
+            37.4,
+            47.0,
+            45.9,
+            48.0,
+            47.7,
+            43.4,
+            39.9
+          ],
+          "step_interval_ms": {
+            "n": 4022,
+            "p50": 85.6209,
+            "p95": 114.7545,
+            "mean": 89.492,
+            "min": 64.3469,
+            "max": 219.187
+          },
+          "errors": [
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)"
+          ]
+        },
+        {
+          "n": 12,
+          "act": "random",
+          "aggregate_fps": 570.6,
+          "per_instance_fps": [
+            50.2,
+            49.3,
+            50.6,
+            46.4,
+            45.4,
+            42.1,
+            49.5,
+            48.9,
+            51.5,
+            48.7,
+            46.0,
+            41.9
+          ],
+          "step_interval_ms": {
+            "n": 4276,
+            "p50": 81.612,
+            "p95": 101.756,
+            "mean": 84.1276,
+            "min": 68.7107,
+            "max": 163.9165
+          },
+          "errors": [
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)",
+            "OSError(10038, 'An operation was attempted on something that is not a socket', None, 10038, None)"
+          ]
+        }
+      ]
+    }
+  },
+  "table": [
+    {
+      "n": 10,
+      "free_fps": 582.5,
+      "lockstep_noop_fps": 588.0,
+      "lockstep_random_fps": 515.3,
+      "lockstep_random_vs_free_pct": -11.5
+    },
+    {
+      "n": 12,
+      "free_fps": 569.8,
+      "lockstep_noop_fps": 574.5,
+      "lockstep_random_fps": 553.5,
+      "lockstep_random_vs_free_pct": -2.9
+    }
+  ]
+}

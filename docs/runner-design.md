@@ -13,7 +13,7 @@ Status: proposed 2026-09-30. First consumer: **wand search** (decision in
 - Same seed + same lockstep inputs: identical state and grid at frame 122 (longer horizons: gate).
 - Games launch minimized without focus; nothing needs focus (input is injected in-process).
 
-## Gate (before the runner is built)
+## Gate
 
 `uv run python -m driver gate <mode>`, results in `results/gate_*.json`.
 
@@ -23,6 +23,26 @@ Status: proposed 2026-09-30. First consumer: **wand search** (decision in
    step by step (player state hash, grid hash) across two solo runs and one instance inside a
    pinned N=12 pool. Wand scoring and episode replay depend on it.
 3. **Soak:** N=12 pinned for hours: crashes, memory growth, fps drift.
+
+### Gate results (2026-09-30)
+
+- **Lockstep costs nothing** (`results/gate_lockstep_20260930-182023.json`, pinned, 2 x 30 s):
+  N=10 free 582 / lockstep NOOP 588 / lockstep random actions 515 fps; N=12: 570 / 575 / 554. The
+  drop with random actions is the extra game work (moving, firing), not the round trip. Step
+  interval p50 70 ms (N=10) and 86 ms (N=12) per instance, so a batched GPU policy of a few ms fits.
+- **Not deterministic** (`results/gate_determinism_20260930-180828.json`, 1000 steps): two runs
+  with the same seed and actions diverge in every variant. The 64x64 grid differs within 17-74
+  steps, the player state within 122-242 steps even at 1x without firing, and within 23 steps in
+  the busy scene. Pinning to one CPU does not help over 1000 steps (state step 122, up to 244
+  cells) against unpinned (step 240, 270 cells), and a run inside a loaded N=12 pool diverges no
+  worse than a solo repeat. Likely source: cell simulation on worker threads (seeded RNG consumed
+  in scheduling order) plus the wall-clock-budgeted liquid simulation; liquids, physics and AI
+  amplify any difference.
+- Consequences: wand scores are statistical (repeat each evaluation, report mean and spread; seed
+  and arena fixed); episode records replay only approximately; RL treats the game as stochastic,
+  which it can.
+- Soak: not run yet (it occupies the whole PC). Run unattended:
+  `uv run python -m driver gate soak --hours 8`.
 
 ## Architecture
 
@@ -74,7 +94,7 @@ run manager      run dir: config, git sha, seeds, logs, metrics, checkpoints
 |---|---|---|
 | Checkpoint | policy/optimizer, RNG states, counters, search population, normalisation stats, config | resume |
 | Archive (search) | every evaluated wand and its result, append-only SQLite | resume, surrogate data, analysis |
-| Episode record | seed, scenario id, actions, rewards per step | replay and debugging (needs gate 2) |
+| Episode record | seed, scenario id, actions, rewards per step | debugging; replay is approximate (gate 2) |
 
 - Checkpoints are written atomically every few minutes and on Ctrl+C. Resume loads the latest one,
   launches fresh games and starts new episodes; in-flight episodes are dropped and in-flight jobs
@@ -97,7 +117,7 @@ Windows only, on this machine. Games run minimized; Ctrl+C checkpoints and stops
 
 ## Build order
 
-1. Gate spike (above).
+1. Gate spike (above): done except the soak.
 2. Scenario API in the mod.
 3. Supervisor and pool.
 4. Wand-search MVP: search loop, SQLite archive, resume, `simulate_wand` pre-filter.

@@ -50,7 +50,7 @@ Verified facts only; each says how it was verified. Unverified leads go under "L
 - The world seed is fixed with a virtual magic-numbers file (`ModTextFileSetContent` +
   `ModMagicNumbersFileAdd`, `WORLD_SEED`) and read back from memory at `0x1205004` and
   `0x1207F3C`; both matched the requested seed (phase 1).
-- Same seed and identical lockstep inputs give identical player state and 64x64 grid at frame 122
+- (Short horizon only; see "Runner gate".) Same seed and identical lockstep inputs give identical player state and 64x64 grid at frame 122
   across launches (phase 1).
 - The frame limiter caps lockstep at 60 fps / K steps per second at `framerate=60`.
 - Noita-MCP's cell reader (hard-coded engine addresses) works on this build: its material table
@@ -256,3 +256,14 @@ and a live counter cross-check on this 6-core / 12-thread machine.
   foreground window never changed; injected input moved the player at frame 18 as before).
   Minimized is ~10 % faster than visible at N=8. SDL 2.0.7 has no no-activation hint.
 - Killing 12 saturated instances can take over 15 s per process.
+
+## Runner gate (2026-09-30)
+
+`driver gate lockstep | determinism | soak`; details in [runner-design.md](runner-design.md).
+
+- Lockstep K=4 with an immediate reply is as fast as free-run (N=10: 588 vs 582 fps; N=12: 575 vs
+  570). Random actions cost 3-12 % through extra game work. Step interval p50 70-86 ms.
+- **Same seed + same actions is not deterministic beyond short horizons**: grid within 17-74
+  steps, player state within 122-242 steps (1000-step runs, clock 1x or 3x, pinned or not, solo or
+  in a loaded pool), 23 steps in the busy scene. The earlier "identical at frame 122" result is a
+  short-horizon special case. Pinning does not restore determinism.
