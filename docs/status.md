@@ -1,6 +1,6 @@
 # Status
 
-Last updated: 2026-09-29.
+Last updated: 2026-09-30.
 
 ## Goal
 
@@ -18,6 +18,7 @@ cost, reset path, parallel instances. No RL training yet. Deliverables: `rl_benc
 | 3 | Test 3 (reset paths) and Test 4 (parallel instances, at clock 3x) | Done (commit `e1456df`) |
 | 4 | `FINDINGS.md`, final restore check against the backup | Done |
 | 5 | NoitaPatcher integration: commands, Game Over recovery reset (Test 3d), fps-ceiling diagnosis, nsew grid reader, reproducible firing | Done (commit `55d64e6`) |
+| 7 | Shared-ceiling diagnosis: power, affinity, Steam, restarts, WPR trace | Done except pinned scaling |
 | 6 | Mod-control rule (userdata mode, snapshot/restore and install checks removed), release build verified, timer-resolution test of the fps ceiling | Done |
 
 ## Phase 1 numbers (`results/smoke-*.json`)
@@ -100,10 +101,10 @@ byte-identical to the backup.
 The benchmark is complete; see `FINDINGS.md` (includes phase 5). Candidate follow-ups, none
 started:
 
-1. Find the shared ~300 fps ceiling. Timer resolution and per-frame present work are ruled out
-   (phase 6); the cost is in simulated frames and shared across processes while each idles ~70 %.
-   Next: thread wait analysis (ETW/WPA) of one N=4 process to see what the main thread waits on,
-   and CPU affinity (disjoint core sets per instance) to test worker-pool contention.
+1. The ~300 fps ceiling is CPU saturation (phase 7, knowledge.md "Shared ceiling"). Next: read
+   `results/ceiling_scaling_*.json` (N=4/6/8/12, one logical CPU per instance vs unpinned; started
+   2026-09-30, may be missing if interrupted: rerun `uv run python -m driver ceiling scaling`).
+   If pinned scaling holds, make single-CPU pinning the default and update FINDINGS.
 2. Tighten the liquid probe (more repetitions) to decide whether 4x can be promoted.
 3. Start the wand-design track in [ideas.md](ideas.md) on top of the scenario reset.
 
@@ -113,6 +114,6 @@ started:
   simulation uses a QPC-timed budget.
 - Why is clock 2x slower (82-113 fps) than 3x/4x? Hypothesis: the frame limiter's sleep is not
   scaled; hooking `Sleep` in the DLL would test it.
-- What is the shared ~300 fps ceiling across processes? Ruled out: entity-system cost, CPU
-  saturation (processes idle about 70 %), timer resolution, per-frame present work (phase 6).
+- Can Noita's ConcRT worker count be limited without affinity? Pinning works but caps each
+  instance at one CPU.
 - Why does turning all component systems off raise N=4 throughput but lower N=1?

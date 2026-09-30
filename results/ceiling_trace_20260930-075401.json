@@ -1,0 +1,1133 @@
+{
+  "hold": "results\\ceiling_hold_n1_20260930-072954.json",
+  "etl": "<repo>\\.rl_bench_state\\traces\\solo.etl",
+  "n": 1,
+  "trace_s": 10.35,
+  "instances": [
+    {
+      "instance": "0",
+      "pid": 17012,
+      "frames": 1483,
+      "fps": 143.2,
+      "process_cpu_ms_per_frame": 24.553,
+      "threads_seen": 28,
+      "main": {
+        "tid": 22860,
+        "start": "noita.exe+0x9fd290",
+        "cpu_ms_per_frame": 6.581,
+        "wait_ms_per_frame": 0.057,
+        "ready_ms_per_frame": 0.398,
+        "switch_ins_per_frame": 26.39,
+        "readying_process": [
+          {
+            "who": "(same process)",
+            "count": 36596,
+            "wait_ms": 59.6
+          },
+          {
+            "who": "WindowsTerminal.exe",
+            "count": 219,
+            "wait_ms": 6.7
+          },
+          {
+            "who": "Discord.exe",
+            "count": 194,
+            "wait_ms": 3.7
+          },
+          {
+            "who": "brave.exe",
+            "count": 207,
+            "wait_ms": 3.7
+          },
+          {
+            "who": "steamwebhelper.exe",
+            "count": 185,
+            "wait_ms": 2.9
+          },
+          {
+            "who": "Razer Central.exe",
+            "count": 173,
+            "wait_ms": 2.6
+          },
+          {
+            "who": "dwm.exe",
+            "count": 138,
+            "wait_ms": 2.4
+          },
+          {
+            "who": "handy.exe",
+            "count": 57,
+            "wait_ms": 0.7
+          },
+          {
+            "who": "Code.exe",
+            "count": 15,
+            "wait_ms": 0.5
+          },
+          {
+            "who": "speedfan.exe",
+            "count": 23,
+            "wait_ms": 0.4
+          },
+          {
+            "who": "GameInputSvc.exe",
+            "count": 20,
+            "wait_ms": 0.4
+          },
+          {
+            "who": "TextInputHost.exe",
+            "count": 13,
+            "wait_ms": 0.3
+          },
+          {
+            "who": "explorer.exe",
+            "count": 13,
+            "wait_ms": 0.2
+          },
+          {
+            "who": "steam.exe",
+            "count": 18,
+            "wait_ms": 0.2
+          },
+          {
+            "who": "Everything.exe",
+            "count": 6,
+            "wait_ms": 0.1
+          },
+          {
+            "who": "Razer Synapse 3.exe",
+            "count": 4,
+            "wait_ms": 0.1
+          },
+          {
+            "who": "msrdc.exe",
+            "count": 3,
+            "wait_ms": 0.1
+          },
+          {
+            "who": "csrss.exe",
+            "count": 5,
+            "wait_ms": 0.1
+          },
+          {
+            "who": "sh.exe",
+            "count": 4,
+            "wait_ms": 0.1
+          },
+          {
+            "who": "ctfmon.exe",
+            "count": 5,
+            "wait_ms": 0.1
+          },
+          {
+            "who": "conhost.exe",
+            "count": 1,
+            "wait_ms": 0.1
+          },
+          {
+            "who": "(none)",
+            "count": 1229,
+            "wait_ms": 0
+          },
+          {
+            "who": "NVDisplay.Container.exe",
+            "count": 1,
+            "wait_ms": 0
+          },
+          {
+            "who": "StartMenuExperienceHost.exe",
+            "count": 1,
+            "wait_ms": 0
+          },
+          {
+            "who": "sihost.exe",
+            "count": 1,
+            "wait_ms": 0
+          }
+        ],
+        "readying": [
+          {
+            "who": "noita.exe (17012) same tid 8140",
+            "count": 3338,
+            "wait_ms": 7.9
+          },
+          {
+            "who": "noita.exe (17012) same tid 26068",
+            "count": 3437,
+            "wait_ms": 6.8
+          },
+          {
+            "who": "noita.exe (17012) same tid 9760",
+            "count": 3449,
+            "wait_ms": 6.4
+          },
+          {
+            "who": "WindowsTerminal.exe (19716) tid 26536",
+            "count": 185,
+            "wait_ms": 6.2
+          },
+          {
+            "who": "noita.exe (17012) same tid 26036",
+            "count": 3434,
+            "wait_ms": 6.1
+          },
+          {
+            "who": "noita.exe (17012) same tid 4236",
+            "count": 3186,
+            "wait_ms": 5.3
+          },
+          {
+            "who": "noita.exe (17012) same tid 15808",
+            "count": 3108,
+            "wait_ms": 5.2
+          },
+          {
+            "who": "noita.exe (17012) same tid 16744",
+            "count": 3578,
+            "wait_ms": 4.9
+          }
+        ],
+        "wait_reasons": [
+          {
+            "reason": "ntdll.dll!LdrpInitializeProcess <- msvcr120.dll!Concurrency::details::ExternalContextBase::Block",
+            "count": 36600,
+            "wait_ms": 59.4
+          },
+          {
+            "reason": "ntdll.dll!LdrpInitializeProcess <- opengl32.dll!WindowIdFromHdc",
+            "count": 636,
+            "wait_ms": 10.8
+          },
+          {
+            "reason": "ntdll.dll!LdrpInitializeProcess <- user32.dll!GetAsyncKeyState",
+            "count": 173,
+            "wait_ms": 4.9
+          },
+          {
+            "reason": "ntdll.dll!LdrpInitializeProcess <- GameOverlayRenderer.dll+0x8e73c",
+            "count": 238,
+            "wait_ms": 4
+          },
+          {
+            "reason": "ntdll.dll!LdrpInitializeProcess <- nvoglv32.dll+0x871058",
+            "count": 184,
+            "wait_ms": 2.7
+          },
+          {
+            "reason": "ntdll.dll!LdrpInitializeProcess <- user32.dll!PostMessageW",
+            "count": 14,
+            "wait_ms": 1.2
+          },
+          {
+            "reason": "ntdll.dll!LdrpInitializeProcess <- user32.dll!_PeekMessage",
+            "count": 11,
+            "wait_ms": 0.5
+          },
+          {
+            "reason": "ntdll.dll!LdrpInitializeProcess <- user32.dll!GetWindowThreadProcessId",
+            "count": 29,
+            "wait_ms": 0.5
+          }
+        ],
+        "wait_stacks": [
+          {
+            "count": 16219,
+            "wait_ms": 33.3,
+            "stack": [
+              "ntoskrnl.exe!SwapContext",
+              "ntoskrnl.exe!KiSwapContext",
+              "ntoskrnl.exe!KiSwapThread",
+              "ntoskrnl.exe!KiCommitThreadWait",
+              "ntoskrnl.exe!KeWaitForSingleObject",
+              "ntoskrnl.exe!ObWaitForSingleObject",
+              "ntoskrnl.exe!NtWaitForSingleObject",
+              "ntoskrnl.exe!KiSystemServiceCopyEnd",
+              "wow64cpu.dll!CpupSyscallStub",
+              "wow64cpu.dll!Thunk0ArgReloadState",
+              "wow64cpu.dll!BTCpuSimulate",
+              "wow64.dll!RunCpuSimulation",
+              "wow64.dll!Wow64LdrpInitialize",
+              "ntdll.dll!LdrpInitializeProcess",
+              "ntdll.dll!_LdrpInitialize",
+              "ntdll.dll!LdrpInitializeInternal",
+              "ntdll.dll!LdrInitializeThunk",
+              "ntdll.dll!NtWaitForSingleObject",
+              "KernelBase.dll!WaitForSingleObjectEx",
+              "msvcr120.dll!Concurrency::details::ExternalContextBase::Block",
+              "msvcr120.dll!Concurrency::critical_section::_Acquire_lock",
+              "msvcr120.dll!Concurrency::critical_section::lock",
+              "msvcp120.dll!mtx_do_lock",
+              "msvcp120.dll!_Mtx_lock",
+              "noita.exe+0x529279",
+              "noita.exe+0x44c2d7",
+              "noita.exe+0x323a73",
+              "noita.exe+0x323642",
+              "noita.exe+0x2b3aa9",
+              "noita.exe+0x9dbe11"
+            ]
+          },
+          {
+            "count": 4833,
+            "wait_ms": 10.4,
+            "stack": [
+              "ntoskrnl.exe!SwapContext",
+              "ntoskrnl.exe!KiSwapContext",
+              "ntoskrnl.exe!KiSwapThread",
+              "ntoskrnl.exe!KiCommitThreadWait",
+              "ntoskrnl.exe!KeWaitForSingleObject",
+              "ntoskrnl.exe!ObWaitForSingleObject",
+              "ntoskrnl.exe!NtWaitForSingleObject",
+              "ntoskrnl.exe!KiSystemServiceCopyEnd",
+              "wow64cpu.dll!CpupSyscallStub",
+              "wow64cpu.dll!Thunk0ArgReloadState",
+              "wow64cpu.dll!BTCpuSimulate",
+              "wow64.dll!RunCpuSimulation",
+              "wow64.dll!Wow64LdrpInitialize",
+              "ntdll.dll!LdrpInitializeProcess",
+              "ntdll.dll!_LdrpInitialize",
+              "ntdll.dll!LdrpInitializeInternal",
+              "ntdll.dll!LdrInitializeThunk",
+              "ntdll.dll!NtWaitForSingleObject",
+              "KernelBase.dll!WaitForSingleObjectEx",
+              "msvcr120.dll!Concurrency::details::ExternalContextBase::Block",
+              "msvcr120.dll!Concurrency::critical_section::_Acquire_lock",
+              "msvcr120.dll!Concurrency::critical_section::lock",
+              "msvcp120.dll!mtx_do_lock",
+              "msvcp120.dll!_Mtx_lock",
+              "noita.exe+0x529279",
+              "noita.exe+0x44c2d7",
+              "noita.exe+0x464711",
+              "noita.exe+0x3286db",
+              "noita.exe+0x31a77e",
+              "noita.exe+0x2f1ef2"
+            ]
+          },
+          {
+            "count": 173,
+            "wait_ms": 4.9,
+            "stack": [
+              "ntoskrnl.exe!SwapContext",
+              "ntoskrnl.exe!KiSwapContext",
+              "ntoskrnl.exe!KiSwapThread",
+              "ntoskrnl.exe!KiCommitThreadWait",
+              "ntoskrnl.exe!KeWaitForSingleObject",
+              "ntoskrnl.exe!ExpWaitForResource",
+              "ntoskrnl.exe!ExpAcquireResourceSharedLite",
+              "ntoskrnl.exe!ExEnterCriticalRegionAndAcquireResourceShared",
+              "win32kbase.sys!PrivateAPI::`anonymous namespace'::EnterSharedCritInternal",
+              "win32kbase.sys!NtUserGetAsyncKeyState",
+              "win32k.sys!NtUserGetAsyncKeyState",
+              "ntoskrnl.exe!KiSystemServiceCopyEnd",
+              "wow64cpu.dll!CpupSyscallStub",
+              "wow64cpu.dll!Thunk0Arg",
+              "wow64cpu.dll!BTCpuSimulate",
+              "wow64.dll!RunCpuSimulation",
+              "wow64.dll!Wow64LdrpInitialize",
+              "ntdll.dll!LdrpInitializeProcess",
+              "ntdll.dll!_LdrpInitialize",
+              "ntdll.dll!LdrpInitializeInternal",
+              "ntdll.dll!LdrInitializeThunk",
+              "win32u.dll!NtUserGetAsyncKeyState",
+              "user32.dll!GetAsyncKeyState",
+              "GameOverlayRenderer.dll+0x94c24",
+              "GameOverlayRenderer.dll+0x91294",
+              "gdi32full.dll!SwapBuffers",
+              "SDL2.dll+0xba95b",
+              "SDL2.dll+0xae254",
+              "noita.exe+0x9dbe35",
+              "noita.exe+0x9db98f"
+            ]
+          },
+          {
+            "count": 235,
+            "wait_ms": 4.8,
+            "stack": [
+              "ntoskrnl.exe!SwapContext",
+              "ntoskrnl.exe!KiSwapContext",
+              "ntoskrnl.exe!KiSwapThread",
+              "ntoskrnl.exe!KiCommitThreadWait",
+              "ntoskrnl.exe!KeWaitForSingleObject",
+              "ntoskrnl.exe!ExpWaitForResource",
+              "ntoskrnl.exe!ExpAcquireResourceSharedLite",
+              "ntoskrnl.exe!ExEnterCriticalRegionAndAcquireResourceShared",
+              "win32kbase.sys!EnterSharedCrit",
+              "win32kfull.sys!NtUserWindowFromDC",
+              "win32k.sys!NtUserWindowFromDC",
+              "ntoskrnl.exe!KiSystemServiceCopyEnd",
+              "wow64win.dll!ZwUserWindowFromDC",
+              "wow64win.dll!whNtUserWindowFromDC",
+              "wow64.dll!Wow64SystemServiceEx",
+              "wow64cpu.dll!ServiceNoTurbo",
+              "wow64cpu.dll!BTCpuSimulate",
+              "wow64.dll!RunCpuSimulation",
+              "wow64.dll!Wow64LdrpInitialize",
+              "ntdll.dll!LdrpInitializeProcess",
+              "ntdll.dll!_LdrpInitialize",
+              "ntdll.dll!LdrpInitializeInternal",
+              "ntdll.dll!LdrInitializeThunk",
+              "win32u.dll!NtUserWindowFromDC",
+              "opengl32.dll!WindowIdFromHdc",
+              "opengl32.dll!wglSwapBuffers",
+              "GameOverlayRenderer.dll+0x9129c",
+              "gdi32full.dll!SwapBuffers",
+              "SDL2.dll+0xba95b",
+              "SDL2.dll+0xae254"
+            ]
+          }
+        ]
+      },
+      "workers": [
+        {
+          "tid": 16744,
+          "start": "msvcr120.dll!_threadstartex",
+          "cpu_ms_per_frame": 1.471,
+          "wait_ms_per_frame": 5.169,
+          "ready_ms_per_frame": 0.356,
+          "switch_ins_per_frame": 21.07,
+          "readying_process": [
+            {
+              "who": "(same process)",
+              "count": 30984,
+              "wait_ms": 7664.9
+            },
+            {
+              "who": "(none)",
+              "count": 260,
+              "wait_ms": 0
+            }
+          ],
+          "readying": [
+            {
+              "who": "noita.exe (17012) same tid 22860",
+              "count": 28135,
+              "wait_ms": 7554.8
+            },
+            {
+              "who": "noita.exe (17012) same tid 26068",
+              "count": 363,
+              "wait_ms": 15
+            },
+            {
+              "who": "noita.exe (17012) same tid 26040",
+              "count": 314,
+              "wait_ms": 14.1
+            },
+            {
+              "who": "noita.exe (17012) same tid 8140",
+              "count": 269,
+              "wait_ms": 12.6
+            },
+            {
+              "who": "noita.exe (17012) same tid 9936",
+              "count": 217,
+              "wait_ms": 11.9
+            },
+            {
+              "who": "noita.exe (17012) same tid 20304",
+              "count": 344,
+              "wait_ms": 11.9
+            },
+            {
+              "who": "noita.exe (17012) same tid 4236",
+              "count": 254,
+              "wait_ms": 11.7
+            },
+            {
+              "who": "noita.exe (17012) same tid 18296",
+              "count": 303,
+              "wait_ms": 10.5
+            }
+          ],
+          "wait_reasons": [
+            {
+              "reason": "ntdll.dll!_LdrpInitialize <- msvcr120.dll!Concurrency::details::ExternalContextBase::Block",
+              "count": 31015,
+              "wait_ms": 7664.9
+            },
+            {
+              "reason": "ntdll.dll!_LdrpInitialize <- msvcr120.dll!Concurrency::details::ExternalContextBase::Unblock",
+              "count": 7,
+              "wait_ms": 0
+            },
+            {
+              "reason": "(kernel) <- noita.exe+0x3247d6",
+              "count": 21,
+              "wait_ms": 0
+            },
+            {
+              "reason": "(kernel) <- msvcr120.dll!Concurrency::details::_SpinWait<0>::_SpinOnce",
+              "count": 106,
+              "wait_ms": 0
+            },
+            {
+              "reason": "ntdll.dll!RtlpFreeHeapInternal <- msvcr120.dll!free",
+              "count": 3,
+              "wait_ms": 0
+            },
+            {
+              "reason": "(kernel) <- noita.exe+0x4647f9",
+              "count": 1,
+              "wait_ms": 0
+            },
+            {
+              "reason": "(kernel) <- noita.exe+0x32483c",
+              "count": 2,
+              "wait_ms": 0
+            },
+            {
+              "reason": "(kernel) <- noita.exe+0x3252a2",
+              "count": 1,
+              "wait_ms": 0
+            }
+          ],
+          "wait_stacks": [
+            {
+              "count": 27743,
+              "wait_ms": 7636.7,
+              "stack": [
+                "ntoskrnl.exe!SwapContext",
+                "ntoskrnl.exe!KiSwapContext",
+                "ntoskrnl.exe!KiSwapThread",
+                "ntoskrnl.exe!KiCommitThreadWait",
+                "ntoskrnl.exe!KeWaitForSingleObject",
+                "ntoskrnl.exe!ObWaitForSingleObject",
+                "ntoskrnl.exe!NtWaitForSingleObject",
+                "ntoskrnl.exe!KiSystemServiceCopyEnd",
+                "wow64cpu.dll!CpupSyscallStub",
+                "wow64cpu.dll!Thunk0ArgReloadState",
+                "wow64cpu.dll!BTCpuSimulate",
+                "wow64.dll!RunCpuSimulation",
+                "wow64.dll!Wow64LdrpInitialize",
+                "ntdll.dll!_LdrpInitialize",
+                "ntdll.dll!LdrpInitializeInternal",
+                "ntdll.dll!LdrInitializeThunk",
+                "ntdll.dll!NtWaitForSingleObject",
+                "KernelBase.dll!WaitForSingleObjectEx",
+                "msvcr120.dll!Concurrency::details::ExternalContextBase::Block",
+                "msvcp120.dll!do_wait",
+                "msvcp120.dll!_Cnd_wait",
+                "noita.exe+0x529158",
+                "noita.exe+0x44bf00",
+                "noita.exe+0x57bb06",
+                "msvcp120.dll!_Call_func",
+                "msvcr120.dll!_callthreadstartex",
+                "msvcr120.dll!_threadstartex",
+                "kernel32.dll!BaseThreadInitThunk",
+                "ntdll.dll!__RtlUserThreadStart",
+                "ntdll.dll!_RtlUserThreadStart"
+              ]
+            },
+            {
+              "count": 1106,
+              "wait_ms": 10.4,
+              "stack": [
+                "ntoskrnl.exe!SwapContext",
+                "ntoskrnl.exe!KiSwapContext",
+                "ntoskrnl.exe!KiSwapThread",
+                "ntoskrnl.exe!KiCommitThreadWait",
+                "ntoskrnl.exe!KeWaitForSingleObject",
+                "ntoskrnl.exe!ObWaitForSingleObject",
+                "ntoskrnl.exe!NtWaitForSingleObject",
+                "ntoskrnl.exe!KiSystemServiceCopyEnd",
+                "wow64cpu.dll!CpupSyscallStub",
+                "wow64cpu.dll!Thunk0ArgReloadState",
+                "wow64cpu.dll!BTCpuSimulate",
+                "wow64.dll!RunCpuSimulation",
+                "wow64.dll!Wow64LdrpInitialize",
+                "ntdll.dll!_LdrpInitialize",
+                "ntdll.dll!LdrpInitializeInternal",
+                "ntdll.dll!LdrInitializeThunk",
+                "ntdll.dll!NtWaitForSingleObject",
+                "KernelBase.dll!WaitForSingleObjectEx",
+                "msvcr120.dll!Concurrency::details::ExternalContextBase::Block",
+                "msvcr120.dll!Concurrency::critical_section::_Acquire_lock",
+                "msvcr120.dll!Concurrency::critical_section::lock",
+                "msvcp120.dll!mtx_do_lock",
+                "msvcp120.dll!_Mtx_lock",
+                "noita.exe+0x44be9a",
+                "noita.exe+0x57bb06",
+                "msvcp120.dll!_Call_func",
+                "msvcr120.dll!_callthreadstartex",
+                "msvcr120.dll!_threadstartex",
+                "kernel32.dll!BaseThreadInitThunk",
+                "ntdll.dll!__RtlUserThreadStart"
+              ]
+            },
+            {
+              "count": 292,
+              "wait_ms": 10.3,
+              "stack": [
+                "ntoskrnl.exe!SwapContext",
+                "ntoskrnl.exe!KiSwapContext",
+                "ntoskrnl.exe!KiSwapThread",
+                "ntoskrnl.exe!KiCommitThreadWait",
+                "ntoskrnl.exe!KeWaitForSingleObject",
+                "ntoskrnl.exe!ObWaitForSingleObject",
+                "ntoskrnl.exe!NtWaitForSingleObject",
+                "ntoskrnl.exe!KiSystemServiceCopyEnd",
+                "wow64cpu.dll!CpupSyscallStub",
+                "wow64cpu.dll!Thunk0ArgReloadState",
+                "wow64cpu.dll!BTCpuSimulate",
+                "wow64.dll!RunCpuSimulation",
+                "wow64.dll!Wow64LdrpInitialize",
+                "ntdll.dll!_LdrpInitialize",
+                "ntdll.dll!LdrpInitializeInternal",
+                "ntdll.dll!LdrInitializeThunk",
+                "ntdll.dll!NtWaitForSingleObject",
+                "KernelBase.dll!WaitForSingleObjectEx",
+                "msvcr120.dll!Concurrency::details::ExternalContextBase::Block",
+                "msvcr120.dll!Concurrency::critical_section::_Acquire_lock",
+                "msvcr120.dll!Concurrency::critical_section::lock",
+                "msvcr120.dll!Concurrency::details::_Condition_variable::wait",
+                "msvcp120.dll!do_wait",
+                "msvcp120.dll!_Cnd_wait",
+                "noita.exe+0x529158",
+                "noita.exe+0x44bf00",
+                "noita.exe+0x57bb06",
+                "msvcp120.dll!_Call_func",
+                "msvcr120.dll!_callthreadstartex",
+                "msvcr120.dll!_threadstartex"
+              ]
+            },
+            {
+              "count": 1020,
+              "wait_ms": 6.9,
+              "stack": [
+                "ntoskrnl.exe!SwapContext",
+                "ntoskrnl.exe!KiSwapContext",
+                "ntoskrnl.exe!KiSwapThread",
+                "ntoskrnl.exe!KiCommitThreadWait",
+                "ntoskrnl.exe!KeWaitForSingleObject",
+                "ntoskrnl.exe!ObWaitForSingleObject",
+                "ntoskrnl.exe!NtWaitForSingleObject",
+                "ntoskrnl.exe!KiSystemServiceCopyEnd",
+                "wow64cpu.dll!CpupSyscallStub",
+                "wow64cpu.dll!Thunk0ArgReloadState",
+                "wow64cpu.dll!BTCpuSimulate",
+                "wow64.dll!RunCpuSimulation",
+                "wow64.dll!Wow64LdrpInitialize",
+                "ntdll.dll!_LdrpInitialize",
+                "ntdll.dll!LdrpInitializeInternal",
+                "ntdll.dll!LdrInitializeThunk",
+                "ntdll.dll!NtWaitForSingleObject",
+                "KernelBase.dll!WaitForSingleObjectEx",
+                "msvcr120.dll!Concurrency::details::ExternalContextBase::Block",
+                "msvcr120.dll!Concurrency::critical_section::_Acquire_lock",
+                "msvcr120.dll!Concurrency::critical_section::lock",
+                "msvcp120.dll!mtx_do_lock",
+                "msvcp120.dll!_Mtx_lock",
+                "noita.exe+0x4ab7b7",
+                "noita.exe+0x44be29",
+                "noita.exe+0x57bb06",
+                "msvcp120.dll!_Call_func",
+                "msvcr120.dll!_callthreadstartex",
+                "msvcr120.dll!_threadstartex",
+                "kernel32.dll!BaseThreadInitThunk"
+              ]
+            }
+          ]
+        },
+        {
+          "tid": 26040,
+          "start": "msvcr120.dll!_threadstartex",
+          "cpu_ms_per_frame": 1.468,
+          "wait_ms_per_frame": 5.176,
+          "ready_ms_per_frame": 0.354,
+          "switch_ins_per_frame": 21.03,
+          "readying_process": [
+            {
+              "who": "(same process)",
+              "count": 30912,
+              "wait_ms": 7675.2
+            },
+            {
+              "who": "(none)",
+              "count": 274,
+              "wait_ms": 0
+            }
+          ],
+          "readying": [
+            {
+              "who": "noita.exe (17012) same tid 22860",
+              "count": 27850,
+              "wait_ms": 7553.3
+            },
+            {
+              "who": "noita.exe (17012) same tid 20304",
+              "count": 326,
+              "wait_ms": 18.4
+            },
+            {
+              "who": "noita.exe (17012) same tid 26068",
+              "count": 228,
+              "wait_ms": 15.5
+            },
+            {
+              "who": "noita.exe (17012) same tid 9760",
+              "count": 268,
+              "wait_ms": 13.9
+            },
+            {
+              "who": "noita.exe (17012) same tid 8140",
+              "count": 331,
+              "wait_ms": 13.6
+            },
+            {
+              "who": "noita.exe (17012) same tid 18296",
+              "count": 342,
+              "wait_ms": 12.6
+            },
+            {
+              "who": "noita.exe (17012) same tid 15808",
+              "count": 269,
+              "wait_ms": 11.2
+            },
+            {
+              "who": "noita.exe (17012) same tid 9936",
+              "count": 306,
+              "wait_ms": 11
+            }
+          ],
+          "wait_reasons": [
+            {
+              "reason": "ntdll.dll!_LdrpInitialize <- msvcr120.dll!Concurrency::details::ExternalContextBase::Block",
+              "count": 30941,
+              "wait_ms": 7675.2
+            },
+            {
+              "reason": "(kernel) <- noita.exe+0x44c43a",
+              "count": 2,
+              "wait_ms": 0
+            },
+            {
+              "reason": "(kernel) <- noita.exe+0x3247d6",
+              "count": 11,
+              "wait_ms": 0
+            },
+            {
+              "reason": "(kernel) <- msvcr120.dll!Concurrency::details::_SpinWait<0>::_SpinOnce",
+              "count": 94,
+              "wait_ms": 0
+            },
+            {
+              "reason": "(kernel) <- noita.exe+0x30b112",
+              "count": 3,
+              "wait_ms": 0
+            },
+            {
+              "reason": "(kernel) <- noita.exe+0x32529e",
+              "count": 1,
+              "wait_ms": 0
+            },
+            {
+              "reason": "(kernel) <- noita.exe+0x32529b",
+              "count": 1,
+              "wait_ms": 0
+            },
+            {
+              "reason": "(kernel) <- noita.exe+0x324826",
+              "count": 2,
+              "wait_ms": 0
+            }
+          ],
+          "wait_stacks": [
+            {
+              "count": 27470,
+              "wait_ms": 7645.9,
+              "stack": [
+                "ntoskrnl.exe!SwapContext",
+                "ntoskrnl.exe!KiSwapContext",
+                "ntoskrnl.exe!KiSwapThread",
+                "ntoskrnl.exe!KiCommitThreadWait",
+                "ntoskrnl.exe!KeWaitForSingleObject",
+                "ntoskrnl.exe!ObWaitForSingleObject",
+                "ntoskrnl.exe!NtWaitForSingleObject",
+                "ntoskrnl.exe!KiSystemServiceCopyEnd",
+                "wow64cpu.dll!CpupSyscallStub",
+                "wow64cpu.dll!Thunk0ArgReloadState",
+                "wow64cpu.dll!BTCpuSimulate",
+                "wow64.dll!RunCpuSimulation",
+                "wow64.dll!Wow64LdrpInitialize",
+                "ntdll.dll!_LdrpInitialize",
+                "ntdll.dll!LdrpInitializeInternal",
+                "ntdll.dll!LdrInitializeThunk",
+                "ntdll.dll!NtWaitForSingleObject",
+                "KernelBase.dll!WaitForSingleObjectEx",
+                "msvcr120.dll!Concurrency::details::ExternalContextBase::Block",
+                "msvcp120.dll!do_wait",
+                "msvcp120.dll!_Cnd_wait",
+                "noita.exe+0x529158",
+                "noita.exe+0x44bf00",
+                "noita.exe+0x57bb06",
+                "msvcp120.dll!_Call_func",
+                "msvcr120.dll!_callthreadstartex",
+                "msvcr120.dll!_threadstartex",
+                "kernel32.dll!BaseThreadInitThunk",
+                "ntdll.dll!__RtlUserThreadStart",
+                "ntdll.dll!_RtlUserThreadStart"
+              ]
+            },
+            {
+              "count": 1339,
+              "wait_ms": 13.2,
+              "stack": [
+                "ntoskrnl.exe!SwapContext",
+                "ntoskrnl.exe!KiSwapContext",
+                "ntoskrnl.exe!KiSwapThread",
+                "ntoskrnl.exe!KiCommitThreadWait",
+                "ntoskrnl.exe!KeWaitForSingleObject",
+                "ntoskrnl.exe!ObWaitForSingleObject",
+                "ntoskrnl.exe!NtWaitForSingleObject",
+                "ntoskrnl.exe!KiSystemServiceCopyEnd",
+                "wow64cpu.dll!CpupSyscallStub",
+                "wow64cpu.dll!Thunk0ArgReloadState",
+                "wow64cpu.dll!BTCpuSimulate",
+                "wow64.dll!RunCpuSimulation",
+                "wow64.dll!Wow64LdrpInitialize",
+                "ntdll.dll!_LdrpInitialize",
+                "ntdll.dll!LdrpInitializeInternal",
+                "ntdll.dll!LdrInitializeThunk",
+                "ntdll.dll!NtWaitForSingleObject",
+                "KernelBase.dll!WaitForSingleObjectEx",
+                "msvcr120.dll!Concurrency::details::ExternalContextBase::Block",
+                "msvcr120.dll!Concurrency::critical_section::_Acquire_lock",
+                "msvcr120.dll!Concurrency::critical_section::lock",
+                "msvcp120.dll!mtx_do_lock",
+                "msvcp120.dll!_Mtx_lock",
+                "noita.exe+0x44be9a",
+                "noita.exe+0x57bb06",
+                "msvcp120.dll!_Call_func",
+                "msvcr120.dll!_callthreadstartex",
+                "msvcr120.dll!_threadstartex",
+                "kernel32.dll!BaseThreadInitThunk",
+                "ntdll.dll!__RtlUserThreadStart"
+              ]
+            },
+            {
+              "count": 301,
+              "wait_ms": 8,
+              "stack": [
+                "ntoskrnl.exe!SwapContext",
+                "ntoskrnl.exe!KiSwapContext",
+                "ntoskrnl.exe!KiSwapThread",
+                "ntoskrnl.exe!KiCommitThreadWait",
+                "ntoskrnl.exe!KeWaitForSingleObject",
+                "ntoskrnl.exe!ObWaitForSingleObject",
+                "ntoskrnl.exe!NtWaitForSingleObject",
+                "ntoskrnl.exe!KiSystemServiceCopyEnd",
+                "wow64cpu.dll!CpupSyscallStub",
+                "wow64cpu.dll!Thunk0ArgReloadState",
+                "wow64cpu.dll!BTCpuSimulate",
+                "wow64.dll!RunCpuSimulation",
+                "wow64.dll!Wow64LdrpInitialize",
+                "ntdll.dll!_LdrpInitialize",
+                "ntdll.dll!LdrpInitializeInternal",
+                "ntdll.dll!LdrInitializeThunk",
+                "ntdll.dll!NtWaitForSingleObject",
+                "KernelBase.dll!WaitForSingleObjectEx",
+                "msvcr120.dll!Concurrency::details::ExternalContextBase::Block",
+                "msvcr120.dll!Concurrency::critical_section::_Acquire_lock",
+                "msvcr120.dll!Concurrency::critical_section::lock",
+                "msvcr120.dll!Concurrency::details::_Condition_variable::wait",
+                "msvcp120.dll!do_wait",
+                "msvcp120.dll!_Cnd_wait",
+                "noita.exe+0x529158",
+                "noita.exe+0x44bf00",
+                "noita.exe+0x57bb06",
+                "msvcp120.dll!_Call_func",
+                "msvcr120.dll!_callthreadstartex",
+                "msvcr120.dll!_threadstartex"
+              ]
+            },
+            {
+              "count": 1039,
+              "wait_ms": 7.3,
+              "stack": [
+                "ntoskrnl.exe!SwapContext",
+                "ntoskrnl.exe!KiSwapContext",
+                "ntoskrnl.exe!KiSwapThread",
+                "ntoskrnl.exe!KiCommitThreadWait",
+                "ntoskrnl.exe!KeWaitForSingleObject",
+                "ntoskrnl.exe!ObWaitForSingleObject",
+                "ntoskrnl.exe!NtWaitForSingleObject",
+                "ntoskrnl.exe!KiSystemServiceCopyEnd",
+                "wow64cpu.dll!CpupSyscallStub",
+                "wow64cpu.dll!Thunk0ArgReloadState",
+                "wow64cpu.dll!BTCpuSimulate",
+                "wow64.dll!RunCpuSimulation",
+                "wow64.dll!Wow64LdrpInitialize",
+                "ntdll.dll!_LdrpInitialize",
+                "ntdll.dll!LdrpInitializeInternal",
+                "ntdll.dll!LdrInitializeThunk",
+                "ntdll.dll!NtWaitForSingleObject",
+                "KernelBase.dll!WaitForSingleObjectEx",
+                "msvcr120.dll!Concurrency::details::ExternalContextBase::Block",
+                "msvcr120.dll!Concurrency::critical_section::_Acquire_lock",
+                "msvcr120.dll!Concurrency::critical_section::lock",
+                "msvcp120.dll!mtx_do_lock",
+                "msvcp120.dll!_Mtx_lock",
+                "noita.exe+0x4ab7b7",
+                "noita.exe+0x44be29",
+                "noita.exe+0x57bb06",
+                "msvcp120.dll!_Call_func",
+                "msvcr120.dll!_callthreadstartex",
+                "msvcr120.dll!_threadstartex",
+                "kernel32.dll!BaseThreadInitThunk"
+              ]
+            }
+          ]
+        },
+        {
+          "tid": 8140,
+          "start": "msvcr120.dll!_threadstartex",
+          "cpu_ms_per_frame": 1.463,
+          "wait_ms_per_frame": 5.18,
+          "ready_ms_per_frame": 0.355,
+          "switch_ins_per_frame": 21.1,
+          "readying_process": [
+            {
+              "who": "(same process)",
+              "count": 30997,
+              "wait_ms": 7680.5
+            },
+            {
+              "who": "(none)",
+              "count": 297,
+              "wait_ms": 0
+            }
+          ],
+          "readying": [
+            {
+              "who": "noita.exe (17012) same tid 22860",
+              "count": 28043,
+              "wait_ms": 7566.4
+            },
+            {
+              "who": "noita.exe (17012) same tid 20304",
+              "count": 358,
+              "wait_ms": 15.6
+            },
+            {
+              "who": "noita.exe (17012) same tid 9760",
+              "count": 370,
+              "wait_ms": 14.1
+            },
+            {
+              "who": "noita.exe (17012) same tid 4236",
+              "count": 233,
+              "wait_ms": 13.6
+            },
+            {
+              "who": "noita.exe (17012) same tid 9936",
+              "count": 256,
+              "wait_ms": 13.1
+            },
+            {
+              "who": "noita.exe (17012) same tid 26068",
+              "count": 325,
+              "wait_ms": 11
+            },
+            {
+              "who": "noita.exe (17012) same tid 16744",
+              "count": 281,
+              "wait_ms": 10.9
+            },
+            {
+              "who": "noita.exe (17012) same tid 26036",
+              "count": 275,
+              "wait_ms": 10.9
+            }
+          ],
+          "wait_reasons": [
+            {
+              "reason": "ntdll.dll!_LdrpInitialize <- msvcr120.dll!Concurrency::details::ExternalContextBase::Block",
+              "count": 31028,
+              "wait_ms": 7675.2
+            },
+            {
+              "reason": "(kernel) <- (kernel)",
+              "count": 7,
+              "wait_ms": 5.3
+            },
+            {
+              "reason": "(kernel) <- msvcr120.dll!Concurrency::details::_SpinWait<0>::_SpinOnce",
+              "count": 124,
+              "wait_ms": 0
+            },
+            {
+              "reason": "(kernel) <- noita.exe+0x32565f",
+              "count": 2,
+              "wait_ms": 0
+            },
+            {
+              "reason": "(kernel) <- noita.exe+0x30b110",
+              "count": 4,
+              "wait_ms": 0
+            },
+            {
+              "reason": "(kernel) <- msvcr120.dll!Concurrency::details::Sweep",
+              "count": 1,
+              "wait_ms": 0
+            },
+            {
+              "reason": "(kernel) <- noita.exe+0x4647f9",
+              "count": 1,
+              "wait_ms": 0
+            },
+            {
+              "reason": "(kernel) <- noita.exe+0x30b050",
+              "count": 3,
+              "wait_ms": 0
+            }
+          ],
+          "wait_stacks": [
+            {
+              "count": 27644,
+              "wait_ms": 7647.6,
+              "stack": [
+                "ntoskrnl.exe!SwapContext",
+                "ntoskrnl.exe!KiSwapContext",
+                "ntoskrnl.exe!KiSwapThread",
+                "ntoskrnl.exe!KiCommitThreadWait",
+                "ntoskrnl.exe!KeWaitForSingleObject",
+                "ntoskrnl.exe!ObWaitForSingleObject",
+                "ntoskrnl.exe!NtWaitForSingleObject",
+                "ntoskrnl.exe!KiSystemServiceCopyEnd",
+                "wow64cpu.dll!CpupSyscallStub",
+                "wow64cpu.dll!Thunk0ArgReloadState",
+                "wow64cpu.dll!BTCpuSimulate",
+                "wow64.dll!RunCpuSimulation",
+                "wow64.dll!Wow64LdrpInitialize",
+                "ntdll.dll!_LdrpInitialize",
+                "ntdll.dll!LdrpInitializeInternal",
+                "ntdll.dll!LdrInitializeThunk",
+                "ntdll.dll!NtWaitForSingleObject",
+                "KernelBase.dll!WaitForSingleObjectEx",
+                "msvcr120.dll!Concurrency::details::ExternalContextBase::Block",
+                "msvcp120.dll!do_wait",
+                "msvcp120.dll!_Cnd_wait",
+                "noita.exe+0x529158",
+                "noita.exe+0x44bf00",
+                "noita.exe+0x57bb06",
+                "msvcp120.dll!_Call_func",
+                "msvcr120.dll!_callthreadstartex",
+                "msvcr120.dll!_threadstartex",
+                "kernel32.dll!BaseThreadInitThunk",
+                "ntdll.dll!__RtlUserThreadStart",
+                "ntdll.dll!_RtlUserThreadStart"
+              ]
+            },
+            {
+              "count": 1257,
+              "wait_ms": 10.7,
+              "stack": [
+                "ntoskrnl.exe!SwapContext",
+                "ntoskrnl.exe!KiSwapContext",
+                "ntoskrnl.exe!KiSwapThread",
+                "ntoskrnl.exe!KiCommitThreadWait",
+                "ntoskrnl.exe!KeWaitForSingleObject",
+                "ntoskrnl.exe!ObWaitForSingleObject",
+                "ntoskrnl.exe!NtWaitForSingleObject",
+                "ntoskrnl.exe!KiSystemServiceCopyEnd",
+                "wow64cpu.dll!CpupSyscallStub",
+                "wow64cpu.dll!Thunk0ArgReloadState",
+                "wow64cpu.dll!BTCpuSimulate",
+                "wow64.dll!RunCpuSimulation",
+                "wow64.dll!Wow64LdrpInitialize",
+                "ntdll.dll!_LdrpInitialize",
+                "ntdll.dll!LdrpInitializeInternal",
+                "ntdll.dll!LdrInitializeThunk",
+                "ntdll.dll!NtWaitForSingleObject",
+                "KernelBase.dll!WaitForSingleObjectEx",
+                "msvcr120.dll!Concurrency::details::ExternalContextBase::Block",
+                "msvcr120.dll!Concurrency::critical_section::_Acquire_lock",
+                "msvcr120.dll!Concurrency::critical_section::lock",
+                "msvcp120.dll!mtx_do_lock",
+                "msvcp120.dll!_Mtx_lock",
+                "noita.exe+0x44be9a",
+                "noita.exe+0x57bb06",
+                "msvcp120.dll!_Call_func",
+                "msvcr120.dll!_callthreadstartex",
+                "msvcr120.dll!_threadstartex",
+                "kernel32.dll!BaseThreadInitThunk",
+                "ntdll.dll!__RtlUserThreadStart"
+              ]
+            },
+            {
+              "count": 330,
+              "wait_ms": 8.6,
+              "stack": [
+                "ntoskrnl.exe!SwapContext",
+                "ntoskrnl.exe!KiSwapContext",
+                "ntoskrnl.exe!KiSwapThread",
+                "ntoskrnl.exe!KiCommitThreadWait",
+                "ntoskrnl.exe!KeWaitForSingleObject",
+                "ntoskrnl.exe!ObWaitForSingleObject",
+                "ntoskrnl.exe!NtWaitForSingleObject",
+                "ntoskrnl.exe!KiSystemServiceCopyEnd",
+                "wow64cpu.dll!CpupSyscallStub",
+                "wow64cpu.dll!Thunk0ArgReloadState",
+                "wow64cpu.dll!BTCpuSimulate",
+                "wow64.dll!RunCpuSimulation",
+                "wow64.dll!Wow64LdrpInitialize",
+                "ntdll.dll!_LdrpInitialize",
+                "ntdll.dll!LdrpInitializeInternal",
+                "ntdll.dll!LdrInitializeThunk",
+                "ntdll.dll!NtWaitForSingleObject",
+                "KernelBase.dll!WaitForSingleObjectEx",
+                "msvcr120.dll!Concurrency::details::ExternalContextBase::Block",
+                "msvcr120.dll!Concurrency::critical_section::_Acquire_lock",
+                "msvcr120.dll!Concurrency::critical_section::lock",
+                "msvcr120.dll!Concurrency::details::_Condition_variable::wait",
+                "msvcp120.dll!do_wait",
+                "msvcp120.dll!_Cnd_wait",
+                "noita.exe+0x529158",
+                "noita.exe+0x44bf00",
+                "noita.exe+0x57bb06",
+                "msvcp120.dll!_Call_func",
+                "msvcr120.dll!_callthreadstartex",
+                "msvcr120.dll!_threadstartex"
+              ]
+            },
+            {
+              "count": 1010,
+              "wait_ms": 6.8,
+              "stack": [
+                "ntoskrnl.exe!SwapContext",
+                "ntoskrnl.exe!KiSwapContext",
+                "ntoskrnl.exe!KiSwapThread",
+                "ntoskrnl.exe!KiCommitThreadWait",
+                "ntoskrnl.exe!KeWaitForSingleObject",
+                "ntoskrnl.exe!ObWaitForSingleObject",
+                "ntoskrnl.exe!NtWaitForSingleObject",
+                "ntoskrnl.exe!KiSystemServiceCopyEnd",
+                "wow64cpu.dll!CpupSyscallStub",
+                "wow64cpu.dll!Thunk0ArgReloadState",
+                "wow64cpu.dll!BTCpuSimulate",
+                "wow64.dll!RunCpuSimulation",
+                "wow64.dll!Wow64LdrpInitialize",
+                "ntdll.dll!_LdrpInitialize",
+                "ntdll.dll!LdrpInitializeInternal",
+                "ntdll.dll!LdrInitializeThunk",
+                "ntdll.dll!NtWaitForSingleObject",
+                "KernelBase.dll!WaitForSingleObjectEx",
+                "msvcr120.dll!Concurrency::details::ExternalContextBase::Block",
+                "msvcr120.dll!Concurrency::critical_section::_Acquire_lock",
+                "msvcr120.dll!Concurrency::critical_section::lock",
+                "msvcp120.dll!mtx_do_lock",
+                "msvcp120.dll!_Mtx_lock",
+                "noita.exe+0x4ab7b7",
+                "noita.exe+0x44be29",
+                "noita.exe+0x57bb06",
+                "msvcp120.dll!_Call_func",
+                "msvcr120.dll!_callthreadstartex",
+                "msvcr120.dll!_threadstartex",
+                "kernel32.dll!BaseThreadInitThunk"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -62,6 +62,31 @@ Saves are isolated with `-always_store_userdata_in_workdir`: each instance runs 
 (junction to `data/`, copies of the root files, its own `mods/`, `config.xml`, `mod_config.xml`);
 nothing is written to the install or to LocalLow. Max working set 750 MB per instance.
 
+## Shared ceiling (`ceiling_*_20260929-*.json`, `ceiling_trace_20260930-*.json`)
+
+| Condition (3 runs x 30 s, median) | Solo | N=4 aggregate |
+|---|---|---|
+| Baselines (4 reruns) | 147-153 | 298-315 |
+| Ultimate Performance / + C-states off | 151 / 162 | 319 / 313 |
+| Steam closed | 146 | 319 |
+| N=4 pinned, one whole core (2 threads) each | - | 198 |
+| N=4 pinned, one logical CPU each | - | 335 |
+| N=4 + a 5th instance cycling restarts | - | 255 |
+
+A WPR context-switch trace accounts for every millisecond of the main thread's frame:
+
+| Main thread, ms/frame | Solo (143 fps) | N=4 (62 fps each, traced) |
+|---|---|---|
+| on CPU / ready (runnable, no CPU) / blocked | 6.6 / 0.4 / 0.06 | 9.2 / **5.7** / 1.4 |
+| whole process CPU | 24.5 | 41.5 |
+
+Each process keeps about 3.5 logical CPUs busy (main thread, ~7 ConcRT workers from `msvcr120`,
+an NVIDIA driver thread); blocking is on Noita's own mutex, never on the GPU or OpenGL. Four
+instances want ~14 of 12 logical CPUs, so main threads queue. psutil, `% Processor Time` and
+process CPU times are tick-sampled and read 0.3 core per process; `% Processor Utility` reads
+49 % solo and 130 % at N=4. Pinned to one CPU an instance keeps ~84 fps, so most worker CPU is
+overhead. Pinned scaling at N=6-12 is pending (`driver ceiling scaling`).
+
 ## Recommended configuration
 
 `noita.exe`, workdir isolation, seed via virtual magic numbers, QPC clock 3x at framerate 60, vsync
@@ -80,12 +105,8 @@ firing, fix the spread RNG in `OnProjectileFired` (NP) and fire with `UseItem(ch
 
 ## Blockers
 
-- **A shared ceiling of about 300 game fps across all processes** caps parallelism at 4. It is not
-  CPU (13 %; each process is about 70 % idle), GPU utilisation (28 %), the driver, render cost,
-  window state, throttling, the clock hook, entity systems (all 165 off: N=4 +21 %), or timer
-  resolution (the limiter's `SDL_Delay` already sleeps at 1-2 ms; 0.5 ms, 1 ms and coarse timers
-  changed nothing beyond drift). Pausing 3 of 4 instances lifts the fourth to its solo rate, so the
-  shared cost is in simulated frames, not presented ones. Cause still open.
+- **The ~300 game fps ceiling is CPU saturation** of this 6-core / 12-thread machine; see
+  "Shared ceiling". Earlier "not CPU" readings came from tick-sampled counters.
 - **No true in-process world reset, even with NoitaPatcher.** Region cell restores work; physics
   bodies and entities must be cleared and respawned by the mod. A fresh world is a 5.3 s restart.
 - **NP `SetProjectileSpreadRNG` kills the game if called before `InstallShootProjectileFiredCallbacks`.**

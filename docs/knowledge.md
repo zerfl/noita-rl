@@ -129,7 +129,8 @@ Verified facts only; each says how it was verified. Unverified leads go under "L
 - Clock 3x, K=4, 64x64 grid every packet, quiet Mines: aggregate 160 / 286 / 297 / 281 fps at
   N = 1 / 2 / 4 / 6 (best 4.94x real time at N=4). No failures or crashes; working set
   0.68-0.75 GB per instance, max 750 MB.
-- The cap (about 300 aggregate frames/s) is not CPU (13 % system), GPU utilisation (about 28 %,
+- The cap (about 300 aggregate frames/s) is CPU saturation (see "Shared ceiling" below; the 13 %
+  system reading was tick-sampled and wrong). Not GPU utilisation (about 28 %,
   RTX 3070 Ti), driver load (no grid, K=240: 310), render cost (low-quality settings: 296),
   EcoQoS/timer throttling (opt-out: 339) or the clock hook (framerate 240 without the hook: 273).
   One framerate-240 instance runs at 190 fps using 0.76 of a core.
@@ -229,3 +230,21 @@ mod's `timer` command between two baselines (`results/timer_20260929-002133.json
 - The dev build has a "save scene / hold F6 to restart the saved scene" recording feature
   (`-recording_load_saved_scene`); its keys are unknown and it also goes through a restart.
 - Liquid simulation may use a QPC-timed budget, which would explain its drift under clock scaling.
+
+## Shared ceiling (2026-09-30)
+
+WPR CPU traces (`results/ceiling_hold_*_20260930-*.json`, `results/ceiling_trace_20260930-*.json`)
+and a live counter cross-check on this 6-core / 12-thread machine.
+
+- **The ceiling is CPU.** Solo, the main thread runs 94 % of wall time (6.6 ms CPU of a 7.0 ms
+  frame) and the process keeps about 3.5 logical CPUs busy. At N=4 each main thread spends 5.7 ms
+  per frame ready but unscheduled and 9.2 ms on CPU (SMT siblings busy); 4 processes use ~10 CPUs.
+- Main-thread blocking is Noita's own `_Mtx_lock` (ConcRT critical section), about 25 per frame.
+  GPU driver and OpenGL waits are negligible: the GPU-sync hypothesis is refuted.
+- **Tick-sampled CPU counters are wrong for Noita:** psutil `cpu_percent`, `% Processor Time` and
+  `Process.cpu_times()` read 5-15 % system and 0.3 core per process; `% Processor Utility` reads
+  49 % (N=1) and 130 % (N=4) and agrees with ETW. Use ETW or `% Processor Utility` for CPU claims.
+- Pinning each instance to one logical CPU keeps ~84 fps per instance (N=4: 335 aggregate); two
+  SMT threads per instance is worse (198). Most worker-thread CPU is overhead.
+- `tools/etwcpu` must restrict symbol loading to the target processes plus `System`, and the symbol
+  folders must exist first (E_ACCESSDENIED otherwise).

@@ -2,6 +2,14 @@
 
 Newest first. Each entry: what, why, and what would change it.
 
+## 2026-09-30
+
+- **CPU claims use ETW or `% Processor Utility`, never psutil or `% Processor Time`.** The
+  tick-sampled counters read 0.3 core per Noita process against 3.5 measured by context switches,
+  which made phases 3-6 rule out CPU wrongly. `cpu_percent` fields in older results are unreliable.
+- **Candidate default: pin each instance to one logical CPU** (N=4: 335 vs ~310 unpinned, far less
+  CPU). Adopted only if `ceiling scaling` shows it scales past N=4.
+
 ## 2026-09-29
 
 - **The verified build is the release build `Noita - Build Jan 25 2025 - 15:55:41`** (noita.exe
