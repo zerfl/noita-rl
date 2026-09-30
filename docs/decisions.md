@@ -4,6 +4,12 @@ Newest first. Each entry: what, why, and what would change it.
 
 ## 2026-09-30
 
+- **Method comparison on the live task uses a 250k-step budget**, 4 games, and the scripted level
+  (return 8.0 over 30 episodes) as the target for `rl compare`. PPO passed it at 99k and was
+  still improving slowly at 250k; 500k would double the cost of each comparison run.
+- **Live-task policies are evaluated stochastically.** PPO's deterministic policy (argmax per
+  action dimension) clears 12/20 against 19/20 when sampling.
+
 - **The GPU's job is sample efficiency, not game speed.** The simulation is CPU-only. Next RL work
   makes the arena harder (the frozen-target task is solved) and then compares PPO with off-policy
   and model-based methods in game frames to a target score. More instances (12 pinned) are off the

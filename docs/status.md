@@ -106,10 +106,12 @@ The benchmark is complete (`FINDINGS.md`). Phase 8 builds the runner; plan and b
 2. Arena combat RL (`driver rl baselines | train | eval | curve`, `--resume`): done for the
    frozen-target task. PPO 500k steps (`runs/ppo_20260930-193103`) clears 20/20 in 194 frames
    (scripted 177); see FINDINGS.md. Next, in order:
-   a. Harder arena: live task built (AI on; baselines random 1.0 / scripted 6.3); PPO 500k on it
-      in progress (`runs/ppo_live_*`). Then terrain, projectiles in the observation, grid.
-   b. On it, PPO vs an off-policy (`--algo dqn`, built) and a model-based method in game frames
-      to the scripted level (two runs each).
+   a. Harder arena: live task built (AI on). PPO 250k (`runs/ppo_live_20260930-212614`):
+      stochastic policy clears 19/20 in 73 steps vs scripted 13/20 in 127; passed the scripted
+      level (8.0) at 99k steps. Then terrain, projectiles in the observation, grid.
+   b. On it, PPO vs DQN vs DreamerV3 in env steps to the scripted level (250k budget each; two
+      runs each later). DQN 250k running; DreamerV3 (PyTorch, r2dreamer) being integrated. JAX in
+      WSL2 prepared (`tools/wsl/`), trainer not built. `rl eval` needs a stochastic option.
    c. Deferred: async collection (update is 6 % of wall time). Parked: render skip.
    Wand search parked.
 3. Tighten the liquid probe (more repetitions) to decide whether 4x can be promoted.

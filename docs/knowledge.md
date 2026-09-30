@@ -338,3 +338,13 @@ and a live counter cross-check on this 6-core / 12-thread machine.
   0.55; no deaths. Clearing needs movement (levitate over corpses, close in), which the scripted
   aimer lacks. `dealt` and kills count any hp the targets lose, including friendly fire.
 - The observation has no enemy projectiles; dodging can only be learned from enemy positions.
+  Dead targets keep their last position (the frame hook stops updating them) with hp 0, so the
+  observation roughly locates corpses; later knockback is not seen.
+- PPO on the live task (250k steps, `rl_behaviour_live_20260930.json`): stochastic policy clears
+  19/20 in 73 steps with 0.23 self-damage, levitating 43 % of steps; deterministic (argmax per
+  action dimension) only 12/20, no better than the scripted aimer (13/20, 127 steps). Evaluate
+  live-task policies stochastically.
+- Live-task scripted level: return 8.0 (30 episodes: 6.3 over 10, 8.9 over 20); the spread
+  between samples of 10-20 episodes is large, so baselines need 30+ episodes.
+- Live-task timing (PPO, N=4): 11.1 s per 1,024-step rollout, update 5 %, reset 0.088 s with the
+  2-frame settle; about 82 steps/s.

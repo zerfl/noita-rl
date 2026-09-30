@@ -123,6 +123,20 @@ floats, action [move, levitate, fire, aim in 72 directions]. PPO (stable-baselin
   rollout 9.7 s, PPO update 0.63 s (6 %). An arena reset took 0.18 s (median) and holds all games;
   with ~57-step episodes that was about 25 % of wall time. 20 of its 25 frames were a settle wait;
   2 frames halve it (0.08 s) without changing the task (scripted return 12.59 vs 12.58).
+- Live task (`--task live`: AI on, targets fall to the floor, shoot back, corpses shield the targets
+  behind them): PPO for 250k steps (`runs/ppo_live_20260930-212614`, stopped at 258k), 20
+  episodes each (`rl_behaviour_live_20260930.json`):
+
+  | Policy | Return | Kills | Cleared | Steps to end | Self-damage | Levitating |
+  |---|---|---|---|---|---|---|
+  | Scripted aimer (stands still) | 8.9 | 2.65 | 13/20 | 127 | 0.67 | 0 % |
+  | PPO, deterministic | 9.2 | 2.6 | 12/20 | 105 | 0.73 | 19 % |
+  | PPO, stochastic | 11.7 | 2.95 | 19/20 | 73 | 0.23 | 43 % |
+
+  PPO learned to move and levitate (up to 56 px) to shoot past corpses; the scripted aimer cannot.
+  Its deterministic (per-dimension argmax) policy loses that mix, so policies on this task are
+  evaluated stochastically. It passed the scripted level (return 8.0, 30 episodes) after 99k steps
+  (20 min). The scripted aimer's return varies a lot here (6.3 over 10 episodes, 8.9 over 20).
 - The simulation is CPU-only; the GPU sits idle with this network. Game frames are the budget, so
   the GPU's use is sample efficiency (off-policy or model-based methods) and larger observations.
 

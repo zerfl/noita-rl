@@ -1,0 +1,1017 @@
+{
+ "test": "rl_behaviour",
+ "task": "live",
+ "model": "runs/ppo_live_20260930-212614/checkpoints/rl_model_250000_steps.zip",
+ "episodes_per_policy": 20,
+ "scripted": {
+  "episodes": [
+   {
+    "return": 6.200000000000022,
+    "kills": 2,
+    "steps": 150,
+    "self": 1.24,
+    "died": false,
+    "move_left": 0.0,
+    "move_right": 0.0,
+    "levitate": 0.0,
+    "fire": 1.0,
+    "dx_range": [
+     -34.9,
+     0.0
+    ],
+    "max_height": -2.2
+   },
+   {
+    "return": 12.030000000000015,
+    "kills": 3,
+    "steps": 97,
+    "self": 0.0,
+    "died": false,
+    "move_left": 0.0,
+    "move_right": 0.0,
+    "levitate": 0.0,
+    "fire": 1.0,
+    "dx_range": [
+     0.0,
+     0.0
+    ],
+    "max_height": -2.6
+   },
+   {
+    "return": 7.300000000000031,
+    "kills": 2,
+    "steps": 150,
+    "self": 0.0,
+    "died": false,
+    "move_left": 0.0,
+    "move_right": 0.0,
+    "levitate": 0.0,
+    "fire": 1.0,
+    "dx_range": [
+     0.0,
+     0.0
+    ],
+    "max_height": -2.6
+   },
+   {
+    "return": 8.34000000000002,
+    "kills": 3,
+    "steps": 116,
+    "self": 1.4,
+    "died": false,
+    "move_left": 0.0,
+    "move_right": 0.0,
+    "levitate": 0.0,
+    "fire": 1.0,
+    "dx_range": [
+     -36.5,
+     0.0
+    ],
+    "max_height": -1.9
+   },
+   {
+    "return": 11.83000000000002,
+    "kills": 3,
+    "steps": 117,
+    "self": 0.0,
+    "died": false,
+    "move_left": 0.0,
+    "move_right": 0.0,
+    "levitate": 0.0,
+    "fire": 1.0,
+    "dx_range": [
+     0.0,
+     0.0
+    ],
+    "max_height": -2.6
+   },
+   {
+    "return": 3.525000000000027,
+    "kills": 2,
+    "steps": 150,
+    "self": 1.51,
+    "died": false,
+    "move_left": 0.0,
+    "move_right": 0.0,
+    "levitate": 0.0,
+    "fire": 1.0,
+    "dx_range": [
+     -25.9,
+     0.0
+    ],
+    "max_height": -2.6
+   },
+   {
+    "return": 4.87500000000003,
+    "kills": 2,
+    "steps": 150,
+    "self": 0.81,
+    "died": false,
+    "move_left": 0.0,
+    "move_right": 0.0,
+    "levitate": 0.0,
+    "fire": 1.0,
+    "dx_range": [
+     -6.0,
+     0.0
+    ],
+    "max_height": -2.6
+   },
+   {
+    "return": 5.100000000000026,
+    "kills": 2,
+    "steps": 150,
+    "self": 2.16,
+    "died": false,
+    "move_left": 0.0,
+    "move_right": 0.0,
+    "levitate": 0.0,
+    "fire": 0.6866666666666666,
+    "dx_range": [
+     -10.7,
+     0.0
+    ],
+    "max_height": -2.6
+   },
+   {
+    "return": 7.550000000000027,
+    "kills": 2,
+    "steps": 150,
+    "self": 0.7,
+    "died": false,
+    "move_left": 0.0,
+    "move_right": 0.0,
+    "levitate": 0.0,
+    "fire": 1.0,
+    "dx_range": [
+     0.0,
+     24.0
+    ],
+    "max_height": -2.6
+   },
+   {
+    "return": 11.730000000000022,
+    "kills": 3,
+    "steps": 127,
+    "self": 0.0,
+    "died": false,
+    "move_left": 0.0,
+    "move_right": 0.0,
+    "levitate": 0.0,
+    "fire": 1.0,
+    "dx_range": [
+     0.0,
+     0.0
+    ],
+    "max_height": -2.6
+   },
+   {
+    "return": 10.62000000000001,
+    "kills": 3,
+    "steps": 63,
+    "self": 0.7,
+    "died": false,
+    "move_left": 0.0,
+    "move_right": 0.0,
+    "levitate": 0.0,
+    "fire": 1.0,
+    "dx_range": [
+     -40.5,
+     0.0
+    ],
+    "max_height": -0.4
+   },
+   {
+    "return": 9.830000000000027,
+    "kills": 3,
+    "steps": 142,
+    "self": 0.7,
+    "died": false,
+    "move_left": 0.0,
+    "move_right": 0.0,
+    "levitate": 0.0,
+    "fire": 1.0,
+    "dx_range": [
+     -25.0,
+     0.0
+    ],
+    "max_height": -2.5
+   },
+   {
+    "return": 11.770000000000021,
+    "kills": 3,
+    "steps": 123,
+    "self": 0.0,
+    "died": false,
+    "move_left": 0.0,
+    "move_right": 0.0,
+    "levitate": 0.0,
+    "fire": 1.0,
+    "dx_range": [
+     0.0,
+     0.0
+    ],
+    "max_height": -2.6
+   },
+   {
+    "return": 8.28000000000002,
+    "kills": 3,
+    "steps": 122,
+    "self": 1.4,
+    "died": false,
+    "move_left": 0.0,
+    "move_right": 0.0,
+    "levitate": 0.0,
+    "fire": 1.0,
+    "dx_range": [
+     -33.8,
+     0.0
+    ],
+    "max_height": -1.9
+   },
+   {
+    "return": 11.810000000000022,
+    "kills": 3,
+    "steps": 119,
+    "self": 0.0,
+    "died": false,
+    "move_left": 0.0,
+    "move_right": 0.0,
+    "levitate": 0.0,
+    "fire": 1.0,
+    "dx_range": [
+     0.0,
+     0.0
+    ],
+    "max_height": -2.6
+   },
+   {
+    "return": 5.1500000000000234,
+    "kills": 2,
+    "steps": 150,
+    "self": 0.7,
+    "died": false,
+    "move_left": 0.0,
+    "move_right": 0.0,
+    "levitate": 0.0,
+    "fire": 1.0,
+    "dx_range": [
+     -35.5,
+     0.0
+    ],
+    "max_height": -1.4
+   },
+   {
+    "return": 10.420000000000012,
+    "kills": 3,
+    "steps": 83,
+    "self": 0.7,
+    "died": false,
+    "move_left": 0.0,
+    "move_right": 0.0,
+    "levitate": 0.0,
+    "fire": 1.0,
+    "dx_range": [
+     -24.5,
+     0.0
+    ],
+    "max_height": -2.5
+   },
+   {
+    "return": 11.740000000000022,
+    "kills": 3,
+    "steps": 126,
+    "self": 0.0,
+    "died": false,
+    "move_left": 0.0,
+    "move_right": 0.0,
+    "levitate": 0.0,
+    "fire": 1.0,
+    "dx_range": [
+     0.0,
+     0.0
+    ],
+    "max_height": -2.6
+   },
+   {
+    "return": 9.930000000000025,
+    "kills": 3,
+    "steps": 132,
+    "self": 0.7,
+    "died": false,
+    "move_left": 0.0,
+    "move_right": 0.0,
+    "levitate": 0.0,
+    "fire": 1.0,
+    "dx_range": [
+     -25.0,
+     0.0
+    ],
+    "max_height": -2.5
+   },
+   {
+    "return": 10.03000000000002,
+    "kills": 3,
+    "steps": 122,
+    "self": 0.7,
+    "died": false,
+    "move_left": 0.0,
+    "move_right": 0.0,
+    "levitate": 0.0,
+    "fire": 1.0,
+    "dx_range": [
+     -35.9,
+     0.0
+    ],
+    "max_height": -1.7
+   }
+  ],
+  "mean": {
+   "return": 8.903,
+   "kills": 2.65,
+   "steps": 126.95,
+   "self": 0.671,
+   "move_left": 0.0,
+   "move_right": 0.0,
+   "levitate": 0.0,
+   "fire": 0.984,
+   "max_height": -2.28
+  },
+  "cleared": 13,
+  "died": 0
+ },
+ "ppo_deterministic": {
+  "episodes": [
+   {
+    "return": 6.744250000000015,
+    "kills": 3,
+    "steps": 91,
+    "self": 2.1383,
+    "died": false,
+    "move_left": 0.1978021978021978,
+    "move_right": 0.7692307692307693,
+    "levitate": 0.14285714285714285,
+    "fire": 1.0,
+    "dx_range": [
+     -16.6,
+     168.3
+    ],
+    "max_height": 44.1
+   },
+   {
+    "return": 4.996500000000011,
+    "kills": 2,
+    "steps": 150,
+    "self": 1.8814,
+    "died": false,
+    "move_left": 0.26,
+    "move_right": 0.6133333333333333,
+    "levitate": 0.12666666666666668,
+    "fire": 1.0,
+    "dx_range": [
+     -23.5,
+     208.1
+    ],
+    "max_height": 43.4
+   },
+   {
+    "return": 12.580000000000007,
+    "kills": 3,
+    "steps": 42,
+    "self": 0.0,
+    "died": false,
+    "move_left": 0.2619047619047619,
+    "move_right": 0.5476190476190477,
+    "levitate": 0.38095238095238093,
+    "fire": 0.9523809523809523,
+    "dx_range": [
+     -23.0,
+     51.6
+    ],
+    "max_height": 43.4
+   },
+   {
+    "return": 12.35500000000001,
+    "kills": 3,
+    "steps": 64,
+    "self": 0.0,
+    "died": false,
+    "move_left": 0.28125,
+    "move_right": 0.515625,
+    "levitate": 0.296875,
+    "fire": 0.890625,
+    "dx_range": [
+     -23.5,
+     58.4
+    ],
+    "max_height": 43.4
+   },
+   {
+    "return": 5.135750000000028,
+    "kills": 2,
+    "steps": 150,
+    "self": 1.2977,
+    "died": false,
+    "move_left": 0.31333333333333335,
+    "move_right": 0.56,
+    "levitate": 0.12666666666666668,
+    "fire": 1.0,
+    "dx_range": [
+     -23.5,
+     178.6
+    ],
+    "max_height": 43.4
+   },
+   {
+    "return": 12.38000000000001,
+    "kills": 3,
+    "steps": 62,
+    "self": 0.0,
+    "died": false,
+    "move_left": 0.1774193548387097,
+    "move_right": 0.5806451612903226,
+    "levitate": 0.25806451612903225,
+    "fire": 0.967741935483871,
+    "dx_range": [
+     -23.5,
+     90.8
+    ],
+    "max_height": 43.4
+   },
+   {
+    "return": 9.700000000000028,
+    "kills": 2,
+    "steps": 150,
+    "self": 0.0,
+    "died": false,
+    "move_left": 0.16666666666666666,
+    "move_right": 0.31333333333333335,
+    "levitate": 0.12666666666666668,
+    "fire": 0.94,
+    "dx_range": [
+     -23.5,
+     126.7
+    ],
+    "max_height": 43.4
+   },
+   {
+    "return": 7.8875000000000295,
+    "kills": 2,
+    "steps": 150,
+    "self": 0.725,
+    "died": false,
+    "move_left": 0.18666666666666668,
+    "move_right": 0.4266666666666667,
+    "levitate": 0.12666666666666668,
+    "fire": 0.7333333333333333,
+    "dx_range": [
+     -23.5,
+     147.8
+    ],
+    "max_height": 43.4
+   },
+   {
+    "return": 5.617000000000029,
+    "kills": 2,
+    "steps": 150,
+    "self": 1.1052,
+    "died": false,
+    "move_left": 0.30666666666666664,
+    "move_right": 0.5333333333333333,
+    "levitate": 0.11333333333333333,
+    "fire": 0.9866666666666667,
+    "dx_range": [
+     -23.0,
+     147.0
+    ],
+    "max_height": 43.4
+   },
+   {
+    "return": 12.33000000000001,
+    "kills": 3,
+    "steps": 67,
+    "self": 0.0,
+    "died": false,
+    "move_left": 0.1791044776119403,
+    "move_right": 0.6865671641791045,
+    "levitate": 0.23880597014925373,
+    "fire": 0.9701492537313433,
+    "dx_range": [
+     -23.0,
+     118.4
+    ],
+    "max_height": 43.4
+   },
+   {
+    "return": 7.636000000000012,
+    "kills": 3,
+    "steps": 76,
+    "self": 1.8416,
+    "died": false,
+    "move_left": 0.18421052631578946,
+    "move_right": 0.7631578947368421,
+    "levitate": 0.18421052631578946,
+    "fire": 1.0,
+    "dx_range": [
+     -23.0,
+     179.8
+    ],
+    "max_height": 43.4
+   },
+   {
+    "return": 12.48000000000001,
+    "kills": 3,
+    "steps": 52,
+    "self": 0.0,
+    "died": false,
+    "move_left": 0.23076923076923078,
+    "move_right": 0.5961538461538461,
+    "levitate": 0.3076923076923077,
+    "fire": 0.9615384615384616,
+    "dx_range": [
+     -23.0,
+     77.5
+    ],
+    "max_height": 43.4
+   },
+   {
+    "return": 7.575750000000024,
+    "kills": 3,
+    "steps": 127,
+    "self": 1.6617,
+    "died": false,
+    "move_left": 0.25196850393700787,
+    "move_right": 0.4566929133858268,
+    "levitate": 0.12598425196850394,
+    "fire": 0.984251968503937,
+    "dx_range": [
+     -20.0,
+     163.8
+    ],
+    "max_height": 43.4
+   },
+   {
+    "return": 9.219000000000014,
+    "kills": 3,
+    "steps": 76,
+    "self": 1.2084,
+    "died": false,
+    "move_left": 0.19736842105263158,
+    "move_right": 0.7368421052631579,
+    "levitate": 0.18421052631578946,
+    "fire": 1.0,
+    "dx_range": [
+     -23.0,
+     161.1
+    ],
+    "max_height": 43.4
+   },
+   {
+    "return": 5.276000000000028,
+    "kills": 2,
+    "steps": 150,
+    "self": 1.7696,
+    "died": false,
+    "move_left": 0.18,
+    "move_right": 0.5666666666666667,
+    "levitate": 0.12666666666666668,
+    "fire": 0.98,
+    "dx_range": [
+     -23.5,
+     162.4
+    ],
+    "max_height": 43.4
+   },
+   {
+    "return": 12.390000000000011,
+    "kills": 3,
+    "steps": 61,
+    "self": 0.0,
+    "died": false,
+    "move_left": 0.18032786885245902,
+    "move_right": 0.5737704918032787,
+    "levitate": 0.26229508196721313,
+    "fire": 0.9672131147540983,
+    "dx_range": [
+     -23.0,
+     87.2
+    ],
+    "max_height": 43.4
+   },
+   {
+    "return": 11.680000000000023,
+    "kills": 3,
+    "steps": 132,
+    "self": 0.0,
+    "died": false,
+    "move_left": 0.24242424242424243,
+    "move_right": 0.4318181818181818,
+    "levitate": 0.16666666666666666,
+    "fire": 0.946969696969697,
+    "dx_range": [
+     -23.5,
+     139.9
+    ],
+    "max_height": 43.4
+   },
+   {
+    "return": 6.667500000000031,
+    "kills": 2,
+    "steps": 150,
+    "self": 0.685,
+    "died": false,
+    "move_left": 0.31333333333333335,
+    "move_right": 0.4866666666666667,
+    "levitate": 0.1,
+    "fire": 0.9866666666666667,
+    "dx_range": [
+     -23.4,
+     115.4
+    ],
+    "max_height": 43.4
+   },
+   {
+    "return": 12.570000000000007,
+    "kills": 3,
+    "steps": 43,
+    "self": 0.0,
+    "died": false,
+    "move_left": 0.18604651162790697,
+    "move_right": 0.7674418604651163,
+    "levitate": 0.3023255813953488,
+    "fire": 1.0,
+    "dx_range": [
+     -22.4,
+     85.4
+    ],
+    "max_height": 43.4
+   },
+   {
+    "return": 9.075000000000028,
+    "kills": 2,
+    "steps": 150,
+    "self": 0.25,
+    "died": false,
+    "move_left": 0.11333333333333333,
+    "move_right": 0.37333333333333335,
+    "levitate": 0.14,
+    "fire": 0.6666666666666666,
+    "dx_range": [
+     -23.5,
+     135.6
+    ],
+    "max_height": 43.4
+   }
+  ],
+  "mean": {
+   "return": 9.215,
+   "kills": 2.6,
+   "steps": 104.65,
+   "self": 0.728,
+   "move_left": 0.221,
+   "move_right": 0.565,
+   "levitate": 0.192,
+   "fire": 0.947,
+   "max_height": 43.435
+  },
+  "cleared": 12,
+  "died": 0
+ },
+ "ppo_stochastic": {
+  "episodes": [
+   {
+    "return": 12.640000000000004,
+    "kills": 3,
+    "steps": 36,
+    "self": 0.0,
+    "died": false,
+    "move_left": 0.5,
+    "move_right": 0.2777777777777778,
+    "levitate": 0.3888888888888889,
+    "fire": 0.8888888888888888,
+    "dx_range": [
+     -12.1,
+     19.3
+    ],
+    "max_height": 62.0
+   },
+   {
+    "return": 12.240000000000013,
+    "kills": 3,
+    "steps": 76,
+    "self": 0.0,
+    "died": false,
+    "move_left": 0.2894736842105263,
+    "move_right": 0.34210526315789475,
+    "levitate": 0.3026315789473684,
+    "fire": 0.8947368421052632,
+    "dx_range": [
+     -1.2,
+     28.3
+    ],
+    "max_height": 53.8
+   },
+   {
+    "return": 12.320000000000011,
+    "kills": 3,
+    "steps": 68,
+    "self": 0.0,
+    "died": false,
+    "move_left": 0.3088235294117647,
+    "move_right": 0.36764705882352944,
+    "levitate": 0.4411764705882353,
+    "fire": 0.9411764705882353,
+    "dx_range": [
+     0.0,
+     63.8
+    ],
+    "max_height": 44.4
+   },
+   {
+    "return": 12.310000000000011,
+    "kills": 3,
+    "steps": 69,
+    "self": 0.0,
+    "died": false,
+    "move_left": 0.2318840579710145,
+    "move_right": 0.43478260869565216,
+    "levitate": 0.463768115942029,
+    "fire": 0.855072463768116,
+    "dx_range": [
+     0.1,
+     70.8
+    ],
+    "max_height": 73.4
+   },
+   {
+    "return": 12.420000000000009,
+    "kills": 3,
+    "steps": 58,
+    "self": 0.0,
+    "died": false,
+    "move_left": 0.22413793103448276,
+    "move_right": 0.4827586206896552,
+    "levitate": 0.39655172413793105,
+    "fire": 0.8793103448275862,
+    "dx_range": [
+     1.2,
+     68.7
+    ],
+    "max_height": 47.0
+   },
+   {
+    "return": 12.10000000000002,
+    "kills": 3,
+    "steps": 90,
+    "self": 0.0,
+    "died": false,
+    "move_left": 0.32222222222222224,
+    "move_right": 0.32222222222222224,
+    "levitate": 0.34444444444444444,
+    "fire": 0.8222222222222222,
+    "dx_range": [
+     -30.3,
+     3.9
+    ],
+    "max_height": 63.0
+   },
+   {
+    "return": 12.490000000000013,
+    "kills": 3,
+    "steps": 51,
+    "self": 0.0,
+    "died": false,
+    "move_left": 0.3137254901960784,
+    "move_right": 0.27450980392156865,
+    "levitate": 0.35294117647058826,
+    "fire": 0.8431372549019608,
+    "dx_range": [
+     -5.1,
+     13.7
+    ],
+    "max_height": 57.0
+   },
+   {
+    "return": 3.7447500000000282,
+    "kills": 2,
+    "steps": 150,
+    "self": 2.7021,
+    "died": false,
+    "move_left": 0.2866666666666667,
+    "move_right": 0.34,
+    "levitate": 0.3933333333333333,
+    "fire": 0.7933333333333333,
+    "dx_range": [
+     -23.8,
+     62.5
+    ],
+    "max_height": 73.2
+   },
+   {
+    "return": 12.770000000000001,
+    "kills": 3,
+    "steps": 23,
+    "self": 0.0,
+    "died": false,
+    "move_left": 0.2608695652173913,
+    "move_right": 0.43478260869565216,
+    "levitate": 0.7391304347826086,
+    "fire": 0.9130434782608695,
+    "dx_range": [
+     0.8,
+     12.4
+    ],
+    "max_height": 40.8
+   },
+   {
+    "return": 12.070000000000016,
+    "kills": 3,
+    "steps": 93,
+    "self": 0.0,
+    "died": false,
+    "move_left": 0.27956989247311825,
+    "move_right": 0.3870967741935484,
+    "levitate": 0.4946236559139785,
+    "fire": 0.8709677419354839,
+    "dx_range": [
+     -31.4,
+     31.5
+    ],
+    "max_height": 62.8
+   },
+   {
+    "return": 12.56000000000001,
+    "kills": 3,
+    "steps": 44,
+    "self": 0.0,
+    "died": false,
+    "move_left": 0.25,
+    "move_right": 0.5681818181818182,
+    "levitate": 0.4318181818181818,
+    "fire": 0.9772727272727273,
+    "dx_range": [
+     -4.0,
+     64.4
+    ],
+    "max_height": 41.9
+   },
+   {
+    "return": 12.180000000000014,
+    "kills": 3,
+    "steps": 82,
+    "self": 0.0,
+    "died": false,
+    "move_left": 0.3048780487804878,
+    "move_right": 0.43902439024390244,
+    "levitate": 0.43902439024390244,
+    "fire": 0.8048780487804879,
+    "dx_range": [
+     -6.5,
+     65.9
+    ],
+    "max_height": 59.2
+   },
+   {
+    "return": 12.45000000000001,
+    "kills": 3,
+    "steps": 55,
+    "self": 0.0,
+    "died": false,
+    "move_left": 0.3090909090909091,
+    "move_right": 0.45454545454545453,
+    "levitate": 0.5272727272727272,
+    "fire": 0.8545454545454545,
+    "dx_range": [
+     0.0,
+     62.2
+    ],
+    "max_height": 39.9
+   },
+   {
+    "return": 10.925000000000031,
+    "kills": 3,
+    "steps": 145,
+    "self": 0.25,
+    "died": false,
+    "move_left": 0.2206896551724138,
+    "move_right": 0.4,
+    "levitate": 0.4482758620689655,
+    "fire": 0.7310344827586207,
+    "dx_range": [
+     -4.5,
+     151.3
+    ],
+    "max_height": 51.0
+   },
+   {
+    "return": 10.270000000000017,
+    "kills": 3,
+    "steps": 98,
+    "self": 0.7,
+    "died": false,
+    "move_left": 0.3469387755102041,
+    "move_right": 0.336734693877551,
+    "levitate": 0.29591836734693877,
+    "fire": 0.8571428571428571,
+    "dx_range": [
+     -12.9,
+     145.1
+    ],
+    "max_height": 48.6
+   },
+   {
+    "return": 12.680000000000003,
+    "kills": 3,
+    "steps": 32,
+    "self": 0.0,
+    "died": false,
+    "move_left": 0.375,
+    "move_right": 0.34375,
+    "levitate": 0.4375,
+    "fire": 0.84375,
+    "dx_range": [
+     -22.8,
+     3.1
+    ],
+    "max_height": 57.6
+   },
+   {
+    "return": 11.535000000000014,
+    "kills": 3,
+    "steps": 84,
+    "self": 0.25,
+    "died": false,
+    "move_left": 0.2261904761904762,
+    "move_right": 0.38095238095238093,
+    "levitate": 0.35714285714285715,
+    "fire": 0.7976190476190477,
+    "dx_range": [
+     -41.8,
+     14.0
+    ],
+    "max_height": 68.5
+   },
+   {
+    "return": 12.800000000000002,
+    "kills": 3,
+    "steps": 20,
+    "self": 0.0,
+    "died": false,
+    "move_left": 0.4,
+    "move_right": 0.25,
+    "levitate": 0.5,
+    "fire": 0.9,
+    "dx_range": [
+     -15.4,
+     1.2
+    ],
+    "max_height": 55.3
+   },
+   {
+    "return": 12.420000000000009,
+    "kills": 3,
+    "steps": 58,
+    "self": 0.0,
+    "died": false,
+    "move_left": 0.25862068965517243,
+    "move_right": 0.39655172413793105,
+    "levitate": 0.3620689655172414,
+    "fire": 0.8448275862068966,
+    "dx_range": [
+     -15.3,
+     25.7
+    ],
+    "max_height": 76.4
+   },
+   {
+    "return": 10.13725000000002,
+    "kills": 3,
+    "steps": 127,
+    "self": 0.6371,
+    "died": false,
+    "move_left": 0.25984251968503935,
+    "move_right": 0.30708661417322836,
+    "levitate": 0.44881889763779526,
+    "fire": 0.7952755905511811,
+    "dx_range": [
+     -50.4,
+     30.2
+    ],
+    "max_height": 37.5
+   }
+  ],
+  "mean": {
+   "return": 11.653,
+   "kills": 2.95,
+   "steps": 72.95,
+   "self": 0.227,
+   "move_left": 0.298,
+   "move_right": 0.377,
+   "levitate": 0.428,
+   "fire": 0.855,
+   "max_height": 55.665
+  },
+  "cleared": 19,
+  "died": 0
+ }
+}
