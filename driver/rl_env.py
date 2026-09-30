@@ -5,6 +5,7 @@ hurting yourself. Actions go through the same injected keys and mouse a player u
 """
 
 import math
+import time
 
 import gymnasium as gym
 import numpy as np
@@ -27,8 +28,8 @@ W_DEALT, W_KILL, W_SELF, W_STEP = 10.0, 1.0, 2.5, 0.01
 class ArenaEnv(gym.Env):
     metadata = {"render_modes": []}
 
-    def __init__(self, cpu: int | None = None, instance: int = 0, wand: dict | None = None):
-        self.cpu, self.instance = cpu, instance
+    def __init__(self, cpu: int | None = None, instance: int = 0, wand: dict | None = None, settle: int = 2):
+        self.cpu, self.instance, self.settle = cpu, instance, settle
         self.wand = wand or scenario.REFERENCE_WANDS["spark_bolt"]
         self.observation_space = gym.spaces.Box(-5.0, 5.0, (OBS_DIM,), np.float32)
         self.action_space = gym.spaces.MultiDiscrete([3, 2, 2, AIM_BINS])   # move, levitate, fire, aim
@@ -37,6 +38,7 @@ class ArenaEnv(gym.Env):
         self.prev = None
         self.steps = 0
         self.crashes = 0
+        self.reset_s = 0.0
 
     # -------------------------------------------------------------- game link
 
@@ -54,7 +56,7 @@ class ArenaEnv(gym.Env):
     def _start_episode(self) -> dict:
         c = self.inst.conn
         c.cmd("config", k=K, grid=False, mode="free", timeout=30)
-        res = c.cmd("arena_reset", wand=self.wand, timeout=30)
+        res = c.cmd("arena_reset", wand=self.wand, settle=self.settle, timeout=30)
         if not res.get("ok"):
             raise RuntimeError(f"arena_reset: {res}")
         while True:
@@ -78,7 +80,8 @@ class ArenaEnv(gym.Env):
 
     def _info(self) -> dict:
         a = self.state["arena"]
-        return {"kills": a["kills"], "dealt": a["dealt"], "self_damage": a["self"], "steps": self.steps}
+        return {"kills": a["kills"], "dealt": a["dealt"], "self_damage": a["self"], "steps": self.steps,
+                "reset_s": self.reset_s}
 
     def reset(self, *, seed=None, options=None):
         super().reset(seed=seed)
@@ -86,6 +89,7 @@ class ArenaEnv(gym.Env):
             try:
                 if self.inst is None:
                     self._launch()
+                t0 = time.perf_counter()   # launches excluded
                 self.state = self._start_episode()
                 break
             except Exception:
@@ -93,6 +97,7 @@ class ArenaEnv(gym.Env):
                 self._drop()
                 if attempt == 2:
                     raise
+        self.reset_s = round(time.perf_counter() - t0, 3)
         self.prev = dict(self.state["arena"])
         self.steps = 0
         return self._obs(self.state), self._info()

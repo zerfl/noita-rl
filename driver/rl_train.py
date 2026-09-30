@@ -77,7 +77,17 @@ def train(n: int = 4, steps: int = 50_000, resume: Path | None = None, log=print
         def __init__(self):
             super().__init__()
             self.f = open(run / "episodes.jsonl", "a", encoding="utf-8")
+            self.timing = open(run / "timing.jsonl", "a", encoding="utf-8")
             self.t0 = time.perf_counter()
+            self.collect_t0 = self.update_t0 = None
+
+        def _on_rollout_start(self):
+            now = time.perf_counter()
+            if self.update_t0 is not None:
+                self.timing.write(json.dumps({"timesteps": int(self.num_timesteps), "collect_s": self.collect_s,
+                                              "update_s": round(now - self.update_t0, 3)}) + "\n")
+                self.timing.flush()
+            self.collect_t0 = now
 
         def _on_step(self):
             for info in self.locals["infos"]:
@@ -86,12 +96,14 @@ def train(n: int = 4, steps: int = 50_000, resume: Path | None = None, log=print
                     rec = {"t": round(time.perf_counter() - self.t0, 1), "timesteps": int(self.num_timesteps),
                            "return": round(float(ep["r"]), 3), "steps": int(ep["l"]),
                            "kills": int(info.get("kills", 0)), "self_damage": float(info.get("self_damage", 0)),
-                           "crash": bool(info.get("crash", False))}
+                           "crash": bool(info.get("crash", False)), "reset_s": float(info.get("reset_s", 0))}
                     self.f.write(json.dumps(rec) + "\n")
                     self.f.flush()
             return True
 
         def _on_rollout_end(self):
+            self.update_t0 = time.perf_counter()
+            self.collect_s = round(self.update_t0 - self.collect_t0, 3)
             eps = [e for e in self.model.ep_info_buffer]
             if eps:
                 log(f"ppo {self.num_timesteps} steps, {time.perf_counter() - self.t0:.0f} s: mean return "
@@ -131,6 +143,21 @@ def curve(run: Path, bin_steps: int = 50_000) -> list[dict]:
         if not e["crash"]:
             bins.setdefault(max(0, e["timesteps"] - 1) // bin_steps, []).append(e)
     return [{"from": b * bin_steps, "to": (b + 1) * bin_steps} | _episode_summary(bins[b]) for b in sorted(bins)]
+
+
+def timing(run: Path) -> dict | None:
+    """Where training wall time goes: rollout collection vs the PPO update, and per-episode resets."""
+    path = run / "timing.jsonl"
+    if not path.exists():
+        return None
+    rows = [json.loads(line) for line in open(path, encoding="utf-8")]
+    if not rows:
+        return None
+    resets = [e["reset_s"] for e in map(json.loads, open(run / "episodes.jsonl", encoding="utf-8")) if "reset_s" in e]
+    collect, update = sum(r["collect_s"] for r in rows), sum(r["update_s"] for r in rows)
+    return {"rollouts": len(rows), "collect_s_mean": round(collect / len(rows), 3),
+            "update_s_mean": round(update / len(rows), 3), "update_fraction": round(update / (collect + update), 3),
+            "reset_s_mean": round(statistics.fmean(resets), 3) if resets else None}
 
 
 def evaluate(model_path: Path, episodes: int = 20, log=print) -> dict:

@@ -144,7 +144,10 @@ def cmd_rl(a):
             _log(f"{r['from']:>8}-{r['to']:<8} {r['episodes']:>4} eps  return {r['return']['mean']:6.2f}  "
                  f"kills {r['kills']['mean']:.2f}  cleared {r['cleared_fraction']:.2f}  "
                  f"clear frames {r['clear_frames_mean']}  self {r['self_damage']['mean']:.3f}")
-        save_result("rl_curve", {"test": "rl_curve", "run": a.run, "bin_steps": a.bin, "bins": rows})
+        t = rl_train.timing(Path(a.run))
+        if t:
+            _log(f"timing: {t}")
+        save_result("rl_curve", {"test": "rl_curve", "run": a.run, "bin_steps": a.bin, "bins": rows, "timing": t})
     else:
         save_result("rl_eval", rl_train.evaluate(Path(a.model), episodes=a.episodes, log=_log))
 
