@@ -1,4 +1,5 @@
-"""PPO and DQN on the arena env (driver/rl_env.py) and random / scripted baselines on the same env."""
+"""PPO, DQN and DreamerV3 (driver/rl_dreamer.py) on the arena env (driver/rl_env.py); random / scripted
+baselines on the same env."""
 
 import json
 import statistics
@@ -11,7 +12,7 @@ from . import paths, winutil
 from .rl_env import ACTION_NVEC, AIM_BINS, MAX_STEPS, ArenaEnv, FlatActions, scripted_action
 
 RUNS_DIR = paths.REPO / "runs"
-ALGOS = ("ppo", "dqn")
+ALGOS = ("ppo", "dqn", "dreamer", "bdq")
 LOG_EVERY = 1024   # env steps between progress lines and timing rows
 
 
@@ -24,6 +25,10 @@ def _episode_summary(eps: list[dict]) -> dict:
             "cleared_fraction": round(len(cleared) / len(eps), 3),
             "clear_frames_mean": round(4 * statistics.fmean(cleared), 1) if cleared else None,
             "died_fraction": round(sum(1 for e in eps if e.get("died")) / len(eps), 3)}
+
+
+def _run_dir(model_path: Path) -> Path:
+    return model_path.parent.parent if model_path.parent.name == "checkpoints" else model_path.parent
 
 
 def _config(run: Path) -> dict:
@@ -54,6 +59,8 @@ def run_episodes(policy, episodes: int, cpu: int | None = None, task: str = "fro
     try:
         for i in range(episodes):
             obs, info = env.reset()
+            if hasattr(policy, "reset"):   # recurrent policies clear their state
+                policy.reset()
             ret, done = 0.0, False
             while not done:
                 a = policy(obs, rng)
@@ -81,10 +88,19 @@ def run_baselines(episodes: int = 20, task: str = "frozen", log=print) -> dict:
 
 
 def train(n: int = 4, steps: int = 50_000, resume: Path | None = None, task: str = "frozen", algo: str = "ppo",
-          replay_ratio: float = 0.25, log=print) -> dict:
+          replay_ratio: float = 0.25, train_ratio: float | None = None, log=print) -> dict:
     """Train until `steps` total env steps. With `resume` (runs/<run>/checkpoints/*.zip), continue that
     run: same run dir, task and algorithm, episodes.jsonl appended, timesteps counted from the
-    checkpoint. `replay_ratio` (DQN): gradient steps per env step."""
+    checkpoint. `replay_ratio` (DQN, BDQ): gradient steps per env step. Dreamer runs in
+    rl_dreamer.train, `train_ratio` its replayed steps per env step; BDQ in rl_bdq.run (no resume)."""
+    if algo == "bdq":
+        if resume:
+            raise ValueError("bdq has no resume")
+        from . import rl_bdq
+        return rl_bdq.run(n, steps, task, replay_ratio, log)
+    if algo == "dreamer" or (resume and _config(_run_dir(resume))["algo"] == "dreamer"):
+        from . import rl_dreamer
+        return rl_dreamer.train(n, steps, task, train_ratio or rl_dreamer.TRAIN_RATIO, resume, log)
     from stable_baselines3.common.callbacks import BaseCallback, CheckpointCallback
     from stable_baselines3.common.vec_env import SubprocVecEnv, VecMonitor
 
@@ -230,17 +246,26 @@ def timing(run: Path) -> dict | None:
             "reset_s_mean": round(statistics.fmean(resets), 3) if resets else None}
 
 
-def evaluate(model_path: Path, episodes: int = 20, log=print) -> dict:
-    cfg = _config(model_path.parent.parent if model_path.parent.name == "checkpoints" else model_path.parent)
+def evaluate(model_path: Path, episodes: int = 20, stochastic: bool = False, log=print) -> dict:
+    """`stochastic`: sample actions (Dreamer: from the actor; BDQ: epsilon 0.05) instead of the mode."""
+    cfg = _config(_run_dir(model_path))
     task, algo = cfg["task"], cfg["algo"]
-    model = _algo_class(algo).load(model_path, device="cpu")
     cpu = winutil.pin_order(winutil.physical_cores(), 1)[0]
+    if algo == "dreamer":
+        from .rl_dreamer import Policy
+        policy = Policy(model_path, task, stochastic)
+    elif algo == "bdq":
+        from .rl_bdq import Policy
+        policy = Policy(model_path, eps=0.05 if stochastic else 0.0)
+    else:
+        model = _algo_class(algo).load(model_path, device="cpu")
 
-    def policy(o, rng):
-        a = model.predict(o, deterministic=True)[0]
-        return np.array(np.unravel_index(int(a), ACTION_NVEC)) if algo == "dqn" else a
+        def policy(o, rng):
+            a = model.predict(o, deterministic=not stochastic)[0]
+            return np.array(np.unravel_index(int(a), ACTION_NVEC)) if algo == "dqn" else a
 
     eps = run_episodes(policy, episodes, cpu, task, log)
-    out = {"test": "rl_eval", "task": task, "algo": algo, "model": str(model_path), "summary": _episode_summary(eps), "episodes": eps}
+    out = {"test": "rl_eval", "task": task, "algo": algo, "model": str(model_path), "stochastic": stochastic,
+           "summary": _episode_summary(eps), "episodes": eps}
     log(f"eval: {out['summary']}")
     return out

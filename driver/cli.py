@@ -138,7 +138,8 @@ def cmd_rl(a):
         save_result("rl_baselines", rl_train.run_baselines(episodes=a.episodes, task=a.task, log=_log))
     elif a.mode == "train":
         save_result("rl_train", rl_train.train(n=a.n, steps=a.steps, resume=a.resume and Path(a.resume),
-                                                    task=a.task, algo=a.algo, replay_ratio=a.replay_ratio, log=_log))
+                                                    task=a.task, algo=a.algo, replay_ratio=a.replay_ratio,
+                                                    train_ratio=a.train_ratio, log=_log))
     elif a.mode == "compare":
         rows = rl_train.compare([Path(r) for r in a.runs], a.target, a.window)
         for r in rows:
@@ -157,7 +158,8 @@ def cmd_rl(a):
             _log(f"timing: {t}")
         save_result("rl_curve", {"test": "rl_curve", "run": a.run, "bin_steps": a.bin, "bins": rows, "timing": t})
     else:
-        save_result("rl_eval", rl_train.evaluate(Path(a.model), episodes=a.episodes, log=_log))
+        save_result("rl_eval", rl_train.evaluate(Path(a.model), episodes=a.episodes, stochastic=a.stochastic,
+                                                  log=_log))
 
 
 def cmd_windows(a):
@@ -284,18 +286,21 @@ def main(argv=None):
     p.add_argument("mode", choices=["baselines", "train", "eval", "curve", "compare"])
     p.add_argument("--task", choices=["frozen", "live"], default="frozen",
                    help="baselines/train: targets hover with AI off, or live (AI on, they attack)")
-    p.add_argument("--algo", choices=["ppo", "dqn"], default="ppo", help="train: algorithm")
-    p.add_argument("--replay-ratio", type=float, default=0.25, help="train, dqn: gradient steps per env step")
+    p.add_argument("--algo", choices=["ppo", "dqn", "dreamer", "bdq"], default="ppo", help="train: algorithm")
+    p.add_argument("--replay-ratio", type=float, default=0.25, help="train, dqn/bdq: gradient steps per env step")
+    p.add_argument("--train-ratio", type=float, default=512,
+                   help="train, dreamer: replayed steps per env step (512: one update of 16x64 per 2 env steps)")
     p.add_argument("--n", type=int, default=4, help="train: parallel games")
     p.add_argument("--steps", type=int, default=50_000, help="train: total env steps (4 frames each)")
-    p.add_argument("--resume", help="train: continue from runs/<run>/checkpoints/<ckpt>.zip")
+    p.add_argument("--resume", help="train: continue from runs/<run>/checkpoints/<ckpt>.zip (dreamer: .pt)")
     p.add_argument("--run", help="curve: runs/<run>")
     p.add_argument("--bin", type=int, default=50_000, help="curve: env steps per row")
     p.add_argument("--runs", nargs="+", help="compare: runs/<run> ...")
     p.add_argument("--target", type=float, help="compare: return to reach (e.g. the scripted baseline)")
     p.add_argument("--window", type=int, default=200, help="compare: episodes in the rolling mean")
     p.add_argument("--episodes", type=int, default=20, help="baselines/eval: episodes per policy")
-    p.add_argument("--model", help="eval: runs/<run>/final.zip")
+    p.add_argument("--model", help="eval: runs/<run>/final.zip (dreamer, bdq: .pt)")
+    p.add_argument("--stochastic", action="store_true", help="eval: sample actions instead of the mode")
     p.set_defaults(fn=cmd_rl)
 
     p = sub.add_parser("windows", help="show harness games in a balanced grid (no focus change), or --hide")
