@@ -216,3 +216,29 @@ class RlStepsToTarget(unittest.TestCase):
         self.assertEqual(steps_to_target(eps, 5.0, window=2)["timesteps"], 20)
         self.assertEqual(steps_to_target(eps, 10.0, window=2)["timesteps"], 50)
         self.assertIsNone(steps_to_target(eps, 10.0, window=3))
+
+
+class BdqTarget(unittest.TestCase):
+    """TD target: online net picks each head's next action, target net values it, heads averaged."""
+
+    @staticmethod
+    def net(on_next, on_obs):
+        import torch
+        return lambda x: [torch.tensor([q]) for q in (on_next if x.sum() > 0 else on_obs)]
+
+    def loss(self, done):
+        import torch
+        from driver.rl_bdq import td_loss
+        online = self.net([[0.0, 5.0], [3.0, 1.0, 0.0]], [[1.0, 2.0], [0.0, 0.0, 4.0]])
+        target = self.net([[10.0, 20.0], [6.0, 7.0, 8.0]], None)
+        batch = (torch.zeros(1, 2), torch.tensor([[0, 2]]), torch.tensor([1.0]), torch.ones(1, 2),
+                 torch.tensor([float(done)]))
+        return float(td_loss(online, target, batch, gamma=0.5))
+
+    def test_bootstraps_from_target_values_at_online_argmax(self):
+        # y = 1 + 0.5 * mean(20, 6) = 7.5; errors 6.5 and 3.5 under smooth L1: 6.0 and 3.0
+        self.assertAlmostEqual(self.loss(done=False), 4.5)
+
+    def test_terminal_steps_do_not_bootstrap(self):
+        # y = 1; errors 0 and 3: 0 and 2.5
+        self.assertAlmostEqual(self.loss(done=True), 1.25)
