@@ -10,6 +10,7 @@ Persistent project state, so a new session can pick up without the chat history.
 | [decisions.md](decisions.md) | Dated decision log with reasons | A design choice is made |
 | [security.md](security.md) | Audit of Noita-MCP and the fixes applied | The mod or DLL changes |
 | [ideas.md](ideas.md) | Longer-term goals beyond the benchmark | New direction discussed |
+| [runner-design.md](runner-design.md) | Runner architecture, gate, snapshots/resume, build order | The runner's design changes |
 
 Benchmark results live in `results/*.json`; the one-page summary will be `FINDINGS.md` at the repo
 root. How to run the harness is in the root `README.md`.

@@ -4,6 +4,13 @@ Newest first. Each entry: what, why, and what would change it.
 
 ## 2026-09-30
 
+- **Build the runner; wand search is its first consumer**, RL combat second on the same pool
+  ([runner-design.md](runner-design.md)). Wand evaluation runs inside the game at free-run speed,
+  so it does not depend on lockstep throughput. A gate spike (lockstep at N=10/12, long-horizon
+  determinism, soak) comes first.
+- **No game-world snapshots in the runner.** Resume restarts games from checkpoints; in-flight
+  episodes are dropped. Noita has no in-process world save/restore.
+
 - **CPU claims use ETW or `% Processor Utility`, never psutil or `% Processor Time`.** The
   tick-sampled counters read 0.3 core per Noita process against 3.5 measured by context switches,
   which made phases 3-6 rule out CPU wrongly. `cpu_percent` fields in older results are unreliable.
