@@ -1,0 +1,114 @@
+{
+  "test": "rl_curve",
+  "run": "runs/dreamer_live_20260930-234432",
+  "bin_steps": 2048,
+  "bins": [
+    {
+      "from": 0,
+      "to": 2048,
+      "episodes": 12,
+      "return": {
+        "mean": -0.188,
+        "sd": 4.935
+      },
+      "kills": {
+        "mean": 1.25,
+        "sd": 0.622
+      },
+      "self_damage": {
+        "mean": 1.618,
+        "sd": 1.065
+      },
+      "cleared_fraction": 0.083,
+      "clear_frames_mean": 428.0,
+      "died_fraction": 0.0
+    },
+    {
+      "from": 2048,
+      "to": 4096,
+      "episodes": 13,
+      "return": {
+        "mean": -0.25,
+        "sd": 4.075
+      },
+      "kills": {
+        "mean": 1.385,
+        "sd": 0.65
+      },
+      "self_damage": {
+        "mean": 1.69,
+        "sd": 0.752
+      },
+      "cleared_fraction": 0.077,
+      "clear_frames_mean": 600.0,
+      "died_fraction": 0.0
+    },
+    {
+      "from": 4096,
+      "to": 6144,
+      "episodes": 17,
+      "return": {
+        "mean": 6.068,
+        "sd": 4.181
+      },
+      "kills": {
+        "mean": 2.353,
+        "sd": 0.702
+      },
+      "self_damage": {
+        "mean": 1.378,
+        "sd": 1.179
+      },
+      "cleared_fraction": 0.471,
+      "clear_frames_mean": 369.0,
+      "died_fraction": 0.0
+    },
+    {
+      "from": 6144,
+      "to": 8192,
+      "episodes": 17,
+      "return": {
+        "mean": 8.431,
+        "sd": 2.918
+      },
+      "kills": {
+        "mean": 2.471,
+        "sd": 0.514
+      },
+      "self_damage": {
+        "mean": 0.589,
+        "sd": 0.645
+      },
+      "cleared_fraction": 0.471,
+      "clear_frames_mean": 364.5,
+      "died_fraction": 0.0
+    },
+    {
+      "from": 8192,
+      "to": 10240,
+      "episodes": 14,
+      "return": {
+        "mean": 6.328,
+        "sd": 2.79
+      },
+      "kills": {
+        "mean": 2.0,
+        "sd": 0.679
+      },
+      "self_damage": {
+        "mean": 0.975,
+        "sd": 0.704
+      },
+      "cleared_fraction": 0.214,
+      "clear_frames_mean": 454.7,
+      "died_fraction": 0.0
+    }
+  ],
+  "timing": {
+    "rollouts": 9,
+    "collect_s_mean": 16.456,
+    "update_s_mean": 106.604,
+    "update_fraction": 0.866,
+    "reset_s_mean": 0.175
+  }
+}
