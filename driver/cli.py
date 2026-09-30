@@ -3,7 +3,7 @@ import json
 import time
 from pathlib import Path
 
-from . import actions, ceiling, etw, gate, scenario, gameconfig, launcher, np_bench, paths, smoke, test1, test2, test3, test4, timer_bench
+from . import actions, ceiling, etw, gate, pool, scenario, gameconfig, launcher, np_bench, paths, smoke, test1, test2, test3, test4, timer_bench
 
 
 def _render(a) -> gameconfig.RenderOptions:
@@ -128,6 +128,10 @@ def cmd_scenario(a):
     save_result("scenario_noise", scenario.run_noise(repeats=a.repeats, frames=a.frames, log=_log))
 
 
+def cmd_pool(a):
+    save_result("pool", pool.run_test(n=a.n, jobs=a.jobs, kill_after=a.kill_after or None, log=_log))
+
+
 def cmd_suite(a):
     """Every test in order; one result file each plus an index."""
     t0 = time.perf_counter()
@@ -236,6 +240,12 @@ def main(argv=None):
     p.add_argument("--repeats", type=int, default=10)
     p.add_argument("--frames", type=int, default=600)
     p.set_defaults(fn=cmd_scenario)
+
+    p = sub.add_parser("pool", help="evaluation pool test with a forced crash; writes results/pool_*.json")
+    p.add_argument("--n", type=int, default=4)
+    p.add_argument("--jobs", type=int, default=40)
+    p.add_argument("--kill-after", type=int, default=10, help="kill instance 0 after this many results (0: never)")
+    p.set_defaults(fn=cmd_pool)
 
     p = sub.add_parser("suite", help="run every test: smoke, actions, test1-4, np (about 60 min)")
     p.add_argument("--reps", type=int, default=3)

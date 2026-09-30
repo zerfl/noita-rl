@@ -32,8 +32,9 @@ def wand_eval(conn, wand: dict, frames: int = 600, timeout: float = 120, **kw) -
             return m
 
 
-def launch(cpu: int | None = None) -> Instance:
-    inst = Instance(LaunchSpec(seed=SEED, k=60, mode="free", cpus=[cpu] if cpu is not None else None))
+def launch(cpu: int | None = None, instance: int = 0) -> Instance:
+    inst = Instance(LaunchSpec(instance=instance, seed=SEED, k=60, mode="free",
+                               cpus=[cpu] if cpu is not None else None))
     inst.start()
     inst.wait_hello(240)
     inst.conn.cmd("set_timescale", scale=TIMESCALE, timeout=30)
