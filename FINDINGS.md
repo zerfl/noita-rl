@@ -85,28 +85,44 @@ an NVIDIA driver thread); blocking is on Noita's own mutex, never on the GPU or 
 instances want ~14 of 12 logical CPUs, so main threads queue. psutil, `% Processor Time` and
 process CPU times are tick-sampled and read 0.3 core per process; `% Processor Utility` reads
 49 % solo and 130 % at N=4. Pinned to one CPU an instance keeps ~84 fps, so most worker CPU is
-overhead. Pinned scaling at N=6-12 is pending (`driver ceiling scaling`).
+overhead.
+
+**Pinning each instance to one logical CPU lifts the ceiling** (`ceiling_scaling_20260930-*.json`,
+3 x 30 s, median aggregate fps; N=8 was measured in both window modes):
+
+| N | Visible: unpinned / pinned | Minimized, no focus: unpinned / pinned |
+|---|---|---|
+| 4 | 313 / 319 | |
+| 6 | 280 / 438 | |
+| 8 | 299 / 500 | 331 / 553 |
+| 10 | | 326 / **584** |
+| 12 | | 325 / **609 (10.1x real time)**, 51 fps each, 8 GB total |
+
+Unpinned stays at ~325 whatever N is; pinned gains shrink once instances share SMT siblings (N>6).
+No failures or crashes at any N.
 
 ## Recommended configuration
 
 `noita.exe`, workdir isolation, seed via virtual magic numbers, QPC clock 3x at framerate 60, vsync
-off, 640x360 window, K=4, 64x64 stride-1 grid, 4 instances, NoitaPatcher loaded (only copy in the
-process). Resets: NP Game Over recovery plus an nsew region restore for arena episodes (under
+off, 640x360 window launched minimized without focus, K=4, 64x64 stride-1 grid, 12 instances each
+pinned to its own logical CPU (6-8 for faster single instances), NoitaPatcher loaded (only copy in
+the process). Resets: NP Game Over recovery plus an nsew region restore for arena episodes (under
 0.1 s); relaunch with a reused workdir (5.3 s) when the world must be fresh. For reproducible
 firing, fix the spread RNG in `OnProjectileFired` (NP) and fire with `UseItem(charge=true)`.
 
 ## Projected decisions per day at K=4
 
-- 4 instances x 74 fps / 4 frames = 74 decisions/s, about **6.4 million per day** (quiet scene,
-  policy inference time excluded).
+- 12 pinned instances x 51 fps / 4 frames = 152 decisions/s, about **13.2 million per day** (quiet
+  scene, policy inference excluded; it must fit on CPUs the games do not use, or on the GPU).
+- 4 unpinned instances (the phase 3 setup): 74 decisions/s, about 6.4 million per day.
 - 1 instance: 40 decisions/s, about 3.5 million per day. Busy scenes run about 10 % slower.
 - World resets cost 5.3 s each: at 18.5 decisions/s per instance, a 1000-decision episode loses
   about 9 % to resets. NP recovery (0.034 s) and scenario resets (0.05 s) cost nothing measurable.
 
 ## Blockers
 
-- **The ~300 game fps ceiling is CPU saturation** of this 6-core / 12-thread machine; see
-  "Shared ceiling". Earlier "not CPU" readings came from tick-sampled counters.
+- **The ~300 game fps ceiling was CPU saturation**, lifted to ~610 by pinning one logical CPU per
+  instance; see "Shared ceiling". Earlier "not CPU" readings came from tick-sampled counters.
 - **No true in-process world reset, even with NoitaPatcher.** Region cell restores work; physics
   bodies and entities must be cleared and respawned by the mod. A fresh world is a 5.3 s restart.
 - **NP `SetProjectileSpreadRNG` kills the game if called before `InstallShootProjectileFiredCallbacks`.**

@@ -1,0 +1,1724 @@
+{
+  "test": "ceiling_scaling",
+  "started": "2026-09-30T17:18:22",
+  "seed": 123456789,
+  "method": "Test 4 measurement (clock 3.0x, free-run K=4, 64x64 grid decoded, quiet Mines), 3 launches x 30.0 s per condition, median aggregate fps.",
+  "cpu": {
+    "logical": 12,
+    "physical": 6
+  },
+  "physical_cores": [
+    [
+      0,
+      1
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      4,
+      5
+    ],
+    [
+      6,
+      7
+    ],
+    [
+      8,
+      9
+    ],
+    [
+      10,
+      11
+    ]
+  ],
+  "conditions": {
+    "n8": {
+      "cpus": [
+        10,
+        8,
+        6,
+        4,
+        2,
+        0,
+        11,
+        9
+      ],
+      "unpinned": {
+        "n": 8,
+        "aggregate_fps_median": 330.5,
+        "aggregate_fps_runs": [
+          329.5,
+          330.5,
+          332.4
+        ],
+        "per_instance_fps_median": 41.5,
+        "cpu_percent_median": 90.1,
+        "failures": 0,
+        "runs": [
+          {
+            "n": 8,
+            "timescale": 3.0,
+            "grid": {
+              "size": 64,
+              "stride": 1
+            },
+            "window_s": 30.0,
+            "launch_to_all_ready_s": 23.3,
+            "launch_failures": [],
+            "crashed_during_window": [],
+            "aggregate_fps": 329.5,
+            "aggregate_realtime_multiple": 5.49,
+            "per_instance_fps": {
+              "min": 40.5,
+              "median": 41.3,
+              "max": 41.7,
+              "all": [
+                41.2,
+                41.5,
+                40.5,
+                41.7,
+                41.7,
+                40.7,
+                41.7,
+                40.6
+              ]
+            },
+            "working_set_mb": {
+              "per_instance_median": 680.75,
+              "max": 687.3,
+              "total": 5458.6,
+              "max_peak": 689.4
+            },
+            "system": {
+              "cpu_percent": 90.8,
+              "available_ram_mb": 14869,
+              "total_ram_mb": 32706
+            },
+            "driver_grid_decode_ms_per_packet": {
+              "n": 8,
+              "p50": 0.0246,
+              "p95": 0.0255,
+              "mean": 0.0247,
+              "min": 0.0241,
+              "max": 0.0256
+            }
+          },
+          {
+            "n": 8,
+            "timescale": 3.0,
+            "grid": {
+              "size": 64,
+              "stride": 1
+            },
+            "window_s": 30.0,
+            "launch_to_all_ready_s": 22.5,
+            "launch_failures": [],
+            "crashed_during_window": [],
+            "aggregate_fps": 330.5,
+            "aggregate_realtime_multiple": 5.51,
+            "per_instance_fps": {
+              "min": 40.9,
+              "median": 41.4,
+              "max": 41.7,
+              "all": [
+                41.3,
+                40.9,
+                41.7,
+                40.9,
+                41.7,
+                41.5,
+                41.6,
+                40.9
+              ]
+            },
+            "working_set_mb": {
+              "per_instance_median": 682.25,
+              "max": 686.6,
+              "total": 5459.2,
+              "max_peak": 690.0
+            },
+            "system": {
+              "cpu_percent": 89.3,
+              "available_ram_mb": 14929,
+              "total_ram_mb": 32706
+            },
+            "driver_grid_decode_ms_per_packet": {
+              "n": 8,
+              "p50": 0.0246,
+              "p95": 0.0273,
+              "mean": 0.0252,
+              "min": 0.0243,
+              "max": 0.0278
+            }
+          },
+          {
+            "n": 8,
+            "timescale": 3.0,
+            "grid": {
+              "size": 64,
+              "stride": 1
+            },
+            "window_s": 30.0,
+            "launch_to_all_ready_s": 22.6,
+            "launch_failures": [],
+            "crashed_during_window": [],
+            "aggregate_fps": 332.4,
+            "aggregate_realtime_multiple": 5.54,
+            "per_instance_fps": {
+              "min": 40.0,
+              "median": 41.4,
+              "max": 43.3,
+              "all": [
+                40.5,
+                41.4,
+                41.5,
+                42.8,
+                40.0,
+                41.6,
+                41.4,
+                43.3
+              ]
+            },
+            "working_set_mb": {
+              "per_instance_median": 681.0999999999999,
+              "max": 687.2,
+              "total": 5446.2,
+              "max_peak": 690.7
+            },
+            "system": {
+              "cpu_percent": 90.1,
+              "available_ram_mb": 14970,
+              "total_ram_mb": 32706
+            },
+            "driver_grid_decode_ms_per_packet": {
+              "n": 8,
+              "p50": 0.0257,
+              "p95": 0.03,
+              "mean": 0.0265,
+              "min": 0.0245,
+              "max": 0.0308
+            }
+          }
+        ]
+      },
+      "pinned": {
+        "n": 8,
+        "aggregate_fps_median": 552.8,
+        "aggregate_fps_runs": [
+          546.6,
+          552.8,
+          561.1
+        ],
+        "per_instance_fps_median": 69.0,
+        "cpu_percent_median": 67.2,
+        "failures": 0,
+        "runs": [
+          {
+            "n": 8,
+            "timescale": 3.0,
+            "grid": {
+              "size": 64,
+              "stride": 1
+            },
+            "window_s": 30.0,
+            "launch_to_all_ready_s": 18.0,
+            "launch_failures": [],
+            "crashed_during_window": [],
+            "aggregate_fps": 546.6,
+            "aggregate_realtime_multiple": 9.11,
+            "per_instance_fps": {
+              "min": 54.1,
+              "median": 68.2,
+              "max": 81.6,
+              "all": [
+                58.5,
+                58.1,
+                81.6,
+                79.3,
+                77.9,
+                79.0,
+                58.0,
+                54.1
+              ]
+            },
+            "working_set_mb": {
+              "per_instance_median": 663.0,
+              "max": 666.8,
+              "total": 5306.0,
+              "max_peak": 676.5
+            },
+            "system": {
+              "cpu_percent": 67.1,
+              "available_ram_mb": 15081,
+              "total_ram_mb": 32706
+            },
+            "driver_grid_decode_ms_per_packet": {
+              "n": 8,
+              "p50": 0.0269,
+              "p95": 0.0272,
+              "mean": 0.0268,
+              "min": 0.0261,
+              "max": 0.0273
+            }
+          },
+          {
+            "n": 8,
+            "timescale": 3.0,
+            "grid": {
+              "size": 64,
+              "stride": 1
+            },
+            "window_s": 30.0,
+            "launch_to_all_ready_s": 18.0,
+            "launch_failures": [],
+            "crashed_during_window": [],
+            "aggregate_fps": 552.8,
+            "aggregate_realtime_multiple": 9.21,
+            "per_instance_fps": {
+              "min": 56.5,
+              "median": 69.8,
+              "max": 81.2,
+              "all": [
+                60.9,
+                58.8,
+                81.2,
+                80.6,
+                78.7,
+                78.8,
+                56.5,
+                57.3
+              ]
+            },
+            "working_set_mb": {
+              "per_instance_median": 665.3,
+              "max": 669.1,
+              "total": 5317.1,
+              "max_peak": 682.1
+            },
+            "system": {
+              "cpu_percent": 67.2,
+              "available_ram_mb": 15057,
+              "total_ram_mb": 32706
+            },
+            "driver_grid_decode_ms_per_packet": {
+              "n": 8,
+              "p50": 0.0268,
+              "p95": 0.0273,
+              "mean": 0.0268,
+              "min": 0.0263,
+              "max": 0.0273
+            }
+          },
+          {
+            "n": 8,
+            "timescale": 3.0,
+            "grid": {
+              "size": 64,
+              "stride": 1
+            },
+            "window_s": 30.0,
+            "launch_to_all_ready_s": 19.0,
+            "launch_failures": [],
+            "crashed_during_window": [],
+            "aggregate_fps": 561.1,
+            "aggregate_realtime_multiple": 9.35,
+            "per_instance_fps": {
+              "min": 55.5,
+              "median": 69.0,
+              "max": 88.4,
+              "all": [
+                61.0,
+                59.0,
+                84.3,
+                88.4,
+                78.6,
+                77.0,
+                55.5,
+                57.4
+              ]
+            },
+            "working_set_mb": {
+              "per_instance_median": 660.25,
+              "max": 667.0,
+              "total": 5275.1,
+              "max_peak": 720.8
+            },
+            "system": {
+              "cpu_percent": 67.2,
+              "available_ram_mb": 15217,
+              "total_ram_mb": 32706
+            },
+            "driver_grid_decode_ms_per_packet": {
+              "n": 8,
+              "p50": 0.0269,
+              "p95": 0.0272,
+              "mean": 0.0268,
+              "min": 0.0261,
+              "max": 0.0272
+            }
+          }
+        ],
+        "observed": [
+          {
+            "instance": 0,
+            "affinity": [
+              10
+            ],
+            "threads": 37
+          },
+          {
+            "instance": 1,
+            "affinity": [
+              8
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 2,
+            "affinity": [
+              6
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 3,
+            "affinity": [
+              4
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 4,
+            "affinity": [
+              2
+            ],
+            "threads": 37
+          },
+          {
+            "instance": 5,
+            "affinity": [
+              0
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 6,
+            "affinity": [
+              11
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 7,
+            "affinity": [
+              9
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 0,
+            "affinity": [
+              10
+            ],
+            "threads": 37
+          },
+          {
+            "instance": 1,
+            "affinity": [
+              8
+            ],
+            "threads": 37
+          },
+          {
+            "instance": 2,
+            "affinity": [
+              6
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 3,
+            "affinity": [
+              4
+            ],
+            "threads": 37
+          },
+          {
+            "instance": 4,
+            "affinity": [
+              2
+            ],
+            "threads": 37
+          },
+          {
+            "instance": 5,
+            "affinity": [
+              0
+            ],
+            "threads": 39
+          },
+          {
+            "instance": 6,
+            "affinity": [
+              11
+            ],
+            "threads": 39
+          },
+          {
+            "instance": 7,
+            "affinity": [
+              9
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 0,
+            "affinity": [
+              10
+            ],
+            "threads": 37
+          },
+          {
+            "instance": 1,
+            "affinity": [
+              8
+            ],
+            "threads": 37
+          },
+          {
+            "instance": 2,
+            "affinity": [
+              6
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 3,
+            "affinity": [
+              4
+            ],
+            "threads": 39
+          },
+          {
+            "instance": 4,
+            "affinity": [
+              2
+            ],
+            "threads": 37
+          },
+          {
+            "instance": 5,
+            "affinity": [
+              0
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 6,
+            "affinity": [
+              11
+            ],
+            "threads": 37
+          },
+          {
+            "instance": 7,
+            "affinity": [
+              9
+            ],
+            "threads": 38
+          }
+        ]
+      }
+    },
+    "n10": {
+      "cpus": [
+        10,
+        8,
+        6,
+        4,
+        2,
+        0,
+        11,
+        9,
+        7,
+        5
+      ],
+      "unpinned": {
+        "n": 10,
+        "aggregate_fps_median": 325.5,
+        "aggregate_fps_runs": [
+          325.5,
+          327.1,
+          323.9
+        ],
+        "per_instance_fps_median": 32.4,
+        "cpu_percent_median": 100.0,
+        "failures": 0,
+        "runs": [
+          {
+            "n": 10,
+            "timescale": 3.0,
+            "grid": {
+              "size": 64,
+              "stride": 1
+            },
+            "window_s": 30.0,
+            "launch_to_all_ready_s": 27.1,
+            "launch_failures": [],
+            "crashed_during_window": [],
+            "aggregate_fps": 325.5,
+            "aggregate_realtime_multiple": 5.43,
+            "per_instance_fps": {
+              "min": 31.7,
+              "median": 32.3,
+              "max": 33.7,
+              "all": [
+                32.4,
+                31.9,
+                32.0,
+                32.7,
+                32.2,
+                31.7,
+                32.0,
+                33.7,
+                33.6,
+                33.4
+              ]
+            },
+            "working_set_mb": {
+              "per_instance_median": 678.5,
+              "max": 685.9,
+              "total": 6776.4,
+              "max_peak": 687.3
+            },
+            "system": {
+              "cpu_percent": 99.8,
+              "available_ram_mb": 13640,
+              "total_ram_mb": 32706
+            },
+            "driver_grid_decode_ms_per_packet": {
+              "n": 10,
+              "p50": 0.0245,
+              "p95": 0.0253,
+              "mean": 0.0245,
+              "min": 0.0237,
+              "max": 0.0255
+            }
+          },
+          {
+            "n": 10,
+            "timescale": 3.0,
+            "grid": {
+              "size": 64,
+              "stride": 1
+            },
+            "window_s": 30.0,
+            "launch_to_all_ready_s": 27.7,
+            "launch_failures": [],
+            "crashed_during_window": [],
+            "aggregate_fps": 327.1,
+            "aggregate_realtime_multiple": 5.45,
+            "per_instance_fps": {
+              "min": 31.4,
+              "median": 32.6,
+              "max": 33.9,
+              "all": [
+                32.8,
+                31.4,
+                32.1,
+                32.5,
+                32.9,
+                32.3,
+                33.9,
+                32.2,
+                33.6,
+                33.4
+              ]
+            },
+            "working_set_mb": {
+              "per_instance_median": 679.8,
+              "max": 683.3,
+              "total": 6778.0,
+              "max_peak": 686.7
+            },
+            "system": {
+              "cpu_percent": 100.0,
+              "available_ram_mb": 13576,
+              "total_ram_mb": 32706
+            },
+            "driver_grid_decode_ms_per_packet": {
+              "n": 10,
+              "p50": 0.0243,
+              "p95": 0.025,
+              "mean": 0.0244,
+              "min": 0.024,
+              "max": 0.0251
+            }
+          },
+          {
+            "n": 10,
+            "timescale": 3.0,
+            "grid": {
+              "size": 64,
+              "stride": 1
+            },
+            "window_s": 30.0,
+            "launch_to_all_ready_s": 28.0,
+            "launch_failures": [],
+            "crashed_during_window": [],
+            "aggregate_fps": 323.9,
+            "aggregate_realtime_multiple": 5.4,
+            "per_instance_fps": {
+              "min": 31.4,
+              "median": 32.4,
+              "max": 33.3,
+              "all": [
+                32.3,
+                31.4,
+                32.8,
+                32.5,
+                31.9,
+                32.3,
+                32.4,
+                31.9,
+                33.3,
+                33.0
+              ]
+            },
+            "working_set_mb": {
+              "per_instance_median": 678.2,
+              "max": 683.2,
+              "total": 6776.6,
+              "max_peak": 688.0
+            },
+            "system": {
+              "cpu_percent": 100.0,
+              "available_ram_mb": 13728,
+              "total_ram_mb": 32706
+            },
+            "driver_grid_decode_ms_per_packet": {
+              "n": 10,
+              "p50": 0.0244,
+              "p95": 0.0247,
+              "mean": 0.0244,
+              "min": 0.024,
+              "max": 0.0248
+            }
+          }
+        ]
+      },
+      "pinned": {
+        "n": 10,
+        "aggregate_fps_median": 583.8,
+        "aggregate_fps_runs": [
+          582.7,
+          583.8,
+          585.6
+        ],
+        "per_instance_fps_median": 56.1,
+        "cpu_percent_median": 83.9,
+        "failures": 0,
+        "runs": [
+          {
+            "n": 10,
+            "timescale": 3.0,
+            "grid": {
+              "size": 64,
+              "stride": 1
+            },
+            "window_s": 30.0,
+            "launch_to_all_ready_s": 19.6,
+            "launch_failures": [],
+            "crashed_during_window": [],
+            "aggregate_fps": 582.7,
+            "aggregate_realtime_multiple": 9.71,
+            "per_instance_fps": {
+              "min": 53.1,
+              "median": 55.9,
+              "max": 71.5,
+              "all": [
+                57.2,
+                54.8,
+                57.1,
+                53.1,
+                71.5,
+                67.9,
+                56.0,
+                54.0,
+                55.8,
+                55.4
+              ]
+            },
+            "working_set_mb": {
+              "per_instance_median": 662.35,
+              "max": 666.8,
+              "total": 6625.2,
+              "max_peak": 678.8
+            },
+            "system": {
+              "cpu_percent": 83.8,
+              "available_ram_mb": 14587,
+              "total_ram_mb": 32706
+            },
+            "driver_grid_decode_ms_per_packet": {
+              "n": 10,
+              "p50": 0.0274,
+              "p95": 0.0281,
+              "mean": 0.0275,
+              "min": 0.0271,
+              "max": 0.0281
+            }
+          },
+          {
+            "n": 10,
+            "timescale": 3.0,
+            "grid": {
+              "size": 64,
+              "stride": 1
+            },
+            "window_s": 30.0,
+            "launch_to_all_ready_s": 19.6,
+            "launch_failures": [],
+            "crashed_during_window": [],
+            "aggregate_fps": 583.8,
+            "aggregate_realtime_multiple": 9.73,
+            "per_instance_fps": {
+              "min": 54.6,
+              "median": 55.8,
+              "max": 70.5,
+              "all": [
+                55.9,
+                55.6,
+                56.7,
+                57.2,
+                70.5,
+                67.0,
+                55.0,
+                54.6,
+                55.5,
+                55.8
+              ]
+            },
+            "working_set_mb": {
+              "per_instance_median": 661.55,
+              "max": 669.1,
+              "total": 6632.4,
+              "max_peak": 681.2
+            },
+            "system": {
+              "cpu_percent": 85.4,
+              "available_ram_mb": 14594,
+              "total_ram_mb": 32706
+            },
+            "driver_grid_decode_ms_per_packet": {
+              "n": 10,
+              "p50": 0.0276,
+              "p95": 0.0279,
+              "mean": 0.0275,
+              "min": 0.0269,
+              "max": 0.028
+            }
+          },
+          {
+            "n": 10,
+            "timescale": 3.0,
+            "grid": {
+              "size": 64,
+              "stride": 1
+            },
+            "window_s": 30.0,
+            "launch_to_all_ready_s": 19.7,
+            "launch_failures": [],
+            "crashed_during_window": [],
+            "aggregate_fps": 585.6,
+            "aggregate_realtime_multiple": 9.76,
+            "per_instance_fps": {
+              "min": 54.5,
+              "median": 56.4,
+              "max": 72.6,
+              "all": [
+                57.0,
+                56.7,
+                56.2,
+                54.5,
+                72.6,
+                64.9,
+                55.6,
+                56.3,
+                55.2,
+                56.5
+              ]
+            },
+            "working_set_mb": {
+              "per_instance_median": 661.5,
+              "max": 668.2,
+              "total": 6624.0,
+              "max_peak": 676.1
+            },
+            "system": {
+              "cpu_percent": 83.9,
+              "available_ram_mb": 14607,
+              "total_ram_mb": 32706
+            },
+            "driver_grid_decode_ms_per_packet": {
+              "n": 10,
+              "p50": 0.0273,
+              "p95": 0.0275,
+              "mean": 0.0272,
+              "min": 0.0269,
+              "max": 0.0275
+            }
+          }
+        ],
+        "observed": [
+          {
+            "instance": 0,
+            "affinity": [
+              10
+            ],
+            "threads": 37
+          },
+          {
+            "instance": 1,
+            "affinity": [
+              8
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 2,
+            "affinity": [
+              6
+            ],
+            "threads": 37
+          },
+          {
+            "instance": 3,
+            "affinity": [
+              4
+            ],
+            "threads": 39
+          },
+          {
+            "instance": 4,
+            "affinity": [
+              2
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 5,
+            "affinity": [
+              0
+            ],
+            "threads": 37
+          },
+          {
+            "instance": 6,
+            "affinity": [
+              11
+            ],
+            "threads": 39
+          },
+          {
+            "instance": 7,
+            "affinity": [
+              9
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 8,
+            "affinity": [
+              7
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 9,
+            "affinity": [
+              5
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 0,
+            "affinity": [
+              10
+            ],
+            "threads": 36
+          },
+          {
+            "instance": 1,
+            "affinity": [
+              8
+            ],
+            "threads": 37
+          },
+          {
+            "instance": 2,
+            "affinity": [
+              6
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 3,
+            "affinity": [
+              4
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 4,
+            "affinity": [
+              2
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 5,
+            "affinity": [
+              0
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 6,
+            "affinity": [
+              11
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 7,
+            "affinity": [
+              9
+            ],
+            "threads": 39
+          },
+          {
+            "instance": 8,
+            "affinity": [
+              7
+            ],
+            "threads": 39
+          },
+          {
+            "instance": 9,
+            "affinity": [
+              5
+            ],
+            "threads": 37
+          },
+          {
+            "instance": 0,
+            "affinity": [
+              10
+            ],
+            "threads": 37
+          },
+          {
+            "instance": 1,
+            "affinity": [
+              8
+            ],
+            "threads": 37
+          },
+          {
+            "instance": 2,
+            "affinity": [
+              6
+            ],
+            "threads": 37
+          },
+          {
+            "instance": 3,
+            "affinity": [
+              4
+            ],
+            "threads": 37
+          },
+          {
+            "instance": 4,
+            "affinity": [
+              2
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 5,
+            "affinity": [
+              0
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 6,
+            "affinity": [
+              11
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 7,
+            "affinity": [
+              9
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 8,
+            "affinity": [
+              7
+            ],
+            "threads": 39
+          },
+          {
+            "instance": 9,
+            "affinity": [
+              5
+            ],
+            "threads": 38
+          }
+        ]
+      }
+    },
+    "n12": {
+      "cpus": [
+        10,
+        8,
+        6,
+        4,
+        2,
+        0,
+        11,
+        9,
+        7,
+        5,
+        3,
+        1
+      ],
+      "unpinned": {
+        "n": 12,
+        "aggregate_fps_median": 325.1,
+        "aggregate_fps_runs": [
+          325.1,
+          336.6,
+          324.6
+        ],
+        "per_instance_fps_median": 27.2,
+        "cpu_percent_median": 100.0,
+        "failures": 0,
+        "runs": [
+          {
+            "n": 12,
+            "timescale": 3.0,
+            "grid": {
+              "size": 64,
+              "stride": 1
+            },
+            "window_s": 30.0,
+            "launch_to_all_ready_s": 32.4,
+            "launch_failures": [],
+            "crashed_during_window": [],
+            "aggregate_fps": 325.1,
+            "aggregate_realtime_multiple": 5.42,
+            "per_instance_fps": {
+              "min": 26.0,
+              "median": 27.1,
+              "max": 28.6,
+              "all": [
+                28.6,
+                27.6,
+                26.5,
+                26.0,
+                26.9,
+                27.6,
+                26.0,
+                27.1,
+                26.6,
+                28.0,
+                27.0,
+                27.2
+              ]
+            },
+            "working_set_mb": {
+              "per_instance_median": 670.8,
+              "max": 677.3,
+              "total": 8052.4,
+              "max_peak": 687.7
+            },
+            "system": {
+              "cpu_percent": 100.0,
+              "available_ram_mb": 13121,
+              "total_ram_mb": 32706
+            },
+            "driver_grid_decode_ms_per_packet": {
+              "n": 12,
+              "p50": 0.0246,
+              "p95": 0.0305,
+              "mean": 0.0263,
+              "min": 0.024,
+              "max": 0.0306
+            }
+          },
+          {
+            "n": 12,
+            "timescale": 3.0,
+            "grid": {
+              "size": 64,
+              "stride": 1
+            },
+            "window_s": 30.0,
+            "launch_to_all_ready_s": 32.9,
+            "launch_failures": [],
+            "crashed_during_window": [],
+            "aggregate_fps": 336.6,
+            "aggregate_realtime_multiple": 5.61,
+            "per_instance_fps": {
+              "min": 26.4,
+              "median": 28.0,
+              "max": 29.6,
+              "all": [
+                29.4,
+                28.0,
+                28.1,
+                29.6,
+                26.4,
+                27.2,
+                27.1,
+                27.8,
+                28.6,
+                28.5,
+                28.8,
+                27.1
+              ]
+            },
+            "working_set_mb": {
+              "per_instance_median": 672.7,
+              "max": 678.2,
+              "total": 8079.5,
+              "max_peak": 686.7
+            },
+            "system": {
+              "cpu_percent": 100.0,
+              "available_ram_mb": 13079,
+              "total_ram_mb": 32706
+            },
+            "driver_grid_decode_ms_per_packet": {
+              "n": 12,
+              "p50": 0.0249,
+              "p95": 0.036,
+              "mean": 0.027,
+              "min": 0.0241,
+              "max": 0.043
+            }
+          },
+          {
+            "n": 12,
+            "timescale": 3.0,
+            "grid": {
+              "size": 64,
+              "stride": 1
+            },
+            "window_s": 30.0,
+            "launch_to_all_ready_s": 33.7,
+            "launch_failures": [],
+            "crashed_during_window": [],
+            "aggregate_fps": 324.6,
+            "aggregate_realtime_multiple": 5.41,
+            "per_instance_fps": {
+              "min": 25.6,
+              "median": 27.2,
+              "max": 28.3,
+              "all": [
+                28.2,
+                28.3,
+                26.0,
+                27.7,
+                26.3,
+                25.6,
+                25.7,
+                27.1,
+                27.4,
+                28.3,
+                27.3,
+                26.6
+              ]
+            },
+            "working_set_mb": {
+              "per_instance_median": 674.1,
+              "max": 679.0,
+              "total": 8093.8,
+              "max_peak": 687.3
+            },
+            "system": {
+              "cpu_percent": 100.0,
+              "available_ram_mb": 13001,
+              "total_ram_mb": 32706
+            },
+            "driver_grid_decode_ms_per_packet": {
+              "n": 12,
+              "p50": 0.0246,
+              "p95": 0.0389,
+              "mean": 0.0279,
+              "min": 0.0239,
+              "max": 0.0399
+            }
+          }
+        ]
+      },
+      "pinned": {
+        "n": 12,
+        "aggregate_fps_median": 608.9,
+        "aggregate_fps_runs": [
+          610.7,
+          608.4,
+          608.9
+        ],
+        "per_instance_fps_median": 51.2,
+        "cpu_percent_median": 100.0,
+        "failures": 0,
+        "runs": [
+          {
+            "n": 12,
+            "timescale": 3.0,
+            "grid": {
+              "size": 64,
+              "stride": 1
+            },
+            "window_s": 30.0,
+            "launch_to_all_ready_s": 22.6,
+            "launch_failures": [],
+            "crashed_during_window": [],
+            "aggregate_fps": 610.7,
+            "aggregate_realtime_multiple": 10.18,
+            "per_instance_fps": {
+              "min": 45.5,
+              "median": 51.0,
+              "max": 55.4,
+              "all": [
+                49.5,
+                50.2,
+                55.4,
+                53.0,
+                49.5,
+                45.5,
+                52.7,
+                51.1,
+                53.3,
+                51.6,
+                50.9,
+                47.8
+              ]
+            },
+            "working_set_mb": {
+              "per_instance_median": 661.65,
+              "max": 664.1,
+              "total": 7941.2,
+              "max_peak": 675.8
+            },
+            "system": {
+              "cpu_percent": 100.0,
+              "available_ram_mb": 13156,
+              "total_ram_mb": 32706
+            },
+            "driver_grid_decode_ms_per_packet": {
+              "n": 12,
+              "p50": 0.0292,
+              "p95": 0.0319,
+              "mean": 0.0293,
+              "min": 0.0276,
+              "max": 0.0333
+            }
+          },
+          {
+            "n": 12,
+            "timescale": 3.0,
+            "grid": {
+              "size": 64,
+              "stride": 1
+            },
+            "window_s": 30.09,
+            "launch_to_all_ready_s": 22.4,
+            "launch_failures": [],
+            "crashed_during_window": [],
+            "aggregate_fps": 608.4,
+            "aggregate_realtime_multiple": 10.14,
+            "per_instance_fps": {
+              "min": 44.4,
+              "median": 51.3,
+              "max": 53.6,
+              "all": [
+                53.6,
+                51.1,
+                52.9,
+                52.3,
+                49.9,
+                44.4,
+                53.6,
+                51.5,
+                52.5,
+                51.2,
+                49.3,
+                46.1
+              ]
+            },
+            "working_set_mb": {
+              "per_instance_median": 661.4,
+              "max": 665.0,
+              "total": 7938.0,
+              "max_peak": 672.9
+            },
+            "system": {
+              "cpu_percent": 100.0,
+              "available_ram_mb": 13210,
+              "total_ram_mb": 32706
+            },
+            "driver_grid_decode_ms_per_packet": {
+              "n": 12,
+              "p50": 0.0288,
+              "p95": 0.0309,
+              "mean": 0.029,
+              "min": 0.0276,
+              "max": 0.0315
+            }
+          },
+          {
+            "n": 12,
+            "timescale": 3.0,
+            "grid": {
+              "size": 64,
+              "stride": 1
+            },
+            "window_s": 30.13,
+            "launch_to_all_ready_s": 23.0,
+            "launch_failures": [],
+            "crashed_during_window": [],
+            "aggregate_fps": 608.9,
+            "aggregate_realtime_multiple": 10.15,
+            "per_instance_fps": {
+              "min": 43.8,
+              "median": 51.3,
+              "max": 54.7,
+              "all": [
+                54.4,
+                50.4,
+                54.7,
+                53.3,
+                50.3,
+                43.8,
+                53.1,
+                50.2,
+                53.8,
+                52.2,
+                47.1,
+                45.7
+              ]
+            },
+            "working_set_mb": {
+              "per_instance_median": 661.25,
+              "max": 667.0,
+              "total": 7942.8,
+              "max_peak": 690.3
+            },
+            "system": {
+              "cpu_percent": 100.0,
+              "available_ram_mb": 13190,
+              "total_ram_mb": 32706
+            },
+            "driver_grid_decode_ms_per_packet": {
+              "n": 12,
+              "p50": 0.0292,
+              "p95": 0.0323,
+              "mean": 0.0295,
+              "min": 0.0273,
+              "max": 0.0332
+            }
+          }
+        ],
+        "observed": [
+          {
+            "instance": 0,
+            "affinity": [
+              10
+            ],
+            "threads": 37
+          },
+          {
+            "instance": 1,
+            "affinity": [
+              8
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 2,
+            "affinity": [
+              6
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 3,
+            "affinity": [
+              4
+            ],
+            "threads": 36
+          },
+          {
+            "instance": 4,
+            "affinity": [
+              2
+            ],
+            "threads": 37
+          },
+          {
+            "instance": 5,
+            "affinity": [
+              0
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 6,
+            "affinity": [
+              11
+            ],
+            "threads": 37
+          },
+          {
+            "instance": 7,
+            "affinity": [
+              9
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 8,
+            "affinity": [
+              7
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 9,
+            "affinity": [
+              5
+            ],
+            "threads": 37
+          },
+          {
+            "instance": 10,
+            "affinity": [
+              3
+            ],
+            "threads": 37
+          },
+          {
+            "instance": 11,
+            "affinity": [
+              1
+            ],
+            "threads": 39
+          },
+          {
+            "instance": 0,
+            "affinity": [
+              10
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 1,
+            "affinity": [
+              8
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 2,
+            "affinity": [
+              6
+            ],
+            "threads": 37
+          },
+          {
+            "instance": 3,
+            "affinity": [
+              4
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 4,
+            "affinity": [
+              2
+            ],
+            "threads": 37
+          },
+          {
+            "instance": 5,
+            "affinity": [
+              0
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 6,
+            "affinity": [
+              11
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 7,
+            "affinity": [
+              9
+            ],
+            "threads": 39
+          },
+          {
+            "instance": 8,
+            "affinity": [
+              7
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 9,
+            "affinity": [
+              5
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 10,
+            "affinity": [
+              3
+            ],
+            "threads": 39
+          },
+          {
+            "instance": 11,
+            "affinity": [
+              1
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 0,
+            "affinity": [
+              10
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 1,
+            "affinity": [
+              8
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 2,
+            "affinity": [
+              6
+            ],
+            "threads": 37
+          },
+          {
+            "instance": 3,
+            "affinity": [
+              4
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 4,
+            "affinity": [
+              2
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 5,
+            "affinity": [
+              0
+            ],
+            "threads": 36
+          },
+          {
+            "instance": 6,
+            "affinity": [
+              11
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 7,
+            "affinity": [
+              9
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 8,
+            "affinity": [
+              7
+            ],
+            "threads": 39
+          },
+          {
+            "instance": 9,
+            "affinity": [
+              5
+            ],
+            "threads": 38
+          },
+          {
+            "instance": 10,
+            "affinity": [
+              3
+            ],
+            "threads": 39
+          },
+          {
+            "instance": 11,
+            "affinity": [
+              1
+            ],
+            "threads": 37
+          }
+        ]
+      }
+    }
+  },
+  "table": [
+    {
+      "n": 8,
+      "unpinned_fps": 330.5,
+      "pinned_fps": 552.8,
+      "pinned_delta_pct": 67.3,
+      "failures": 0
+    },
+    {
+      "n": 10,
+      "unpinned_fps": 325.5,
+      "pinned_fps": 583.8,
+      "pinned_delta_pct": 79.4,
+      "failures": 0
+    },
+    {
+      "n": 12,
+      "unpinned_fps": 325.1,
+      "pinned_fps": 608.9,
+      "pinned_delta_pct": 87.3,
+      "failures": 0
+    }
+  ],
+  "wall_minutes": 18.6
+}

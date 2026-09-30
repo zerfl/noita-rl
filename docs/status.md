@@ -18,7 +18,7 @@ cost, reset path, parallel instances. No RL training yet. Deliverables: `rl_benc
 | 3 | Test 3 (reset paths) and Test 4 (parallel instances, at clock 3x) | Done (commit `e1456df`) |
 | 4 | `FINDINGS.md`, final restore check against the backup | Done |
 | 5 | NoitaPatcher integration: commands, Game Over recovery reset (Test 3d), fps-ceiling diagnosis, nsew grid reader, reproducible firing | Done (commit `55d64e6`) |
-| 7 | Shared-ceiling diagnosis: power, affinity, Steam, restarts, WPR trace | Done except pinned scaling |
+| 7 | Shared-ceiling diagnosis (power, affinity, Steam, restarts, WPR trace, pinned scaling), no-focus launch | Done |
 | 6 | Mod-control rule (userdata mode, snapshot/restore and install checks removed), release build verified, timer-resolution test of the fps ceiling | Done |
 
 ## Phase 1 numbers (`results/smoke-*.json`)
@@ -101,10 +101,9 @@ byte-identical to the backup.
 The benchmark is complete; see `FINDINGS.md` (includes phase 5). Candidate follow-ups, none
 started:
 
-1. The ~300 fps ceiling is CPU saturation (phase 7, knowledge.md "Shared ceiling"). Next: read
-   `results/ceiling_scaling_*.json` (N=4/6/8/12, one logical CPU per instance vs unpinned; started
-   2026-09-30, may be missing if interrupted: rerun `uv run python -m driver ceiling scaling`).
-   If pinned scaling holds, make single-CPU pinning the default and update FINDINGS.
+1. The ~300 fps ceiling was CPU saturation; one logical CPU per instance reaches 609 fps at N=12
+   (phase 7, knowledge.md "Shared ceiling"). Pinning lives only in `ceiling._pinned`; an RL runner
+   should carry it as a launch option.
 2. Tighten the liquid probe (more repetitions) to decide whether 4x can be promoted.
 3. Start the wand-design track in [ideas.md](ideas.md) on top of the scenario reset.
 

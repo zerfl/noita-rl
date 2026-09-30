@@ -1,0 +1,61 @@
+{
+ "test": "ceiling_scaling",
+ "started": "2026-09-30",
+ "window": "visible (pre no-activate launch)",
+ "note": "Run aborted at N=12 by a teardown timeout before writing JSON; aggregates copied from its log. Same method as ceiling_scaling_20260930-173658.json (3 launches x 30 s, clock 3x, K=4, 64x64 grid).",
+ "aggregate_fps_runs": {
+  "n4": {
+   "unpinned": [
+    291.8,
+    312.7,
+    315.8
+   ],
+   "pinned": [
+    319.0,
+    313.4,
+    347.2
+   ]
+  },
+  "n6": {
+   "unpinned": [
+    310.7,
+    272.1,
+    279.5
+   ],
+   "pinned": [
+    423.5,
+    437.9,
+    450.9
+   ]
+  },
+  "n8": {
+   "unpinned": [
+    298.9,
+    303.5,
+    283.3
+   ],
+   "pinned": [
+    499.5,
+    500.2,
+    495.4
+   ]
+  }
+ },
+ "table": [
+  {
+   "n": 4,
+   "unpinned_fps": 312.7,
+   "pinned_fps": 319.0
+  },
+  {
+   "n": 6,
+   "unpinned_fps": 279.5,
+   "pinned_fps": 437.9
+  },
+  {
+   "n": 8,
+   "unpinned_fps": 298.9,
+   "pinned_fps": 499.5
+  }
+ ]
+}

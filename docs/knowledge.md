@@ -248,3 +248,11 @@ and a live counter cross-check on this 6-core / 12-thread machine.
   SMT threads per instance is worse (198). Most worker-thread CPU is overhead.
 - `tools/etwcpu` must restrict symbol loading to the target processes plus `System`, and the symbol
   folders must exist first (E_ACCESSDENIED otherwise).
+- **Pinned scaling** (`results/ceiling_scaling_20260930-*.json`): one logical CPU per instance gives
+  438 / 500 / 553 / 584 / 609 aggregate fps at N = 6 / 8 / 8 (minimized) / 10 / 12, against a flat
+  ~280-330 unpinned. N=12 pinned: 51 fps per instance, 8 GB working set, no failures.
+- **No-focus launch:** `CreateProcess` with `STARTF_USESHOWWINDOW` + `SW_SHOWMINNOACTIVE` makes
+  SDL 2.0.7's first `ShowWindow` start the game minimized and never activated (smoke run: the
+  foreground window never changed; injected input moved the player at frame 18 as before).
+  Minimized is ~10 % faster than visible at N=8. SDL 2.0.7 has no no-activation hint.
+- Killing 12 saturated instances can take over 15 s per process.

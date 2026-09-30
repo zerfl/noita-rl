@@ -7,8 +7,12 @@ Newest first. Each entry: what, why, and what would change it.
 - **CPU claims use ETW or `% Processor Utility`, never psutil or `% Processor Time`.** The
   tick-sampled counters read 0.3 core per Noita process against 3.5 measured by context switches,
   which made phases 3-6 rule out CPU wrongly. `cpu_percent` fields in older results are unreliable.
-- **Candidate default: pin each instance to one logical CPU** (N=4: 335 vs ~310 unpinned, far less
-  CPU). Adopted only if `ceiling scaling` shows it scales past N=4.
+- **Parallel runs pin each instance to one logical CPU**, physical cores first, then SMT siblings
+  (`ceiling.scaling_cpus`). N=12 pinned: 609 aggregate fps vs 325 unpinned. Benchmark modes stay
+  unpinned unless they test pinning, so older results remain comparable.
+- **Games launch minimized and never take focus** (`LaunchSpec.foreground=False` default): the user
+  keeps working while the harness launches. Nothing in the harness needs focus (input is injected
+  in-process), and minimized is not slower. `foreground=True` restores the old launch for debugging.
 
 ## 2026-09-29
 
