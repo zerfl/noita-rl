@@ -146,8 +146,13 @@ floats, action [move, levitate, fire, aim in 72 directions]. PPO (stable-baselin
 off, 640x360 window launched minimized without focus, K=4, 64x64 stride-1 grid, 12 instances each
 pinned to its own logical CPU (6-8 for faster single instances), NoitaPatcher loaded (only copy in
 the process). Resets: NP Game Over recovery plus an nsew region restore for arena episodes (under
-0.1 s); relaunch with a reused workdir (5.3 s) when the world must be fresh. For reproducible
-firing, fix the spread RNG in `OnProjectileFired` (NP) and fire with `UseItem(charge=true)`.
+0.1 s); relaunch with a reused workdir (5.3 s) when the world must be fresh. Arena episodes:
+`arena_reset` with a 2-frame settle (0.08 s). Firing goes through the player's own input (mouse
+aim and fire button, injected) with natural spread, so every wand mechanic applies; NP
+`UseItem(charge=true)` with a fixed spread RNG fires reproducibly but skips aiming and makes
+every shot deviate alike, so it is for debugging only. While the PC is in use: 4 pinned games.
+Training: PPO on the vector observation is the working baseline; evaluate live-task policies
+stochastically.
 
 ## Projected decisions per day at K=4
 
@@ -157,6 +162,8 @@ firing, fix the spread RNG in `OnProjectileFired` (NP) and fire with `UseItem(ch
 - 1 instance: 40 decisions/s, about 3.5 million per day. Busy scenes run about 10 % slower.
 - World resets cost 5.3 s each: at 18.5 decisions/s per instance, a 1000-decision episode loses
   about 9 % to resets. NP recovery (0.034 s) and scenario resets (0.05 s) cost nothing measurable.
+- Measured in training (arena, 4 pinned games, PPO including updates and resets): 82-95
+  decisions/s, about 7-8 million per day; the live task (enemy AI on) is at the low end.
 
 ## Blockers
 
