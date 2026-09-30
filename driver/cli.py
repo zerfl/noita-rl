@@ -142,6 +142,11 @@ def cmd_rl(a):
         save_result("rl_eval", rl_train.evaluate(Path(a.model), episodes=a.episodes, log=_log))
 
 
+def cmd_windows(a):
+    from . import viewer
+    print(json.dumps(viewer.hide() if a.hide else viewer.show()))
+
+
 def cmd_suite(a):
     """Every test in order; one result file each plus an index."""
     t0 = time.perf_counter()
@@ -264,6 +269,10 @@ def main(argv=None):
     p.add_argument("--episodes", type=int, default=20, help="baselines/eval: episodes per policy")
     p.add_argument("--model", help="eval: runs/<run>/final.zip")
     p.set_defaults(fn=cmd_rl)
+
+    p = sub.add_parser("windows", help="show harness games in a balanced grid (no focus change), or --hide")
+    p.add_argument("--hide", action="store_true", help="minimize them again")
+    p.set_defaults(fn=cmd_windows)
 
     p = sub.add_parser("suite", help="run every test: smoke, actions, test1-4, np (about 60 min)")
     p.add_argument("--reps", type=int, default=3)

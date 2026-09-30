@@ -32,6 +32,7 @@ uv run python -m driver timer --render-share   # N=4 with all but one instance p
 uv run python -m driver ceiling baseline   # N=1 and N=4, 3 launches x 30 s, medians (about 5 min)
 uv run python -m driver ceiling power      # also: affinity, steam, restarts (each reruns the baseline)
 uv run python -m driver ceiling scaling --ns 8 12   # unpinned vs one logical CPU per instance
+uv run python -m driver windows            # show running harness games in a centred grid; --hide minimizes
 uv run python -m driver ceiling hold --n 4 --etl .rl_bench_state/traces/n4.etl   # then record, elevated:
 #   wpr -start CPU -filemode; Start-Sleep 10; wpr -stop <repo>\.rl_bench_state\traces\n4.etl
 uv run python -m driver ceiling trace --hold results/ceiling_hold_n4_X.json   # CPU Usage (Precise) summary

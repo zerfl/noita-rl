@@ -173,3 +173,22 @@ class ArenaScripted(unittest.TestCase):
     def test_holds_fire_when_all_dead(self):
         from driver.rl_env import scripted_action
         self.assertEqual(scripted_action(self.obs((0.3, 0, 0), (0, -0.5, 0), (1, 0, 0)))[2], 0)
+
+
+class ViewerLayout(unittest.TestCase):
+    def test_rows_are_balanced(self):
+        from driver.viewer import balanced_rows
+        cases = {1: [1], 2: [2], 3: [2, 1], 4: [2, 2], 5: [3, 2], 7: [3, 2, 2], 10: [4, 3, 3], 12: [4, 4, 4]}
+        for n, rows in cases.items():
+            self.assertEqual(balanced_rows(n), rows, n)
+
+    def test_grid_is_centred_and_rows_are_centred(self):
+        from driver.viewer import layout
+        spots = layout(3, 100, 50, (0, 0, 1000, 500))
+        self.assertEqual(spots, [(400, 200), (500, 200), (450, 250)])
+
+    def test_overlaps_instead_of_leaving_the_area(self):
+        from driver.viewer import layout
+        spots = layout(4, 400, 100, (0, 0, 600, 400))
+        xs = [x for x, _ in spots]
+        self.assertEqual((min(xs), max(xs) + 400), (0, 600))

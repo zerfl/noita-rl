@@ -77,9 +77,10 @@ def train(n: int = 4, steps: int = 50_000, log=print) -> dict:
             for info in self.locals["infos"]:
                 ep = info.get("episode")
                 if ep:
-                    rec = {"t": round(time.perf_counter() - self.t0, 1), "timesteps": self.num_timesteps,
-                           "return": round(ep["r"], 3), "steps": ep["l"], "kills": info.get("kills"),
-                           "self_damage": info.get("self_damage"), "crash": info.get("crash", False)}
+                    rec = {"t": round(time.perf_counter() - self.t0, 1), "timesteps": int(self.num_timesteps),
+                           "return": round(float(ep["r"]), 3), "steps": int(ep["l"]),
+                           "kills": int(info.get("kills", 0)), "self_damage": float(info.get("self_damage", 0)),
+                           "crash": bool(info.get("crash", False))}
                     self.f.write(json.dumps(rec) + "\n")
                     self.f.flush()
             return True
