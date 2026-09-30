@@ -135,3 +135,20 @@ class FramesBetween(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class GateTools(unittest.TestCase):
+    def test_action_sequence_is_reproducible_and_seed_dependent(self):
+        from driver import gate
+        self.assertEqual(gate.action_sequence(7, 300), gate.action_sequence(7, 300))
+        self.assertNotEqual(gate.action_sequence(7, 300), gate.action_sequence(8, 300))
+
+    def test_compare_reports_the_first_divergent_step(self):
+        from driver import gate
+        a = {"label": "a", "first_frame": 1, "alive_frame": 14, "states": ["s0", "s1", "s2", "s3"],
+             "grids": ["g0", "g1", "g2", "g3"]}
+        b = dict(a, label="b", states=["s0", "s1", "x2", "s3"], grids=["g0", "g1", "g2", "x3"])
+        c = gate.compare(a, b)
+        self.assertEqual((c["first_state_diff_step"], c["first_grid_diff_step"]), (2, 3))
+        self.assertEqual(c["state_equal_fraction"], 0.75)
+        self.assertTrue(c["same_start"])

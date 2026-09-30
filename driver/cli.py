@@ -3,7 +3,7 @@ import json
 import time
 from pathlib import Path
 
-from . import actions, ceiling, etw, gameconfig, launcher, np_bench, paths, smoke, test1, test2, test3, test4, timer_bench
+from . import actions, ceiling, etw, gate, gameconfig, launcher, np_bench, paths, smoke, test1, test2, test3, test4, timer_bench
 
 
 def _render(a) -> gameconfig.RenderOptions:
@@ -115,6 +115,15 @@ def cmd_ceiling(a):
         save_result(f"ceiling_{a.mode}", ceiling.run(a.mode, runs=a.runs, window_s=a.window, log=_log, **kw))
 
 
+def cmd_gate(a):
+    if a.mode == "lockstep":
+        save_result("gate_lockstep", gate.run_lockstep(ns=tuple(a.ns), runs=a.runs, window_s=a.window, log=_log))
+    elif a.mode == "determinism":
+        save_result("gate_determinism", gate.run_determinism(steps=a.steps, log=_log))
+    else:
+        gate.run_soak(a.hours, n=a.ns[0], log=_log)
+
+
 def cmd_suite(a):
     """Every test in order; one result file each plus an index."""
     t0 = time.perf_counter()
@@ -208,6 +217,15 @@ def main(argv=None):
     p.add_argument("--etl", help="hold: the ETL to wait for; trace: override the hold's ETL")
     p.add_argument("--hold", help="trace: results/ceiling_hold_*.json")
     p.set_defaults(fn=cmd_ceiling)
+
+    p = sub.add_parser("gate", help="runner gate: lockstep throughput, determinism, soak; writes results/gate_*.json")
+    p.add_argument("mode", choices=["lockstep", "determinism", "soak"])
+    p.add_argument("--ns", type=int, nargs="+", default=[10, 12], help="lockstep: instance counts; soak: first value")
+    p.add_argument("--runs", type=int, default=2)
+    p.add_argument("--window", type=float, default=30.0)
+    p.add_argument("--steps", type=int, default=1000, help="determinism: lockstep steps (K=4 frames each)")
+    p.add_argument("--hours", type=float, default=2.0, help="soak duration")
+    p.set_defaults(fn=cmd_gate)
 
     p = sub.add_parser("suite", help="run every test: smoke, actions, test1-4, np (about 60 min)")
     p.add_argument("--reps", type=int, default=3)
