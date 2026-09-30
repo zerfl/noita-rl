@@ -3,7 +3,7 @@ import json
 import time
 from pathlib import Path
 
-from . import actions, ceiling, etw, gate, gameconfig, launcher, np_bench, paths, smoke, test1, test2, test3, test4, timer_bench
+from . import actions, ceiling, etw, gate, scenario, gameconfig, launcher, np_bench, paths, smoke, test1, test2, test3, test4, timer_bench
 
 
 def _render(a) -> gameconfig.RenderOptions:
@@ -124,6 +124,10 @@ def cmd_gate(a):
         gate.run_soak(a.hours, n=a.ns[0], log=_log)
 
 
+def cmd_scenario(a):
+    save_result("scenario_noise", scenario.run_noise(repeats=a.repeats, frames=a.frames, log=_log))
+
+
 def cmd_suite(a):
     """Every test in order; one result file each plus an index."""
     t0 = time.perf_counter()
@@ -226,6 +230,12 @@ def main(argv=None):
     p.add_argument("--steps", type=int, default=1000, help="determinism: lockstep steps (K=4 frames each)")
     p.add_argument("--hours", type=float, default=2.0, help="soak duration")
     p.set_defaults(fn=cmd_gate)
+
+    p = sub.add_parser("scenario", help="wand evaluation score noise; writes results/scenario_noise_*.json")
+    p.add_argument("mode", choices=["noise"])
+    p.add_argument("--repeats", type=int, default=10)
+    p.add_argument("--frames", type=int, default=600)
+    p.set_defaults(fn=cmd_scenario)
 
     p = sub.add_parser("suite", help="run every test: smoke, actions, test1-4, np (about 60 min)")
     p.add_argument("--reps", type=int, default=3)

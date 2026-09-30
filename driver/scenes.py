@@ -45,7 +45,18 @@ def arena(x, y):
     return color(FLOOR_MATERIAL) if solid else SKIP
 
 
+# Wand-evaluation arena: sealed box, interior written as air so a reload wipes debris. Geometry
+# must match WAND_ARENA in rl_bench/files/scenario.lua.
+WAND_W, WAND_H, WAND_WALL, WAND_FLOOR = 512, 192, 8, 16
+
+
+def wand_arena(x, y):
+    solid = x < WAND_WALL or x >= WAND_W - WAND_WALL or y < WAND_WALL or y >= WAND_H - WAND_FLOOR
+    return color(FLOOR_MATERIAL) if solid else color("air")
+
+
 def write_all(dst: Path):
     write_png(dst / "arena.png", 1024, 96, arena)
+    write_png(dst / "wand_arena.png", WAND_W, WAND_H, wand_arena)
     write_png(dst / "water.png", 24, 24, lambda x, y: color("water"))
     write_png(dst / "liquids.png", 96, 32, lambda x, y: color("water") if x < 48 else color("oil"))

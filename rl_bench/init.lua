@@ -31,6 +31,7 @@ dofile_once("mods/rl_bench/files/bench.lua")
 dofile_once("mods/rl_bench/files/timer.lua")
 dofile_once("mods/rl_bench/files/probes.lua")
 dofile_once("mods/rl_bench/files/np_cmds.lua")
+dofile_once("mods/rl_bench/files/scenario.lua")
 
 -- World seed and extra magic numbers (RL_BENCH_MAGIC="NAME=VALUE;...") from the driver. The virtual
 -- file keeps per-instance values off disk.
