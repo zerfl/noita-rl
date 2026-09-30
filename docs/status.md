@@ -110,8 +110,8 @@ The benchmark is complete (`FINDINGS.md`). Phase 8 builds the runner; plan and b
       stochastic policy clears 19/20 in 73 steps vs scripted 13/20 in 127; passed the scripted
       level (8.0) at 99k steps. Then terrain, projectiles in the observation, grid.
    b. On it, PPO vs off-policy vs DreamerV3 in env steps to the scripted level (250k budget
-      each; two runs each later). Flat DQN did not learn (stopped at 154k). BDQ 250k running
-      (`runs/bdq_live_*`). DreamerV3 (PyTorch, r2dreamer, `--algo dreamer`) built, tested on a
+      each; two runs each later). PPO reached it at 99k and ends at 11.4; BDQ at 119k, ends at
+      9.7; flat DQN never (stopped at 154k). See FINDINGS.md. DreamerV3 (PyTorch, r2dreamer, `--algo dreamer`) built, tested on a
       fake env only; ~115 s per 1000 env steps at train ratio 512, so ~9 h for 250k: runs
       overnight when the user leaves the PC (`uv run --no-sync python -m driver rl train --task
       live --algo dreamer --n 4 --steps 250000`). JAX in WSL2 prepared (`tools/wsl/`), trainer

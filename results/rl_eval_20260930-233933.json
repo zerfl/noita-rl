@@ -1,0 +1,167 @@
+{
+  "test": "rl_eval",
+  "task": "live",
+  "algo": "bdq",
+  "model": "runs\\bdq_live_20260930-224909\\final.pt",
+  "stochastic": false,
+  "summary": {
+    "episodes": 20,
+    "return": {
+      "mean": 9.391,
+      "sd": 3.076
+    },
+    "kills": {
+      "mean": 2.55,
+      "sd": 0.686
+    },
+    "self_damage": {
+      "mean": 0.548,
+      "sd": 0.831
+    },
+    "cleared_fraction": 0.65,
+    "clear_frames_mean": 353.8,
+    "died_fraction": 0.0
+  },
+  "episodes": [
+    {
+      "return": 7.172000000000029,
+      "kills": 1,
+      "self_damage": 0.0,
+      "steps": 150,
+      "died": false
+    },
+    {
+      "return": 7.753250000000018,
+      "kills": 3,
+      "self_damage": 1.7147,
+      "steps": 96,
+      "died": false
+    },
+    {
+      "return": 7.300000000000031,
+      "kills": 2,
+      "self_damage": 0.0,
+      "steps": 150,
+      "died": false
+    },
+    {
+      "return": 8.500000000000016,
+      "kills": 3,
+      "self_damage": 1.4,
+      "steps": 100,
+      "died": false
+    },
+    {
+      "return": 12.640000000000006,
+      "kills": 3,
+      "self_damage": 0.0,
+      "steps": 36,
+      "died": false
+    },
+    {
+      "return": 12.280000000000014,
+      "kills": 3,
+      "self_damage": 0.0,
+      "steps": 72,
+      "died": false
+    },
+    {
+      "return": 12.140000000000018,
+      "kills": 3,
+      "self_damage": 0.0,
+      "steps": 86,
+      "died": false
+    },
+    {
+      "return": 3.6970000000000307,
+      "kills": 2,
+      "self_damage": 2.4812,
+      "steps": 150,
+      "died": false
+    },
+    {
+      "return": 12.320000000000014,
+      "kills": 3,
+      "self_damage": 0.0,
+      "steps": 68,
+      "died": false
+    },
+    {
+      "return": 3.1527500000000273,
+      "kills": 1,
+      "self_damage": 0.4589,
+      "steps": 150,
+      "died": false
+    },
+    {
+      "return": 8.050000000000026,
+      "kills": 3,
+      "self_damage": 1.4,
+      "steps": 145,
+      "died": false
+    },
+    {
+      "return": 12.230000000000011,
+      "kills": 3,
+      "self_damage": 0.0,
+      "steps": 77,
+      "died": false
+    },
+    {
+      "return": 12.050000000000018,
+      "kills": 3,
+      "self_damage": 0.0,
+      "steps": 95,
+      "died": false
+    },
+    {
+      "return": 9.22000000000002,
+      "kills": 3,
+      "self_damage": 1.08,
+      "steps": 108,
+      "died": false
+    },
+    {
+      "return": 12.210000000000012,
+      "kills": 3,
+      "self_damage": 0.0,
+      "steps": 79,
+      "died": false
+    },
+    {
+      "return": 12.380000000000011,
+      "kills": 3,
+      "self_damage": 0.0,
+      "steps": 62,
+      "died": false
+    },
+    {
+      "return": 9.70000000000003,
+      "kills": 2,
+      "self_damage": 0.0,
+      "steps": 150,
+      "died": false
+    },
+    {
+      "return": 9.460000000000031,
+      "kills": 2,
+      "self_damage": 0.0,
+      "steps": 150,
+      "died": false
+    },
+    {
+      "return": 4.500000000000028,
+      "kills": 2,
+      "self_damage": 2.16,
+      "steps": 150,
+      "died": false
+    },
+    {
+      "return": 11.065000000000023,
+      "kills": 3,
+      "self_damage": 0.27,
+      "steps": 126,
+      "died": false
+    }
+  ]
+}

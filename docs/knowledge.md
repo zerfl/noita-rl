@@ -371,5 +371,10 @@ and a live counter cross-check on this 6-core / 12-thread machine.
   (79 outputs) instead of 864 joint actions. With the CPU saturated (4 games plus two trainers),
   a gradient step took 19 ms on GPU and 20 ms on CPU; replay buffer on the GPU and one fused
   advantage layer cut it to 10 ms. Kernel launches, not FLOPs, set the cost at this size.
+- BDQ on the live task (`runs/bdq_live_20260930-224909`, 250k steps, 49 min, `rl_curve_20260930-234101.json`):
+  return per 50k steps 2.5, 6.9, 7.9, 8.4, 9.5 (PPO: 1.7, 7.1, 9.0, 10.7, 11.2); passed 8.0 at
+  119k (PPO 99k). Eval (20 episodes): greedy 9.4, 13/20 cleared in ~88 steps, self-damage 0.55;
+  epsilon 0.05: 9.2, 14/20. Update share 20 % at replay ratio 0.25 (10 ms per gradient step
+  under load); reset 0.088 s; about 85 steps/s.
 - Live-task timing (PPO, N=4): 11.1 s per 1,024-step rollout, update 5 %, reset 0.088 s with the
   2-frame settle; about 82 steps/s.

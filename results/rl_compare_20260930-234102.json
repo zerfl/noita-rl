@@ -1,0 +1,42 @@
+{
+  "test": "rl_compare",
+  "target": 8.0,
+  "window": 200,
+  "runs": [
+    {
+      "run": "ppo_live_20260930-212614",
+      "algo": "ppo",
+      "task": "live",
+      "episodes": 2208,
+      "timesteps": 258832,
+      "reached": {
+        "timesteps": 98724,
+        "t_s": 1215.4,
+        "episodes": 676
+      },
+      "final_return": 11.438
+    },
+    {
+      "run": "dqn_live_20260930-222021",
+      "algo": "dqn",
+      "task": "live",
+      "episodes": 1030,
+      "timesteps": 154232,
+      "reached": null,
+      "final_return": 0.659
+    },
+    {
+      "run": "bdq_live_20260930-224909",
+      "algo": "bdq",
+      "task": "live",
+      "episodes": 1943,
+      "timesteps": 249964,
+      "reached": {
+        "timesteps": 118848,
+        "t_s": 1514.1,
+        "episodes": 841
+      },
+      "final_return": 9.735
+    }
+  ]
+}

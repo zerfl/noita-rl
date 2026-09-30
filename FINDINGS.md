@@ -137,6 +137,20 @@ floats, action [move, levitate, fire, aim in 72 directions]. PPO (stable-baselin
   Its deterministic (per-dimension argmax) policy loses that mix, so policies on this task are
   evaluated stochastically. It passed the scripted level (return 8.0, 30 episodes) after 99k steps
   (20 min). The scripted aimer's return varies a lot here (6.3 over 10 episodes, 8.9 over 20).
+- Method comparison on the live task (250k steps, 4 games, one run each,
+  `rl_compare_20260930-234102.json`; target: the scripted level, rolling mean return 8.0 over
+  200 episodes):
+
+  | Method | Reached 8.0 at | Final return (last 200 eps) | Eval, 20 episodes | Update share |
+  |---|---|---|---|---|
+  | PPO | 99k steps (20 min) | 11.4 | 11.7 sampled, 19/20 cleared | 5 % |
+  | Branching DQN (BDQ) | 119k steps (25 min) | 9.7 | 9.4 greedy, 13/20 cleared | 20 % |
+  | Flat DQN (864 joint actions) | not reached (stopped at 154k) | 0.7 | - | 15 % |
+  | DreamerV3 | pending (overnight run) | | | |
+
+  BDQ learns faster over the first 50k steps (mean return 2.5 vs 1.7) but PPO overtakes it by
+  100k and ends higher. Flat DQN's greedy action jumps between aim bins; factoring the action per
+  dimension (BDQ) fixes that. One seed each; the spread between runs is not measured yet.
 - The simulation is CPU-only; the GPU sits idle with this network. Game frames are the budget, so
   the GPU's use is sample efficiency (off-policy or model-based methods) and larger observations.
 
