@@ -164,7 +164,7 @@ run manager      run dir: config, git sha, seeds, logs, metrics, checkpoints
     BDQ: epsilon 0.05), and carries the latent through the episode (`Policy.reset` per episode).
   - Cost (fake env, N=4, GPU shared with a running DQN run): an update takes ~0.22 s (eager 1.3 s,
     launch-bound at ~22k kernels). At train ratio 512 that is ~115 s per 1000 env steps, 97 % of
-    it updates; with the games' ~10 s per 1000 steps a 500k run is ~17 h (250k: ~9 h). Ratio 128
+    it updates. Real games: ~120 s per 1000 steps (87 % updates), so 120k ~4 h, 250k ~8.3 h. Ratio 128
     is ~4x fewer updates (500k: ~5 h). Peak GPU memory 1.5 GB allocated (1.8 GB reserved).
 - JAX-only methods (official DreamerV3, BBF) need CUDA, which JAX ships for Linux only; no
   maintained native Windows CUDA build exists (cloudhan/jax-windows-builder, CUDA 11.1, archived

@@ -356,6 +356,12 @@ and a live counter cross-check on this 6-core / 12-thread machine.
   6k; final model 74.5 with mode actions, 71.6 sampling. Flat 864-way one-hot: 12.7 through 3k,
   50.9 at 4-6k. Injected crashes (5 per 6k steps) did not stop training. ~115 s per 1000 env
   steps, 97 % in updates.
+- Dreamer on the live task, real games, 10k-step test (`runs/dreamer_live_20260930-234432`,
+  `rl_train_20261001-000439.json`, `rl_curve_20261001-000444.json`): 1189 s wall (8.4 steps/s,
+  ~120 s per 1000 steps once compiled; the first 1024 took 237 s with compile and launch), 4870
+  updates, 73 episodes, no crashes. Update share 87 %; reset 0.18 s. Return per 2k steps -0.19,
+  -0.25, 6.07, 8.43, 6.33; cleared 8 % in the first 4k, 47 % at 4-8k. PPO averaged 1.7 and BDQ
+  2.5 over their first 50k. One short run; the 200-episode target window needs ~28k steps.
 - PPO on the live task (250k steps, `rl_behaviour_live_20260930.json`): stochastic policy clears
   19/20 in 73 steps with 0.23 self-damage, levitating 43 % of steps; deterministic (argmax per
   action dimension) only 12/20, no better than the scripted aimer (13/20, 127 steps). Evaluate
