@@ -103,7 +103,8 @@ The benchmark is complete (`FINDINGS.md`). Phase 8 builds the runner; plan and b
 [runner-design.md](runner-design.md).
 
 1. Soak, unattended (it occupies the whole PC): `uv run python -m driver gate soak --hours 8`.
-2. Arena combat env and PPO (`driver rl baselines | train | eval`); first training run in progress.
+2. Arena combat env and PPO (`driver rl baselines | train | eval`): first 50k-step run learns
+   (return 1.4 -> 5.4, scripted 12.6); next a longer run and an eval of the saved model.
    Wand search parked.
 3. Tighten the liquid probe (more repetitions) to decide whether 4x can be promoted.
 

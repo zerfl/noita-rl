@@ -1,0 +1,44 @@
+{
+  "test": "rl_train",
+  "run": "<repo>\\runs\\ppo_20260930-191922",
+  "n": 4,
+  "steps": 50000,
+  "wall_s": 526.6,
+  "steps_per_s": 95.0,
+  "episodes": 332,
+  "crashes": 0,
+  "first_fifth": {
+    "episodes": 66,
+    "return": {
+      "mean": 1.403,
+      "sd": 1.962
+    },
+    "kills": {
+      "mean": 0.273,
+      "sd": 0.513
+    },
+    "self_damage": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "cleared_fraction": 0.0,
+    "clear_frames_mean": null
+  },
+  "last_fifth": {
+    "episodes": 66,
+    "return": {
+      "mean": 5.409,
+      "sd": 1.987
+    },
+    "kills": {
+      "mean": 1.076,
+      "sd": 0.664
+    },
+    "self_damage": {
+      "mean": 0.0,
+      "sd": 0.0
+    },
+    "cleared_fraction": 0.0,
+    "clear_frames_mean": null
+  }
+}

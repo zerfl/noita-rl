@@ -100,6 +100,11 @@ run manager      run dir: config, git sha, seeds, logs, metrics, checkpoints
   1.7, 0.5 kills, never clears; scripted aimer (nearest target, fire) return 12.6, clears every
   episode in 177 frames. 16 aim directions were too coarse (scripted: 1.5 kills).
 
+- First PPO run (`results/rl_train_20260930-192813.json`, 50k steps, N=4, 527 s, 95 steps/s, 332
+  episodes, 0 crashes): mean return 1.4 -> 5.4 and kills 0.27 -> 1.08 from the first to the last
+  fifth of episodes; no self-damage; no episode cleared all three targets yet (scripted: 12.6,
+  clears in 177 frames). Learning, far from converged.
+
 ### RL: later
 
 - Gymnasium `VectorEnv` with auto-reset over the pool, lockstep K=4. Observation: grid, player
