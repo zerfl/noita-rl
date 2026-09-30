@@ -158,10 +158,16 @@ run manager      run dir: config, git sha, seeds, logs, metrics, checkpoints
     (r2dreamer's `reduce-overhead`) needs Triton; with triton-windows it did not finish compiling
     in 25 min. It is used automatically if `triton` imports.
   - Checkpoints (`checkpoints/dreamer_<steps>_steps.pt` every 10k env steps, `final.pt`): model,
-    optimizer, grad scaler, LR schedule, step and update counts. `--resume <.pt>` continues the run
-    dir; the replay buffer starts empty and updates wait for 65 steps per env. Eval takes mode
-    actions, or samples the actor with `rl eval --stochastic` (PPO/DQN: non-deterministic predict;
-    BDQ: epsilon 0.05), and carries the latent through the episode (`Policy.reset` per episode).
+    optimizer, grad scaler, LR schedule, step and update counts. With `final.pt` the replay buffer
+    is also written, compact and in time order, to `replay.pt` (~5 KB per env step, ~600 MB at 120k;
+    not at the periodic checkpoints). `--resume <.pt>` continues the run dir; when `replay.pt` has
+    the checkpoint's step count and the same N, the buffer is refilled from it (capacity: loaded +
+    5/4 of the remaining steps), else it starts empty. Updates wait until the buffer holds 65
+    steps per env, loaded ones included. The first resumed step per env is a reset (`is_first`):
+    a sampled sequence across the seam restarts there (`RSSM.obs_step` zeroes latent and previous
+    action). Eval takes mode actions, or samples the actor with `rl eval --stochastic` (PPO/DQN:
+    non-deterministic predict; BDQ: epsilon 0.05), and carries the latent through the episode
+    (`Policy.reset` per episode).
   - Cost (fake env, N=4, GPU shared with a running DQN run): an update takes ~0.22 s (eager 1.3 s,
     launch-bound at ~22k kernels). At train ratio 512 that is ~115 s per 1000 env steps, 97 % of
     it updates. Real games: ~120 s per 1000 steps (87 % updates), so 120k ~4 h, 250k ~8.3 h. Ratio 128

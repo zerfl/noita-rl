@@ -107,6 +107,37 @@ def _make_buffer(capacity: int, device: str):
                                            "device": device, "storage_device": "cpu"}))
 
 
+def _save_replay(buf, path: Path, timesteps: int):
+    """The buffer's rows as (time, env) in time order, still compact."""
+    import torch
+
+    if not buf.count():
+        return
+    st = buf._buffer.storage
+    rows = st._storage[:st._len_along_dim0]
+    if len(rows) == st._storage.shape[0]:   # full: the oldest row is at the write cursor
+        cursor = buf._buffer._writer._cursor
+        rows = torch.cat([rows[cursor:], rows[:cursor]])
+    else:
+        rows = rows.clone()   # torch.save writes a view's whole underlying storage
+    tmp = path.with_suffix(".tmp")
+    torch.save({"timesteps": timesteps, "shape": list(rows.shape), "data": rows.to_dict()}, tmp)
+    tmp.replace(path)
+
+
+def _read_replay(path: Path) -> dict:
+    import torch
+    from tensordict import TensorDict
+
+    r = torch.load(path, weights_only=True)
+    r["data"] = TensorDict(r["data"], batch_size=r["shape"])
+    return r
+
+
+def _fill_replay(buf, data):
+    buf._buffer.extend(data.transpose(0, 1).contiguous())   # extends along dim 1, as add_transition does
+
+
 def _model_config(device: str):
     from omegaconf import OmegaConf
 
@@ -165,7 +196,9 @@ def train(n: int = 4, steps: int = 500_000, task: str = "frozen", train_ratio: f
           resume: Path | None = None, log=print, seed: int = 0) -> dict:
     """Train until `steps` total env steps. With `resume` (runs/<run>/checkpoints/*.pt or final.pt),
     continue that run: same run dir and settings, episodes.jsonl appended, timesteps counted from
-    the checkpoint; the replay buffer starts empty. `train_ratio`: replayed steps per env step."""
+    the checkpoint; the replay buffer is refilled from replay.pt (written with final.pt) when that
+    matches the checkpoint's timesteps and n, else starts empty. `train_ratio`: replayed steps per
+    env step."""
     import torch
 
     from .rl_train import LOG_EVERY, RUNS_DIR, _config, _episode_summary, _run_dir
@@ -188,12 +221,27 @@ def train(n: int = 4, steps: int = 500_000, task: str = "frozen", train_ratio: f
     tools.set_seed_everywhere(seed)
     agent = _new_agent(task, device, compile=True)
     step = updates = 0
+    old = None
     if resume:
         ck = _load(agent, resume)
         step, updates = ck["timesteps"], ck["updates"]
-        log(f"resuming {run.name} at {step} steps (replay buffer starts empty)")
+        why = "no replay.pt"
+        if (run / "replay.pt").exists():
+            old = _read_replay(run / "replay.pt")
+            if old["timesteps"] != step:
+                why, old = f"replay.pt is from {old['timesteps']} steps", None
+            elif old["shape"][1] != n:
+                why, old = f"replay.pt has {old['shape'][1]} envs, not {n}", None
+        if old:
+            log(f"resuming {run.name} at {step} steps with {old['data'].numel()} replayed steps")
+        else:
+            log(f"resuming {run.name} at {step} steps, replay buffer starts empty ({why})")
     start = step
-    replay = _make_buffer(max(steps - start, 10_000) * 5 // 4 // n * n, device)
+    loaded_rows = old["shape"][0] if old else 0
+    replay = _make_buffer((loaded_rows * n + max(steps - start, 10_000) * 5 // 4) // n * n, device)
+    if old:
+        _fill_replay(replay, old["data"])
+        del old
 
     cpus = winutil.pin_order(winutil.physical_cores(), n)
     make = ArenaEnv   # looked up here so a patched ArenaEnv reaches the worker processes
@@ -245,7 +293,7 @@ def train(n: int = 4, steps: int = 500_000, task: str = "frozen", train_ratio: f
 
             tu = time.perf_counter()
             collect_s += tu - tc
-            if (step - start) // n > LENGTH + 1:   # every env column holds one full training sequence
+            if loaded_rows + (step - start) // n > LENGTH + 1:   # every env column holds one full sequence
                 for _ in range(updates_needed(step)):
                     agent.update(replay)
                     updates += 1
@@ -265,6 +313,7 @@ def train(n: int = 4, steps: int = 500_000, task: str = "frozen", train_ratio: f
                 _save(agent, run / "checkpoints" / f"dreamer_{step}_steps.pt", step, updates)
                 next_ckpt += CHECKPOINT_EVERY
         _save(agent, run / "final.pt", step, updates)
+        _save_replay(replay, run / "replay.pt", step)
     finally:
         ep_file.close()
         timing_file.close()
