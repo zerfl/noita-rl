@@ -111,14 +111,12 @@ The benchmark is complete (`FINDINGS.md`). Phase 8 builds the runner; plan and b
       level (8.0) at 99k steps. Then terrain, projectiles in the observation, grid.
    b. On it, PPO vs off-policy vs DreamerV3 in env steps to the scripted level (250k budget
       each; two runs each later). PPO reached it at 99k and ends at 11.4; BDQ at 119k, ends at
-      9.7; flat DQN never (stopped at 154k). See FINDINGS.md. DreamerV3 (PyTorch, r2dreamer, `--algo dreamer`) built; a 10k
-      real-game test learned (return -0.2 to 6-8 by 6-10k, knowledge.md) at ~120 s per 1000
-      steps. Running: 120k night run `runs/dreamer_live_20261001-003506` (~4 h; past 120k it
-      cannot beat PPO or BDQ on steps to target). If it finishes within 3 h, resume to 250k
-      (`--resume runs/<run>/final.pt --steps 250000`); else another night if still climbing. JAX in WSL2 prepared (`tools/wsl/`), trainer
-      not built. Evaluate with `rl eval --stochastic`.
-      Second runs for the spread between runs: `--seed 1` (learner seed; games differ anyway),
-      PPO and BDQ first; not started.
+      9.7; flat DQN never (stopped at 154k). DreamerV3 (120k, `runs/dreamer_live_20261001-003506`,
+      3.2 h): 57k, ends at 9.7, mode actions clear 20/20. See FINDINGS.md. It can be resumed to
+      250k with its replay (`--resume runs/<run>/final.pt --steps 250000`, ~3.5 h). JAX in WSL2
+      prepared (`tools/wsl/`), trainer not built.
+      Second runs for the spread between runs: `--seed 1` (learner seed; games differ anyway).
+      PPO running, then BDQ.
    c. Deferred: async collection (update is 6 % of wall time). Parked: render skip.
    Wand search parked.
 3. Tighten the liquid probe (more repetitions) to decide whether 4x can be promoted.

@@ -1,0 +1,51 @@
+{
+  "test": "rl_train",
+  "task": "live",
+  "algo": "dreamer",
+  "run": "<repo>\\runs\\dreamer_live_20261001-003506",
+  "n": 4,
+  "steps": 120000,
+  "train_ratio": 512,
+  "resumed_at": null,
+  "wall_s": 11551.6,
+  "steps_per_s": 10.4,
+  "updates": 59870,
+  "episodes": 1110,
+  "crashes": 0,
+  "first_fifth": {
+    "episodes": 222,
+    "return": {
+      "mean": 4.911,
+      "sd": 5.494
+    },
+    "kills": {
+      "mean": 1.811,
+      "sd": 0.79
+    },
+    "self_damage": {
+      "mean": 0.735,
+      "sd": 0.892
+    },
+    "cleared_fraction": 0.234,
+    "clear_frames_mean": 385.0,
+    "died_fraction": 0.014
+  },
+  "last_fifth": {
+    "episodes": 222,
+    "return": {
+      "mean": 9.727,
+      "sd": 5.084
+    },
+    "kills": {
+      "mean": 2.577,
+      "sd": 0.75
+    },
+    "self_damage": {
+      "mean": 0.252,
+      "sd": 0.628
+    },
+    "cleared_fraction": 0.734,
+    "clear_frames_mean": 255.8,
+    "died_fraction": 0.0
+  }
+}

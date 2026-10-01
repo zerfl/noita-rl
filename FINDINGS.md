@@ -137,8 +137,8 @@ floats, action [move, levitate, fire, aim in 72 directions]. PPO (stable-baselin
   Its deterministic (per-dimension argmax) policy loses that mix, so policies on this task are
   evaluated stochastically. It passed the scripted level (return 8.0, 30 episodes) after 99k steps
   (20 min). The scripted aimer's return varies a lot here (6.3 over 10 episodes, 8.9 over 20).
-- Method comparison on the live task (250k steps, 4 games, one run each,
-  `rl_compare_20260930-234102.json`; target: the scripted level, rolling mean return 8.0 over
+- Method comparison on the live task (250k steps, DreamerV3 120k; 4 games, one run each,
+  `rl_compare_20261001-034852.json`; target: the scripted level, rolling mean return 8.0 over
   200 episodes):
 
   | Method | Reached 8.0 at | Final return (last 200 eps) | Eval, 20 episodes | Update share |
@@ -146,10 +146,13 @@ floats, action [move, levitate, fire, aim in 72 directions]. PPO (stable-baselin
   | PPO | 99k steps (20 min) | 11.4 | 11.7 sampled, 19/20 cleared | 5 % |
   | Branching DQN (BDQ) | 119k steps (25 min) | 9.7 | 9.4 greedy, 13/20 cleared | 20 % |
   | Flat DQN (864 joint actions) | not reached (stopped at 154k) | 0.7 | - | 15 % |
-  | DreamerV3 | pending (overnight run) | | | |
+  | DreamerV3 (120k budget) | 57k steps (95 min) | 9.7 | 12.3 mode actions, 20/20 cleared; 12.0 sampled, 19/20 | 87 % |
 
-  BDQ learns faster over the first 50k steps (mean return 2.5 vs 1.7) but PPO overtakes it by
-  100k and ends higher. Flat DQN's greedy action jumps between aim bins; factoring the action per
+  DreamerV3 needs 43 % fewer game steps than PPO to reach the target but 4.7x the wall time (the
+  GPU trains about one batch per 2 env steps). At equal steps it leads: mean return 9.7 over
+  100-120k vs PPO's 9.0 over 100-150k. Unlike PPO, its mode actions keep the behaviour: 20/20
+  cleared in ~68 steps with no damage taken. BDQ learns faster than PPO over the first 50k steps
+  (mean return 2.5 vs 1.7) but PPO overtakes it by 100k and ends higher. Flat DQN's greedy action jumps between aim bins; factoring the action per
   dimension (BDQ) fixes that. One seed each; the spread between runs is not measured yet.
 - The simulation is CPU-only; the GPU sits idle with this network. Game frames are the budget, so
   the GPU's use is sample efficiency (off-policy or model-based methods) and larger observations.
@@ -165,7 +168,8 @@ the process). Resets: NP Game Over recovery plus an nsew region restore for aren
 aim and fire button, injected) with natural spread, so every wand mechanic applies; NP
 `UseItem(charge=true)` with a fixed spread RNG fires reproducibly but skips aiming and makes
 every shot deviate alike, so it is for debugging only. While the PC is in use: 4 pinned games.
-Training: PPO on the vector observation is the working baseline; evaluate live-task policies
+Training: PPO on the vector observation is the working baseline when wall time matters;
+DreamerV3 (train ratio 512) when game steps are the limit. Evaluate PPO policies on the live task
 stochastically.
 
 ## Projected decisions per day at K=4

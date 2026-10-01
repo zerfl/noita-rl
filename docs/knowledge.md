@@ -362,6 +362,14 @@ and a live counter cross-check on this 6-core / 12-thread machine.
   updates, 73 episodes, no crashes. Update share 87 %; reset 0.18 s. Return per 2k steps -0.19,
   -0.25, 6.07, 8.43, 6.33; cleared 8 % in the first 4k, 47 % at 4-8k. PPO averaged 1.7 and BDQ
   2.5 over their first 50k. One short run; the 200-episode target window needs ~28k steps.
+- Dreamer on the live task, 120k steps (`runs/dreamer_live_20261001-003506`, 11,552 s wall,
+  `rl_train_20261001-034754.json`, `rl_curve_20261001-034851.json`): 1110 episodes, 59,870
+  updates, no crashes; ~96 s per 1000 steps (87 % updates, reset 0.09 s). Return per 10k steps
+  1.85, 5.65, 6.42, 7.57, 8.18, 8.92, 8.93, 8.97, 9.74, 8.98, 9.57, 9.87; cleared 6 % then 77 %
+  in the last 10k; self-damage 1.12 to 0.26. Passed 8.0 (200 episodes) at 56,856 steps. Eval
+  (20 episodes, `rl_eval_20261001-035015/-035129.json`): mode actions 12.32, 20/20 cleared in
+  272 frames, self-damage 0; sampled 11.98, 19/20, self-damage 0.10. Training-time return is
+  lower than eval because the actor samples. `replay.pt` 633 MB, `final.pt` 121 MB.
 - PPO on the live task (250k steps, `rl_behaviour_live_20260930.json`): stochastic policy clears
   19/20 in 73 steps with 0.23 self-damage, levitating 43 % of steps; deterministic (argmax per
   action dimension) only 12/20, no better than the scripted aimer (13/20, 127 steps). Evaluate

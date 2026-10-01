@@ -1,0 +1,254 @@
+{
+  "test": "rl_curve",
+  "run": "runs/dreamer_live_20261001-003506",
+  "bin_steps": 10000,
+  "bins": [
+    {
+      "from": 0,
+      "to": 10000,
+      "episodes": 65,
+      "return": {
+        "mean": 1.85,
+        "sd": 5.113
+      },
+      "kills": {
+        "mean": 1.431,
+        "sd": 0.612
+      },
+      "self_damage": {
+        "mean": 1.118,
+        "sd": 1.099
+      },
+      "cleared_fraction": 0.062,
+      "clear_frames_mean": 484.0,
+      "died_fraction": 0.031
+    },
+    {
+      "from": 10000,
+      "to": 20000,
+      "episodes": 72,
+      "return": {
+        "mean": 5.646,
+        "sd": 4.639
+      },
+      "kills": {
+        "mean": 1.861,
+        "sd": 0.775
+      },
+      "self_damage": {
+        "mean": 0.595,
+        "sd": 0.621
+      },
+      "cleared_fraction": 0.236,
+      "clear_frames_mean": 450.4,
+      "died_fraction": 0.0
+    },
+    {
+      "from": 20000,
+      "to": 30000,
+      "episodes": 80,
+      "return": {
+        "mean": 6.419,
+        "sd": 5.539
+      },
+      "kills": {
+        "mean": 2.013,
+        "sd": 0.819
+      },
+      "self_damage": {
+        "mean": 0.572,
+        "sd": 0.833
+      },
+      "cleared_fraction": 0.338,
+      "clear_frames_mean": 331.4,
+      "died_fraction": 0.013
+    },
+    {
+      "from": 30000,
+      "to": 40000,
+      "episodes": 77,
+      "return": {
+        "mean": 7.567,
+        "sd": 5.023
+      },
+      "kills": {
+        "mean": 2.156,
+        "sd": 0.779
+      },
+      "self_damage": {
+        "mean": 0.398,
+        "sd": 0.687
+      },
+      "cleared_fraction": 0.39,
+      "clear_frames_mean": 359.5,
+      "died_fraction": 0.0
+    },
+    {
+      "from": 40000,
+      "to": 50000,
+      "episodes": 82,
+      "return": {
+        "mean": 8.179,
+        "sd": 5.737
+      },
+      "kills": {
+        "mean": 2.293,
+        "sd": 0.824
+      },
+      "self_damage": {
+        "mean": 0.378,
+        "sd": 0.844
+      },
+      "cleared_fraction": 0.524,
+      "clear_frames_mean": 383.4,
+      "died_fraction": 0.012
+    },
+    {
+      "from": 50000,
+      "to": 60000,
+      "episodes": 101,
+      "return": {
+        "mean": 8.924,
+        "sd": 5.303
+      },
+      "kills": {
+        "mean": 2.436,
+        "sd": 0.78
+      },
+      "self_damage": {
+        "mean": 0.319,
+        "sd": 0.705
+      },
+      "cleared_fraction": 0.614,
+      "clear_frames_mean": 265.1,
+      "died_fraction": 0.0
+    },
+    {
+      "from": 60000,
+      "to": 70000,
+      "episodes": 96,
+      "return": {
+        "mean": 8.926,
+        "sd": 5.0
+      },
+      "kills": {
+        "mean": 2.479,
+        "sd": 0.767
+      },
+      "self_damage": {
+        "mean": 0.328,
+        "sd": 0.591
+      },
+      "cleared_fraction": 0.646,
+      "clear_frames_mean": 320.5,
+      "died_fraction": 0.0
+    },
+    {
+      "from": 70000,
+      "to": 80000,
+      "episodes": 97,
+      "return": {
+        "mean": 8.969,
+        "sd": 5.512
+      },
+      "kills": {
+        "mean": 2.485,
+        "sd": 0.779
+      },
+      "self_damage": {
+        "mean": 0.322,
+        "sd": 0.739
+      },
+      "cleared_fraction": 0.66,
+      "clear_frames_mean": 316.8,
+      "died_fraction": 0.01
+    },
+    {
+      "from": 80000,
+      "to": 90000,
+      "episodes": 114,
+      "return": {
+        "mean": 9.738,
+        "sd": 4.672
+      },
+      "kills": {
+        "mean": 2.561,
+        "sd": 0.741
+      },
+      "self_damage": {
+        "mean": 0.211,
+        "sd": 0.514
+      },
+      "cleared_fraction": 0.711,
+      "clear_frames_mean": 247.4,
+      "died_fraction": 0.0
+    },
+    {
+      "from": 90000,
+      "to": 100000,
+      "episodes": 96,
+      "return": {
+        "mean": 8.985,
+        "sd": 4.862
+      },
+      "kills": {
+        "mean": 2.406,
+        "sd": 0.776
+      },
+      "self_damage": {
+        "mean": 0.236,
+        "sd": 0.482
+      },
+      "cleared_fraction": 0.583,
+      "clear_frames_mean": 294.4,
+      "died_fraction": 0.0
+    },
+    {
+      "from": 100000,
+      "to": 110000,
+      "episodes": 104,
+      "return": {
+        "mean": 9.566,
+        "sd": 4.809
+      },
+      "kills": {
+        "mean": 2.519,
+        "sd": 0.763
+      },
+      "self_damage": {
+        "mean": 0.228,
+        "sd": 0.551
+      },
+      "cleared_fraction": 0.683,
+      "clear_frames_mean": 278.3,
+      "died_fraction": 0.0
+    },
+    {
+      "from": 110000,
+      "to": 120000,
+      "episodes": 126,
+      "return": {
+        "mean": 9.873,
+        "sd": 5.248
+      },
+      "kills": {
+        "mean": 2.619,
+        "sd": 0.736
+      },
+      "self_damage": {
+        "mean": 0.258,
+        "sd": 0.67
+      },
+      "cleared_fraction": 0.77,
+      "clear_frames_mean": 239.1,
+      "died_fraction": 0.0
+    }
+  ],
+  "timing": {
+    "rollouts": 117,
+    "collect_s_mean": 12.511,
+    "update_s_mean": 86.156,
+    "update_fraction": 0.873,
+    "reset_s_mean": 0.092
+  }
+}
