@@ -314,6 +314,35 @@ class ArenaRand(unittest.TestCase):
         self.assertAlmostEqual(rewards["rand"], 10 * 0.5 / 2.0 - 0.01)
 
 
+class ArenaGrid(unittest.TestCase):
+    def grid(self, cells: dict):
+        import numpy as np
+        from driver.rl_env import GRID_H, GRID_W
+        ids = np.zeros((GRID_H, GRID_W), ">u2")
+        for (j, i), v in cells.items():
+            ids[j, i] = v
+        return {"hex": ids.tobytes().hex(), "x0": 1000, "y0": -200}
+
+    def test_terrain_classes_and_entity_cells(self):
+        import numpy as np
+        from driver.rl_env import CH_CREATURE, CH_CREATURE_PREV, CH_OWN, CH_PLAYER, CH_SHOT, class_lut, grid_image
+        lut = class_lut([0, 1, 2, 3, 4])
+        g = self.grid({(0, 0): 1, (0, 1): 2, (0, 2): 3, (0, 3): 4, (0, 4): 9, (0, 5): 0xFFFF})
+        # creature at cell (10, 20) with a box spanning x 1076..1086 -> cells 19..21, y -165..-157 -> rows 8..10
+        ents = [[1, 1083.0, -160.0, 0.0, -7, 3, -5, 3], [0, 1003.9, -196.1, 1.0, 0, 0, 0, 0],
+                [2, 999.0, -200.0, 1.0, 0, 0, 0, 0], [3, 1447.9, 55.9, 1.0, 0, 0, 0, 0]]
+        img = grid_image(g, ents, [[1, 1003.0, -199.0, 1.0, 0, 0, 0, 0]], lut)
+        self.assertEqual(img[0, :6, :4].argmax(-1).tolist(), [0, 1, 2, 3, 0, 0])
+        self.assertEqual(img[0, :6, :4].max(-1).tolist(), [255] * 6)   # unknown and bad ids: solid
+        self.assertEqual(sorted(zip(*np.nonzero(img[..., CH_CREATURE]))),
+                         [(j, i) for j in range(8, 11) for i in range(19, 22)])
+        self.assertEqual(img[9, 20, CH_CREATURE], 64)   # hp near 0 still shows
+        self.assertEqual(list(zip(*np.nonzero(img[..., CH_PLAYER]))), [(0, 0)])
+        self.assertEqual(img[..., CH_SHOT].sum(), 0)   # 1 px left of the grid
+        self.assertEqual(list(zip(*np.nonzero(img[..., CH_OWN]))), [(63, 111)])
+        self.assertEqual(list(zip(*np.nonzero(img[..., CH_CREATURE_PREV]))), [(0, 0)])
+
+
 class ViewerLayout(unittest.TestCase):
     def test_rows_are_balanced(self):
         from driver.viewer import balanced_rows

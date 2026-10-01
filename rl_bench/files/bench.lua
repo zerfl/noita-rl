@@ -138,13 +138,16 @@ local function apply_config(a)
   if a.k then B.k = math.max(1, math.floor(tonumber(a.k) or B.k)) end
   if a.mode == "free" or a.mode == "lockstep" then B.mode = a.mode end
   if a.timeout_ms then B.timeout_ms = tonumber(a.timeout_ms) or B.timeout_ms end
-  if a.grid == false or (type(a.grid) == "table" and (a.grid.size or 0) == 0) then
+  if a.grid == false or (type(a.grid) == "table" and a.grid.size == 0) then
     B.grid = nil
   elseif type(a.grid) == "table" then
+    local size = math.max(1, math.min(256, math.floor(tonumber(a.grid.size) or 64)))
+    local function dim(v) return v and math.max(1, math.min(256, math.floor(tonumber(v) or size))) or size end
     B.grid = {
-      size = math.max(1, math.min(256, math.floor(tonumber(a.grid.size) or 64))),
+      size = size, w = dim(a.grid.w), h = dim(a.grid.h),
       stride = math.max(1, math.min(16, math.floor(tonumber(a.grid.stride) or 1))),
       reader = grid_reader(a.grid.reader),
+      center = a.grid.center == "camera" and "camera" or "player",
     }
   end
   return { ok = true, k = B.k, mode = B.mode, grid = B.grid, timeout_ms = B.timeout_ms,
@@ -164,6 +167,7 @@ local CMDS = {
     for i, id in ipairs(a.ids or {}) do out[i] = CellFactory_GetName(id) end
     return { ok = true, names = out }
   end,
+  material_classes = function() return { ok = true, classes = rlb_grid.material_classes() } end,
   teleport = function(a) return { ok = rlb_bench.teleport(a.x, a.y), frame = GameGetFrameNum() } end,
   god = function() return { ok = rlb_bench.god() } end,
   set_timescale = set_timescale,
@@ -259,16 +263,19 @@ local function send_state(frame)
   if B.grid and x then
     local g = B.grid
     local t0 = clock()
-    local read = g.reader == "nsew" and rlb_grid.read_nsew or rlb_grid.read
-    local b, x0, y0, missing = read(x, y, g.size, g.stride)
+    local read = g.reader == "nsew" and rlb_grid.read_rect_nsew or rlb_grid.read_rect
+    local cx, cy = x, y
+    if g.center == "camera" then cx, cy = GameGetCameraPos() end
+    local x0, y0 = math.floor(cx) - math.floor(g.w * g.stride / 2), math.floor(cy) - math.floor(g.h * g.stride / 2)
+    local b, missing = read(x0, y0, g.w, g.h, g.stride)
     local t1 = clock()
     if b then
-      local hex = rlb_grid.hex(b, g.size * g.size)
+      local hex = rlb_grid.hex(b, g.w * g.h)
       local t2 = clock()
-      grid = string.format(',"grid":{"size":%d,"stride":%d,"reader":"%s","x0":%d,"y0":%d,"missing":%d,"read_ms":%.4f,"encode_ms":%.4f,"hex":"%s"}',
-        g.size, g.stride, g.reader, x0, y0, missing, t1 - t0, t2 - t1, hex)
+      grid = string.format(',"grid":{"size":%d,"w":%d,"h":%d,"stride":%d,"reader":"%s","x0":%d,"y0":%d,"missing":%d,"read_ms":%.4f,"encode_ms":%.4f,"hex":"%s"}',
+        g.size, g.w, g.h, g.stride, g.reader, x0, y0, missing, t1 - t0, t2 - t1, hex)
     else
-      grid = string.format(',"grid":{"error":%q}', tostring(x0))
+      grid = string.format(',"grid":{"error":%q}', tostring(missing))
     end
   end
   local s1 = read_seed()

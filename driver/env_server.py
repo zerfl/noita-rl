@@ -21,7 +21,7 @@ import gymnasium as gym
 import numpy as np
 
 from . import winutil
-from .rl_env import ACTION_NVEC, TASKS, ArenaEnv, obs_dim
+from .rl_env import ACTION_NVEC, TASKS, ArenaEnv, has_grid, obs_dim
 from .rl_train import RUNS_DIR
 
 PORT = 47800
@@ -152,7 +152,7 @@ def serve(n: int, task: str, host: str, port: int, fake: bool, wait_s: float = 6
 
 def main(argv=None):
     ap = argparse.ArgumentParser(prog="env_server")
-    ap.add_argument("--task", choices=TASKS, default="live")
+    ap.add_argument("--task", choices=[t for t in TASKS if not has_grid(t)], default="live")
     ap.add_argument("--n", type=int, default=4)
     ap.add_argument("--host", default="127.0.0.1", help="trainer address (WSL2 listeners appear on localhost)")
     ap.add_argument("--port", type=int, default=PORT)

@@ -6,6 +6,7 @@ import statistics
 import time
 from pathlib import Path
 
+import gymnasium as gym
 import numpy as np
 
 from . import paths, winutil
@@ -43,7 +44,9 @@ def _algo_class(algo: str):
 
 def _new_model(algo: str, env, replay_ratio: float, n: int, seed: int = 0):
     if algo == "ppo":
-        return _algo_class(algo)("MlpPolicy", env, n_steps=256, batch_size=256, n_epochs=10, gamma=0.99,
+        # Dict observations (rand_grid): NatureCNN on the image, concatenated with the state vector.
+        policy = "MultiInputPolicy" if isinstance(env.observation_space, gym.spaces.Dict) else "MlpPolicy"
+        return _algo_class(algo)(policy, env, n_steps=256, batch_size=256, n_epochs=10, gamma=0.99,
                                  learning_rate=3e-4, ent_coef=0.01, device="cuda", seed=seed, verbose=0)
     # One vec-env call collects n transitions; replay_ratio = gradient steps per transition.
     return _algo_class(algo)("MlpPolicy", env, learning_rate=1e-4, buffer_size=200_000, learning_starts=5_000,
@@ -94,6 +97,8 @@ def train(n: int = 4, steps: int = 50_000, resume: Path | None = None, task: str
     run: same run dir, task and algorithm, episodes.jsonl appended, timesteps counted from the
     checkpoint. `replay_ratio` (DQN, BDQ): gradient steps per env step. Dreamer runs in
     rl_dreamer.train, `train_ratio` its replayed steps per env step; BDQ in rl_bdq.run (no resume)."""
+    if task == "rand_grid" and algo in ("dqn", "bdq"):
+        raise ValueError(f"{algo} takes vector observations only")
     if algo == "bdq":
         if resume:
             raise ValueError("bdq has no resume")

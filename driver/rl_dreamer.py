@@ -15,12 +15,15 @@ import gymnasium as gym
 import numpy as np
 
 from . import paths, winutil
-from .rl_env import ACTION_NVEC, ArenaEnv, obs_dim
+from .rl_env import ACTION_NVEC, ArenaEnv, has_grid, observation_space
 
 R2DREAMER = paths.REPO / "third_party" / "r2dreamer"
 # Replayed steps per env step: DreamerV3 / r2dreamer default for proprio DMC (500k-step budget).
 TRAIN_RATIO = 512
 BATCH, LENGTH = 16, 64
+# rand_grid: at 16 x 64 and CNN depth 16 an update wants 9.3 GB and spills past the 8 GB GPU; 16 x 32
+# at depth 8 takes 3.9 GB and 0.24 s (runner-design.md). Saved per run in config.json.
+GRID_LENGTH, GRID_CNN_DEPTH = 32, 8
 CHECKPOINT_EVERY = 10_000
 INFO_KEYS = ("kills", "self_damage", "died", "crash", "reset_s")
 ACT_DIM = sum(ACTION_NVEC)   # one one-hot per MultiDiscrete dim, concatenated
@@ -38,10 +41,10 @@ class DreamerArena:
 
     def __init__(self, env):
         self.env = env
-        self.observation_space, self.action_space = _spaces(env.observation_space.shape[0])
+        self.observation_space, self.action_space = _spaces(env.observation_space)
 
     def _obs(self, o, info, first=False, last=False, terminal=False):
-        return {"state": np.asarray(o, np.float32), "is_first": first, "is_last": last, "is_terminal": terminal,
+        return {**_obs_dict(o), "is_first": first, "is_last": last, "is_terminal": terminal,
                 **{f"log_{k}": np.float32(info.get(k, 0)) for k in INFO_KEYS}}
 
     def reset(self):
@@ -60,16 +63,31 @@ def to_multidiscrete(action) -> np.ndarray:
     return np.array([int(np.argmax(a)) for a in np.split(np.asarray(action), np.cumsum(ACTION_NVEC)[:-1])])
 
 
-def _spaces(dim: int):
+def _obs_dict(o) -> dict:
+    """ArenaEnv's observation under r2dreamer's keys: "state" (MLP) and, on grid tasks, "image" (CNN)."""
+    return dict(o) if isinstance(o, dict) else {"state": np.asarray(o, np.float32)}
+
+
+def _spaces(obs_space: gym.Space):
     # r2dreamer reads a multi-one-hot action space's shape as the per-dim sizes (its MultiOneHotAction).
     act = gym.spaces.Box(0, 1, ACTION_NVEC, np.float32)
     act.multi_discrete = True
-    return gym.spaces.Dict({"state": gym.spaces.Box(-5.0, 5.0, (dim,), np.float32)}), act
+    obs = obs_space if isinstance(obs_space, gym.spaces.Dict) else gym.spaces.Dict({"state": obs_space})
+    return obs, act
 
 
-def _make_buffer(capacity: int, device: str):
+def run_dims(task: str, cfg: dict | None = None) -> tuple[int, int | None]:
+    """Sequence length and CNN depth (None: the model size's own) of a run, from its config.json or
+    the task's defaults."""
+    cfg = cfg or {}
+    grid = has_grid(task)
+    return cfg.get("length", GRID_LENGTH if grid else LENGTH), cfg.get("cnn_depth", GRID_CNN_DEPTH if grid else None)
+
+
+def _make_buffer(capacity: int, device: str, length: int = LENGTH):
     """r2dreamer's Buffer, stored compactly on the CPU: each action dim's one-hot as index + 1 (0 =
-    the zeroed action of a reset step) and the replay latents in fp16; ~5 KB per env step.
+    the zeroed action of a reset step) and the replay latents in fp16; ~5 KB per env step, plus
+    70 KB for a rand_grid image.
 
     sample() is rewritten: upstream shifts the action back one step with an in-place copy between
     overlapping views, which pairs ~0.8 % of sampled steps (17 % on CPU) with the wrong action."""
@@ -103,7 +121,7 @@ def _make_buffer(capacity: int, device: str):
         def update(self, index, stoch, deter):
             super().update(index, stoch.half(), deter.half())
 
-    return CompactBuffer(OmegaConf.create({"batch_size": BATCH, "batch_length": LENGTH, "max_size": capacity,
+    return CompactBuffer(OmegaConf.create({"batch_size": BATCH, "batch_length": length, "max_size": capacity,
                                            "device": device, "storage_device": "cpu"}))
 
 
@@ -138,28 +156,30 @@ def _fill_replay(buf, data):
     buf._buffer.extend(data.transpose(0, 1).contiguous())   # extends along dim 1, as add_transition does
 
 
-def _model_config(device: str):
+def _model_config(device: str, image: bool, cnn_depth: int | None = None):
     from omegaconf import OmegaConf
 
     base = OmegaConf.load(R2DREAMER / "configs/model/_base_.yaml")
     size = OmegaConf.load(R2DREAMER / "configs/model/size12M.yaml")
     size.pop("defaults")
-    keys = {"mlp_keys": "^state$", "cnn_keys": "$^"}
+    keys = {"mlp_keys": "^state$", "cnn_keys": "^image$" if image else "$^"}
     root = OmegaConf.create({"device": device, "env": {"encoder": keys, "decoder": keys}})
     # Compiled in _new_agent instead, with a backend that works without Triton.
     root.model = OmegaConf.merge(base, size, {"rep_loss": "dreamer", "compile": False})
     OmegaConf.resolve(root)
+    if cnn_depth:
+        root.model.encoder.cnn.depth = root.model.decoder.cnn.depth = cnn_depth
     return root.model
 
 
-def _new_agent(task: str, device: str, compile: bool = False):
+def _new_agent(task: str, device: str, compile: bool = False, cnn_depth: int | None = None):
     import torch
 
     _import_r2dreamer()
     from dreamer import Dreamer
 
     torch.set_float32_matmul_precision("high")
-    agent = Dreamer(_model_config(device), *_spaces(obs_dim(task))).to(device)
+    agent = Dreamer(_model_config(device, has_grid(task), cnn_depth), *_spaces(observation_space(task))).to(device)
     if compile:
         # Eager, an update is ~22k kernel launches (1.3 s); CUDA graphs cut it to ~0.24 s on the
         # 3070 Ti. Inductor (r2dreamer's choice) also fuses kernels but needs Triton.
@@ -211,15 +231,18 @@ def train(n: int = 4, steps: int = 500_000, task: str = "frozen", train_ratio: f
         run = _run_dir(resume)
         cfg = _config(run)
         task, train_ratio = cfg["task"], cfg.get("train_ratio", train_ratio)
+        length, cnn_depth = run_dims(task, cfg)
     else:
+        length, cnn_depth = run_dims(task)
         run = RUNS_DIR / time.strftime(f"dreamer_{task}_%Y%m%d-%H%M%S")
         run.mkdir(parents=True)
         (run / "config.json").write_text(json.dumps({"task": task, "algo": "dreamer", "n": n, "steps": steps,
-                                                     "train_ratio": train_ratio, "seed": seed}))
+                                                     "train_ratio": train_ratio, "seed": seed, "length": length,
+                                                     "cnn_depth": cnn_depth}))
     (run / "checkpoints").mkdir(exist_ok=True)
     device = "cuda"
     tools.set_seed_everywhere(seed)
-    agent = _new_agent(task, device, compile=True)
+    agent = _new_agent(task, device, compile=True, cnn_depth=cnn_depth)
     step = updates = 0
     old = None
     if resume:
@@ -238,7 +261,7 @@ def train(n: int = 4, steps: int = 500_000, task: str = "frozen", train_ratio: f
             log(f"resuming {run.name} at {step} steps, replay buffer starts empty ({why})")
     start = step
     loaded_rows = old["shape"][0] if old else 0
-    replay = _make_buffer((loaded_rows * n + max(steps - start, 10_000) * 5 // 4) // n * n, device)
+    replay = _make_buffer((loaded_rows * n + max(steps - start, 10_000) * 5 // 4) // n * n, device, length)
     if old:
         _fill_replay(replay, old["data"])
         del old
@@ -250,7 +273,7 @@ def train(n: int = 4, steps: int = 500_000, task: str = "frozen", train_ratio: f
     ep_file = open(run / "episodes.jsonl", "a", encoding="utf-8")
     timing_file = open(run / "timing.jsonl", "a", encoding="utf-8")
     # One update per (batch steps / train_ratio) env steps, as in r2dreamer with action_repeat 1.
-    updates_needed = tools.Every(BATCH * LENGTH / train_ratio)
+    updates_needed = tools.Every(BATCH * length / train_ratio)
     done = torch.ones(n, dtype=torch.bool, device=device)
     returns = torch.zeros(n, dtype=torch.float32)
     lengths = torch.zeros(n, dtype=torch.int32)
@@ -293,7 +316,7 @@ def train(n: int = 4, steps: int = 500_000, task: str = "frozen", train_ratio: f
 
             tu = time.perf_counter()
             collect_s += tu - tc
-            if loaded_rows + (step - start) // n > LENGTH + 1:   # every env column holds one full sequence
+            if loaded_rows + (step - start) // n > length + 1:   # every env column holds one full sequence
                 for _ in range(updates_needed(step)):
                     agent.update(replay)
                     updates += 1
@@ -344,7 +367,9 @@ class Policy:
 
         self.torch = torch
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        self.agent = _new_agent(task, self.device)
+        from .rl_train import _config, _run_dir
+
+        self.agent = _new_agent(task, self.device, cnn_depth=run_dims(task, _config(_run_dir(model_path)))[1])
         _load(self.agent, model_path)
         self.agent.eval()
         self.stochastic = stochastic
@@ -358,7 +383,7 @@ class Policy:
         from tensordict import TensorDict
 
         t = self.torch
-        o = TensorDict({"state": t.as_tensor(obs, dtype=t.float32, device=self.device)[None],
+        o = TensorDict({**{k: t.as_tensor(v, device=self.device)[None] for k, v in _obs_dict(obs).items()},
                         "is_first": t.tensor([[self.first]], device=self.device)}, batch_size=(1,))
         self.first = False
         act, self.state = self.agent.act(o, self.state, eval=not self.stochastic)

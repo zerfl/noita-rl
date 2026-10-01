@@ -375,6 +375,23 @@ and a live counter cross-check on this 6-core / 12-thread machine.
   30-33k; kills about 0.9 until 30k; no clears before 30k; self-damage 2.65 to 1.23. Slower start
   than on `live` (5.65 over 10-20k) and below PPO's first 50k on rand (0.02); ~100 s per 1000
   steps.
+- `rand_grid` observation (2026-10-01, one game): the 112 x 64 stride-4 grid reads in 0.05 ms,
+  hex-encodes in 0.25-0.33 ms, 28.7 KB per packet; step round trip p50 35-38 ms (as `rand`).
+  Material classes from `CellFactory_GetAll*`: `templebrick_static`, `rock_static`, `wood_static`,
+  `ice_static`, `glass_static` solid; sand, soil, gold, brass, snow powder; water, blood, lava,
+  acid liquid; steam, fire, smoke gas/fire. The game's sand list includes static materials (the
+  arena walls), hence the static override. Each target is one root entity tagged `enemy`, hitbox
+  about 6 x 15 px; the player's 6 x 16 px.
+- Dreamer on `rand_grid`, GPU memory (no games, dummy data, RTX 3070 Ti 8 GB): sequences x length,
+  CNN depth -> time per update, peak reserved, total in use: 16 x 64, 16 -> 1.8-3.4 s, 9.3 GB,
+  full (spills to system RAM); 16 x 32, 16 -> 0.37 s, 4.8 GB, 5.5 GB; 8 x 32, 16 -> 0.22 s,
+  2.6 GB, 3.4 GB; 16 x 64, 8 -> 0.45 s, 6.2 GB, 7.0 GB; 16 x 32, 8 -> 0.24 s, 3.2 GB, 3.9 GB.
+  The vector model: 0.17 s, 1.75 GB. At train ratio 512 an env step costs 0.24 s of updates at
+  16 x 32 depth 8 (vector 0.085 s), so with a ~40 ms collect per loop, N games give
+  N / (0.04 + 0.24 N) steps/s: 3.6 at N=1, 3.8 at N=2, 4.0 at N=4; the game count hardly
+  matters once updates dominate. A smoke run at 16 x 64 depth 16 with two games managed
+  0.8 env steps/s.
+- PPO on `rand_grid` smoke (2 games, 2048 steps): 38.7 steps/s, no crashes.
 - PPO on `rand` (`runs/ppo_rand_20261001-062145`, 250k, 41 min, `rl_curve_20261001-070437.json`):
   return per 50k steps 0.02, 0.76, 1.11, 3.48, 6.04; kills 1.1 flat until 150k, then 1.9;
   cleared 2 % to 28 %; self-damage 1.51 to 0.84. Passed the scripted 6.4 (200 episodes) at 241k.

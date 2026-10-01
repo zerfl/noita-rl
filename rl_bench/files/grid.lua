@@ -98,15 +98,6 @@ function rlb_grid.read_rect(x0, y0, w, h, stride)
   return buf, missing
 end
 
--- size x size cells centred on (cx, cy). Returns buf, x0, y0, missing.
-function rlb_grid.read(cx, cy, size, stride)
-  local half = math.floor(size * stride / 2)
-  local x0, y0 = math.floor(cx) - half, math.floor(cy) - half
-  local b, missing = rlb_grid.read_rect(x0, y0, size, size, stride)
-  if not b then return nil, missing end
-  return b, x0, y0, missing
-end
-
 -- 4 hex chars per cell, big-endian uint16.
 function rlb_grid.hex(b, n)
   local parts = {}
@@ -182,10 +173,30 @@ function rlb_grid.read_rect_nsew(x0, y0, w, h, stride)
   return buf, missing
 end
 
-function rlb_grid.read_nsew(cx, cy, size, stride)
-  local half = math.floor(size * stride / 2)
-  local x0, y0 = math.floor(cx) - half, math.floor(cy) - half
-  local b, missing = rlb_grid.read_rect_nsew(x0, y0, size, size, stride)
-  if not b then return nil, missing end
-  return b, x0, y0, missing
+-- Per material id, the class the grid observation uses: 0 air, 1 solid, 2 powder, 3 liquid,
+-- 4 gas or fire. Ids in none of the game's lists count as solid.
+function rlb_grid.material_classes()
+  local n = 0
+  local cls = {}
+  local function mark(list, c)
+    for _, name in ipairs(list or {}) do
+      local id = CellFactory_GetType(name)
+      if id and id >= 0 then
+        cls[id] = c
+        if id + 1 > n then n = id + 1 end
+      end
+    end
+  end
+  -- Static sands and liquids (e.g. templebrick_static) never move: solid.
+  mark(CellFactory_GetAllSolids(true, false), 1)
+  mark(CellFactory_GetAllLiquids(true, false), 1)
+  mark(CellFactory_GetAllSands(true, false), 1)
+  mark(CellFactory_GetAllLiquids(false, false), 3)
+  mark(CellFactory_GetAllSands(false, false), 2)
+  mark(CellFactory_GetAllGases(true, false), 4)
+  mark(CellFactory_GetAllFires(true, false), 4)
+  local out = {}
+  for id = 0, n - 1 do out[id + 1] = cls[id] or 1 end
+  out[1] = 0   -- id 0 is air
+  return out
 end

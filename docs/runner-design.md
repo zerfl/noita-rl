@@ -141,7 +141,23 @@ run manager      run dir: config, git sha, seeds, logs, metrics, checkpoints
   together are worth 10 as in the other tasks (their default three hold 1.0); the kill, self and
   step terms are unchanged. `rl baselines` and `rl eval` seed the first reset with 0, so every
   policy meets the same layouts.
-  Next: terrain, grid observations.
+- `--task rand_grid`: rand (same layouts, reward, episode end) observed as a grid instead of the
+  41 floats (decided with the user 2026-10-01). Observation is a dict: `image` uint8
+  (64, 112, 10), the view around the camera centre at 4 px per cell (448 x 256 world px; 16 | both
+  sides for r2dreamer's CNN, covering the 427 x 240 view), and `state` (vx, vy, hp fraction,
+  time). Channels: terrain class one-hot (solid, powder, liquid, gas or fire; 255 = yes), then
+  entities drawn over their hitbox from exact positions: player, creatures, creatures one step
+  earlier, enemy shots, enemy shots one step earlier, own shots. Player and creatures carry
+  64 + 191 x hp fraction, shots 255. Material ids are not fed raw (labels, not quantities).
+  Mod side: `config` grid takes `w`, `h`, `center = "camera"`; `arena_reset` takes `view` (radius)
+  and the arena state then lists `ents` ([kind, x, y, value, hitbox]); `material_classes`
+  returns the class per material id (static sands and liquids count as solid), which the env
+  turns into a lookup table once per launch. PPO uses SB3's `MultiInputPolicy` (NatureCNN on the
+  image); Dreamer uses r2dreamer's CNN encoder and decoder on `image`, MLP on `state`, with
+  sequence length 32 and CNN depth 8 to fit the GPU (knowledge.md), saved per run in
+  `config.json`. DQN, BDQ and `env_server` stay vector-only.
+  Next: widen the task (terrain and cover, enemy counts and types, wands, real levels) on this
+  observation.
 - Compare PPO against an off-policy and a model-based (DreamerV3-style) method on it, measured in
   game frames to reach the scripted level. The simulation is CPU-bound; this is where the GPU
   pays off. `--algo dqn` is built: SB3 DQN over the flattened action (864 choices), MLP 2x256,

@@ -382,8 +382,52 @@ local function proj_json(p, n, r)
   return ',"proj":[' .. table.concat(parts, ",") .. "]"
 end
 
+-- Union of the entity's hitboxes, relative to its position; 0s without one.
+local function hitbox(e)
+  local x0, x1, y0, y1
+  for _, c in ipairs(EntityGetComponent(e, "HitboxComponent") or {}) do
+    local a, b = ComponentGetValue2(c, "aabb_min_x"), ComponentGetValue2(c, "aabb_max_x")
+    local u, v = ComponentGetValue2(c, "aabb_min_y"), ComponentGetValue2(c, "aabb_max_y")
+    x0, x1 = math.min(x0 or a, a), math.max(x1 or b, b)
+    y0, y1 = math.min(y0 or u, u), math.max(y1 or v, v)
+  end
+  return x0 or 0, x1 or 0, y0 or 0, y1 or 0
+end
+
+-- `,"ents":[...]`: what the grid observation draws, within r px of the camera centre, each
+-- [kind, x, y, value, box x0, x1, y0, y1] (world px; box relative to x, y). Kinds: 0 player
+-- (value hp fraction), 1 creature tagged enemy (hp fraction), 2 projectile not shot by the player,
+-- 3 projectile shot by it (value 1).
+local function ents_json(p, r)
+  local cx, cy = GameGetCameraPos()
+  local parts = {}
+  local function add(kind, e, v)
+    local x, y = EntityGetTransform(e)
+    local a, b, u, w = hitbox(e)
+    parts[#parts + 1] = string.format("[%d,%.1f,%.1f,%.3f,%.1f,%.1f,%.1f,%.1f]", kind, x, y, v, a, b, u, w)
+  end
+  if p then
+    local h, m = hp_of(p), live.php0
+    add(0, p, m and m > 0 and math.max(0, h or 0) / m or 0)
+  end
+  for _, e in ipairs(EntityGetInRadiusWithTag(cx, cy, r, "enemy") or {}) do
+    if EntityGetRootEntity(e) == e then
+      local dmc = EntityGetFirstComponent(e, "DamageModelComponent")
+      local h = dmc and ComponentGetValue2(dmc, "hp") or 0
+      local m = dmc and ComponentGetValue2(dmc, "max_hp") or 0
+      if h > 0 then add(1, e, m > 0 and math.min(1, h / m) or 1) end
+    end
+  end
+  for _, e in ipairs(EntityGetInRadiusWithTag(cx, cy, r, "projectile") or {}) do
+    local pc = EntityGetFirstComponent(e, "ProjectileComponent")
+    if pc then add(ComponentGetValue2(pc, "mWhoShot") == p and 3 or 2, e, 1) end
+  end
+  return ',"ents":[' .. table.concat(parts, ",") .. "]"
+end
+
 -- JSON fragment for the state packet: per target [x, y, hp, hp0] (world), cumulative damage
--- dealt, self-damage, kills; projectiles only when arena_reset asked for them.
+-- dealt, self-damage, kills; projectiles and entities only when arena_reset asked for them
+-- (`proj`, `view` = radius).
 function rlb_scenario_state()
   if not live then return "" end
   local parts, dealt = {}, 0
@@ -394,6 +438,7 @@ function rlb_scenario_state()
   local p = rlb_bench.player()
   local php = p and hp_of(p) or live.php0
   local proj = live.proj and proj_json(p, live.proj.n, live.proj.r) or ""
+  if live.view then proj = proj .. ents_json(p, live.view) end
   return string.format(',"arena":{"targets":[%s],"dealt":%.4f,"self":%.4f,"kills":%d,"x0":%d,"y0":%d%s}',
     table.concat(parts, ","), dealt, live.php0 - php, live.kills, A.x, A.y, proj)
 end
@@ -415,7 +460,7 @@ cmds.arena_reset = function(a)
     end
     for _, t in ipairs(targets) do t.x, t.y = EntityGetTransform(t.id) end
     live = { targets = targets, php0 = hp_of(p), kills = 0,
-             proj = a.proj and { n = a.proj, r = a.proj_radius or 256 } or nil }
+             proj = a.proj and { n = a.proj, r = a.proj_radius or 256 } or nil, view = a.view }
     rlb_bench.send({ t = "event", what = "arena_ready", ok = true, frame = GameGetFrameNum(),
                      cleared = cleared, arena = { x = A.x, y = A.y, w = A.w, h = A.h } })
   end)

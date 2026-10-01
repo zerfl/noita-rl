@@ -1,6 +1,6 @@
 # Status
 
-Last updated: 2026-10-01 (nothing running; the machine was shut down).
+Last updated: 2026-10-01 (grid observation built).
 
 ## Goal
 
@@ -129,14 +129,14 @@ The benchmark is complete (`FINDINGS.md`). Phase 8 builds the runner; plan and b
       runs/dreamer_rand_20261001-070448/checkpoints/dreamer_30000_steps.pt --steps 120000`
       (~2.5 h; the replay starts empty, and episodes.jsonl already holds ~3k steps past 30k,
       which the resumed run logs again: drop them for curves). Or start fresh (3.2 h).
-   d. Then: observation as a grid (decided with the user 2026-10-01): the whole view, about
-      427x240 world px, at 4 px per cell (~107x60), one layer of terrain material plus layers
-      for creatures and projectiles marked from exact entity positions (so small shots are not
-      averaged away). Verify it on `rand`, where the numeric observation's results are known
-      (PPO 6.4 at 241k), comparing PPO and DreamerV3 (CNN encoder). Only then widen the task
-      (terrain and cover, varying enemy counts and types, wands, real levels) without changing
-      the observation again. A fine 32x32 view at 1 px per cell is an option if 4 px is too
-      coarse (digging, liquids). The grid reader supports stride 1/2/4 (knowledge.md).
+   d. Observation as a grid (decided with the user 2026-10-01): `rand_grid` built and verified
+      in one game (runner-design.md, knowledge.md). Grid Dreamer at the vector settings needs
+      9.3 GB on the 8 GB GPU; it runs at sequence length 32 and CNN depth 8 (3.9 GB, ~4 env
+      steps/s). Runs: PPO 250k on `rand_grid` (4 games), then Dreamer 60k at train ratio 512
+      (2 games, ~5 h, a night run on the user's go), compared with PPO 6.4 at 241k and the
+      Dreamer `rand` curve over its first 33k. Then widen the task (terrain and cover, varying
+      enemy counts and types, wands, real levels) without changing the observation again. A fine
+      32x32 view at 1 px per cell is an option if 4 px is too coarse (digging, liquids).
    c. Deferred: async collection (update is 6 % of wall time). Parked: render skip.
    Wand search parked.
    Operations: runs over 2 h must run detached (`Start-Process ... -WindowStyle Hidden`); the
