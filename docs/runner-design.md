@@ -156,6 +156,8 @@ run manager      run dir: config, git sha, seeds, logs, metrics, checkpoints
   image); Dreamer uses r2dreamer's CNN encoder and decoder on `image`, MLP on `state`, with
   sequence length 32 and CNN depth 8 to fit the GPU (knowledge.md), saved per run in
   `config.json`. DQN, BDQ and `env_server` stay vector-only.
+  PPO collects 1024 // n steps per game per rollout, 1024 in all, so runs with different game
+  counts update alike (n=4 keeps the earlier 256).
   Next: widen the task (terrain and cover, enemy counts and types, wands, real levels) on this
   observation.
 - Compare PPO against an off-policy and a model-based (DreamerV3-style) method on it, measured in

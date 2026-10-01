@@ -392,6 +392,10 @@ and a live counter cross-check on this 6-core / 12-thread machine.
   matters once updates dominate. A smoke run at 16 x 64 depth 16 with two games managed
   0.8 env steps/s.
 - PPO on `rand_grid` smoke (2 games, 2048 steps): 38.7 steps/s, no crashes.
+- PPO on `rand_grid`, steady state per 1024 env steps (2026-10-01): 4 games collect 10.65 s +
+  update 0.95 s (~88 steps/s; vector `rand` 10.1 + 0.47 s, ~97); 8 games (one logical CPU each,
+  six cores then two SMT siblings, user at the PC) collect 6.1 s + update 0.9 s (~146 steps/s,
+  ~73 game fps each, ~585 aggregate). The first progress line includes the game launches.
 - PPO on `rand` (`runs/ppo_rand_20261001-062145`, 250k, 41 min, `rl_curve_20261001-070437.json`):
   return per 50k steps 0.02, 0.76, 1.11, 3.48, 6.04; kills 1.1 flat until 150k, then 1.9;
   cleared 2 % to 28 %; self-damage 1.51 to 0.84. Passed the scripted 6.4 (200 episodes) at 241k.

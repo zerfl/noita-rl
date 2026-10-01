@@ -132,12 +132,14 @@ The benchmark is complete (`FINDINGS.md`). Phase 8 builds the runner; plan and b
    d. Observation as a grid (decided with the user 2026-10-01): `rand_grid` built and verified
       in one game (runner-design.md, knowledge.md). Grid Dreamer at the vector settings needs
       9.3 GB on the 8 GB GPU; it runs at sequence length 32 and CNN depth 8 (3.9 GB, ~4 env
-      steps/s). Runs: PPO 250k on `rand_grid` (4 games), then Dreamer 60k at train ratio 512
+      steps/s). Runs: PPO 250k on `rand_grid` (8 games, ~29 min; 4 games ran at ~88 steps/s), then Dreamer 60k at train ratio 512
       (2 games, ~5 h, a night run on the user's go), compared with PPO 6.4 at 241k and the
       Dreamer `rand` curve over its first 33k. Then widen the task (terrain and cover, varying
       enemy counts and types, wands, real levels) without changing the observation again. A fine
       32x32 view at 1 px per cell is an option if 4 px is too coarse (digging, liquids).
-   c. Deferred: async collection (update is 6 % of wall time). Parked: render skip.
+   c. Dropped: async collection (it hides at most the update share: PPO ~8 %, Dreamer ~5 % at
+      N=4, and gives Dreamer a stale policy). Throughput lever instead: more pinned games
+      (knowledge.md, "Shared ceiling"); the user allowed 8 on 2026-10-01. Parked: render skip.
    Wand search parked.
    Operations: runs over 2 h must run detached (`Start-Process ... -WindowStyle Hidden`); the
    session's background tasks stop at 2 h. Game PIDs are tracked one file each in

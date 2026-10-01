@@ -46,7 +46,8 @@ def _new_model(algo: str, env, replay_ratio: float, n: int, seed: int = 0):
     if algo == "ppo":
         # Dict observations (rand_grid): NatureCNN on the image, concatenated with the state vector.
         policy = "MultiInputPolicy" if isinstance(env.observation_space, gym.spaces.Dict) else "MlpPolicy"
-        return _algo_class(algo)(policy, env, n_steps=256, batch_size=256, n_epochs=10, gamma=0.99,
+        # 1024 steps per rollout whatever n, so runs with different game counts update alike.
+        return _algo_class(algo)(policy, env, n_steps=1024 // n, batch_size=256, n_epochs=10, gamma=0.99,
                                  learning_rate=3e-4, ent_coef=0.01, device="cuda", seed=seed, verbose=0)
     # One vec-env call collects n transitions; replay_ratio = gradient steps per transition.
     return _algo_class(algo)("MlpPolicy", env, learning_rate=1e-4, buffer_size=200_000, learning_starts=5_000,
