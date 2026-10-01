@@ -370,6 +370,9 @@ and a live counter cross-check on this 6-core / 12-thread machine.
   (20 episodes, `rl_eval_20261001-035015/-035129.json`): mode actions 12.32, 20/20 cleared in
   272 frames, self-damage 0; sampled 11.98, 19/20, self-damage 0.10. Training-time return is
   lower than eval because the actor samples. `replay.pt` 633 MB, `final.pt` 121 MB.
+- PPO live, second run (`--seed 1`, `runs/ppo_live_20261001-035143`, `rl_curve_20261001-043420.json`):
+  return per 50k steps 1.56, 5.90, 9.36, 10.99, 11.16 (first run 1.7, 7.1, 9.0, 10.7, 11.2);
+  passed 8.0 at 115k (first run 99k); 42 min wall, update share 4.6 %, reset 0.078 s.
 - PPO on the live task (250k steps, `rl_behaviour_live_20260930.json`): stochastic policy clears
   19/20 in 73 steps with 0.23 self-damage, levitating 43 % of steps; deterministic (argmax per
   action dimension) only 12/20, no better than the scripted aimer (13/20, 127 steps). Evaluate

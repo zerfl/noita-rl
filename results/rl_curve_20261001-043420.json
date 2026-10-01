@@ -1,0 +1,134 @@
+{
+  "test": "rl_curve",
+  "run": "runs/ppo_live_20261001-035143",
+  "bin_steps": 50000,
+  "bins": [
+    {
+      "from": 0,
+      "to": 50000,
+      "episodes": 333,
+      "return": {
+        "mean": 1.564,
+        "sd": 3.866
+      },
+      "kills": {
+        "mean": 1.345,
+        "sd": 0.519
+      },
+      "self_damage": {
+        "mean": 1.091,
+        "sd": 0.882
+      },
+      "cleared_fraction": 0.021,
+      "clear_frames_mean": 501.1,
+      "died_fraction": 0.0
+    },
+    {
+      "from": 50000,
+      "to": 100000,
+      "episodes": 350,
+      "return": {
+        "mean": 5.903,
+        "sd": 3.644
+      },
+      "kills": {
+        "mean": 1.914,
+        "sd": 0.641
+      },
+      "self_damage": {
+        "mean": 0.775,
+        "sd": 0.821
+      },
+      "cleared_fraction": 0.166,
+      "clear_frames_mean": 433.7,
+      "died_fraction": 0.003
+    },
+    {
+      "from": 100000,
+      "to": 150000,
+      "episodes": 406,
+      "return": {
+        "mean": 9.355,
+        "sd": 2.697
+      },
+      "kills": {
+        "mean": 2.468,
+        "sd": 0.599
+      },
+      "self_damage": {
+        "mean": 0.373,
+        "sd": 0.551
+      },
+      "cleared_fraction": 0.522,
+      "clear_frames_mean": 391.3,
+      "died_fraction": 0.0
+    },
+    {
+      "from": 150000,
+      "to": 200000,
+      "episodes": 494,
+      "return": {
+        "mean": 10.989,
+        "sd": 1.939
+      },
+      "kills": {
+        "mean": 2.826,
+        "sd": 0.385
+      },
+      "self_damage": {
+        "mean": 0.215,
+        "sd": 0.478
+      },
+      "cleared_fraction": 0.828,
+      "clear_frames_mean": 365.2,
+      "died_fraction": 0.0
+    },
+    {
+      "from": 200000,
+      "to": 250000,
+      "episodes": 502,
+      "return": {
+        "mean": 11.164,
+        "sd": 1.693
+      },
+      "kills": {
+        "mean": 2.841,
+        "sd": 0.382
+      },
+      "self_damage": {
+        "mean": 0.181,
+        "sd": 0.367
+      },
+      "cleared_fraction": 0.847,
+      "clear_frames_mean": 362.5,
+      "died_fraction": 0.0
+    },
+    {
+      "from": 250000,
+      "to": 300000,
+      "episodes": 10,
+      "return": {
+        "mean": 11.643,
+        "sd": 1.245
+      },
+      "kills": {
+        "mean": 3.0,
+        "sd": 0.0
+      },
+      "self_damage": {
+        "mean": 0.144,
+        "sd": 0.456
+      },
+      "cleared_fraction": 1.0,
+      "clear_frames_mean": 398.4,
+      "died_fraction": 0.0
+    }
+  ],
+  "timing": {
+    "rollouts": 244,
+    "collect_s_mean": 9.878,
+    "update_s_mean": 0.474,
+    "update_fraction": 0.046,
+    "reset_s_mean": 0.078
+  }
+}

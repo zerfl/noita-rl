@@ -116,7 +116,8 @@ The benchmark is complete (`FINDINGS.md`). Phase 8 builds the runner; plan and b
       250k with its replay (`--resume runs/<run>/final.pt --steps 250000`, ~3.5 h). JAX in WSL2
       prepared (`tools/wsl/`), trainer not built.
       Second runs for the spread between runs: `--seed 1` (learner seed; games differ anyway).
-      PPO running, then BDQ.
+      PPO done (115k vs 99k, ends 11.3 vs 11.4); BDQ running. `live_proj` task (enemy
+      projectiles in the observation, 41 floats) built and verified in one game; not trained yet.
    c. Deferred: async collection (update is 6 % of wall time). Parked: render skip.
    Wand search parked.
 3. Tighten the liquid probe (more repetitions) to decide whether 4x can be promoted.
