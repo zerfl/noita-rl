@@ -147,6 +147,9 @@ def cmd_rl(a):
             _log(f"{r['run']:<32} {r['algo']:<4} {r['task']:<6} final {r['final_return']:6.2f}  target "
                  + (f"at {hit['timesteps']} steps ({hit['t_s'] / 60:.0f} min)" if hit else "not reached"))
         save_result("rl_compare", {"test": "rl_compare", "target": a.target, "window": a.window, "runs": rows})
+    elif a.mode == "watch":
+        from . import rl_live
+        rl_live.watch(Path(a.run), Path(a.ref) if a.ref else None)
     elif a.mode == "curve":
         rows = rl_train.curve(Path(a.run), a.bin)
         for r in rows:
@@ -283,7 +286,7 @@ def main(argv=None):
     p.set_defaults(fn=cmd_pool)
 
     p = sub.add_parser("rl", help="arena combat RL: baselines, PPO training, evaluation; writes results/rl_*.json")
-    p.add_argument("mode", choices=["baselines", "train", "eval", "curve", "compare"])
+    p.add_argument("mode", choices=["baselines", "train", "eval", "curve", "compare", "watch"])
     p.add_argument("--task", choices=["frozen", "live", "live_proj", "rand", "rand_grid"], default="frozen",
                    help="baselines/train: targets hover with AI off, live (AI on, they attack), live_proj "
                         "(live, enemy projectiles in the observation), rand (live_proj, target types and "
@@ -297,7 +300,8 @@ def main(argv=None):
                    help="train: learner seed (the game seed stays fixed; runs differ anyway)")
     p.add_argument("--steps", type=int, default=50_000, help="train: total env steps (4 frames each)")
     p.add_argument("--resume", help="train: continue from runs/<run>/checkpoints/<ckpt>.zip (dreamer: .pt)")
-    p.add_argument("--run", help="curve: runs/<run>")
+    p.add_argument("--run", help="curve, watch: runs/<run>")
+    p.add_argument("--ref", help="watch: a reference run drawn in grey")
     p.add_argument("--bin", type=int, default=50_000, help="curve: env steps per row")
     p.add_argument("--runs", nargs="+", help="compare: runs/<run> ...")
     p.add_argument("--target", type=float, help="compare: return to reach (e.g. the scripted baseline)")

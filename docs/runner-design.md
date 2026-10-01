@@ -256,6 +256,13 @@ uv run python -m runner eval runs/<id> [--checkpoint <file>]
 
 Windows only, on this machine. Games run minimized; Ctrl+C checkpoints and stops.
 
+Arena RL (built): `uv run python -m driver rl baselines|train|eval|curve|compare|watch`.
+`rl watch --run runs/<run> [--ref runs/<run>]` opens a window that rereads `episodes.jsonl` every
+15 s and plots the 200-episode rolling return, kills and clears against the reference run and
+the rand random / scripted levels; it only reads the file, so it can run beside training.
+`driver windows` shows a run's games on screen (`--hide` minimizes them; visible games run
+~10 % slower, and the last one gets keyboard focus).
+
 ## Build order
 
 1. Gate spike (above): done except the soak.
