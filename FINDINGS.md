@@ -157,6 +157,11 @@ floats, action [move, levitate, fire, aim in 72 directions]. PPO (stable-baselin
   first, BDQ's 27k later (`rl_compare_20261001-051926.json`). Dreamer's lead over both is larger
   than those spreads; PPO vs BDQ stays within them over two runs each (99k/115k vs 119k/146k). Flat DQN's greedy action jumps between aim bins; factoring the action per
   dimension (BDQ) fixes that. One seed each; the spread between runs is not measured yet.
+- Enemy projectiles in the observation (`live_proj`, PPO 250k, one run, `rl_compare_20261001-060221.json`)
+  do not change much at this difficulty: target at 97k steps (live: 99k and 115k), final return
+  11.5 (11.4, 11.3); self-damage over 50-100k 0.41 (0.54, 0.78), at the end 0.20 (0.21, 0.18).
+  Eval sampled 11.6, 18/20 cleared, self-damage 0.13 (live: 11.7, 19/20, 0.23). The learned
+  policies already take little damage here, so showing threats needs a harder task to matter.
 - The simulation is CPU-only; the GPU sits idle with this network. Game frames are the budget, so
   the GPU's use is sample efficiency (off-policy or model-based methods) and larger observations.
 

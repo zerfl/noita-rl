@@ -1,0 +1,46 @@
+{
+  "test": "rl_compare",
+  "target": 8.0,
+  "window": 200,
+  "runs": [
+    {
+      "run": "ppo_live_20260930-212614",
+      "algo": "ppo",
+      "task": "live",
+      "episodes": 2208,
+      "timesteps": 258832,
+      "reached": {
+        "timesteps": 98724,
+        "t_s": 1215.4,
+        "episodes": 676
+      },
+      "final_return": 11.438
+    },
+    {
+      "run": "ppo_live_20261001-035143",
+      "algo": "ppo",
+      "task": "live",
+      "episodes": 2095,
+      "timesteps": 250868,
+      "reached": {
+        "timesteps": 114760,
+        "t_s": 1141.1,
+        "episodes": 795
+      },
+      "final_return": 11.259
+    },
+    {
+      "run": "ppo_live_proj_20261001-051942",
+      "algo": "ppo",
+      "task": "live_proj",
+      "episodes": 2190,
+      "timesteps": 250860,
+      "reached": {
+        "timesteps": 96604,
+        "t_s": 962.3,
+        "episodes": 663
+      },
+      "final_return": 11.481
+    }
+  ]
+}

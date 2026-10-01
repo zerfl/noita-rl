@@ -118,7 +118,8 @@ The benchmark is complete (`FINDINGS.md`). Phase 8 builds the runner; plan and b
       Second runs for the spread between runs: `--seed 1` (learner seed; games differ anyway).
       Done: PPO 115k vs 99k (ends 11.3 vs 11.4); BDQ 146k vs 119k (ends 9.8 vs 9.7).
       `live_proj` task (enemy projectiles in the observation, 41 floats) built and verified in
-      one game; PPO 250k on it running (`runs/ppo_live_proj_*`).
+      one game; PPO 250k on it: same as live within the run spread (FINDINGS.md). The live
+      task is near its ceiling for all three methods; next is a harder arena.
    c. Deferred: async collection (update is 6 % of wall time). Parked: render skip.
    Wand search parked.
 3. Tighten the liquid probe (more repetitions) to decide whether 4x can be promoted.
