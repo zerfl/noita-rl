@@ -407,6 +407,9 @@ and a live counter cross-check on this 6-core / 12-thread machine.
   250k, `rl_curve_20261001-192009.json`): also no learning. Return per 50k steps -0.06, 0.31,
   0.13, 0.34, 0.39; kills 1.11-1.16, cleared 1-3 %. Centring is not the cause. ~6 min of it ran
   beside a CPU-heavy probe (collect 7.5 s per 1024 steps instead of 6.0).
+- The player-centred run resumed from 250k with 8 games (same 128 steps per game per rollout) and
+  was stopped at 435k: return per 50k steps 0.82, 0.97, 0.11 over 250k-400k, kills 1.10-1.15.
+  No learning at 1.7x the steps vector PPO needed.
 - Supervised probe (synthetic player-centred grids: arena floor and wall, 1-3 creatures with
   their previous-step copies; label = aim bin to the nearest creature; batch 128, Adam 3e-4):
   SB3's NatureCNN is within one bin (5 degrees) on 82 % of 2000 test grids after 500 steps and

@@ -163,3 +163,10 @@ Newest first. Each entry: what, why, and what would change it.
 - **`.mcp.json` is gitignored.** It holds machine-specific paths.
 - **Hardened the Noita-MCP RPC before use** (see [security.md](security.md)). The bridge was
   reachable by any local process and possibly by web pages.
+- **RL work stopped (2026-10-01, the user's decision).** Training cannot run around the clock on
+  this machine, only about 8 games fit at once (~146 env steps/s with PPO), and generalizing a
+  policy to real Noita at that rate would take months. State at the stop: vector PPO masters the
+  `rand` arena in 250k steps; on the grid observation neither PPO run learned (camera- or
+  player-centred, the latter stopped at 435k), while a supervised probe shows the CNN can read
+  the aim off the grid. Dreamer on the grid (sequence length 32, CNN depth 8) is built but never
+  ran past a smoke test.

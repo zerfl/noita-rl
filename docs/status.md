@@ -1,6 +1,6 @@
 # Status
 
-Last updated: 2026-10-01 (grid observation built).
+Last updated: 2026-10-01 (RL work stopped by the user; nothing running).
 
 ## Goal
 
@@ -97,7 +97,16 @@ throwaway run saving on exit at 20:45 when the harness closed the game, before a
 and (b) `save_shared/config.xml` line endings. Files touched by phase-1 userdata runs are
 byte-identical to the backup.
 
-## Next steps
+## Stopped (2026-10-01)
+
+The user stopped the RL work (decisions.md). Last run: PPO on `rand_grid`, player-centred,
+resumed from 250k towards 1M and stopped at 435k (checkpoint `rl_model_430000_steps.zip` in
+`runs/ppo_rand_grid_20261001-184509`): return per 50k steps 0.82, 0.97, 0.11 over 250k-400k,
+kills 1.1 throughout. If work resumes, start from the open items below: the Dreamer grid run,
+the grid plus a few numbers (nearest targets' offsets) as a fallback, and the `rl peek` view,
+which has not yet run in a game.
+
+## Next steps (as of the stop)
 
 The benchmark is complete (`FINDINGS.md`). Phase 8 builds the runner; plan and build order in
 [runner-design.md](runner-design.md).
