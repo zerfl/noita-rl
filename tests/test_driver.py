@@ -381,3 +381,20 @@ class BdqTarget(unittest.TestCase):
     def test_terminal_steps_do_not_bootstrap(self):
         # y = 1; errors 0 and 3: 0 and 2.5
         self.assertAlmostEqual(self.loss(done=True), 1.25)
+
+
+class TrackedPids(unittest.TestCase):
+    def test_simultaneous_launches_are_all_tracked_with_the_legacy_list(self):
+        from concurrent.futures import ThreadPoolExecutor
+        from unittest import mock
+
+        with tempfile.TemporaryDirectory() as d:
+            legacy = Path(d) / "pids.json"
+            legacy.write_text("[7]")
+            with mock.patch.object(launcher, "PIDS_DIR", Path(d) / "pids"), \
+                    mock.patch.object(launcher, "PIDS_FILE", legacy):
+                with ThreadPoolExecutor(16) as ex:
+                    list(ex.map(lambda pid: launcher._track(pid, True), range(100, 132)))
+                self.assertEqual(launcher.tracked_pids(), [7] + list(range(100, 132)))
+                launcher._track(100, False)
+                self.assertNotIn(100, launcher.tracked_pids())

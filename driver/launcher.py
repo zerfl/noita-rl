@@ -20,7 +20,8 @@ import psutil
 from . import gameconfig, paths, scenes
 from .link import Conn, Server
 
-PIDS_FILE = paths.STATE_DIR / "pids.json"
+PIDS_DIR = paths.STATE_DIR / "pids"   # one empty file per game, so parallel launches can't lose entries
+PIDS_FILE = paths.STATE_DIR / "pids.json"   # legacy shared list; still read
 GAME_NAMES = {"noita.exe", "noita_dev.exe"}
 ROOT_FILE_EXT = {".txt", ".xml", ".ini"}
 ROOT_FILE_SKIP = {"logger.txt", "log_asserts.txt", "profiler_data.txt", "profiler_game.txt",
@@ -46,10 +47,18 @@ class LaunchSpec:
 
 
 def _track(pid: int, add: bool):
+    if add:
+        PIDS_DIR.mkdir(parents=True, exist_ok=True)
+        (PIDS_DIR / str(pid)).touch()
+    else:
+        (PIDS_DIR / str(pid)).unlink(missing_ok=True)
+
+
+def tracked_pids() -> list[int]:
     pids = set(json.loads(PIDS_FILE.read_text())) if PIDS_FILE.exists() else set()
-    (pids.add if add else pids.discard)(pid)
-    PIDS_FILE.parent.mkdir(parents=True, exist_ok=True)
-    PIDS_FILE.write_text(json.dumps(sorted(pids)), encoding="utf-8", newline="\n")
+    if PIDS_DIR.exists():
+        pids |= {int(f.name) for f in PIDS_DIR.iterdir() if f.name.isdigit()}
+    return sorted(pids)
 
 
 def running_noita() -> list[int]:
@@ -58,9 +67,7 @@ def running_noita() -> list[int]:
 
 def kill_tracked() -> list[int]:
     killed = []
-    if not PIDS_FILE.exists():
-        return killed
-    for pid in json.loads(PIDS_FILE.read_text()):
+    for pid in tracked_pids():
         try:
             p = psutil.Process(pid)
             if (p.name() or "").lower() in GAME_NAMES:
@@ -69,7 +76,8 @@ def kill_tracked() -> list[int]:
                 killed.append(pid)
         except psutil.NoSuchProcess:
             pass
-    PIDS_FILE.unlink()
+        _track(pid, False)
+    PIDS_FILE.unlink(missing_ok=True)
     return killed
 
 

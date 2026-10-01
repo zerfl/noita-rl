@@ -6,7 +6,6 @@ Visible games run somewhat slower than minimized ones.
 """
 
 import ctypes
-import json
 import math
 from ctypes import wintypes
 
@@ -82,10 +81,8 @@ def layout(n: int, w: int, h: int, area: tuple[int, int, int, int]) -> list[tupl
 def _game_windows(skipped: list | None = None) -> list[int]:
     """Top-level windows of running harness-started games, in instance order. Games that cannot be
     shown are appended to `skipped` with the reason."""
-    if not launcher.PIDS_FILE.exists():
-        return []
     found = []
-    for pid in json.loads(launcher.PIDS_FILE.read_text()):
+    for pid in launcher.tracked_pids():
         try:
             p = psutil.Process(pid)
             if (p.name() or "").lower() not in launcher.GAME_NAMES:

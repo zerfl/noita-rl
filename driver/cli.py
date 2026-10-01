@@ -21,7 +21,7 @@ def _add_render(p):
 def cmd_status(a):
     print(json.dumps({
         "running_noita": launcher.running_noita(),
-        "tracked_pids": json.loads(launcher.PIDS_FILE.read_text()) if launcher.PIDS_FILE.exists() else [],
+        "tracked_pids": launcher.tracked_pids(),
     }, indent=2))
 
 
