@@ -260,6 +260,9 @@ Arena RL (built): `uv run python -m driver rl baselines|train|eval|curve|compare
 `rl watch --run runs/<run> [--ref runs/<run>]` opens a window that rereads `episodes.jsonl` every
 15 s and plots the 200-episode rolling return, kills and clears against the reference run and
 the rand random / scripted levels; it only reads the file, so it can run beside training.
+`rl peek --run runs/<run>` (grid tasks) shows what game 0 observes and does, five times a second:
+the grid image in colour, the aim as an arrow (white while firing), move and episode stats; game
+0 writes them to `runs/<run>/peek.npz` after every step. Not yet seen in a live run.
 `driver windows` shows a run's games on screen (`--hide` minimizes them; visible games run
 ~10 % slower, and the last one gets keyboard focus).
 

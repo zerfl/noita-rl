@@ -9,7 +9,9 @@ view plus a few player numbers instead of the vector).
 """
 
 import math
+import os
 import time
+from pathlib import Path
 
 import gymnasium as gym
 import numpy as np
@@ -57,7 +59,7 @@ class ArenaEnv(gym.Env):
     metadata = {"render_modes": []}
 
     def __init__(self, cpu: int | None = None, instance: int = 0, wand: dict | None = None, settle: int = 2,
-                 task: str = "frozen"):
+                 task: str = "frozen", peek: Path | None = None):
         if task not in TASKS:
             raise ValueError(f"task {task!r} not in {TASKS}")
         self.cpu, self.instance, self.settle, self.task = cpu, instance, settle, task
@@ -74,6 +76,8 @@ class ArenaEnv(gym.Env):
         self.layout = None
         self.dealt_scale = 1.0
         self.lut = None
+        self.peek = peek   # grid tasks: file the latest observation and action go to (rl_live.peek)
+        self.ep_return = 0.0
         self.prev_ents = []
 
     # -------------------------------------------------------------- game link
@@ -161,6 +165,7 @@ class ArenaEnv(gym.Env):
         self.prev_targets = None
         self.prev_ents = []
         self.steps = 0
+        self.ep_return = 0.0
         info = self._info()
         if is_rand(self.task):
             self.dealt_scale = 1.0 / sum(t[3] for t in self.state["arena"]["targets"])
@@ -190,7 +195,16 @@ class ArenaEnv(gym.Env):
         self.state, self.prev = s, dict(a)
         terminated = a["kills"] >= N_TARGETS or died
         truncated = self.steps >= MAX_STEPS
+        self.ep_return += reward
+        if self.peek and has_grid(self.task):
+            self._write_peek(obs, action, a)
         return obs, float(reward), terminated, truncated, self._info() | {"died": died}
+
+    def _write_peek(self, obs: dict, action, a: dict):
+        tmp = self.peek.with_suffix(".tmp.npz")
+        np.savez(tmp, image=obs["image"], action=np.asarray(action, np.int64),
+                 stats=np.array([self.steps, self.ep_return, a["kills"], a["self"]], np.float32))
+        os.replace(tmp, self.peek)
 
     def close(self):
         self._drop()

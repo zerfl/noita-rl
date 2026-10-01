@@ -124,7 +124,8 @@ def train(n: int = 4, steps: int = 50_000, resume: Path | None = None, task: str
         (run / "config.json").write_text(json.dumps(cfg))
     cpus = winutil.pin_order(winutil.physical_cores(), n)
     wrap = FlatActions if algo == "dqn" else (lambda e: e)
-    fns = [lambda i=i: wrap(ArenaEnv(cpu=cpus[i], instance=i, task=task)) for i in range(n)]
+    fns = [lambda i=i: wrap(ArenaEnv(cpu=cpus[i], instance=i, task=task, peek=run / "peek.npz" if i == 0 else None))
+           for i in range(n)]
     # VecMonitor overwrites its csv, so a resumed session gets its own.
     monitor = run / (time.strftime("monitor_%H%M%S") if resume else "monitor")
     env = VecMonitor(SubprocVecEnv(fns, start_method="spawn"), str(monitor),

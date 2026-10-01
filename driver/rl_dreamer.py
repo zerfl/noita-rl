@@ -269,7 +269,8 @@ def train(n: int = 4, steps: int = 500_000, task: str = "frozen", train_ratio: f
 
     cpus = winutil.pin_order(winutil.physical_cores(), n)
     make = ArenaEnv   # looked up here so a patched ArenaEnv reaches the worker processes
-    envs = ParallelEnv(lambda i: lambda: DreamerArena(make(cpu=cpus[i], instance=i, task=task)), n, device)
+    envs = ParallelEnv(lambda i: lambda: DreamerArena(make(cpu=cpus[i], instance=i, task=task,
+                                                            peek=run / "peek.npz" if i == 0 else None)), n, device)
 
     ep_file = open(run / "episodes.jsonl", "a", encoding="utf-8")
     timing_file = open(run / "timing.jsonl", "a", encoding="utf-8")
