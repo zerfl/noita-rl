@@ -1,0 +1,49 @@
+{
+  "test": "rl_train",
+  "task": "live",
+  "algo": "ppo",
+  "run": "<repo>\\runs\\ppo_live_20261001-035143",
+  "n": 4,
+  "steps": 250000,
+  "resumed_at": null,
+  "wall_s": 2546.6,
+  "steps_per_s": 98.5,
+  "episodes": 2095,
+  "crashes": 0,
+  "first_fifth": {
+    "episodes": 419,
+    "return": {
+      "mean": 2.104,
+      "sd": 3.972
+    },
+    "kills": {
+      "mean": 1.406,
+      "sd": 0.551
+    },
+    "self_damage": {
+      "mean": 1.063,
+      "sd": 0.88
+    },
+    "cleared_fraction": 0.031,
+    "clear_frames_mean": 477.8,
+    "died_fraction": 0.0
+  },
+  "last_fifth": {
+    "episodes": 419,
+    "return": {
+      "mean": 11.174,
+      "sd": 1.699
+    },
+    "kills": {
+      "mean": 2.847,
+      "sd": 0.373
+    },
+    "self_damage": {
+      "mean": 0.189,
+      "sd": 0.379
+    },
+    "cleared_fraction": 0.852,
+    "clear_frames_mean": 359.7,
+    "died_fraction": 0.0
+  }
+}
