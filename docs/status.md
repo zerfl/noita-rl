@@ -132,7 +132,10 @@ The benchmark is complete (`FINDINGS.md`). Phase 8 builds the runner; plan and b
    d. Observation as a grid (decided with the user 2026-10-01): `rand_grid` built and verified
       in one game (runner-design.md, knowledge.md). Grid Dreamer at the vector settings needs
       9.3 GB on the 8 GB GPU; it runs at sequence length 32 and CNN depth 8 (3.9 GB, ~4 env
-      steps/s). Runs: PPO 250k on `rand_grid` (8 games, ~29 min; 4 games ran at ~88 steps/s), then Dreamer 60k at train ratio 512
+      steps/s). PPO 250k on `rand_grid` (8 games, ~29 min) did not learn, centred on the camera or
+      on the player (return 0.4-0.5 at the end vs vector 6.04); a supervised probe shows the CNN
+      can read the aim, so the limit is learning from reward (knowledge.md). Grid default:
+      centred on the player. Open: Dreamer 60k at train ratio 512
       (2 games, ~5 h, a night run on the user's go), compared with PPO 6.4 at 241k and the
       Dreamer `rand` curve over its first 33k. Then widen the task (terrain and cover, varying
       enemy counts and types, wands, real levels) without changing the observation again. A fine

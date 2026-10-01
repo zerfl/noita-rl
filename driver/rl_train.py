@@ -10,7 +10,7 @@ import gymnasium as gym
 import numpy as np
 
 from . import paths, winutil
-from .rl_env import ACTION_NVEC, AIM_BINS, MAX_STEPS, ArenaEnv, FlatActions, scripted_action
+from .rl_env import ACTION_NVEC, AIM_BINS, GRID_CENTER, MAX_STEPS, ArenaEnv, FlatActions, has_grid, scripted_action
 
 RUNS_DIR = paths.REPO / "runs"
 ALGOS = ("ppo", "dqn", "dreamer", "bdq")
@@ -119,6 +119,8 @@ def train(n: int = 4, steps: int = 50_000, resume: Path | None = None, task: str
         run = RUNS_DIR / time.strftime(f"{algo}_{task}_%Y%m%d-%H%M%S")
         run.mkdir(parents=True)
         cfg = {"task": task, "algo": algo, "n": n, "steps": steps, "seed": seed} | ({"replay_ratio": replay_ratio} if algo == "dqn" else {})
+        if has_grid(task):
+            cfg["grid_center"] = GRID_CENTER
         (run / "config.json").write_text(json.dumps(cfg))
     cpus = winutil.pin_order(winutil.physical_cores(), n)
     wrap = FlatActions if algo == "dqn" else (lambda e: e)

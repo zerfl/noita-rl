@@ -394,12 +394,14 @@ local function hitbox(e)
   return x0 or 0, x1 or 0, y0 or 0, y1 or 0
 end
 
--- `,"ents":[...]`: what the grid observation draws, within r px of the camera centre, each
+-- `,"ents":[...]`: what the grid observation draws, within r px of the camera centre (of the
+-- player with `player`), each
 -- [kind, x, y, value, box x0, x1, y0, y1] (world px; box relative to x, y). Kinds: 0 player
 -- (value hp fraction), 1 creature tagged enemy (hp fraction), 2 projectile not shot by the player,
 -- 3 projectile shot by it (value 1).
-local function ents_json(p, r)
+local function ents_json(p, r, player)
   local cx, cy = GameGetCameraPos()
+  if player and p then cx, cy = EntityGetTransform(p) end
   local parts = {}
   local function add(kind, e, v)
     local x, y = EntityGetTransform(e)
@@ -427,7 +429,7 @@ end
 
 -- JSON fragment for the state packet: per target [x, y, hp, hp0] (world), cumulative damage
 -- dealt, self-damage, kills; projectiles and entities only when arena_reset asked for them
--- (`proj`, `view` = radius).
+-- (`proj`, `view` = radius, `view_center`).
 function rlb_scenario_state()
   if not live then return "" end
   local parts, dealt = {}, 0
@@ -438,7 +440,7 @@ function rlb_scenario_state()
   local p = rlb_bench.player()
   local php = p and hp_of(p) or live.php0
   local proj = live.proj and proj_json(p, live.proj.n, live.proj.r) or ""
-  if live.view then proj = proj .. ents_json(p, live.view) end
+  if live.view then proj = proj .. ents_json(p, live.view, live.view_center == "player") end
   return string.format(',"arena":{"targets":[%s],"dealt":%.4f,"self":%.4f,"kills":%d,"x0":%d,"y0":%d%s}',
     table.concat(parts, ","), dealt, live.php0 - php, live.kills, A.x, A.y, proj)
 end
@@ -460,7 +462,8 @@ cmds.arena_reset = function(a)
     end
     for _, t in ipairs(targets) do t.x, t.y = EntityGetTransform(t.id) end
     live = { targets = targets, php0 = hp_of(p), kills = 0,
-             proj = a.proj and { n = a.proj, r = a.proj_radius or 256 } or nil, view = a.view }
+             proj = a.proj and { n = a.proj, r = a.proj_radius or 256 } or nil, view = a.view,
+             view_center = a.view_center }
     rlb_bench.send({ t = "event", what = "arena_ready", ok = true, frame = GameGetFrameNum(),
                      cleared = cleared, arena = { x = A.x, y = A.y, w = A.w, h = A.h } })
   end)

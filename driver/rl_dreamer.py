@@ -15,7 +15,7 @@ import gymnasium as gym
 import numpy as np
 
 from . import paths, winutil
-from .rl_env import ACTION_NVEC, ArenaEnv, has_grid, observation_space
+from .rl_env import ACTION_NVEC, GRID_CENTER, ArenaEnv, has_grid, observation_space
 
 R2DREAMER = paths.REPO / "third_party" / "r2dreamer"
 # Replayed steps per env step: DreamerV3 / r2dreamer default for proprio DMC (500k-step budget).
@@ -238,7 +238,8 @@ def train(n: int = 4, steps: int = 500_000, task: str = "frozen", train_ratio: f
         run.mkdir(parents=True)
         (run / "config.json").write_text(json.dumps({"task": task, "algo": "dreamer", "n": n, "steps": steps,
                                                      "train_ratio": train_ratio, "seed": seed, "length": length,
-                                                     "cnn_depth": cnn_depth}))
+                                                     "cnn_depth": cnn_depth}
+                                                    | ({"grid_center": GRID_CENTER} if has_grid(task) else {})))
     (run / "checkpoints").mkdir(exist_ok=True)
     device = "cuda"
     tools.set_seed_everywhere(seed)

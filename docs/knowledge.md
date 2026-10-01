@@ -396,6 +396,23 @@ and a live counter cross-check on this 6-core / 12-thread machine.
   update 0.95 s (~88 steps/s; vector `rand` 10.1 + 0.47 s, ~97); 8 games (one logical CPU each,
   six cores then two SMT siblings, user at the PC) collect 6.1 s + update 0.9 s (~146 steps/s,
   ~73 game fps each, ~585 aggregate). The first progress line includes the game launches.
+- PPO on `rand_grid`, grid centred on the camera (`runs/ppo_rand_grid_20261001-181525`, 8 games,
+  250k, 28.5 min, `rl_curve_20261001-184428.json`): no learning. Return per 50k steps -0.14,
+  0.38, 0.02, 0.20, 0.52; kills 1.1 throughout (random 1.07), cleared 1-2 %, self-damage 1.58
+  to 1.32 (vector PPO on `rand`: 0.02 to 6.04 over the same blocks). The camera follows the aim,
+  so each aim action shifts the whole picture, and the target's offset from the player has to be
+  read off two moving blobs. Hence `GRID_CENTER = "player"`: the player keeps the same cells
+  (rows 29-33, columns 55-56) whatever it does.
+- PPO on `rand_grid`, grid centred on the player (`runs/ppo_rand_grid_20261001-184509`, 8 games,
+  250k, `rl_curve_20261001-192009.json`): also no learning. Return per 50k steps -0.06, 0.31,
+  0.13, 0.34, 0.39; kills 1.11-1.16, cleared 1-3 %. Centring is not the cause. ~6 min of it ran
+  beside a CPU-heavy probe (collect 7.5 s per 1024 steps instead of 6.0).
+- Supervised probe (synthetic player-centred grids: arena floor and wall, 1-3 creatures with
+  their previous-step copies; label = aim bin to the nearest creature; batch 128, Adam 3e-4):
+  SB3's NatureCNN is within one bin (5 degrees) on 82 % of 2000 test grids after 500 steps and
+  97 % after 3000; a stride-1 first layer reaches 92 % at 500 steps, 97 % at 3000. The CNN can
+  read the aim off the grid; PPO's failure in 250k steps is in learning from reward, not in
+  what the network can represent.
 - PPO on `rand` (`runs/ppo_rand_20261001-062145`, 250k, 41 min, `rl_curve_20261001-070437.json`):
   return per 50k steps 0.02, 0.76, 1.11, 3.48, 6.04; kills 1.1 flat until 150k, then 1.9;
   cleared 2 % to 28 %; self-damage 1.51 to 0.84. Passed the scripted 6.4 (200 episodes) at 241k.

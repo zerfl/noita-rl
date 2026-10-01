@@ -42,6 +42,7 @@ RAND_MIN_DIST = 40
 # hitbox from exact positions: player and creatures as 64 + 191 x hp fraction, creatures and enemy shots
 # also as of the step before (motion for a feed-forward policy), and the player's own shots.
 GRID_W, GRID_H, GRID_STRIDE = 112, 64, 4
+GRID_CENTER = "player"     # or "camera", which follows the aim (knowledge.md)
 VIEW_R = 300               # px around the camera centre that entities are reported from
 CH_PLAYER, CH_CREATURE, CH_CREATURE_PREV, CH_SHOT, CH_SHOT_PREV, CH_OWN = range(4, 10)
 GRID_CH = 10
@@ -98,7 +99,7 @@ class ArenaEnv(gym.Env):
             self.layout = draw_layout(self.np_random)
             extra["targets"] = self.layout
         if has_grid(self.task):
-            extra["view"] = VIEW_R
+            extra["view"], extra["view_center"] = VIEW_R, GRID_CENTER
         res = c.cmd("arena_reset", wand=self.wand, settle=self.settle, ai=has_ai(self.task), timeout=30, **extra)
         if not res.get("ok"):
             raise RuntimeError(f"arena_reset: {res}")
@@ -222,7 +223,7 @@ def has_grid(task: str) -> bool:
     return task == "rand_grid"
 
 
-GRID_CFG = {"w": GRID_W, "h": GRID_H, "stride": GRID_STRIDE, "center": "camera"}
+GRID_CFG = {"w": GRID_W, "h": GRID_H, "stride": GRID_STRIDE, "center": GRID_CENTER}
 
 
 def observation_space(task: str) -> gym.Space:
