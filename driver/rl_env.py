@@ -2,7 +2,8 @@
 
 One game per env, lockstep K=4. Kill the three targets with a fixed wand, fast, without getting
 hurt. Actions go through the same injected keys and mouse a player uses. Tasks: "frozen" (targets
-hover, AI off) and "live" (AI on: they walk, fall and attack; the episode ends if the player dies).
+hover, AI off), "live" (AI on: they walk, fall and attack; the episode ends if the player dies) and
+"live_proj" (live, plus the nearest enemy projectiles in the observation).
 """
 
 import math
@@ -19,7 +20,10 @@ K = 4
 MAX_STEPS = 150          # 600 frames, the wand_eval window
 AIM_BINS = 72           # 5 degrees: within ~8 px at the farthest target
 N_TARGETS = 3
-TASKS = ("frozen", "live")
+TASKS = ("frozen", "live", "live_proj")
+N_PROJ = 4              # projectile slots in the live_proj observation, nearest first
+PROJ_RADIUS = 256       # px around the player; half the arena width
+PROJ_V = 600            # px/s (VelocityComponent units) per observation unit
 ACTION_NVEC = (3, 2, 2, AIM_BINS)
 
 # Reward: damage dealt (target hp units; all three hold 1.0) x10, +1 per kill, self-damage (player
@@ -62,7 +66,8 @@ class ArenaEnv(gym.Env):
     def _start_episode(self) -> dict:
         c = self.inst.conn
         c.cmd("config", k=K, grid=False, mode="free", timeout=30)
-        res = c.cmd("arena_reset", wand=self.wand, settle=self.settle, ai=self.task == "live", timeout=30)
+        proj = {"proj": N_PROJ, "proj_radius": PROJ_RADIUS} if has_proj(self.task) else {}
+        res = c.cmd("arena_reset", wand=self.wand, settle=self.settle, ai=has_ai(self.task), timeout=30, **proj)
         if not res.get("ok"):
             raise RuntimeError(f"arena_reset: {res}")
         while True:
@@ -82,11 +87,13 @@ class ArenaEnv(gym.Env):
              (s["hp"] or 0) / (s["max_hp"] or 1), self.steps / MAX_STEPS]
         for x, y, hp, hp0 in a["targets"]:
             o += [(x - px) / 200, (y - py) / 200, hp / hp0 if hp0 else 0.0]
-        if self.task == "live":
+        if has_ai(self.task):
             # Target velocity in px per frame, from the last step; appended so the frozen layout stays.
             prev = self.prev_targets or a["targets"]
             for (x, y, *_), (x1, y1, *_) in zip(a["targets"], prev):
                 o += [(x - x1) / K, (y - y1) / K]
+        if has_proj(self.task):
+            o += proj_obs(a.get("proj", []), px, py)
         return np.clip(np.asarray(o, np.float32), -5, 5)
 
     def _info(self) -> dict:
@@ -153,8 +160,26 @@ class FlatActions(gym.ActionWrapper):
         return np.array(np.unravel_index(int(a), ACTION_NVEC))
 
 
+def has_ai(task: str) -> bool:
+    return task != "frozen"
+
+
+def has_proj(task: str) -> bool:
+    return task == "live_proj"
+
+
+def proj_obs(proj: list, px: float, py: float) -> list[float]:
+    """Per slot [present, dx/200, dy/200, vx/PROJ_V, vy/PROJ_V] for the N_PROJ projectiles nearest the
+    player, nearest first; empty slots are all zeros. `proj` holds [x, y, vx, vy] (world px, px/s)."""
+    near = sorted(proj, key=lambda q: (q[0] - px) ** 2 + (q[1] - py) ** 2)[:N_PROJ]
+    o = []
+    for x, y, vx, vy in near:
+        o += [1.0, (x - px) / 200, (y - py) / 200, vx / PROJ_V, vy / PROJ_V]
+    return o + [0.0] * (5 * (N_PROJ - len(near)))
+
+
 def obs_dim(task: str) -> int:
-    return 6 + 3 * N_TARGETS + (2 * N_TARGETS if task == "live" else 0)
+    return 6 + 3 * N_TARGETS + (2 * N_TARGETS if has_ai(task) else 0) + (5 * N_PROJ if has_proj(task) else 0)
 
 
 def scripted_action(obs: np.ndarray) -> np.ndarray:

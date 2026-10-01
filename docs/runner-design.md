@@ -122,7 +122,13 @@ run manager      run dir: config, git sha, seeds, logs, metrics, checkpoints
 - Harder arena, so frame budget matters: the live task (`--task live`: AI on, targets fall to the
   floor, attack, corpses shield; the episode ends on player death). The observation appends each
   target's velocity (px/frame from the last step), 21 floats; the frozen layout is unchanged.
-  Next: terrain, enemy projectiles in the observation, grid observations.
+- `--task live_proj`: live, plus the 4 projectiles nearest the player within 256 px that the player did not shoot (tag `projectile`, `ProjectileComponent.mWhoShot`
+  not the player), nearest first, 5 floats each: present (1/0), offset from the player (/200 px),
+  `VelocityComponent.mVelocity` (/600 px/s, i.e. /10 px/frame); empty slots are zeros. 41 floats;
+  the frozen and live layouts and packets are unchanged (the mod adds `arena.proj` only when
+  `arena_reset` gets `proj`). Verified in one game: enemy shots listed on 62 of 143 idle steps,
+  the player's own spark bolts never; no measurable Lua cost per packet.
+  Next: terrain, grid observations.
 - Compare PPO against an off-policy and a model-based (DreamerV3-style) method on it, measured in
   game frames to reach the scripted level. The simulation is CPU-bound; this is where the GPU
   pays off. `--algo dqn` is built: SB3 DQN over the flattened action (864 choices), MLP 2x256,

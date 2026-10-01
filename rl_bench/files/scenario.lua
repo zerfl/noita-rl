@@ -331,7 +331,7 @@ end
 -- ---------------------------------------------------------------- RL episodes
 
 -- Live arena for RL: targets tracked every frame, reported in every state packet.
-local live = nil   -- { targets, php0, kills }
+local live = nil   -- { targets, php0, kills, proj = { n, r } or nil }
 
 function rlb_scenario_aim(angle, radius)
   local p = rlb_bench.player()
@@ -357,8 +357,33 @@ rlb_bench.frame_hooks[#rlb_bench.frame_hooks + 1] = function()
   end
 end
 
+-- `,"proj":[...]`: the n projectiles within r px of the player not shot by it, nearest first, each
+-- [x, y, vx, vy] (world px, VelocityComponent px/s).
+local function proj_json(p, n, r)
+  if not p then return ',"proj":[]' end
+  local px, py = EntityGetTransform(p)
+  local near = {}
+  for _, e in ipairs(EntityGetInRadiusWithTag(px, py, r, "projectile") or {}) do
+    local pc = EntityGetFirstComponent(e, "ProjectileComponent")
+    if pc and ComponentGetValue2(pc, "mWhoShot") ~= p then
+      local x, y = EntityGetTransform(e)
+      local vc = EntityGetFirstComponent(e, "VelocityComponent")
+      local vx, vy = 0, 0
+      if vc then vx, vy = ComponentGetValue2(vc, "mVelocity") end
+      near[#near + 1] = { (x - px) ^ 2 + (y - py) ^ 2, x, y, vx, vy }
+    end
+  end
+  table.sort(near, function(u, v) return u[1] < v[1] end)
+  local parts = {}
+  for i = 1, math.min(n, #near) do
+    local q = near[i]
+    parts[i] = string.format("[%.2f,%.2f,%.2f,%.2f]", q[2], q[3], q[4], q[5])
+  end
+  return ',"proj":[' .. table.concat(parts, ",") .. "]"
+end
+
 -- JSON fragment for the state packet: per target [x, y, hp, hp0] (world), cumulative damage
--- dealt, self-damage, kills.
+-- dealt, self-damage, kills; projectiles only when arena_reset asked for them.
 function rlb_scenario_state()
   if not live then return "" end
   local parts, dealt = {}, 0
@@ -368,8 +393,9 @@ function rlb_scenario_state()
   end
   local p = rlb_bench.player()
   local php = p and hp_of(p) or live.php0
-  return string.format(',"arena":{"targets":[%s],"dealt":%.4f,"self":%.4f,"kills":%d,"x0":%d,"y0":%d}',
-    table.concat(parts, ","), dealt, live.php0 - php, live.kills, A.x, A.y)
+  local proj = live.proj and proj_json(p, live.proj.n, live.proj.r) or ""
+  return string.format(',"arena":{"targets":[%s],"dealt":%.4f,"self":%.4f,"kills":%d,"x0":%d,"y0":%d%s}',
+    table.concat(parts, ","), dealt, live.php0 - php, live.kills, A.x, A.y, proj)
 end
 
 -- Sets up an episode (same arena as wand_eval) and sends arena_ready; the driver then steps in
@@ -388,7 +414,8 @@ cmds.arena_reset = function(a)
       return
     end
     for _, t in ipairs(targets) do t.x, t.y = EntityGetTransform(t.id) end
-    live = { targets = targets, php0 = hp_of(p), kills = 0 }
+    live = { targets = targets, php0 = hp_of(p), kills = 0,
+             proj = a.proj and { n = a.proj, r = a.proj_radius or 256 } or nil }
     rlb_bench.send({ t = "event", what = "arena_ready", ok = true, frame = GameGetFrameNum(),
                      cleared = cleared, arena = { x = A.x, y = A.y, w = A.w, h = A.h } })
   end)

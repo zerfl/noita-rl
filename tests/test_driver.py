@@ -175,6 +175,70 @@ class ArenaScripted(unittest.TestCase):
         self.assertEqual(scripted_action(self.obs((0.3, 0, 0), (0, -0.5, 0), (1, 0, 0)))[2], 0)
 
 
+class ArenaObs(unittest.TestCase):
+    # Player at (100, 50) in an arena at (0, 0); targets 40 px right, 50 above, 200 right and 50 below.
+    STATE = {"x": 100.0, "y": 50.0, "vx": 20.0, "vy": -40.0, "hp": 3.0, "max_hp": 4.0,
+             "arena": {"x0": 0, "y0": 0, "targets": [[140, 50, 1.0, 1.0], [200, 0, 0.5, 1.0], [300, 100, 0, 1.0]]}}
+    PREV_TARGETS = [[136, 50, 1.0, 1.0], [200, 8, 0.5, 1.0], [300, 100, 0, 1.0]]
+    LIVE = [100 / 512, 50 / 192, 0.1, -0.2, 0.75, 0.0,
+            0.2, 0.0, 1.0, 0.5, -0.25, 0.5, 1.0, 0.25, 0.0,
+            1.0, 0.0, 0.0, -2.0, 0.0, 0.0]
+
+    def obs(self, task, proj=None):
+        from driver.rl_env import ArenaEnv
+        env = ArenaEnv(task=task)
+        env.prev_targets = self.PREV_TARGETS
+        s = dict(self.STATE, arena=dict(self.STATE["arena"]))
+        if proj is not None:
+            s["arena"]["proj"] = proj
+        return env._obs(s)
+
+    def assertObs(self, got, want):
+        import numpy as np
+        self.assertEqual(len(got), len(want))
+        np.testing.assert_allclose(got, np.asarray(want, np.float32), atol=1e-6)
+
+    def test_frozen_and_live_layouts_are_unchanged(self):
+        self.assertObs(self.obs("frozen"), self.LIVE[:15])
+        self.assertObs(self.obs("live"), self.LIVE)
+
+    def test_live_proj_appends_the_nearest_projectiles_nearest_first(self):
+        far = [[300, 50, 0, 0], [100, 300, 0, 0]]
+        near = [[130, 50, -300, 0], [100, 10, 0, 600], [90, 45, 60, -60], [40, 50, 0, 0]]
+        o = self.obs("live_proj", far[:1] + near[:2] + far[1:] + near[2:])
+        self.assertObs(o, self.LIVE + [1, -0.05, -0.025, 0.1, -0.1,
+                                       1, 0.15, 0.0, -0.5, 0.0,
+                                       1, 0.0, -0.2, 0.0, 1.0,
+                                       1, -0.3, 0.0, 0.0, 0.0])
+
+    def test_empty_projectile_slots_are_zero(self):
+        self.assertObs(self.obs("live_proj", [[100, 10, 0, 600]]), self.LIVE + [1, 0.0, -0.2, 0.0, 1.0] + [0.0] * 15)
+        self.assertObs(self.obs("live_proj", []), self.LIVE + [0.0] * 20)
+
+    def test_obs_dim(self):
+        from driver.rl_env import obs_dim
+        self.assertEqual([obs_dim(t) for t in ("frozen", "live", "live_proj")], [15, 21, 41])
+
+    def test_only_live_proj_asks_the_game_for_projectiles(self):
+        from unittest import mock
+        from driver.rl_env import ArenaEnv
+        sent = {}
+        for task in ("frozen", "live", "live_proj"):
+            env = ArenaEnv(task=task)
+            conn = mock.Mock()
+            conn.cmd.return_value = {"ok": True}
+            conn.recv.return_value = {"what": "arena_ready", "ok": True}
+            env.inst = mock.Mock(conn=conn)
+            with mock.patch("driver.rl_env.enter_lockstep"):
+                env._start_episode()
+            name, args = conn.cmd.call_args_list[1][0][0], conn.cmd.call_args_list[1][1]
+            self.assertEqual(name, "arena_reset")
+            sent[task] = {k: v for k, v in args.items() if k not in ("wand", "settle", "timeout")}
+        self.assertEqual(sent["frozen"], {"ai": False})
+        self.assertEqual(sent["live"], {"ai": True})
+        self.assertEqual(sent["live_proj"], {"ai": True, "proj": 4, "proj_radius": 256})
+
+
 class ViewerLayout(unittest.TestCase):
     def test_rows_are_balanced(self):
         from driver.viewer import balanced_rows
