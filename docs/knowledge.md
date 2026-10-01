@@ -370,6 +370,11 @@ and a live counter cross-check on this 6-core / 12-thread machine.
   (20 episodes, `rl_eval_20261001-035015/-035129.json`): mode actions 12.32, 20/20 cleared in
   272 frames, self-damage 0; sampled 11.98, 19/20, self-damage 0.10. Training-time return is
   lower than eval because the actor samples. `replay.pt` 633 MB, `final.pt` 121 MB.
+- Dreamer on `rand`, stopped at ~33k (`runs/dreamer_rand_20261001-070448`,
+  `rl_curve_20261001-080302.json`): return per 10k steps -3.92, -1.48, -1.13, then 2.49 over
+  30-33k; kills about 0.9 until 30k; no clears before 30k; self-damage 2.65 to 1.23. Slower start
+  than on `live` (5.65 over 10-20k) and below PPO's first 50k on rand (0.02); ~100 s per 1000
+  steps.
 - PPO on `rand` (`runs/ppo_rand_20261001-062145`, 250k, 41 min, `rl_curve_20261001-070437.json`):
   return per 50k steps 0.02, 0.76, 1.11, 3.48, 6.04; kills 1.1 flat until 150k, then 1.9;
   cleared 2 % to 28 %; self-damage 1.51 to 0.84. Passed the scripted 6.4 (200 episodes) at 241k.

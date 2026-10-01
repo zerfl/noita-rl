@@ -1,6 +1,6 @@
 # Status
 
-Last updated: 2026-09-30.
+Last updated: 2026-10-01 (nothing running; the machine was shut down).
 
 ## Goal
 
@@ -122,10 +122,28 @@ The benchmark is complete (`FINDINGS.md`). Phase 8 builds the runner; plan and b
       task is near its ceiling for all three methods; next is a harder arena.
       `rand` task built (live_proj with target types and spots drawn per episode; runner-design.md)
       and verified in one game; scripted level 6.4 over 60 episodes, 20/60 cleared (knowledge.md).
-      PPO 250k reaches 6.4 only at 241k, still climbing. Running: DreamerV3 120k on rand
-      (`runs/dreamer_rand_*`, ~3.2 h, started 2026-10-01 07:04).
+      PPO 250k reaches 6.4 only at 241k, still climbing. DreamerV3 120k on rand
+      (`runs/dreamer_rand_20261001-070448`) was stopped at ~33k for a shutdown: return per 10k
+      -3.92, -1.48, -1.13, then 2.49 over 30-33k (`rl_curve_20261001-080302.json`); no final.pt
+      or replay.pt. To continue: `uv run python -m driver rl train --resume
+      runs/dreamer_rand_20261001-070448/checkpoints/dreamer_30000_steps.pt --steps 120000`
+      (~2.5 h; the replay starts empty, and episodes.jsonl already holds ~3k steps past 30k,
+      which the resumed run logs again: drop them for curves). Or start fresh (3.2 h).
+   d. Then: observation as a grid (decided with the user 2026-10-01): the whole view, about
+      427x240 world px, at 4 px per cell (~107x60), one layer of terrain material plus layers
+      for creatures and projectiles marked from exact entity positions (so small shots are not
+      averaged away). Verify it on `rand`, where the numeric observation's results are known
+      (PPO 6.4 at 241k), comparing PPO and DreamerV3 (CNN encoder). Only then widen the task
+      (terrain and cover, varying enemy counts and types, wands, real levels) without changing
+      the observation again. A fine 32x32 view at 1 px per cell is an option if 4 px is too
+      coarse (digging, liquids). The grid reader supports stride 1/2/4 (knowledge.md).
    c. Deferred: async collection (update is 6 % of wall time). Parked: render skip.
    Wand search parked.
+   Operations: runs over 2 h must run detached (`Start-Process ... -WindowStyle Hidden`); the
+   session's background tasks stop at 2 h. Game PIDs are tracked one file each in
+   `.rl_bench_state/pids/` (the shared `pids.json` lost entries when 4 games launched at once).
+   Commit on main; the private remote `zerfl/noita-rl` was pushed once (2026-10-01) and is not
+   pushed again unless the user asks.
 3. Tighten the liquid probe (more repetitions) to decide whether 4x can be promoted.
 
 ## Open questions
