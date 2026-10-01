@@ -373,6 +373,10 @@ and a live counter cross-check on this 6-core / 12-thread machine.
 - PPO live, second run (`--seed 1`, `runs/ppo_live_20261001-035143`, `rl_curve_20261001-043420.json`):
   return per 50k steps 1.56, 5.90, 9.36, 10.99, 11.16 (first run 1.7, 7.1, 9.0, 10.7, 11.2);
   passed 8.0 at 115k (first run 99k); 42 min wall, update share 4.6 %, reset 0.078 s.
+- BDQ live, second run (`--seed 1`, `runs/bdq_live_20261001-043502`, `rl_curve_20261001-051927.json`):
+  return per 50k steps 2.91, 6.26, 7.80, 8.96, 9.65 (first run 2.5, 6.9, 7.9, 8.4, 9.5); passed
+  8.0 at 146k (first run 119k); self-damage stays high (1.0 to 0.75 vs PPO's 0.18 at the end);
+  44 min wall, update share 22 %.
 - PPO on the live task (250k steps, `rl_behaviour_live_20260930.json`): stochastic policy clears
   19/20 in 73 steps with 0.23 self-damage, levitating 43 % of steps; deterministic (argmax per
   action dimension) only 12/20, no better than the scripted aimer (13/20, 127 steps). Evaluate

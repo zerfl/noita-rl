@@ -144,7 +144,7 @@ floats, action [move, levitate, fire, aim in 72 directions]. PPO (stable-baselin
   | Method | Reached 8.0 at | Final return (last 200 eps) | Eval, 20 episodes | Update share |
   |---|---|---|---|---|
   | PPO | 99k steps (20 min); seed 1: 115k (19 min) | 11.4; seed 1: 11.3 | 11.7 sampled, 19/20 cleared | 5 % |
-  | Branching DQN (BDQ) | 119k steps (25 min) | 9.7 | 9.4 greedy, 13/20 cleared | 20 % |
+  | Branching DQN (BDQ) | 119k steps (25 min); seed 1: 146k (26 min) | 9.7; seed 1: 9.8 | 9.4 greedy, 13/20 cleared | 20 % |
   | Flat DQN (864 joint actions) | not reached (stopped at 154k) | 0.7 | - | 15 % |
   | DreamerV3 (120k budget) | 57k steps (95 min) | 9.7 | 12.3 mode actions, 20/20 cleared; 12.0 sampled, 19/20 | 87 % |
 
@@ -154,7 +154,8 @@ floats, action [move, levitate, fire, aim in 72 directions]. PPO (stable-baselin
   cleared in ~68 steps with no damage taken. BDQ learns faster than PPO over the first 50k steps
   (mean return 2.5 vs 1.7) but PPO overtakes it by 100k and ends higher. PPO's second run
   (`--seed 1`, `rl_compare_20261001-043420.json`) reached the target 16k steps later than the
-  first; Dreamer's lead (57k) is larger than that spread. Flat DQN's greedy action jumps between aim bins; factoring the action per
+  first, BDQ's 27k later (`rl_compare_20261001-051926.json`). Dreamer's lead over both is larger
+  than those spreads; PPO vs BDQ stays within them over two runs each (99k/115k vs 119k/146k). Flat DQN's greedy action jumps between aim bins; factoring the action per
   dimension (BDQ) fixes that. One seed each; the spread between runs is not measured yet.
 - The simulation is CPU-only; the GPU sits idle with this network. Game frames are the budget, so
   the GPU's use is sample efficiency (off-policy or model-based methods) and larger observations.

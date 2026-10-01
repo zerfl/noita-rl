@@ -1,0 +1,11 @@
+{
+  "test": "rl_train",
+  "task": "live",
+  "algo": "bdq",
+  "run": "<repo>\\runs\\bdq_live_20261001-043502",
+  "n": 4,
+  "steps": 250000,
+  "final": "<repo>\\runs\\bdq_live_20261001-043502\\final.pt",
+  "timesteps": 250000,
+  "wall_s": 2653.2
+}
