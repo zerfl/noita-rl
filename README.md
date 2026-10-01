@@ -42,6 +42,7 @@ uv run python -m driver rl train --task live --algo dqn --replay-ratio 0.25   # 
 uv run python -m driver rl train --task live --algo bdq --n 4 --steps 250000   # branching Q-network
 uv run python -m driver rl train --task live --algo dreamer --n 4 --steps 250000   # DreamerV3 (third_party/r2dreamer)
 uv run python -m driver rl train --task live_proj --n 4 --steps 250000   # live + enemy projectiles in the obs
+uv run python -m driver rl train --task rand --n 4 --steps 250000   # live_proj, target types and spots drawn per episode
 uv run python -m driver rl train --n 4 --steps 500000 --resume runs/<run>/checkpoints/<ckpt>.zip
 uv run python -m driver rl eval --model runs/<run>/final.zip   # dreamer, bdq: .pt; --stochastic samples actions
 uv run python -m driver rl curve --run runs/<run>   # return, kills, clear rate per 50k steps

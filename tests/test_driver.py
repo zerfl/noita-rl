@@ -217,7 +217,7 @@ class ArenaObs(unittest.TestCase):
 
     def test_obs_dim(self):
         from driver.rl_env import obs_dim
-        self.assertEqual([obs_dim(t) for t in ("frozen", "live", "live_proj")], [15, 21, 41])
+        self.assertEqual([obs_dim(t) for t in ("frozen", "live", "live_proj", "rand")], [15, 21, 41, 41])
 
     def test_only_live_proj_asks_the_game_for_projectiles(self):
         from unittest import mock
@@ -237,6 +237,81 @@ class ArenaObs(unittest.TestCase):
         self.assertEqual(sent["frozen"], {"ai": False})
         self.assertEqual(sent["live"], {"ai": True})
         self.assertEqual(sent["live_proj"], {"ai": True, "proj": 4, "proj_radius": 256})
+
+    def test_rand_observes_like_live_proj(self):
+        proj = [[130, 50, -300, 0], [100, 10, 0, 600]]
+        self.assertObs(self.obs("rand", proj), self.obs("live_proj", proj))
+
+
+class ArenaRand(unittest.TestCase):
+    TARGETS = [[140, 50, 0.5, 0.5], [200, 0, 0.9, 0.9], [300, 100, 0.6, 0.6]]   # hp0 total 2.0
+
+    def env(self, task):
+        from unittest import mock
+        from driver.rl_env import ArenaEnv
+        env = ArenaEnv(task=task)
+        conn = mock.Mock()
+        conn.cmd.return_value = {"ok": True}
+        conn.recv.return_value = {"what": "arena_ready", "ok": True}
+        env.inst = mock.Mock(conn=conn)
+        return env, conn
+
+    def state(self, dealt):
+        return {"x": 100.0, "y": 50.0, "vx": 0.0, "vy": 0.0, "hp": 4.0, "max_hp": 4.0,
+                "arena": {"x0": 0, "y0": 0, "targets": self.TARGETS, "dealt": dealt, "self": 0.0, "kills": 0,
+                          "proj": []}}
+
+    def reset(self, env, seed=None):
+        from unittest import mock
+        with mock.patch("driver.rl_env.enter_lockstep", return_value=self.state(0.0)):
+            return env.reset(seed=seed)
+
+    def test_layouts_stay_in_bounds_and_apart(self):
+        import itertools
+        import math
+        import numpy as np
+        from driver.rl_env import RAND_DX, RAND_DY, RAND_MIN_DIST, RAND_POOL, draw_layout
+        rng = np.random.default_rng(1)
+        layouts = [draw_layout(rng) for _ in range(3000)]
+        for layout in layouts:
+            self.assertEqual(len(layout), 3)
+            for t in layout:
+                self.assertIn(t["file"], RAND_POOL)
+                self.assertTrue(RAND_DX[0] <= t["dx"] <= RAND_DX[1] and RAND_DY[0] <= t["dy"] <= RAND_DY[1], t)
+            for u, v in itertools.combinations(layout, 2):
+                self.assertGreaterEqual(math.hypot(u["dx"] - v["dx"], u["dy"] - v["dy"]), RAND_MIN_DIST)
+        spots = [t for layout in layouts for t in layout]
+        self.assertEqual({t["file"] for t in spots}, set(RAND_POOL))
+        self.assertEqual((min(t["dx"] for t in spots), max(t["dx"] for t in spots)), RAND_DX)
+        self.assertEqual((min(t["dy"] for t in spots), max(t["dy"] for t in spots)), RAND_DY)
+
+    def test_layouts_repeat_for_a_seed(self):
+        envs = [self.env("rand") for _ in range(3)]
+        drawn = []
+        for (env, _), seed in zip(envs, (5, 5, 6)):
+            drawn.append([self.reset(env, seed)[1]["layout"], self.reset(env)[1]["layout"]])
+        self.assertEqual(drawn[0], drawn[1])
+        self.assertNotEqual(drawn[0], drawn[2])
+        self.assertNotEqual(drawn[0][0], drawn[0][1])
+
+    def test_reset_sends_the_drawn_layout_with_projectiles(self):
+        env, conn = self.env("rand")
+        _, info = self.reset(env, seed=3)
+        args = conn.cmd.call_args_list[1][1]
+        self.assertEqual(conn.cmd.call_args_list[1][0][0], "arena_reset")
+        self.assertEqual(args["targets"], info["layout"])
+        self.assertEqual(len(args["targets"]), 3)
+        self.assertEqual((args["ai"], args["proj"], args["proj_radius"]), (True, 4, 256))
+
+    def test_damage_reward_is_a_fraction_of_the_episode_hp(self):
+        rewards = {}
+        for task in ("live_proj", "rand"):
+            env, conn = self.env(task)
+            self.reset(env)
+            conn.recv_type.return_value = self.state(0.5)
+            rewards[task] = env.step([1, 0, 1, 0])[1]
+        self.assertAlmostEqual(rewards["live_proj"], 10 * 0.5 - 0.01)
+        self.assertAlmostEqual(rewards["rand"], 10 * 0.5 / 2.0 - 0.01)
 
 
 class ViewerLayout(unittest.TestCase):

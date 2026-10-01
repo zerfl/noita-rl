@@ -1,0 +1,1008 @@
+{
+  "test": "rl_baselines",
+  "task": "rand",
+  "started": "2026-10-01T06:13:59",
+  "max_steps": 150,
+  "random": {
+    "episodes": 20,
+    "return": {
+      "mean": -1.497,
+      "sd": 5.76
+    },
+    "kills": {
+      "mean": 0.95,
+      "sd": 0.826
+    },
+    "self_damage": {
+      "mean": 1.895,
+      "sd": 1.43
+    },
+    "cleared_fraction": 0.05,
+    "clear_frames_mean": 492.0,
+    "died_fraction": 0.15
+  },
+  "scripted": {
+    "episodes": 20,
+    "return": {
+      "mean": 4.733,
+      "sd": 3.889
+    },
+    "kills": {
+      "mean": 2.2,
+      "sd": 0.41
+    },
+    "self_damage": {
+      "mean": 1.473,
+      "sd": 1.194
+    },
+    "cleared_fraction": 0.2,
+    "clear_frames_mean": 464.0,
+    "died_fraction": 0.0
+  },
+  "episodes": {
+    "random": [
+      {
+        "return": -10.949999999999983,
+        "kills": 0,
+        "self_damage": 3.78,
+        "steps": 150,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "dx": 196,
+            "dy": 82
+          },
+          {
+            "file": "data/entities/animals/miner.xml",
+            "dx": 247,
+            "dy": 67
+          },
+          {
+            "file": "data/entities/animals/shotgunner.xml",
+            "dx": 157,
+            "dy": 0
+          }
+        ]
+      },
+      {
+        "return": 6.370000000000025,
+        "kills": 3,
+        "self_damage": 2.16,
+        "steps": 123,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "dx": 237,
+            "dy": 8
+          },
+          {
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "dx": 123,
+            "dy": 30
+          },
+          {
+            "file": "data/entities/animals/zombie_weak.xml",
+            "dx": 193,
+            "dy": 48
+          }
+        ]
+      },
+      {
+        "return": -7.588277777777756,
+        "kills": 0,
+        "self_damage": 2.9642,
+        "steps": 150,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "dx": 154,
+            "dy": 38
+          },
+          {
+            "file": "data/entities/animals/miner.xml",
+            "dx": 203,
+            "dy": 46
+          },
+          {
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "dx": 223,
+            "dy": 100
+          }
+        ]
+      },
+      {
+        "return": -3.7136363636363514,
+        "kills": 1,
+        "self_damage": 3.24,
+        "steps": 150,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/shotgunner.xml",
+            "dx": 172,
+            "dy": 58
+          },
+          {
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "dx": 239,
+            "dy": 72
+          },
+          {
+            "file": "data/entities/animals/zombie.xml",
+            "dx": 138,
+            "dy": 85
+          }
+        ]
+      },
+      {
+        "return": 0.34411764705882897,
+        "kills": 1,
+        "self_damage": 1.78,
+        "steps": 150,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/shotgunner.xml",
+            "dx": 177,
+            "dy": 89
+          },
+          {
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "dx": 186,
+            "dy": 7
+          },
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "dx": 217,
+            "dy": 94
+          }
+        ]
+      },
+      {
+        "return": 0.9285714285714279,
+        "kills": 1,
+        "self_damage": 0.0,
+        "steps": 150,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/miner.xml",
+            "dx": 233,
+            "dy": 31
+          },
+          {
+            "file": "data/entities/animals/zombie_weak.xml",
+            "dx": 174,
+            "dy": 24
+          },
+          {
+            "file": "data/entities/animals/zombie_weak.xml",
+            "dx": 227,
+            "dy": 79
+          }
+        ]
+      },
+      {
+        "return": -8.883571428571413,
+        "kills": 0,
+        "self_damage": 4.05,
+        "steps": 133,
+        "died": true,
+        "layout": [
+          {
+            "file": "data/entities/animals/shotgunner.xml",
+            "dx": 197,
+            "dy": 20
+          },
+          {
+            "file": "data/entities/animals/shotgunner.xml",
+            "dx": 175,
+            "dy": 95
+          },
+          {
+            "file": "data/entities/animals/miner.xml",
+            "dx": 255,
+            "dy": 9
+          }
+        ]
+      },
+      {
+        "return": -2.498717948717946,
+        "kills": 1,
+        "self_damage": 1.62,
+        "steps": 150,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/miner.xml",
+            "dx": 160,
+            "dy": 89
+          },
+          {
+            "file": "data/entities/animals/zombie_weak.xml",
+            "dx": 242,
+            "dy": 20
+          },
+          {
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "dx": 211,
+            "dy": 76
+          }
+        ]
+      },
+      {
+        "return": 4.267857142857155,
+        "kills": 2,
+        "self_damage": 1.35,
+        "steps": 150,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/shotgunner.xml",
+            "dx": 126,
+            "dy": 62
+          },
+          {
+            "file": "data/entities/animals/miner.xml",
+            "dx": 177,
+            "dy": 35
+          },
+          {
+            "file": "data/entities/animals/zombie_weak.xml",
+            "dx": 248,
+            "dy": 100
+          }
+        ]
+      },
+      {
+        "return": -2.9030681818181714,
+        "kills": 0,
+        "self_damage": 1.1285,
+        "steps": 150,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "dx": 191,
+            "dy": 7
+          },
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "dx": 151,
+            "dy": 41
+          },
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "dx": 226,
+            "dy": 28
+          }
+        ]
+      },
+      {
+        "return": 1.4166666666666654,
+        "kills": 1,
+        "self_damage": 0.7,
+        "steps": 150,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/zombie_weak.xml",
+            "dx": 188,
+            "dy": 72
+          },
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "dx": 123,
+            "dy": 31
+          },
+          {
+            "file": "data/entities/animals/zombie_weak.xml",
+            "dx": 246,
+            "dy": 1
+          }
+        ]
+      },
+      {
+        "return": 6.823809523809551,
+        "kills": 2,
+        "self_damage": 0.0,
+        "steps": 150,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/miner.xml",
+            "dx": 189,
+            "dy": 27
+          },
+          {
+            "file": "data/entities/animals/shotgunner.xml",
+            "dx": 242,
+            "dy": 6
+          },
+          {
+            "file": "data/entities/animals/zombie_weak.xml",
+            "dx": 246,
+            "dy": 49
+          }
+        ]
+      },
+      {
+        "return": 1.5000000000000293,
+        "kills": 2,
+        "self_damage": 2.16,
+        "steps": 150,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "dx": 151,
+            "dy": 85
+          },
+          {
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "dx": 200,
+            "dy": 95
+          },
+          {
+            "file": "data/entities/animals/zombie_weak.xml",
+            "dx": 123,
+            "dy": 14
+          }
+        ]
+      },
+      {
+        "return": 0.9083333333333539,
+        "kills": 1,
+        "self_damage": 0.27,
+        "steps": 150,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/zombie.xml",
+            "dx": 252,
+            "dy": 0
+          },
+          {
+            "file": "data/entities/animals/shotgunner.xml",
+            "dx": 214,
+            "dy": 31
+          },
+          {
+            "file": "data/entities/animals/miner.xml",
+            "dx": 225,
+            "dy": 99
+          }
+        ]
+      },
+      {
+        "return": 1.1860238095238265,
+        "kills": 1,
+        "self_damage": 0.8494,
+        "steps": 150,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/zombie_weak.xml",
+            "dx": 205,
+            "dy": 24
+          },
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "dx": 237,
+            "dy": 56
+          },
+          {
+            "file": "data/entities/animals/zombie_weak.xml",
+            "dx": 255,
+            "dy": 14
+          }
+        ]
+      },
+      {
+        "return": -2.1333333333333298,
+        "kills": 1,
+        "self_damage": 1.24,
+        "steps": 150,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/zombie_weak.xml",
+            "dx": 146,
+            "dy": 75
+          },
+          {
+            "file": "data/entities/animals/shotgunner.xml",
+            "dx": 226,
+            "dy": 52
+          },
+          {
+            "file": "data/entities/animals/miner.xml",
+            "dx": 191,
+            "dy": 30
+          }
+        ]
+      },
+      {
+        "return": -10.91642857142855,
+        "kills": 0,
+        "self_damage": 4.05,
+        "steps": 122,
+        "died": true,
+        "layout": [
+          {
+            "file": "data/entities/animals/shotgunner.xml",
+            "dx": 228,
+            "dy": 67
+          },
+          {
+            "file": "data/entities/animals/shotgunner.xml",
+            "dx": 145,
+            "dy": 58
+          },
+          {
+            "file": "data/entities/animals/miner.xml",
+            "dx": 169,
+            "dy": 19
+          }
+        ]
+      },
+      {
+        "return": 2.5855471698113393,
+        "kills": 1,
+        "self_damage": 2.3488,
+        "steps": 150,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/zombie_weak.xml",
+            "dx": 172,
+            "dy": 71
+          },
+          {
+            "file": "data/entities/animals/zombie.xml",
+            "dx": 246,
+            "dy": 73
+          },
+          {
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "dx": 128,
+            "dy": 27
+          }
+        ]
+      },
+      {
+        "return": -11.242179487179465,
+        "kills": 0,
+        "self_damage": 4.21,
+        "steps": 123,
+        "died": true,
+        "layout": [
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "dx": 200,
+            "dy": 7
+          },
+          {
+            "file": "data/entities/animals/shotgunner.xml",
+            "dx": 130,
+            "dy": 21
+          },
+          {
+            "file": "data/entities/animals/miner.xml",
+            "dx": 137,
+            "dy": 87
+          }
+        ]
+      },
+      {
+        "return": 4.55617977528092,
+        "kills": 1,
+        "self_damage": 0.0,
+        "steps": 150,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/shotgunner.xml",
+            "dx": 163,
+            "dy": 2
+          },
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "dx": 135,
+            "dy": 46
+          },
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "dx": 216,
+            "dy": 75
+          }
+        ]
+      }
+    ],
+    "scripted": [
+      {
+        "return": 2.0252212389380713,
+        "kills": 2,
+        "self_damage": 1.62,
+        "steps": 150,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "dx": 196,
+            "dy": 82
+          },
+          {
+            "file": "data/entities/animals/miner.xml",
+            "dx": 247,
+            "dy": 67
+          },
+          {
+            "file": "data/entities/animals/shotgunner.xml",
+            "dx": 157,
+            "dy": 0
+          }
+        ]
+      },
+      {
+        "return": 3.795652173913073,
+        "kills": 2,
+        "self_damage": 2.16,
+        "steps": 150,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "dx": 237,
+            "dy": 8
+          },
+          {
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "dx": 123,
+            "dy": 30
+          },
+          {
+            "file": "data/entities/animals/zombie_weak.xml",
+            "dx": 193,
+            "dy": 48
+          }
+        ]
+      },
+      {
+        "return": -0.5805555555555532,
+        "kills": 2,
+        "self_damage": 2.21,
+        "steps": 150,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "dx": 154,
+            "dy": 38
+          },
+          {
+            "file": "data/entities/animals/miner.xml",
+            "dx": 203,
+            "dy": 46
+          },
+          {
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "dx": 223,
+            "dy": 100
+          }
+        ]
+      },
+      {
+        "return": 7.720000000000023,
+        "kills": 3,
+        "self_damage": 1.62,
+        "steps": 123,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/shotgunner.xml",
+            "dx": 172,
+            "dy": 58
+          },
+          {
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "dx": 239,
+            "dy": 72
+          },
+          {
+            "file": "data/entities/animals/zombie.xml",
+            "dx": 138,
+            "dy": 85
+          }
+        ]
+      },
+      {
+        "return": 4.494999999999999,
+        "kills": 3,
+        "self_damage": 2.97,
+        "steps": 108,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/shotgunner.xml",
+            "dx": 177,
+            "dy": 89
+          },
+          {
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "dx": 186,
+            "dy": 7
+          },
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "dx": 217,
+            "dy": 94
+          }
+        ]
+      },
+      {
+        "return": 9.980000000000022,
+        "kills": 3,
+        "self_damage": 0.7,
+        "steps": 127,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/miner.xml",
+            "dx": 233,
+            "dy": 31
+          },
+          {
+            "file": "data/entities/animals/zombie_weak.xml",
+            "dx": 174,
+            "dy": 24
+          },
+          {
+            "file": "data/entities/animals/zombie_weak.xml",
+            "dx": 227,
+            "dy": 79
+          }
+        ]
+      },
+      {
+        "return": -1.5714285714285616,
+        "kills": 2,
+        "self_damage": 3.4,
+        "steps": 150,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/shotgunner.xml",
+            "dx": 197,
+            "dy": 20
+          },
+          {
+            "file": "data/entities/animals/shotgunner.xml",
+            "dx": 175,
+            "dy": 95
+          },
+          {
+            "file": "data/entities/animals/miner.xml",
+            "dx": 255,
+            "dy": 9
+          }
+        ]
+      },
+      {
+        "return": 7.800000000000028,
+        "kills": 2,
+        "self_damage": 1.08,
+        "steps": 150,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/miner.xml",
+            "dx": 160,
+            "dy": 89
+          },
+          {
+            "file": "data/entities/animals/zombie_weak.xml",
+            "dx": 242,
+            "dy": 20
+          },
+          {
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "dx": 211,
+            "dy": 76
+          }
+        ]
+      },
+      {
+        "return": 3.7130952380952627,
+        "kills": 2,
+        "self_damage": 0.81,
+        "steps": 150,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/shotgunner.xml",
+            "dx": 126,
+            "dy": 62
+          },
+          {
+            "file": "data/entities/animals/miner.xml",
+            "dx": 177,
+            "dy": 35
+          },
+          {
+            "file": "data/entities/animals/zombie_weak.xml",
+            "dx": 248,
+            "dy": 100
+          }
+        ]
+      },
+      {
+        "return": 7.143939393939421,
+        "kills": 2,
+        "self_damage": 0.7,
+        "steps": 150,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "dx": 191,
+            "dy": 7
+          },
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "dx": 151,
+            "dy": 41
+          },
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "dx": 226,
+            "dy": 28
+          }
+        ]
+      },
+      {
+        "return": 11.940000000000019,
+        "kills": 3,
+        "self_damage": 0.0,
+        "steps": 106,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/zombie_weak.xml",
+            "dx": 188,
+            "dy": 72
+          },
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "dx": 123,
+            "dy": 31
+          },
+          {
+            "file": "data/entities/animals/zombie_weak.xml",
+            "dx": 246,
+            "dy": 1
+          }
+        ]
+      },
+      {
+        "return": 6.214285714285728,
+        "kills": 2,
+        "self_damage": 0.0,
+        "steps": 150,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/miner.xml",
+            "dx": 189,
+            "dy": 27
+          },
+          {
+            "file": "data/entities/animals/shotgunner.xml",
+            "dx": 242,
+            "dy": 6
+          },
+          {
+            "file": "data/entities/animals/zombie_weak.xml",
+            "dx": 246,
+            "dy": 49
+          }
+        ]
+      },
+      {
+        "return": 4.875000000000028,
+        "kills": 2,
+        "self_damage": 0.81,
+        "steps": 150,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "dx": 151,
+            "dy": 85
+          },
+          {
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "dx": 200,
+            "dy": 95
+          },
+          {
+            "file": "data/entities/animals/zombie_weak.xml",
+            "dx": 123,
+            "dy": 14
+          }
+        ]
+      },
+      {
+        "return": 10.500000000000028,
+        "kills": 2,
+        "self_damage": 0.0,
+        "steps": 150,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/zombie.xml",
+            "dx": 252,
+            "dy": 0
+          },
+          {
+            "file": "data/entities/animals/shotgunner.xml",
+            "dx": 214,
+            "dy": 31
+          },
+          {
+            "file": "data/entities/animals/miner.xml",
+            "dx": 225,
+            "dy": 99
+          }
+        ]
+      },
+      {
+        "return": 6.369047619047647,
+        "kills": 2,
+        "self_damage": 0.7,
+        "steps": 150,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/zombie_weak.xml",
+            "dx": 205,
+            "dy": 24
+          },
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "dx": 237,
+            "dy": 56
+          },
+          {
+            "file": "data/entities/animals/zombie_weak.xml",
+            "dx": 255,
+            "dy": 14
+          }
+        ]
+      },
+      {
+        "return": 1.7642857142857329,
+        "kills": 2,
+        "self_damage": 1.78,
+        "steps": 150,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/zombie_weak.xml",
+            "dx": 146,
+            "dy": 75
+          },
+          {
+            "file": "data/entities/animals/shotgunner.xml",
+            "dx": 226,
+            "dy": 52
+          },
+          {
+            "file": "data/entities/animals/miner.xml",
+            "dx": 191,
+            "dy": 30
+          }
+        ]
+      },
+      {
+        "return": -2.135714285714264,
+        "kills": 2,
+        "self_damage": 3.94,
+        "steps": 150,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/shotgunner.xml",
+            "dx": 228,
+            "dy": 67
+          },
+          {
+            "file": "data/entities/animals/shotgunner.xml",
+            "dx": 145,
+            "dy": 58
+          },
+          {
+            "file": "data/entities/animals/miner.xml",
+            "dx": 169,
+            "dy": 19
+          }
+        ]
+      },
+      {
+        "return": 5.783018867924558,
+        "kills": 2,
+        "self_damage": 0.0,
+        "steps": 150,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/zombie_weak.xml",
+            "dx": 172,
+            "dy": 71
+          },
+          {
+            "file": "data/entities/animals/zombie.xml",
+            "dx": 246,
+            "dy": 73
+          },
+          {
+            "file": "data/entities/animals/shotgunner_weak.xml",
+            "dx": 128,
+            "dy": 27
+          }
+        ]
+      },
+      {
+        "return": 1.925854700854702,
+        "kills": 2,
+        "self_damage": 2.91,
+        "steps": 150,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "dx": 200,
+            "dy": 7
+          },
+          {
+            "file": "data/entities/animals/shotgunner.xml",
+            "dx": 130,
+            "dy": 21
+          },
+          {
+            "file": "data/entities/animals/miner.xml",
+            "dx": 137,
+            "dy": 87
+          }
+        ]
+      },
+      {
+        "return": 2.903089887640472,
+        "kills": 2,
+        "self_damage": 2.05,
+        "steps": 150,
+        "died": false,
+        "layout": [
+          {
+            "file": "data/entities/animals/shotgunner.xml",
+            "dx": 163,
+            "dy": 2
+          },
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "dx": 135,
+            "dy": 46
+          },
+          {
+            "file": "data/entities/animals/miner_weak.xml",
+            "dx": 216,
+            "dy": 75
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -120,6 +120,8 @@ The benchmark is complete (`FINDINGS.md`). Phase 8 builds the runner; plan and b
       `live_proj` task (enemy projectiles in the observation, 41 floats) built and verified in
       one game; PPO 250k on it: same as live within the run spread (FINDINGS.md). The live
       task is near its ceiling for all three methods; next is a harder arena.
+      `rand` task built (live_proj with target types and spots drawn per episode; runner-design.md)
+      and verified in one game; scripted level 6.4 over 60 episodes, 20/60 cleared (knowledge.md).
    c. Deferred: async collection (update is 6 % of wall time). Parked: render skip.
    Wand search parked.
 3. Tighten the liquid probe (more repetitions) to decide whether 4x can be promoted.

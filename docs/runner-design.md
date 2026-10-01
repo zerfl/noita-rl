@@ -129,6 +129,18 @@ run manager      run dir: config, git sha, seeds, logs, metrics, checkpoints
   the frozen and live layouts and packets are unchanged (the mod adds `arena.proj` only when
   `arena_reset` gets `proj`). Verified in one game: enemy shots listed on 62 of 143 idle steps,
   the player's own spark bolts never; no measurable Lua cost per packet.
+- `--task rand`: live_proj (same 41 floats, same episode end) with the three targets drawn per
+  episode, so a policy cannot memorize three spots. Each target's type is drawn uniformly from
+  zombie, shotgunner and miner, `_weak` or full (hp 0.2/0.5, 0.36/0.9, 0.44/1.0), and its spot
+  uniformly from dx 120-255, dy 0-100 (integer px from the arena's left edge, above the floor,
+  as `DEFAULT_TARGETS`), at least 40 px from the others (redrawn otherwise). The bounds keep
+  every spawn inside the view whatever the aim (knowledge.md). `ArenaEnv` draws with its
+  gymnasium `np_random` (seeded by `reset(seed=...)`), passes the list as `arena_reset`'s
+  `targets` (the mod is unchanged) and returns it as `info["layout"]` at reset. Observation order
+  is spawn order. The damage term is divided by the episode's total target hp, so the three
+  together are worth 10 as in the other tasks (their default three hold 1.0); the kill, self and
+  step terms are unchanged. `rl baselines` and `rl eval` seed the first reset with 0, so every
+  policy meets the same layouts.
   Next: terrain, grid observations.
 - Compare PPO against an off-policy and a model-based (DreamerV3-style) method on it, measured in
   game frames to reach the scripted level. The simulation is CPU-bound; this is where the GPU

@@ -58,7 +58,8 @@ def run_episodes(policy, episodes: int, cpu: int | None = None, task: str = "fro
     out = []
     try:
         for i in range(episodes):
-            obs, info = env.reset()
+            obs, info = env.reset(seed=0 if i == 0 else None)   # rand: the same layouts for every policy
+            layout = info.get("layout")
             if hasattr(policy, "reset"):   # recurrent policies clear their state
                 policy.reset()
             ret, done = 0.0, False
@@ -68,7 +69,7 @@ def run_episodes(policy, episodes: int, cpu: int | None = None, task: str = "fro
                 ret += r
                 done = term or trunc
             out.append({"return": ret, "kills": info["kills"], "self_damage": info["self_damage"],
-                        "steps": info["steps"], "died": bool(info.get("died"))})
+                        "steps": info["steps"], "died": bool(info.get("died"))} | ({"layout": layout} if layout else {}))
             log(f"episode {i}: return {ret:.2f}, kills {info['kills']}, steps {info['steps']}, "
                 f"self {info['self_damage']:.2f}{', died' if info.get('died') else ''}")
     finally:

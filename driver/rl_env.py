@@ -2,8 +2,9 @@
 
 One game per env, lockstep K=4. Kill the three targets with a fixed wand, fast, without getting
 hurt. Actions go through the same injected keys and mouse a player uses. Tasks: "frozen" (targets
-hover, AI off), "live" (AI on: they walk, fall and attack; the episode ends if the player dies) and
-"live_proj" (live, plus the nearest enemy projectiles in the observation).
+hover, AI off), "live" (AI on: they walk, fall and attack; the episode ends if the player dies),
+"live_proj" (live, plus the nearest enemy projectiles in the observation) and "rand" (live_proj with
+target types and positions drawn per episode).
 """
 
 import math
@@ -20,14 +21,22 @@ K = 4
 MAX_STEPS = 150          # 600 frames, the wand_eval window
 AIM_BINS = 72           # 5 degrees: within ~8 px at the farthest target
 N_TARGETS = 3
-TASKS = ("frozen", "live", "live_proj")
+TASKS = ("frozen", "live", "live_proj", "rand")
 N_PROJ = 4              # projectile slots in the live_proj observation, nearest first
 PROJ_RADIUS = 256       # px around the player; half the arena width
 PROJ_V = 600            # px/s (VelocityComponent units) per observation unit
 ACTION_NVEC = (3, 2, 2, AIM_BINS)
 
-# Reward: damage dealt (target hp units; all three hold 1.0) x10, +1 per kill, self-damage (player
-# max hp is 4.0) x2.5, -0.01 per step.
+# rand: per target a type from the pool and a spot (px from the arena's left edge, above the floor),
+# inside the view at spawn whatever the aim (knowledge.md).
+RAND_POOL = tuple(f"data/entities/animals/{n}.xml" for n in
+                  ("zombie_weak", "zombie", "shotgunner_weak", "shotgunner", "miner_weak", "miner"))
+RAND_DX = (120, 255)
+RAND_DY = (0, 100)
+RAND_MIN_DIST = 40
+
+# Reward: damage dealt (target hp units; the default three hold 1.0 together; rand divides by the
+# episode's total) x10, +1 per kill, self-damage (player max hp is 4.0) x2.5, -0.01 per step.
 W_DEALT, W_KILL, W_SELF, W_STEP = 10.0, 1.0, 2.5, 0.01
 
 
@@ -49,6 +58,8 @@ class ArenaEnv(gym.Env):
         self.crashes = 0
         self.reset_s = 0.0
         self.prev_targets = None
+        self.layout = None
+        self.dealt_scale = 1.0
 
     # -------------------------------------------------------------- game link
 
@@ -66,8 +77,11 @@ class ArenaEnv(gym.Env):
     def _start_episode(self) -> dict:
         c = self.inst.conn
         c.cmd("config", k=K, grid=False, mode="free", timeout=30)
-        proj = {"proj": N_PROJ, "proj_radius": PROJ_RADIUS} if has_proj(self.task) else {}
-        res = c.cmd("arena_reset", wand=self.wand, settle=self.settle, ai=has_ai(self.task), timeout=30, **proj)
+        extra = {"proj": N_PROJ, "proj_radius": PROJ_RADIUS} if has_proj(self.task) else {}
+        if self.task == "rand":
+            self.layout = draw_layout(self.np_random)
+            extra["targets"] = self.layout
+        res = c.cmd("arena_reset", wand=self.wand, settle=self.settle, ai=has_ai(self.task), timeout=30, **extra)
         if not res.get("ok"):
             raise RuntimeError(f"arena_reset: {res}")
         while True:
@@ -119,7 +133,11 @@ class ArenaEnv(gym.Env):
         self.prev = dict(self.state["arena"])
         self.prev_targets = None
         self.steps = 0
-        return self._obs(self.state), self._info()
+        info = self._info()
+        if self.task == "rand":
+            self.dealt_scale = 1.0 / sum(t[3] for t in self.state["arena"]["targets"])
+            info["layout"] = self.layout
+        return self._obs(self.state), info
 
     def step(self, action):
         move, up, fire, aim = (int(v) for v in action)
@@ -135,7 +153,7 @@ class ArenaEnv(gym.Env):
             return self._obs(self.state), 0.0, False, True, info
         self.steps += 1
         a, p = s["arena"], self.prev
-        reward = (W_DEALT * (a["dealt"] - p["dealt"]) + W_KILL * (a["kills"] - p["kills"])
+        reward = (W_DEALT * self.dealt_scale * (a["dealt"] - p["dealt"]) + W_KILL * (a["kills"] - p["kills"])
                   - W_SELF * (a["self"] - p["self"]) - W_STEP)
         died = (s["hp"] or 0) <= 0
         obs = self._obs(s)
@@ -165,7 +183,19 @@ def has_ai(task: str) -> bool:
 
 
 def has_proj(task: str) -> bool:
-    return task == "live_proj"
+    return task in ("live_proj", "rand")
+
+
+def draw_layout(rng: np.random.Generator) -> list[dict]:
+    """rand: N_TARGETS of {file, dx, dy} for arena_reset, spots at least RAND_MIN_DIST apart."""
+    while True:
+        spots = np.column_stack([rng.integers(RAND_DX[0], RAND_DX[1], N_TARGETS, endpoint=True),
+                                 rng.integers(RAND_DY[0], RAND_DY[1], N_TARGETS, endpoint=True)])
+        d = np.linalg.norm(spots[:, None] - spots[None], axis=-1)[np.triu_indices(N_TARGETS, 1)]
+        if d.min() >= RAND_MIN_DIST:
+            break
+    files = rng.choice(len(RAND_POOL), N_TARGETS)
+    return [{"file": RAND_POOL[f], "dx": int(x), "dy": int(y)} for f, (x, y) in zip(files, spots)]
 
 
 def proj_obs(proj: list, px: float, py: float) -> list[float]:

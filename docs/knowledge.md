@@ -383,6 +383,25 @@ and a live counter cross-check on this 6-core / 12-thread machine.
   live-task policies stochastically.
 - Live-task scripted level: return 8.0 (30 episodes: 6.3 over 10, 8.9 over 20); the spread
   between samples of 10-20 episodes is large, so baselines need 30+ episodes.
+- View in the arena (2026-10-01): the camera leads the aim. 40 steps after a reset, standing
+  still at dx 60, the camera centre sits at dx 69 aiming right, 48 left, 55 up, 59 down, and
+  4-8 px above the player aiming sideways (28 above aiming up, 13 below aiming down). With the 427 x 240 view, the
+  right edge is at dx 261-282 and the top edge 25-66 px below the arena's top. A target spawned
+  at dx 470 is off screen; `rand` therefore spawns at dx <= 255 and dy <= 100 (origin 67 px
+  below the top). Two steps after a reset the camera is still settling from the previous episode
+  (centre up to 40 px off).
+- `rand` spawns (one game, 10 episodes, random actions): every target at exactly the drawn dx and
+  3.5-9 px below its spawn height in the first packet (falling), all 30 alive with hp at hp0
+  (full types 0.5, 0.9, 1.0 as in their XML), 8 episodes truncated at 150 steps, 2 player
+  deaths, no crashes. With dx up to 470 (before the clamp), targets that started off screen
+  still came in and hurt the player (self-damage ~1.4 with shotgunners at dx 347 and 440).
+- `rand` baselines, three runs of 20 episodes on the same 20 layouts (first reset seeded 0;
+  `rl_baselines_20261001-061359.json`, `-061712.json`, `-062025.json`; the first ran beside a
+  second game): scripted aimer return 4.73, 8.01, 6.43 (pooled 6.39 over 60), 2.33 kills, 20/60
+  cleared (4, 10, 6 per run) in 102 steps, self-damage 1.05, no deaths. Random -1.26, 1.07
+  kills, 1/60 cleared, 9/60 deaths. On live the scripted aimer scores 8.0 (13/20 cleared in 127
+  steps). The same layout varies by 2.8 return (sd over the three runs) against 3.2 between
+  layouts, so the scripted level on rand needs 60 episodes or more; use 6.4.
 - Flat DQN (SB3, 864 joint actions, `runs/dqn_live_20260930-222021`, `rl_curve_20260930-224934.json`)
   did not learn the live task: return 0.5-1.4 per 50k steps up to 154k (random 1.0), where it was
   stopped; PPO passed 8.0 at 99k. Its greedy action jumps between aim bins each step. Update

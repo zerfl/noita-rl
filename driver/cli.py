@@ -284,9 +284,10 @@ def main(argv=None):
 
     p = sub.add_parser("rl", help="arena combat RL: baselines, PPO training, evaluation; writes results/rl_*.json")
     p.add_argument("mode", choices=["baselines", "train", "eval", "curve", "compare"])
-    p.add_argument("--task", choices=["frozen", "live", "live_proj"], default="frozen",
-                   help="baselines/train: targets hover with AI off, live (AI on, they attack), or live_proj "
-                        "(live, enemy projectiles in the observation)")
+    p.add_argument("--task", choices=["frozen", "live", "live_proj", "rand"], default="frozen",
+                   help="baselines/train: targets hover with AI off, live (AI on, they attack), live_proj "
+                        "(live, enemy projectiles in the observation), or rand (live_proj, target types and "
+                        "spots drawn per episode)")
     p.add_argument("--algo", choices=["ppo", "dqn", "dreamer", "bdq"], default="ppo", help="train: algorithm")
     p.add_argument("--replay-ratio", type=float, default=0.25, help="train, dqn/bdq: gradient steps per env step")
     p.add_argument("--train-ratio", type=float, default=512,
