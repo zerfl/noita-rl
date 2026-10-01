@@ -115,8 +115,8 @@ def ensure_shim() -> Path:
         return SHIM_EXE
     SHIM_EXE.parent.mkdir(parents=True, exist_ok=True)
     env = os.environ.copy()
-    devkit = os.environ.get("W64DEVKIT", str(Path("<w64devkit>/bin")))
-    env["PATH"] = devkit + os.pathsep + env.get("PATH", "")
+    if os.environ.get("W64DEVKIT"):   # a gcc not on PATH, e.g. w64devkit's bin folder
+        env["PATH"] = os.environ["W64DEVKIT"] + os.pathsep + env.get("PATH", "")
     subprocess.run(["gcc", "-O2", "-municode", "-o", str(SHIM_EXE), str(SHIM_SRC)],
                    check=True, capture_output=True, env=env)
     return SHIM_EXE

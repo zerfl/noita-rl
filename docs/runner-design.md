@@ -212,7 +212,7 @@ run manager      run dir: config, git sha, seeds, logs, metrics, checkpoints
 - JAX-only methods (official DreamerV3, BBF) need CUDA, which JAX ships for Linux only; no
   maintained native Windows CUDA build exists (cloudhan/jax-windows-builder, CUDA 11.1, archived
   2025-01). Set up: trainer in WSL2, games on Windows.
-  - `tools/wsl/setup_jax.sh` (run with `wsl -d Ubuntu-20.04 -- bash tools/wsl/setup_jax.sh`)
+  - `tools/wsl/setup_jax.sh` (run from the repo root with `wsl -d Ubuntu-20.04 -- bash tools/wsl/setup_jax.sh`)
     creates `~/noita-rl-jax/.venv` with `jax[cuda12]`; verified: jax 0.11.2 sees the RTX 3070 Ti.
     Set `XLA_PYTHON_CLIENT_PREALLOCATE=false` so JAX does not take 75 % of GPU memory.
   - `driver/env_server.py` runs the N arena envs on Windows (pinning, launch, crash recovery,

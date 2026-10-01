@@ -5,7 +5,8 @@ Verified facts only; each says how it was verified. Unverified leads go under "L
 ## Machine and install
 
 - i7-8700 (6 cores / 12 threads), 32 GB RAM, Windows 11. Python 3.13, uv 0.12.
-- Noita: `<steam library>\SteamApps\common\Noita`. `noita_dev.exe` and `steam_appid.txt`
+- Noita: the Steam install, found through Steam's library list (`paths.GAME_DIR`; `NOITA_DIR`
+  overrides). `noita_dev.exe` and `steam_appid.txt`
   are present; `noita.exe` launches directly without Steam relaunching it.
 - **Target build (frozen):** Steam release branch (`_branch.txt` = `master`), `noita.exe` sha256
   `808d2a0ab51ea0b46e9ad2aeb3327a4b0ce3feae04f32ba26326bf585b5779bd`, `GetVersionString()` =
@@ -19,7 +20,7 @@ Verified facts only; each says how it was verified. Unverified leads go under "L
   (`%USERPROFILE%\AppData\LocalLow\Nolla_Games_Noita`), installed mods or mod list. The install
   dir also holds a `config.xml`, `save_shared\` and `save00\` from earlier dev-build runs; workdirs
   copy only the small root files (see below).
-- Pre-benchmark backup of the user's data: `<backup>\20260928-203852\`. The removed
+- Pre-benchmark backup of the user's data: a local folder outside the repo (2026-09-28). The removed
   userdata mode left a snapshot in `.rl_bench_state/session/` (gitignored, unused).
 - `save_shared\config.xml` has `application_pause_when_unfocused="0"` since 2026-09-28 (set during
   setup, before the harness stopped touching user data; the original `"1"` is in

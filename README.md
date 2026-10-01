@@ -1,5 +1,11 @@
 # noita-rl
 
+> **Abandoned (2026-10-01).** Noita works as an RL environment (deterministic lockstep, fast
+> resets, parallel pinned instances, PPO masters a small combat arena from 41 numbers), but one PC
+> gives ~146 env steps/s at best, far too little to scale a policy toward the real game. Where it
+> stopped: [docs/status.md](docs/status.md); why: [docs/decisions.md](docs/decisions.md);
+> benchmark answers: [FINDINGS.md](FINDINGS.md). Code and results stay as they were.
+
 Feasibility benchmark for reinforcement learning on Noita (release branch, build Jan 25 2025
 15:55:41, 32-bit, LuaJIT). The game is treated as frozen; this build is the only target.
 
@@ -14,6 +20,11 @@ Feasibility benchmark for reinforcement learning on Noita (release branch, build
   like WPA's CPU Usage (Precise): per-thread waits, readying threads and blocking stacks.
 
 ## Usage
+
+Windows, Steam's Noita on the release branch (found through Steam's library list; `NOITA_DIR`
+overrides). Dreamer needs [r2dreamer](https://github.com/NM512/r2dreamer) cloned into
+`third_party/r2dreamer` (gitignored; used at commit `546e4fa`); Test 3's relaunch shim needs `gcc` on `PATH` or in
+`W64DEVKIT`.
 
 ```
 uv sync
@@ -48,9 +59,12 @@ uv run python -m driver rl eval --model runs/<run>/final.zip   # dreamer, bdq: .
 uv run python -m driver rl curve --run runs/<run>   # return, kills, clear rate per 50k steps
 uv run python -m driver rl compare --runs runs/<a> runs/<b> --target 8.0   # env steps to a return
 uv run python -m driver.env_server --task live --n 4   # games for a trainer outside the driver (tools/wsl/arena_client.py)
-wsl -d Ubuntu-20.04 -- bash tools/wsl/setup_jax.sh   # JAX + CUDA venv in WSL2
-uv run python -m driver ceiling hold --n 4 --etl .rl_bench_state/traces/n4.etl   # then record, elevated:
-#   wpr -start CPU -filemode; Start-Sleep 10; wpr -stop <repo>\.rl_bench_state\traces\n4.etl
+uv run python -m driver rl train --task rand_grid --n 8 --steps 250000   # rand observed as a grid image (ppo, dreamer)
+uv run python -m driver rl watch --run runs/<run> --ref runs/<run>   # live training curves
+uv run python -m driver rl peek --run runs/<run>   # grid tasks: what game 0 sees and does
+wsl -d Ubuntu-20.04 -- bash tools/wsl/setup_jax.sh   # from the repo root: JAX + CUDA venv in WSL2
+uv run python -m driver ceiling hold --n 4 --etl .rl_bench_state/traces/n4.etl   # then record, elevated, from the repo root:
+#   wpr -start CPU -filemode; Start-Sleep 10; wpr -stop .rl_bench_state\traces\n4.etl
 uv run python -m driver ceiling trace --hold results/ceiling_hold_n4_X.json   # CPU Usage (Precise) summary
 uv run python -m driver actions      # each action changes the game
 uv run python -m driver smoke
@@ -335,3 +349,7 @@ pool with crash recovery, and the arena combat RL env with PPO (`driver/rl_env.p
   wrap at an unpredictable moment.
 - **2x clock is slower than 3x** (100 vs 162 fps in the quiet scene); cause unknown.
 - **Liquid spread shifts under clock scaling** (-5% at 8x); see Phase 2.
+
+## License
+
+Apache-2.0 ([LICENSE](LICENSE)). Bundled third-party parts and their terms: [rl_bench/NOTICE](rl_bench/NOTICE).

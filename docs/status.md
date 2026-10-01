@@ -156,8 +156,8 @@ The benchmark is complete (`FINDINGS.md`). Phase 8 builds the runner; plan and b
    Operations: runs over 2 h must run detached (`Start-Process ... -WindowStyle Hidden`); the
    session's background tasks stop at 2 h. Game PIDs are tracked one file each in
    `.rl_bench_state/pids/` (the shared `pids.json` lost entries when 4 games launched at once).
-   Commit on main; the private remote `zerfl/noita-rl` was pushed once (2026-10-01) and is not
-   pushed again unless the user asks.
+   Commit on main; the remote `zerfl/noita-rl` is public since 2026-10-01 (history rewritten
+   then to drop local paths and usernames).
 3. Tighten the liquid probe (more repetitions) to decide whether 4x can be promoted.
 
 ## Open questions
