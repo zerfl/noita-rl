@@ -1,0 +1,20 @@
+{
+  "test": "rl_compare",
+  "target": 6.4,
+  "window": 200,
+  "runs": [
+    {
+      "run": "ppo_rand_20261001-062145",
+      "algo": "ppo",
+      "task": "rand",
+      "episodes": 1741,
+      "timesteps": 250748,
+      "reached": {
+        "timesteps": 240956,
+        "t_s": 2460.3,
+        "episodes": 1669
+      },
+      "final_return": 6.372
+    }
+  ]
+}

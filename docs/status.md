@@ -122,6 +122,8 @@ The benchmark is complete (`FINDINGS.md`). Phase 8 builds the runner; plan and b
       task is near its ceiling for all three methods; next is a harder arena.
       `rand` task built (live_proj with target types and spots drawn per episode; runner-design.md)
       and verified in one game; scripted level 6.4 over 60 episodes, 20/60 cleared (knowledge.md).
+      PPO 250k reaches 6.4 only at 241k, still climbing. Running: DreamerV3 120k on rand
+      (`runs/dreamer_rand_*`, ~3.2 h, started 2026-10-01 07:04).
    c. Deferred: async collection (update is 6 % of wall time). Parked: render skip.
    Wand search parked.
 3. Tighten the liquid probe (more repetitions) to decide whether 4x can be promoted.

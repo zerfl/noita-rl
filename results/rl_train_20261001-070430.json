@@ -1,0 +1,49 @@
+{
+  "test": "rl_train",
+  "task": "rand",
+  "algo": "ppo",
+  "run": "<repo>\\runs\\ppo_rand_20261001-062145",
+  "n": 4,
+  "steps": 250000,
+  "resumed_at": null,
+  "wall_s": 2560.9,
+  "steps_per_s": 98.0,
+  "episodes": 1741,
+  "crashes": 0,
+  "first_fifth": {
+    "episodes": 348,
+    "return": {
+      "mean": 0.022,
+      "sd": 4.973
+    },
+    "kills": {
+      "mean": 1.115,
+      "sd": 0.743
+    },
+    "self_damage": {
+      "mean": 1.497,
+      "sd": 1.312
+    },
+    "cleared_fraction": 0.023,
+    "clear_frames_mean": 500.0,
+    "died_fraction": 0.086
+  },
+  "last_fifth": {
+    "episodes": 348,
+    "return": {
+      "mean": 6.134,
+      "sd": 4.364
+    },
+    "kills": {
+      "mean": 1.911,
+      "sd": 0.866
+    },
+    "self_damage": {
+      "mean": 0.837,
+      "sd": 0.984
+    },
+    "cleared_fraction": 0.284,
+    "clear_frames_mean": 393.0,
+    "died_fraction": 0.011
+  }
+}

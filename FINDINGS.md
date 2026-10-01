@@ -162,6 +162,10 @@ floats, action [move, levitate, fire, aim in 72 directions]. PPO (stable-baselin
   11.5 (11.4, 11.3); self-damage over 50-100k 0.41 (0.54, 0.78), at the end 0.20 (0.21, 0.18).
   Eval sampled 11.6, 18/20 cleared, self-damage 0.13 (live: 11.7, 19/20, 0.23). The learned
   policies already take little damage here, so showing threats needs a harder task to matter.
+- The `rand` task (target types from 6 and spots drawn per episode; scripted level 6.4 over 60
+  episodes) is much harder: PPO 250k (`rl_compare_20261001-070437.json`) reaches 6.4 only at
+  241k steps (live: 99k to 8.0); mean return per 50k steps 0.0, 0.8, 1.1, 3.5, 6.0, still
+  climbing; 28 % cleared over the last 50k.
 - The simulation is CPU-only; the GPU sits idle with this network. Game frames are the budget, so
   the GPU's use is sample efficiency (off-policy or model-based methods) and larger observations.
 
