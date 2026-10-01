@@ -1,0 +1,49 @@
+{
+  "test": "rl_train",
+  "task": "rand_grid",
+  "algo": "ppo",
+  "run": "<repo>\\runs\\ppo_rand_grid_20261001-181525",
+  "n": 8,
+  "steps": 250000,
+  "resumed_at": null,
+  "wall_s": 1711.8,
+  "steps_per_s": 146.6,
+  "episodes": 1704,
+  "crashes": 0,
+  "first_fifth": {
+    "episodes": 340,
+    "return": {
+      "mean": -0.149,
+      "sd": 5.106
+    },
+    "kills": {
+      "mean": 1.079,
+      "sd": 0.746
+    },
+    "self_damage": {
+      "mean": 1.58,
+      "sd": 1.322
+    },
+    "cleared_fraction": 0.015,
+    "clear_frames_mean": 449.6,
+    "died_fraction": 0.091
+  },
+  "last_fifth": {
+    "episodes": 340,
+    "return": {
+      "mean": 0.563,
+      "sd": 4.998
+    },
+    "kills": {
+      "mean": 1.115,
+      "sd": 0.734
+    },
+    "self_damage": {
+      "mean": 1.31,
+      "sd": 1.313
+    },
+    "cleared_fraction": 0.015,
+    "clear_frames_mean": 538.4,
+    "died_fraction": 0.109
+  }
+}
